@@ -1,0 +1,34 @@
+/*
+ * 楼层编号：官方长图的两位数分节标记，落在头像左侧的页边槽。
+ * 编号取 ST 原生 mesid，和 /go 等命令看到的楼层号一致；个位数补零成两位，
+ * 保持长图的编号节奏。单位数值域只有 0–9，所以一条 :is() 即可穷举。
+ * padding-top 让编号落到角色名一行的基线附近，而非贴头像顶 —— 官方编号是与
+ * 标题成组的，不是浮在角落。
+ */
+
+#chat > .mes:not(.smallSysMes)::before {
+    content: attr(mesid);
+    flex: 0 0 30px;
+    padding-top: 15px;
+    color: var(--ef-muted);
+    font: 400 13px/1 var(--ef-font-number);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    text-align: right;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#chat > .mes:not(.smallSysMes):is(
+    [mesid="0"], [mesid="1"], [mesid="2"], [mesid="3"], [mesid="4"],
+    [mesid="5"], [mesid="6"], [mesid="7"], [mesid="8"], [mesid="9"]
+)::before {
+    content: "0" attr(mesid);
+}
+
+@media (max-width: 700px) {
+    #chat > .mes:not(.smallSysMes)::before {
+        flex-basis: 20px;
+        font-size: 11px;
+    }
+}

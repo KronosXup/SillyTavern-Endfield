@@ -1,0 +1,129 @@
+#form_sheld {
+    box-sizing: border-box;
+    margin-top: 0 !important;
+    padding-left: 9px;
+    background: var(--ef-paper) !important;
+    border-inline: 1px solid rgba(23, 26, 26, 0.24);
+    box-shadow: inset 8px 0 0 var(--ef-signal);
+    color: var(--ef-ink) !important;
+}
+
+body.no-blur #send_form,
+body:not(.no-blur) #send_form {
+    position: relative;
+    box-sizing: border-box;
+    width: 100% !important;
+    margin: 0 !important;
+    color: var(--ef-ink) !important;
+    background: var(--ef-paper-hi) !important;
+    border: 0 !important;
+    border-top: 1px solid var(--ef-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    clip-path: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+#send_form::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: -1px;
+    left: 0;
+    width: 104px;
+    height: 3px;
+    pointer-events: none;
+    background: var(--ef-signal);
+    transform: scaleX(0.24);
+    transform-origin: left;
+    transition: transform var(--ef-shift) ease-out;
+}
+
+#send_form:focus-within {
+    border-top-color: var(--ef-signal) !important;
+    outline: 2px solid rgba(23, 26, 26, 0.72) !important;
+    outline-offset: -2px;
+}
+
+#send_form:focus-within::before {
+    transform: scaleX(1);
+}
+
+#nonQRFormItems {
+    color: var(--ef-ink) !important;
+    background: transparent !important;
+}
+
+#leftSendForm,
+#rightSendForm {
+    color: var(--ef-ink) !important;
+}
+
+#leftSendForm > div,
+#rightSendForm > div {
+    color: var(--ef-ink) !important;
+    text-shadow: none !important;
+}
+
+#leftSendForm > div:hover,
+#leftSendForm > div:focus-visible,
+#rightSendForm > div:not(#send_but):hover,
+#rightSendForm > div:not(#send_but):focus-visible {
+    color: var(--ef-ink) !important;
+    background: rgba(23, 26, 26, 0.075) !important;
+    filter: none !important;
+    outline: 1px solid rgba(23, 26, 26, 0.24);
+    outline-offset: -2px;
+}
+
+#send_textarea {
+    color: var(--ef-ink) !important;
+    caret-color: var(--ef-ink) !important;
+    font-family: var(--ef-font-body) !important;
+    font-weight: 470;
+    text-shadow: none !important;
+}
+
+#send_textarea::placeholder {
+    color: rgba(23, 26, 26, 0.4) !important;
+}
+
+#send_but {
+    width: 46px !important;
+    min-width: 46px !important;
+    color: var(--ef-ink) !important;
+    background: var(--ef-signal) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: inset 0 0 0 1px rgba(23, 26, 26, 0.16) !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transition: color var(--ef-fast) ease-out, background-color var(--ef-fast) ease-out;
+}
+
+#send_but:hover,
+#send_but:focus-visible {
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-ink) !important;
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: -3px;
+}
+
+#dialogue_del_mes {
+    color: var(--ef-ink) !important;
+    background: var(--ef-paper-hi) !important;
+    border-top: 1px solid var(--ef-line) !important;
+}
+
+@media (max-width: 700px) {
+    #form_sheld {
+        padding-left: 6px;
+        border-inline: 0;
+        box-shadow: inset 5px 0 0 var(--ef-signal) !important;
+    }
+
+    #send_form::before {
+        width: 72px;
+    }
+}

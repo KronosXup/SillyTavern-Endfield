@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield × SillyTavern — Chat reading concept v1</title>
+    <style>
+        :root {
+            --scene-ink: #080c11;
+            --frost: #edf3f3;
+            --muted: #a9b8bf;
+            --cyan: #6ec7e6;
+            --violet: #6f63df;
+            --yellow: #e8dc22;
+            --display: "Noto Serif SC", "STZhongsong", SimSun, serif;
+            --body: "HarmonyOS Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            --utility: "Cascadia Mono", Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            color: var(--frost);
+            background: var(--scene-ink);
+            font-family: var(--body);
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            color: inherit;
+        }
+
+        .scene {
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(4, 8, 13, 0.7) 0%, rgba(4, 8, 13, 0.22) 54%, rgba(4, 8, 13, 0.08) 100%),
+                linear-gradient(0deg, rgba(5, 9, 14, 0.6) 0%, transparent 34%),
+                url("../../reference/dialogue/dialogue-hidden.jpg") center / cover no-repeat;
+            transform: scale(1.015);
+        }
+
+        .scene::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 77% 36%, transparent 0 184px, rgba(204, 235, 247, 0.1) 185px, transparent 187px),
+                linear-gradient(180deg, rgba(4, 7, 11, 0.78), transparent 15%);
+            pointer-events: none;
+        }
+
+        .topbar {
+            position: fixed;
+            z-index: 5;
+            inset: 0 0 auto;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            padding: 0 54px;
+            border-bottom: 1px solid rgba(226, 240, 244, 0.17);
+            background: linear-gradient(180deg, rgba(5, 9, 14, 0.78), rgba(5, 9, 14, 0.22));
+        }
+
+        .session {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            min-width: 260px;
+        }
+
+        .session-label {
+            color: var(--muted);
+            font: 600 10px/1 var(--utility);
+            letter-spacing: 0.16em;
+        }
+
+        .session-name {
+            font: 650 18px/1 var(--display);
+            letter-spacing: 0.06em;
+        }
+
+        .session-name::after {
+            content: "";
+            display: inline-block;
+            width: 42px;
+            height: 1px;
+            margin: 0 0 5px 12px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+        }
+
+        .topnav {
+            display: flex;
+            align-self: stretch;
+            gap: 4px;
+            margin-left: auto;
+        }
+
+        .nav-action {
+            position: relative;
+            min-width: 72px;
+            padding: 4px 14px 0;
+            border: 0;
+            background: transparent;
+            color: rgba(237, 243, 243, 0.68);
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+        }
+
+        .nav-action:hover,
+        .nav-action:focus-visible,
+        .nav-action.active {
+            color: var(--frost);
+            outline: none;
+        }
+
+        .nav-action.active::after,
+        .nav-action:focus-visible::after {
+            content: "";
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            bottom: -1px;
+            height: 3px;
+            background: var(--yellow);
+        }
+
+        .hide-action {
+            margin-left: 18px;
+            padding: 8px 11px;
+            border: 1px solid rgba(226, 240, 244, 0.25);
+            background: rgba(7, 12, 18, 0.4);
+            color: var(--frost);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+        }
+
+        .hide-action:hover,
+        .hide-action:focus-visible {
+            border-color: var(--cyan);
+            outline: none;
+        }
+
+        .conversation {
+            position: fixed;
+            z-index: 3;
+            left: clamp(34px, 6vw, 92px);
+            bottom: 104px;
+            width: min(780px, calc(100vw - 160px));
+            transition: opacity 180ms ease, transform 220ms cubic-bezier(0.22, 0.72, 0.2, 1);
+        }
+
+        .history {
+            position: relative;
+            display: grid;
+            gap: 16px;
+            margin: 0 0 22px 62px;
+            padding-left: 18px;
+            border-left: 1px solid rgba(218, 236, 242, 0.22);
+            mask-image: linear-gradient(180deg, transparent 0%, black 32%, black 100%);
+        }
+
+        .history-message {
+            max-width: 630px;
+            color: rgba(237, 243, 243, 0.56);
+            text-shadow: 0 1px 9px rgba(0, 0, 0, 0.8);
+        }
+
+        .history-message:last-child {
+            color: rgba(237, 243, 243, 0.76);
+        }
+
+        .history-head {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .history-speaker {
+            color: var(--frost);
+            font: 600 15px/1.2 var(--display);
+        }
+
+        .history-message.user .history-speaker {
+            color: var(--yellow);
+        }
+
+        .meta {
+            color: rgba(204, 220, 226, 0.48);
+            font: 500 9px/1 var(--utility);
+            letter-spacing: 0.08em;
+        }
+
+        .history-message p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .active-message {
+            position: relative;
+            padding-left: 62px;
+        }
+
+        .portrait-index {
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 42px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(218, 236, 242, 0.4);
+            background:
+                linear-gradient(135deg, transparent 0 12px, rgba(101, 187, 217, 0.36) 13px, rgba(31, 47, 68, 0.78) 52%, rgba(109, 92, 212, 0.62));
+            clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%);
+            color: var(--frost);
+            font: 600 18px/1 var(--display);
+        }
+
+        .portrait-index::after {
+            content: "";
+            position: absolute;
+            left: -1px;
+            bottom: -5px;
+            width: 18px;
+            height: 3px;
+            background: var(--yellow);
+        }
+
+        .title-rail {
+            position: relative;
+            width: min(620px, 100%);
+            min-height: 62px;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 20px 10px 16px;
+            isolation: isolate;
+            animation: rail-enter 260ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+        }
+
+        .title-rail::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            right: 68px;
+            bottom: 0;
+            height: 38px;
+            background: linear-gradient(90deg, rgba(52, 172, 213, 0.76), rgba(91, 79, 211, 0.68) 56%, rgba(91, 79, 211, 0.08));
+            clip-path: polygon(0 0, 88% 0, 100% 42%, 96% 100%, 0 100%);
+            transform-origin: left;
+        }
+
+        .title-rail::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 20px;
+            right: 0;
+            bottom: 34px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(238, 248, 250, 0.8), rgba(238, 248, 250, 0.22) 72%, transparent);
+        }
+
+        .active-speaker {
+            margin-right: 18px;
+            color: white;
+            font: 700 31px/1 var(--display);
+            letter-spacing: 0.04em;
+            text-shadow:
+                -1px 0 rgba(91, 179, 220, 0.9),
+                0 2px 12px rgba(0, 0, 0, 0.56);
+        }
+
+        .rail-mark {
+            align-self: center;
+            width: 18px;
+            height: 8px;
+            margin: 15px 12px 0 0;
+            border-top: 2px solid rgba(242, 248, 250, 0.88);
+            border-right: 5px solid var(--frost);
+            transform: skewX(-28deg);
+        }
+
+        .active-meta {
+            margin-left: auto;
+            padding-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        .body-panel {
+            position: relative;
+            width: min(700px, 100%);
+            padding: 17px 46px 17px 16px;
+            border-top: 1px solid rgba(218, 236, 242, 0.25);
+            background: linear-gradient(90deg, rgba(5, 11, 18, 0.84), rgba(7, 13, 21, 0.63) 70%, rgba(7, 13, 21, 0));
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+            animation: body-enter 240ms 120ms cubic-bezier(0.2, 0.72, 0.18, 1) both;
+        }
+
+        .body-panel p {
+            max-width: 620px;
+            margin: 0 0 9px;
+            color: rgba(242, 247, 247, 0.94);
+            font-size: 14px;
+            line-height: 1.78;
+        }
+
+        .body-panel p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .message-quote {
+            margin: 12px 0 0;
+            padding: 7px 12px;
+            border-left: 2px solid var(--cyan);
+            background: linear-gradient(90deg, rgba(105, 91, 214, 0.2), transparent 76%);
+            color: rgba(219, 234, 238, 0.74);
+            font: 500 11px/1.5 var(--utility);
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+        }
+
+        .message-actions button {
+            padding: 0;
+            border: 0;
+            border-bottom: 1px solid transparent;
+            background: transparent;
+            color: rgba(218, 233, 237, 0.55);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+        }
+
+        .message-actions button:hover,
+        .message-actions button:focus-visible {
+            border-bottom-color: var(--cyan);
+            color: var(--frost);
+            outline: none;
+        }
+
+        .composer {
+            position: fixed;
+            z-index: 6;
+            left: clamp(34px, 6vw, 92px);
+            bottom: 28px;
+            width: min(910px, calc(100vw - 150px));
+            height: 58px;
+            display: grid;
+            grid-template-columns: 58px 1fr 64px;
+            border-top: 1px solid rgba(238, 244, 243, 0.96);
+            background: linear-gradient(90deg, rgba(236, 241, 240, 0.96), rgba(225, 232, 232, 0.88));
+            box-shadow: 0 13px 32px rgba(0, 0, 0, 0.2);
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+            transition: opacity 160ms ease, transform 220ms cubic-bezier(0.22, 0.72, 0.2, 1);
+        }
+
+        .composer::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 54px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--yellow) 0 20px, var(--cyan) 20px 100%);
+        }
+
+        .attach-button,
+        .send-button {
+            border: 0;
+            cursor: pointer;
+        }
+
+        .attach-button {
+            border-right: 1px solid rgba(20, 29, 34, 0.18);
+            background: transparent;
+            color: #1a2226;
+            font-size: 22px;
+        }
+
+        .composer input {
+            min-width: 0;
+            padding: 0 18px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #11171a;
+            font-size: 14px;
+        }
+
+        .composer input::placeholder {
+            color: rgba(17, 23, 26, 0.48);
+        }
+
+        .send-button {
+            position: relative;
+            background: var(--yellow);
+            color: #151a1b;
+            font: 800 12px/1 var(--utility);
+            letter-spacing: 0.06em;
+        }
+
+        .send-button::before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 0;
+            border-top: 29px solid transparent;
+            border-bottom: 29px solid transparent;
+            border-right: 8px solid var(--yellow);
+        }
+
+        .send-button:hover,
+        .send-button:focus-visible {
+            filter: brightness(1.09);
+            outline: 2px solid white;
+            outline-offset: -3px;
+        }
+
+        .ui-hidden .conversation,
+        .ui-hidden .composer {
+            opacity: 0;
+            transform: translateY(18px);
+            pointer-events: none;
+        }
+
+        @keyframes rail-enter {
+            from {
+                opacity: 0;
+                transform: translateX(-24px);
+                clip-path: inset(0 100% 0 0);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        @keyframes body-enter {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                height: 56px;
+                padding: 0 16px;
+            }
+
+            .session-label,
+            .topnav .nav-action:not(.active) {
+                display: none;
+            }
+
+            .topnav {
+                margin-left: auto;
+            }
+
+            .nav-action {
+                min-width: 54px;
+                padding-inline: 8px;
+            }
+
+            .hide-action {
+                margin-left: 5px;
+            }
+
+            .conversation {
+                left: 14px;
+                right: 14px;
+                bottom: 96px;
+                width: auto;
+            }
+
+            .history {
+                max-height: 92px;
+                margin-left: 42px;
+            }
+
+            .active-message {
+                padding-left: 42px;
+            }
+
+            .portrait-index {
+                width: 32px;
+                height: 46px;
+                font-size: 14px;
+            }
+
+            .active-speaker {
+                font-size: 24px;
+            }
+
+            .active-meta {
+                display: none;
+            }
+
+            .body-panel {
+                padding-right: 14px;
+                max-height: 38vh;
+                overflow: auto;
+            }
+
+            .composer {
+                left: 14px;
+                right: 14px;
+                bottom: 18px;
+                width: auto;
+                grid-template-columns: 48px 1fr 58px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-delay: 0ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene" aria-hidden="true"></div>
+
+    <header class="topbar">
+        <div class="session">
+            <span class="session-label">当前聊天</span>
+            <strong class="session-name">佩丽卡</strong>
+        </div>
+
+        <nav class="topnav" aria-label="SillyTavern 功能">
+            <button class="nav-action active" type="button">聊天</button>
+            <button class="nav-action" type="button">角色</button>
+            <button class="nav-action" type="button">世界书</button>
+            <button class="nav-action" type="button">扩展</button>
+            <button class="nav-action" type="button">设置</button>
+        </nav>
+
+        <button class="hide-action" id="hide-ui" type="button" aria-pressed="false">隐藏文字</button>
+    </header>
+
+    <main class="conversation" aria-label="聊天记录">
+        <section class="history" aria-label="较早消息">
+            <article class="history-message user">
+                <div class="history-head">
+                    <span class="history-speaker">你</span>
+                    <span class="meta">21:42</span>
+                </div>
+                <p>先别继续，把刚才那段记录调出来。</p>
+            </article>
+
+            <article class="history-message">
+                <div class="history-head">
+                    <span class="history-speaker">佩丽卡</span>
+                    <span class="meta">21:43 · 1,208 tokens</span>
+                </div>
+                <p>已经定位。雪原通讯在恢复后多出了一段没有来源标记的回传。</p>
+            </article>
+        </section>
+
+        <article class="active-message">
+            <div class="portrait-index" aria-hidden="true">佩</div>
+
+            <header class="title-rail">
+                <h1 class="active-speaker">佩丽卡</h1>
+                <span class="rail-mark" aria-hidden="true"></span>
+                <span class="meta active-meta">21:44 · 4,286 tokens</span>
+            </header>
+
+            <div class="body-panel">
+                <p>我把异常段落保留在当前视图里。信号在中断前后使用了相同的校验头，但回传路径不属于任何已登记频道。</p>
+                <p>你可以继续追问，也可以打开原始消息核对。在你确认之前，我不会覆盖现有记录。</p>
+
+                <blockquote class="message-quote">信号源：未知　／　频道校验：失败　／　记录状态：已保留</blockquote>
+
+                <div class="message-actions" aria-label="消息操作">
+                    <button type="button">复制</button>
+                    <button type="button">编辑</button>
+                    <button type="button">重新生成</button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <form class="composer" aria-label="发送消息">
+        <button class="attach-button" type="button" aria-label="添加附件">＋</button>
+        <input aria-label="消息" placeholder="输入消息，或使用 / 打开命令…">
+        <button class="send-button" type="submit">发送</button>
+    </form>
+
+    <script>
+        const hideButton = document.querySelector('#hide-ui');
+        const composer = document.querySelector('.composer');
+
+        hideButton.addEventListener('click', () => {
+            const hidden = document.body.classList.toggle('ui-hidden');
+            hideButton.textContent = hidden ? '显示文字' : '隐藏文字';
+            hideButton.setAttribute('aria-pressed', String(hidden));
+        });
+
+        composer.addEventListener('submit', (event) => event.preventDefault());
+    </script>
+</body>
+</html>

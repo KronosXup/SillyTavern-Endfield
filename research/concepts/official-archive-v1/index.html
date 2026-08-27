@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Endfield Protocol — 官号档案长图概念</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --void: #111516;
+      --graphite: #242829;
+      --graphite-2: #303536;
+      --paper: #f1f3f0;
+      --paper-hi: #fafbf8;
+      --ink: #171a1a;
+      --muted: #737a78;
+      --line: #c9ceca;
+      --line-soft: rgba(23, 26, 26, .095);
+      --signal: #ecf200;
+      --cyan: #4fd9ca;
+      --magenta: #f03b8d;
+      --orange: #ee9b32;
+      --shadow: rgba(0, 0, 0, .32);
+      --rail: 10px;
+      --font-display: "HarmonyOS Sans SC", "Noto Sans SC", "Microsoft YaHei UI", sans-serif;
+      --font-body: "Noto Sans SC", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+      --font-index: "Franklin Gothic Medium Cond", "Arial Narrow", Arial, sans-serif;
+      --font-num: Haettenschweiler, "Arial Narrow", Arial, sans-serif;
+      --paper-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='g' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10 0H0V10' fill='none' stroke='%23171a1a' stroke-opacity='.018' stroke-width='.55'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23171a1a'%3E%3Cpath d='M0 .5H160M.5 0V160' stroke-opacity='.025' stroke-width='.65'/%3E%3Cpath d='M74 80H86M80 74V86' stroke-opacity='.09' stroke-width='.9'/%3E%3C/g%3E%3C/svg%3E");
+      --terrain-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='56' viewBox='0 0 300 56'%3E%3Cg fill='none' stroke='%23171a1a' stroke-opacity='.17' stroke-width='.8'%3E%3Cpath d='M92 5c19 1 19 14 38 14s19-12 38-12 19 17 38 17 19-9 38-9 19 15 38 15 19-7 38-7'/%3E%3Cpath d='M74 14c24 0 24 13 48 13s24-11 48-11 24 17 48 17 24-9 48-9 24 13 48 13'/%3E%3Cpath d='M112 38c15 0 15-9 30-9s15 15 30 15 15-10 30-10 15 14 30 14 15-8 30-8 15 8 30 8'/%3E%3Cpath d='M138 2c-9 8-9 18 0 26s9 18 0 26M184 0c-8 9-8 18 0 27s8 18 0 27M230 0c-6 9-6 18 0 27s6 18 0 27'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      min-width: 320px;
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: #eef0ec;
+      font-family: var(--font-body);
+      background: var(--void);
+    }
+
+    button,
+    textarea { font: inherit; }
+
+    button { color: inherit; }
+
+    .viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      min-height: 720px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        linear-gradient(116deg, transparent 0 9%, rgba(255,255,255,.026) 9% 17%, transparent 17% 57%, rgba(255,255,255,.016) 57% 72%, transparent 72%),
+        radial-gradient(circle at 50% 9%, rgba(255,255,255,.065), transparent 34%),
+        #111516;
+    }
+
+    .viewport::before {
+      position: absolute;
+      left: -4vw;
+      bottom: -9vh;
+      z-index: -1;
+      width: 52vw;
+      height: 54vh;
+      content: "";
+      opacity: .75;
+      background: linear-gradient(112deg, transparent 0 18%, rgba(255,255,255,.02) 18% 52%, transparent 52%);
+      clip-path: polygon(0 18%, 24% 18%, 24% 0, 72% 0, 72% 21%, 100% 21%, 82% 48%, 100% 76%, 58% 76%, 58% 100%, 0 100%);
+      pointer-events: none;
+    }
+
+    .viewport::after {
+      position: absolute;
+      right: -70px;
+      bottom: 6vh;
+      z-index: -1;
+      width: 460px;
+      height: 260px;
+      content: "";
+      opacity: .16;
+      background: var(--terrain-lines) center / 520px 98px repeat-y;
+      transform: rotate(-8deg) scale(1.4);
+      pointer-events: none;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: min(1512px, calc(100vw - 64px));
+      height: min(936px, calc(100vh - 64px));
+      margin: 32px auto;
+      display: grid;
+      grid-template-columns: 156px minmax(760px, 1130px) 178px;
+      gap: 24px;
+    }
+
+    .utility,
+    .telemetry {
+      min-width: 0;
+      color: #aeb4b1;
+      font: 560 10px/1.5 var(--font-body);
+      letter-spacing: .035em;
+    }
+
+    .utility {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 8px 0 2px;
+    }
+
+    .brand-mark {
+      display: grid;
+      gap: 11px;
+    }
+
+    .brand-kicker {
+      color: #f2f4f0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .brand-title {
+      margin: 0;
+      color: #f2f4ef;
+      font: 900 31px/.9 var(--font-display);
+      letter-spacing: -.06em;
+    }
+
+    .brand-title span {
+      display: block;
+      margin-top: 5px;
+      color: var(--signal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .utility-nav {
+      display: grid;
+      gap: 6px;
+      margin-top: 32px;
+    }
+
+    .utility-button {
+      position: relative;
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 9px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 0;
+      background: rgba(255,255,255,.025);
+      cursor: pointer;
+      transition: border-color 140ms ease, background-color 140ms ease;
+    }
+
+    .utility-button:hover,
+    .utility-button:focus-visible,
+    .utility-button.active {
+      outline: none;
+      border-color: rgba(236,242,0,.58);
+      background: rgba(236,242,0,.07);
+    }
+
+    .utility-button.active::before {
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      bottom: -1px;
+      width: 4px;
+      content: "";
+      background: var(--signal);
+    }
+
+    .utility-icon {
+      color: #f3f4f0;
+      font-size: 15px;
+    }
+
+    .utility-label {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .utility-foot {
+      display: grid;
+      gap: 9px;
+      color: #707775;
+    }
+
+    .utility-foot::before {
+      width: 42px;
+      height: 3px;
+      content: "";
+      background: linear-gradient(90deg, var(--magenta) 0 33%, var(--signal) 33% 66%, var(--cyan) 66%);
+    }
+
+    .paper {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background:
+        var(--paper-grid) 0 0 / 160px 160px,
+        linear-gradient(118deg, transparent 0 13%, rgba(23,26,26,.028) 13% 28%, transparent 28% 61%, rgba(23,26,26,.04) 61% 64%, transparent 64%) 0 -40px / 100% 437px repeat-y,
+        linear-gradient(74deg, transparent 0 51%, rgba(255,255,255,.58) 51% 70%, transparent 70%) 0 170px / 100% 683px repeat-y,
+        var(--paper);
+      box-shadow: 0 28px 80px var(--shadow), 0 0 0 1px rgba(255,255,255,.16);
+    }
+
+    .paper::before {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--rail);
+      content: "";
+      background: var(--signal);
+      transform-origin: top;
+      animation: rail-grow 440ms cubic-bezier(.18,.76,.2,1) both;
+    }
+
+    .paper::after {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: var(--rail);
+      width: 164px;
+      height: 4px;
+      content: "";
+      background: linear-gradient(90deg, var(--magenta) 0 25%, var(--signal) 25% 52%, var(--cyan) 52% 79%, transparent 79%);
+    }
+
+    .paper-head {
+      position: relative;
+      height: 94px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 16px 28px 14px 40px;
+      border-bottom: 1px solid var(--line);
+      background-color: rgba(250,251,248,.91);
+      background-image: var(--paper-grid);
+      background-size: 160px 160px;
+    }
+
+    .paper-head::before {
+      position: absolute;
+      right: 245px;
+      top: -13px;
+      color: transparent;
+      content: "O.M.V.  04";
+      font: 900 58px/.9 var(--font-index);
+      letter-spacing: -.055em;
+      opacity: .34;
+      background: repeating-linear-gradient(135deg, rgba(23,26,26,.16) 0 1px, transparent 1px 4px);
+      -webkit-background-clip: text;
+      background-clip: text;
+      pointer-events: none;
+    }
+
+    .paper-head > * { position: relative; z-index: 1; }
+
+    .paper-head::after {
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      width: 148px;
+      height: 2px;
+      content: "";
+      background: linear-gradient(90deg, var(--signal) 0 38%, var(--ink) 38% 40%, transparent 40%);
+    }
+
+    .head-eyebrow {
+      margin: 0 0 6px;
+      color: #626967;
+      font: 700 9px/1 var(--font-index);
+      letter-spacing: .1em;
+    }
+
+    .paper-head h1 {
+      margin: 0;
+      color: var(--ink);
+      font: 900 33px/1 var(--font-display);
+      letter-spacing: -.05em;
+    }
+
+    .paper-head h1 span {
+      margin-left: 10px;
+      color: #69706e;
+      font-size: 14px;
+      font-weight: 560;
+      letter-spacing: .02em;
+    }
+
+    .head-status {
+      min-width: 218px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 12px;
+      border-left: 4px solid var(--signal);
+      color: #eff1ed;
+      background: var(--graphite);
+      font: 620 9px/1.45 var(--font-body);
+      letter-spacing: .045em;
+    }
+
+    .head-status b {
+      color: var(--signal);
+      font-size: 18px;
+      font-weight: 600;
+      font-family: var(--font-num);
+    }
+
+    .thread {
+      position: absolute;
+      inset: 94px 0 116px var(--rail);
+      overflow-x: hidden;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding: 0 0 30px;
+    }
+
+    .thread::-webkit-scrollbar { display: none; }
+
+    .chapter-band {
+      position: relative;
+      min-height: 52px;
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr) auto;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background:
+        repeating-linear-gradient(135deg, rgba(23,26,26,.035) 0 1px, transparent 1px 5px) 100% 0 / 34% 100% no-repeat,
+        rgba(250,251,248,.94);
+      overflow: hidden;
+    }
+
+    .chapter-band::before {
+      position: absolute;
+      z-index: 0;
+      left: 82px;
+      right: 28%;
+      top: 16px;
+      height: 20px;
+      content: "";
+      background-color: var(--signal);
+      background-image: var(--terrain-lines);
+      background-position: right center;
+      background-size: 300px 56px;
+      background-repeat: no-repeat;
+      transform-origin: left;
+      animation: band-sweep 260ms 180ms cubic-bezier(.2,.7,.2,1) both;
+    }
+
+    .chapter-number,
+    .chapter-title,
+    .chapter-code {
+      position: relative;
+      z-index: 1;
+    }
+
+    .chapter-number {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(23,26,26,.18);
+      color: var(--signal);
+      background: var(--graphite);
+      font: 400 32px/1 var(--font-num);
+      letter-spacing: -.055em;
+    }
+
+    .chapter-title {
+      padding-left: 16px;
+      font-size: 22px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .chapter-code {
+      padding: 0 22px;
+      color: #626967;
+      font: 620 8px/1.35 var(--font-body);
+      letter-spacing: .035em;
+      text-align: right;
+    }
+
+    .message {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      border-bottom: 1px solid var(--line);
+      background-color: rgba(250,251,248,.7);
+      background-image: var(--paper-grid);
+      background-size: 160px 160px;
+      animation: message-enter 290ms cubic-bezier(.2,.72,.18,1) both;
+    }
+
+    .chapter-band + .message { animation-delay: 250ms; }
+
+    .message-meta {
+      position: relative;
+      min-height: 100%;
+      padding: 18px 13px 16px 18px;
+      border-right: 1px solid var(--line);
+      color: #626967;
+      font: 650 9px/1.55 var(--font-index);
+      letter-spacing: .035em;
+    }
+
+    .message-meta::after {
+      position: absolute;
+      right: -4px;
+      top: 24px;
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: var(--signal);
+      box-shadow: 0 0 0 1px var(--ink);
+      transform: rotate(45deg);
+    }
+
+    .message-meta strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font: 800 13px/1.2 var(--font-display);
+      letter-spacing: -.025em;
+    }
+
+    .message-index {
+      display: block;
+      margin-top: 20px;
+      color: #9aa09e;
+      font-size: 20px;
+      font-weight: 500;
+      font-family: var(--font-num);
+      letter-spacing: -.04em;
+    }
+
+    .message-body {
+      min-width: 0;
+      padding: 20px 26px 22px;
+      color: #262a29;
+      font-size: 14px;
+      line-height: 1.76;
+    }
+
+    .message-body p { margin: 0 0 10px; }
+    .message-body p:last-child { margin-bottom: 0; }
+
+    .message.user .message-body {
+      margin: 14px 18px 14px 16px;
+      padding: 18px 22px;
+      color: #f1f3ef;
+      background:
+        repeating-linear-gradient(135deg, rgba(255,255,255,.026) 0 1px, transparent 1px 5px),
+        linear-gradient(90deg, rgba(236,242,0,.08), transparent 34%),
+        var(--graphite);
+      box-shadow: inset 4px 0 var(--signal);
+    }
+
+    .message.user .message-meta strong { color: #5a605e; }
+
+    .message-body .lead {
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 16px 0 15px;
+      border-block: 1px solid var(--line);
+      background: rgba(255,255,255,.36);
+    }
+
+    .evidence-cell {
+      position: relative;
+      min-height: 76px;
+      padding: 13px 12px 12px;
+      border-right: 1px solid var(--line);
+    }
+
+    .evidence-cell:last-child { border-right: 0; }
+
+    .evidence-cell::before {
+      display: block;
+      width: 18px;
+      height: 3px;
+      margin-bottom: 10px;
+      content: "";
+      background: var(--signal);
+    }
+
+    .evidence-cell b {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 740;
+    }
+
+    .evidence-cell span {
+      display: block;
+      margin-top: 5px;
+      color: #717876;
+      font: 600 9px/1.45 var(--font-body);
+      letter-spacing: .015em;
+    }
+
+    .message-note {
+      position: relative;
+      margin-top: 14px;
+      padding: 10px 14px 10px 34px;
+      border-left: 2px solid var(--signal);
+      color: #555c5a;
+      background: rgba(23,26,26,.055);
+      font-size: 12px;
+    }
+
+    .message-note::before {
+      position: absolute;
+      left: 12px;
+      top: 10px;
+      color: var(--ink);
+      content: "※";
+      font-weight: 760;
+    }
+
+    .composer {
+      position: absolute;
+      z-index: 4;
+      left: var(--rail);
+      right: 0;
+      bottom: 0;
+      height: 116px;
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr) 116px;
+      border-top: 1px solid var(--ink);
+      background-color: rgba(250,251,248,.98);
+      background-image: var(--paper-grid);
+      background-size: 160px 160px;
+      box-shadow: 0 -14px 30px rgba(23,26,26,.08);
+    }
+
+    .composer-label {
+      padding: 17px 14px 0 18px;
+      border-right: 1px solid var(--line);
+      color: #68706d;
+      font: 620 9px/1.5 var(--font-body);
+      letter-spacing: .025em;
+    }
+
+    .composer-label strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font: 800 13px/1.2 var(--font-display);
+      letter-spacing: -.025em;
+    }
+
+    .composer-field {
+      position: relative;
+      min-width: 0;
+      padding: 15px 18px 14px;
+    }
+
+    .composer-field::before {
+      position: absolute;
+      left: 18px;
+      top: 14px;
+      width: 44px;
+      height: 2px;
+      content: "";
+      background: linear-gradient(90deg, var(--signal) 0 14px, var(--ink) 14px 15px, var(--line) 15px 100%);
+      transition: width 180ms ease;
+    }
+
+    .composer-field:focus-within::before { width: calc(100% - 36px); }
+
+    textarea {
+      width: 100%;
+      height: 66px;
+      resize: none;
+      margin: 9px 0 0;
+      padding: 9px 0 0;
+      border: 0;
+      outline: 0;
+      color: var(--ink);
+      caret-color: var(--ink);
+      background: transparent;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    textarea::placeholder { color: #989e9c; }
+
+    .send-button {
+      position: relative;
+      border: 0;
+      border-left: 1px solid var(--ink);
+      border-radius: 0;
+      color: var(--ink);
+      background: var(--signal);
+      cursor: pointer;
+      font: 800 12px/1.3 var(--font-display);
+      transition: color 130ms ease, background-color 130ms ease;
+    }
+
+    .send-button span {
+      display: block;
+      margin-top: 6px;
+      font: 650 8px/1 var(--font-body);
+      letter-spacing: .04em;
+    }
+
+    .send-button:hover,
+    .send-button:focus-visible {
+      outline: none;
+      color: #f5f6f2;
+      background: var(--ink);
+    }
+
+    .send-button.queued {
+      color: #f5f6f2;
+      background: #2b3030;
+    }
+
+    .telemetry {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0 2px;
+    }
+
+    .telemetry-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #e9ebe7;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .telemetry-title::before {
+      width: 5px;
+      height: 18px;
+      content: "";
+      background: var(--signal);
+    }
+
+    .telemetry-list {
+      display: grid;
+      gap: 1px;
+      margin-top: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.08);
+    }
+
+    .telemetry-row {
+      padding: 12px 11px;
+      background: #15191a;
+    }
+
+    .telemetry-row b {
+      display: block;
+      margin-top: 5px;
+      color: #f1f3ef;
+      font: 400 18px/1.15 var(--font-num);
+      letter-spacing: .02em;
+    }
+
+    .telemetry-row.current b { color: var(--signal); }
+
+    .scroll-readout {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1fr 12px;
+      gap: 12px;
+      align-items: end;
+      color: #737a78;
+    }
+
+    .scroll-readout strong {
+      display: block;
+      margin: 4px 0;
+      color: #f0f2ee;
+      font-size: 24px;
+      font-weight: 520;
+      font-family: var(--font-num);
+      letter-spacing: -.06em;
+    }
+
+    .scroll-track {
+      position: relative;
+      height: 186px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .scroll-track::before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 68%;
+      content: "";
+      background: var(--signal);
+    }
+
+    .scroll-track::after {
+      position: absolute;
+      left: -5px;
+      right: -5px;
+      bottom: calc(68% - 1px);
+      height: 2px;
+      content: "";
+      background: #f5f6f2;
+    }
+
+    @keyframes rail-grow {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+
+    @keyframes band-sweep {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes message-enter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 1240px) {
+      .shell {
+        width: min(980px, calc(100vw - 32px));
+        grid-template-columns: 1fr;
+        margin-block: 16px;
+        height: calc(100vh - 32px);
+      }
+      .utility,
+      .telemetry { display: none; }
+    }
+
+    @media (max-width: 700px) {
+      .shell { width: calc(100vw - 16px); margin: 8px; height: calc(100vh - 16px); }
+      .paper-head { padding-left: 28px; grid-template-columns: 1fr; height: 78px; }
+      .paper-head h1 { font-size: 22px; }
+      .head-status { display: none; }
+      .thread { top: 78px; bottom: 100px; }
+      .chapter-band { grid-template-columns: 62px 1fr; }
+      .chapter-code { display: none; }
+      .message { grid-template-columns: 82px minmax(0, 1fr); }
+      .message-meta { padding-left: 11px; }
+      .message-body { padding: 16px; }
+      .evidence-grid { grid-template-columns: 1fr; }
+      .evidence-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .evidence-cell:last-child { border-bottom: 0; }
+      .composer { height: 100px; grid-template-columns: 1fr 82px; }
+      .composer-label { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="viewport" aria-label="Endfield Protocol SillyTavern 主题概念">
+    <section class="shell">
+      <aside class="utility" aria-label="快捷工具">
+        <div>
+          <div class="brand-mark">
+            <span class="brand-kicker">明日方舟</span>
+            <h2 class="brand-title">终末地<span>会话终端</span></h2>
+          </div>
+          <nav class="utility-nav">
+            <button class="utility-button active" type="button"><span class="utility-icon">▦</span><span class="utility-label">会话</span></button>
+            <button class="utility-button" type="button"><span class="utility-icon">◇</span><span class="utility-label">角色</span></button>
+            <button class="utility-button" type="button"><span class="utility-icon">⌁</span><span class="utility-label">世界信息</span></button>
+            <button class="utility-button" type="button"><span class="utility-icon">＋</span><span class="utility-label">扩展</span></button>
+            <button class="utility-button" type="button"><span class="utility-icon">⚙</span><span class="utility-label">设置</span></button>
+          </nav>
+        </div>
+        <div class="utility-foot">
+          <span>当前终端</span>
+          <span>O.M.V. 帝江号</span>
+          <span>状态：已连接</span>
+        </div>
+      </aside>
+
+      <section class="paper" aria-label="聊天档案阅读区">
+        <header class="paper-head">
+          <div>
+            <p class="head-eyebrow">O.M.V. 帝江号　/　会话记录</p>
+            <h1>[会话档案]<span>主题设计准备</span></h1>
+          </div>
+          <div class="head-status"><span>当前会话<br>档案序号</span><b>014</b></div>
+        </header>
+
+        <div class="thread">
+          <div class="chapter-band">
+            <span class="chapter-number">01</span>
+            <span class="chapter-title">[需求确认]</span>
+            <span class="chapter-code">会话记录<br>用户输入</span>
+          </div>
+
+          <article class="message user">
+            <aside class="message-meta"><strong>管理员</strong>19:42　用户<span class="message-index">001</span></aside>
+            <div class="message-body">
+              <p>把刚才找到的官号白底长图当作视觉基线，先出一张能在 SillyTavern 里实现的概念图。重点看聊天阅读区和输入区，别再做成大版本宣传页。</p>
+            </div>
+          </article>
+
+          <div class="chapter-band">
+            <span class="chapter-number">02</span>
+            <span class="chapter-title">[视觉基线已锁定]</span>
+            <span class="chapter-code">分析记录<br>依据 / 04</span>
+          </div>
+
+          <article class="message assistant">
+            <aside class="message-meta"><strong>分析终端</strong>19:43　助手<span class="message-index">002</span></aside>
+            <div class="message-body">
+              <p class="lead">已将“档案长图”映射为持续增长的聊天记录，不改变 SillyTavern 的核心交互。</p>
+              <div class="evidence-grid" aria-label="设计映射">
+                <div class="evidence-cell"><b>连续纸面</b><span>单列聊天记录</span></div>
+                <div class="evidence-cell"><b>编号分节</b><span>按消息顺序归档</span></div>
+                <div class="evidence-cell"><b>黄色状态轨</b><span>选中与输入聚焦</span></div>
+              </div>
+              <p><strong>阅读区：</strong>消息不再是漂浮圆角卡片，而是沿同一张白灰档案纸连续排布；用户消息借用长图中的深灰截图块，助手消息保持白底正文。</p>
+              <p><strong>交互区：</strong>输入框延续纸面网格，聚焦时黄色短线扩展成完整引导线；发送按钮保留高纯度黄色，承担唯一主操作。</p>
+              <div class="message-note">动效只服务于层级：首次进入时黄色轨道向下生长，新增消息以章节遮罩扫入；关闭动画后不影响结构辨识。</div>
+            </div>
+          </article>
+
+          <div class="chapter-band">
+            <span class="chapter-number">03</span>
+            <span class="chapter-title">[下一步]</span>
+            <span class="chapter-code">实现阶段<br>准备就绪</span>
+          </div>
+        </div>
+
+        <form class="composer" onsubmit="return false">
+          <div class="composer-label"><strong>输入消息</strong>输入区<br>持续记录</div>
+          <div class="composer-field">
+            <textarea aria-label="输入消息" placeholder="继续输入，或调整这张概念图……"></textarea>
+          </div>
+          <button class="send-button" type="submit">发送<span>确认发送</span></button>
+        </form>
+      </section>
+
+      <aside class="telemetry" aria-label="会话状态">
+        <div class="telemetry-title">会话状态</div>
+        <div class="telemetry-list">
+          <div class="telemetry-row"><span>当前档案</span><b>O.M.V. 014</b></div>
+          <div class="telemetry-row current"><span>连接</span><b>READY</b></div>
+          <div class="telemetry-row"><span>消息</span><b>002 / 014</b></div>
+          <div class="telemetry-row"><span>上下文</span><b>68%</b></div>
+        </div>
+        <div class="scroll-readout">
+          <div><span>阅读位置</span><strong>068</strong><span>档案 / 实时</span></div>
+          <div class="scroll-track" aria-hidden="true"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('.utility-button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.utility-button').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    const send = document.querySelector('.send-button');
+    const input = document.querySelector('textarea');
+    send.addEventListener('click', () => {
+      send.classList.add('queued');
+      send.firstChild.textContent = '已记录';
+      input.value = '';
+      window.setTimeout(() => {
+        send.classList.remove('queued');
+        send.firstChild.textContent = '发送';
+      }, 900);
+    });
+  </script>
+</body>
+</html>

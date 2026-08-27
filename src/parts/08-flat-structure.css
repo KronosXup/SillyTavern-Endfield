@@ -1,0 +1,89 @@
+/*
+ * Flat structural pass: one shared content axis, continuous list rows and
+ * grey section fields. Depth comes from area contrast and rules, never drop shadows.
+ */
+
+#chat > .welcomePanel,
+#chat > .welcomePanel .welcomeHeader {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* 宿主 logo 是品红位图，在黑白黄体系里是唯一的第四种色相；压成墨色单色。 */
+#chat > .welcomePanel .welcomeHeaderLogo {
+    filter: grayscale(1) contrast(1.2) brightness(0.32) !important;
+}
+
+#chat > .welcomePanel .welcomeHeaderTitle {
+    color: var(--ef-ink) !important;
+    font-family: var(--ef-font-display) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.01em;
+    text-shadow: none !important;
+}
+
+#chat > .welcomePanel .welcomeRecent {
+    background-color: var(--ef-workbench) !important;
+    background-image: var(--ef-gray-grid), var(--ef-gray-hatch) !important;
+    background-size: 160px 160px, auto !important;
+    background-position: 0 0, 0 0 !important;
+    background-repeat: repeat, repeat !important;
+    border-top: 1px solid var(--ef-line) !important;
+    border-bottom: 1px solid var(--ef-line) !important;
+    box-shadow: none !important;
+}
+
+#chat > .welcomePanel .welcomeRecent .recentChatList .recentChat {
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ef-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: background-color var(--ef-fast) ease-out;
+}
+
+#chat > .welcomePanel .welcomeRecent .recentChatList .recentChat:is(:hover, :focus-within) {
+    background: rgba(255, 255, 255, 0.34) !important;
+}
+
+#chat > .welcomePanel .showMoreChats {
+    color: var(--ef-ink) !important;
+    background: var(--ef-paper-hi) !important;
+    border: 1px solid rgba(23, 26, 26, 0.28) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+@media (min-width: 701px) {
+    #chat > .mes {
+        padding: 14px 18px !important;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper {
+        flex-basis: 58px;
+        padding-right: 7px !important;
+    }
+
+    #chat > .mes[is_user="false"]:not([is_system="true"]):not(.smallSysMes) > .mes_block {
+        padding-left: 6px !important;
+    }
+
+    #chat > .mes .ch_name {
+        padding-bottom: 6px !important;
+    }
+
+    #chat > .mes .mes_text {
+        padding-top: 10px !important;
+        line-height: 1.7 !important;
+    }
+}
+
+body.reduced-motion #chat > .welcomePanel .recentChat {
+    transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #chat > .welcomePanel .recentChat {
+        transition: none !important;
+    }
+}

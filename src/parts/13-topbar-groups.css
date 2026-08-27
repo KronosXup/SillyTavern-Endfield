@@ -1,0 +1,53 @@
+/* Top bar grouping: three functional clusters, separated like a printed control strip. */
+
+#top-settings-holder > .drawer {
+    position: relative;
+}
+
+/* The holder already has three equal groups; mark only their two real boundaries. */
+#top-settings-holder > #WI-SP-button::before,
+#top-settings-holder > #extensions-settings-button::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    width: 1px;
+    background: rgba(238, 240, 237, 0.24);
+    pointer-events: none;
+}
+
+/* Open state is a local signal, not a filled yellow tile. */
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.openIcon {
+    color: var(--ef-paper-hi) !important;
+    background-color: rgba(255, 255, 255, 0.035) !important;
+    opacity: 1 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon)::after {
+    display: block !important;
+    right: 28% !important;
+    left: 28% !important;
+    height: 2px !important;
+    background: var(--ef-signal) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon):hover::after,
+#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon):focus-within::after {
+    right: 20% !important;
+    left: 20% !important;
+}
+
+@media (max-width: 700px) {
+    #top-settings-holder > #WI-SP-button::before,
+    #top-settings-holder > #extensions-settings-button::before {
+        top: 9px;
+        bottom: 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #top-settings-holder > .drawer > .drawer-toggle::after {
+        transition: none !important;
+    }
+}

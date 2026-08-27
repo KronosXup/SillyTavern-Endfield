@@ -1,0 +1,561 @@
+/* User Settings sample: dark title shell, continuous light work surface, sparse signal yellow. */
+
+#user-settings-button > #user-settings-block {
+    --ef-settings-field: #fafbf8;
+    --ef-settings-soft: var(--ef-workbench);
+    --ef-settings-rule: rgba(23, 26, 26, 0.18);
+    --ef-settings-rule-strong: rgba(23, 26, 26, 0.38);
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 1080px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-void-soft) !important;
+    border: 1px solid rgba(238, 240, 237, 0.18) !important;
+    border-top: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    scrollbar-color: rgba(238, 240, 237, 0.32) var(--ef-void-soft);
+    transition-duration: var(--ef-shift) !important;
+}
+
+#user-settings-button > #user-settings-block > .flex-container.flexFlowColumn:first-child {
+    position: sticky;
+    z-index: 4;
+    top: 0;
+    gap: 6px !important;
+    padding: 7px 10px 8px 13px;
+    background: var(--ef-void) !important;
+    border-bottom: 2px solid var(--ef-signal);
+    box-shadow: none;
+}
+
+#user-settings-button #user-settings-block [name="userSettingsRowOne"],
+#user-settings-button #user-settings-block [name="UserSettingsRowTwo"] {
+    gap: 8px !important;
+}
+
+#user-settings-button #user-settings-block h3 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--ef-paper-hi) !important;
+    font-family: var(--ef-font-display) !important;
+    font-size: calc(var(--mainFontSize) * 1.12) !important;
+    font-weight: 700 !important;
+    line-height: 1.25;
+    letter-spacing: 0.015em;
+    text-shadow: none !important;
+}
+
+#user-settings-button #user-settings-block h3::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    flex: 0 0 4px;
+    background: var(--ef-signal);
+    box-shadow: 7px 0 0 rgba(236, 242, 0, 0.22);
+}
+
+#user-settings-button #user-settings-block .notes-link {
+    color: rgba(238, 240, 237, 0.5) !important;
+}
+
+#user-settings-button #user-settings-block .notes-link:hover,
+#user-settings-button #user-settings-block .notes-link:focus-visible {
+    color: var(--ef-signal) !important;
+}
+
+#user-settings-button #UI-language-block {
+    gap: 7px !important;
+    color: rgba(238, 240, 237, 0.72) !important;
+    font-size: calc(var(--mainFontSize) * 0.86);
+}
+
+#user-settings-button #ui_language_select {
+    min-height: 29px;
+    margin: 0 !important;
+    color: var(--ef-paper-hi) !important;
+    background-color: rgba(255, 255, 255, 0.045) !important;
+    border: 1px solid rgba(238, 240, 237, 0.2) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+#user-settings-button #version_display {
+    color: rgba(238, 240, 237, 0.48) !important;
+    font-family: var(--ef-font-number) !important;
+    font-size: calc(var(--mainFontSize) * 0.82) !important;
+    letter-spacing: 0.04em;
+    text-shadow: none !important;
+}
+
+#user-settings-button #settingsSearch {
+    min-height: 30px;
+    height: 30px;
+    margin: 0 !important;
+    padding: 5px 9px !important;
+    resize: none;
+    color: var(--ef-paper-hi) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(238, 240, 237, 0.18) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: border-color var(--ef-fast) ease-out, box-shadow var(--ef-fast) ease-out;
+}
+
+#user-settings-button #settingsSearch::placeholder {
+    color: rgba(238, 240, 237, 0.42) !important;
+}
+
+#user-settings-button #settingsSearch:focus-visible,
+#user-settings-button #ui_language_select:focus-visible {
+    border-color: var(--ef-signal) !important;
+    outline: 0 !important;
+    box-shadow: inset 3px 0 0 var(--ef-signal) !important;
+}
+
+#user-settings-button #account_button {
+    min-height: 30px;
+    margin: 0 !important;
+    padding: 4px 10px !important;
+    gap: 6px !important;
+    color: var(--ef-paper-hi) !important;
+    background: transparent !important;
+    border: 1px solid rgba(238, 240, 237, 0.24) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+#user-settings-button #account_button:hover,
+#user-settings-button #account_button:focus-visible {
+    color: var(--ef-paper-hi) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(238, 240, 237, 0.46) !important;
+}
+
+#user-settings-button #account_button:focus-visible {
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: 1px;
+}
+
+#user-settings-button #user-settings-block-content {
+    align-items: flex-start;
+    gap: 0 !important;
+    box-sizing: border-box;
+    padding: 11px 10px 24px !important;
+    color: var(--ef-ink) !important;
+    background-color: var(--ef-paper) !important;
+    background-image: var(--ef-paper-grid) !important;
+    text-shadow: none !important;
+}
+
+#user-settings-button #user-settings-block-content > :is(
+    #UI-Theme-Block,
+    #UI-Customization,
+    #power-user-options-block
+) {
+    box-sizing: border-box;
+    min-width: 0;
+    padding-inline: 11px;
+    color: var(--ef-ink) !important;
+}
+
+#user-settings-button #user-settings-block-content > #UI-Customization {
+    border-inline: 1px solid var(--ef-settings-rule);
+}
+
+#user-settings-button #user-settings-block-content :is(label, small, span, b) {
+    color: inherit !important;
+    text-shadow: none !important;
+}
+
+#user-settings-button #user-settings-block-content hr {
+    height: 1px;
+    margin: 9px 0 !important;
+    background: var(--ef-settings-rule) !important;
+    border: 0 !important;
+}
+
+#user-settings-button #user-settings-block h4 {
+    min-height: 30px;
+    margin: 0 0 8px !important;
+    padding: 5px 7px !important;
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-graphite) !important;
+    border: 0 !important;
+    border-left: 3px solid var(--ef-signal) !important;
+    border-bottom: 1px solid rgba(23, 26, 26, 0.52) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-family: var(--ef-font-display) !important;
+    font-size: calc(var(--mainFontSize) * 0.98) !important;
+    font-weight: 700 !important;
+    line-height: 1.25;
+    text-shadow: none !important;
+}
+
+#user-settings-button #user-settings-block .inline-drawer-toggle.userSettingsInnerExpandable {
+    min-height: 30px;
+    margin: 3px 0 0 !important;
+    padding: 5px 8px !important;
+    color: var(--ef-ink) !important;
+    background: rgba(23, 26, 26, 0.045) !important;
+    border: 0 !important;
+    border-top: 1px solid var(--ef-settings-rule) !important;
+    border-bottom: 1px solid var(--ef-settings-rule) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition:
+        color var(--ef-fast) ease-out,
+        background-color var(--ef-fast) ease-out,
+        border-color var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block .inline-drawer-toggle.userSettingsInnerExpandable:hover {
+    background: rgba(23, 26, 26, 0.085) !important;
+}
+
+#user-settings-button #user-settings-block .inline-drawer-toggle.userSettingsInnerExpandable:has(> .inline-drawer-icon.up) {
+    padding-left: 5px !important;
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-graphite) !important;
+    border-left: 3px solid var(--ef-signal) !important;
+    border-block-color: var(--ef-graphite) !important;
+}
+
+#user-settings-button #user-settings-block .inline-drawer-icon {
+    display: grid !important;
+    width: 20px;
+    height: 20px;
+    place-items: center;
+    color: currentColor !important;
+    font-size: 0 !important;
+    filter: none !important;
+}
+
+#user-settings-button #user-settings-block .inline-drawer-icon::before {
+    content: "" !important;
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block .inline-drawer-icon.up::before {
+    transform: translateY(2px) rotate(225deg);
+}
+
+#user-settings-button #user-settings-block .inline-drawer-content {
+    padding: 8px 8px 10px !important;
+    color: var(--ef-ink) !important;
+    background: rgba(250, 251, 248, 0.8) !important;
+    border-left: 1px solid var(--ef-settings-rule) !important;
+    border-right: 1px solid var(--ef-settings-rule) !important;
+    border-bottom: 1px solid var(--ef-settings-rule) !important;
+    border-radius: 0 !important;
+}
+
+#user-settings-button #user-settings-block-content select {
+    box-sizing: border-box;
+    min-height: 30px;
+    color: var(--ef-ink) !important;
+    background-color: var(--ef-settings-field) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox='0 0 10 8' fill='none' stroke='%23171a1a' stroke-width='1.4' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M1 2l4 4 4-4'/%3E%3C/svg%3E") !important;
+    background-position: right 9px center !important;
+    background-repeat: no-repeat !important;
+    background-size: 10px 8px !important;
+    border: 1px solid var(--ef-settings-rule-strong) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding-block: 4px !important;
+    padding-right: 27px !important;
+    text-shadow: none !important;
+    transition: border-color var(--ef-fast) ease-out, box-shadow var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block-content select.margin0 {
+    margin: 0 !important;
+}
+
+#user-settings-button #user-settings-block-content #themes {
+    min-width: 0 !important;
+    flex: 1 1 0 !important;
+}
+
+#user-settings-button #user-settings-block-content select option {
+    color: var(--ef-ink);
+    background: var(--ef-settings-field);
+}
+
+#user-settings-button #user-settings-block-content :is(
+    textarea,
+    input[type="number"],
+    input[type="text"],
+    input[type="search"],
+    input[type="url"],
+    input[type="password"],
+    input:not([type])
+) {
+    box-sizing: border-box;
+    min-height: 30px;
+    color: var(--ef-ink) !important;
+    background: var(--ef-settings-field) !important;
+    border: 1px solid var(--ef-settings-rule-strong) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 5px 7px !important;
+    text-shadow: none !important;
+    transition: border-color var(--ef-fast) ease-out, box-shadow var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block-content :is(select, textarea, input[type="number"], input[type="text"], input[type="search"], input[type="url"], input[type="password"], input:not([type])):focus-visible {
+    border-color: var(--ef-signal) !important;
+    outline: 0 !important;
+    box-shadow: inset 3px 0 0 var(--ef-signal) !important;
+}
+
+#user-settings-button #user-settings-block-content :is(textarea, input)::placeholder {
+    color: rgba(23, 26, 26, 0.46) !important;
+}
+
+#user-settings-button #user-settings-block label.checkbox_label {
+    min-height: 21px;
+    margin-inline: -4px;
+    padding: 2px 4px;
+    column-gap: 7px !important;
+    align-items: center !important;
+    color: var(--ef-ink) !important;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color var(--ef-fast) ease-out, border-color var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block label.checkbox_label:hover {
+    background: rgba(23, 26, 26, 0.055);
+}
+
+#user-settings-button #user-settings-block label.checkbox_label:has(> input[type="checkbox"]:focus-visible) {
+    background: rgba(23, 26, 26, 0.075);
+    border-left-color: var(--ef-signal);
+}
+
+#user-settings-button #user-settings-block label.checkbox_label > input[type="checkbox"] {
+    display: grid;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    place-content: center;
+    color: var(--ef-ink) !important;
+    background: transparent !important;
+    border: 1px solid rgba(23, 26, 26, 0.48) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    transform: none !important;
+    transition: background-color var(--ef-fast) ease-out, border-color var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block label.checkbox_label > input[type="checkbox"]::before {
+    box-shadow: inset 1em 1em var(--ef-ink) !important;
+}
+
+#user-settings-button #user-settings-block label.checkbox_label > input[type="checkbox"]:checked {
+    background: var(--ef-signal) !important;
+    border-color: var(--ef-ink) !important;
+}
+
+#user-settings-button #user-settings-block label.checkbox_label > input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: 2px;
+}
+
+#user-settings-button #user-settings-block label.checkbox_label > input[type="checkbox"]:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+#user-settings-button #user-settings-block input[type="range"] {
+    height: 4px !important;
+    background: rgba(23, 26, 26, 0.24) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    transition: background-color var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block input[type="range"]::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    background: var(--ef-signal) !important;
+    border: 2px solid var(--ef-ink) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 0 2px var(--ef-paper) !important;
+}
+
+#user-settings-button #user-settings-block input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--ef-signal) !important;
+    border: 2px solid var(--ef-ink) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 0 2px var(--ef-paper) !important;
+}
+
+#user-settings-button #user-settings-block input[type="range"]:focus-visible {
+    outline: 1px solid var(--ef-signal) !important;
+    outline-offset: 4px;
+}
+
+#user-settings-button #user-settings-block-content .neo-range-input {
+    min-height: 27px;
+    padding: 4px 6px !important;
+    font-family: var(--ef-font-number) !important;
+    letter-spacing: 0.035em;
+}
+
+#user-settings-button #user-settings-block-content .menu_button {
+    min-height: 28px;
+    padding: 4px 10px !important;
+    color: var(--ef-ink) !important;
+    background: var(--ef-settings-field) !important;
+    border: 1px solid var(--ef-settings-rule-strong) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    white-space: nowrap;
+    transition:
+        color var(--ef-fast) ease-out,
+        background-color var(--ef-fast) ease-out,
+        border-color var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block-content .menu_button:not(.disabled):not([disabled]):hover {
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-graphite) !important;
+    border-color: var(--ef-graphite) !important;
+}
+
+#user-settings-button #user-settings-block-content .menu_button:focus-visible {
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: 1px;
+}
+
+#user-settings-button #user-settings-block-content .menu_button:is(.disabled, [disabled]) {
+    opacity: 0.42 !important;
+}
+
+#user-settings-button #UI-presets-block .menu_button {
+    width: 28px !important;
+    min-width: 28px !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+#user-settings-button #account_button > i {
+    --ef-settings-icon: var(--ef-icon-account);
+}
+
+#user-settings-button #ui_preset_import_button > i {
+    --ef-settings-icon: var(--ef-icon-import);
+}
+
+#user-settings-button #ui_preset_export_button > i {
+    --ef-settings-icon: var(--ef-icon-export);
+}
+
+#user-settings-button #ui-preset-delete-button > i {
+    --ef-settings-icon: var(--ef-icon-trash);
+}
+
+#user-settings-button #ui-preset-update-button > i {
+    --ef-settings-icon: var(--ef-icon-save);
+}
+
+#user-settings-button #ui-preset-save-button > i {
+    --ef-settings-icon: var(--ef-icon-new-file);
+}
+
+#user-settings-button :is(
+    #account_button,
+    #ui_preset_import_button,
+    #ui_preset_export_button,
+    #ui-preset-delete-button,
+    #ui-preset-update-button,
+    #ui-preset-save-button
+) > i::before {
+    content: "" !important;
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: currentColor !important;
+    -webkit-mask: var(--ef-settings-icon) center / contain no-repeat !important;
+    mask: var(--ef-settings-icon) center / contain no-repeat !important;
+}
+
+body.reduced-motion #user-settings-button #user-settings-block,
+body.reduced-motion #user-settings-button #user-settings-block *,
+body.reduced-motion #user-settings-button #user-settings-block *::before,
+body.reduced-motion #user-settings-button #user-settings-block *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+}
+
+@media (max-width: 1000px) {
+    #user-settings-button > #user-settings-block {
+        max-width: none !important;
+    }
+
+    #user-settings-button > #user-settings-block > .flex-container.flexFlowColumn:first-child {
+        position: relative;
+        top: auto;
+        padding: 6px 7px 7px 9px;
+    }
+
+    #user-settings-button #user-settings-block [name="userSettingsRowOne"] {
+        flex-wrap: wrap;
+    }
+
+    #user-settings-button #user-settings-block-content {
+        padding: 9px 5px 24px !important;
+    }
+
+    #user-settings-button #user-settings-block-content > :is(
+        #UI-Theme-Block,
+        #UI-Customization,
+        #power-user-options-block
+    ) {
+        padding: 0 4px 14px;
+        border-inline: 0 !important;
+    }
+
+    #user-settings-button #user-settings-block-content > :is(#UI-Customization, #power-user-options-block) {
+        padding-top: 12px;
+        border-top: 1px solid var(--ef-settings-rule);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #user-settings-button #user-settings-block,
+    #user-settings-button #user-settings-block *,
+    #user-settings-button #user-settings-block *::before,
+    #user-settings-button #user-settings-block *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}

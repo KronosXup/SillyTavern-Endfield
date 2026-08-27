@@ -1,0 +1,239 @@
+/* Functional controls: neutral tools, yellow only for selected navigation and primary action. */
+
+#top-settings-holder > .drawer > .drawer-toggle {
+    background: transparent !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle::after {
+    display: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon {
+    color: inherit !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transition:
+        color var(--ef-fast) ease-out,
+        background-color var(--ef-fast) ease-out,
+        opacity var(--ef-fast) ease-out;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.closedIcon {
+    opacity: 0.68 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:hover,
+#top-settings-holder > .drawer > .drawer-toggle:focus-within {
+    color: var(--ef-paper-hi) !important;
+    background: transparent !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:hover > .drawer-icon,
+#top-settings-holder > .drawer > .drawer-toggle:focus-within > .drawer-icon {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    opacity: 1 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon:focus-visible {
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: -2px;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.openIcon {
+    color: var(--ef-ink) !important;
+    background-color: var(--ef-signal) !important;
+    opacity: 1 !important;
+}
+
+#top-settings-holder > #ai-config-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-tune);
+}
+
+#top-settings-holder > #sys-settings-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-plug);
+}
+
+#top-settings-holder > #advanced-formatting-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-type);
+}
+
+#top-settings-holder > #WI-SP-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-book);
+}
+
+#top-settings-holder > #user-settings-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-settings);
+}
+
+#top-settings-holder > #backgrounds-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-image);
+}
+
+#top-settings-holder > #extensions-settings-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-modules);
+}
+
+#top-settings-holder > #persona-management-button > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-persona);
+}
+
+#top-settings-holder > #rightNavHolder > .drawer-toggle > .drawer-icon {
+    --ef-control-icon: var(--ef-icon-archive);
+}
+
+#options_button {
+    --ef-control-icon: var(--ef-icon-menu);
+}
+
+#extensionsMenuButton {
+    --ef-control-icon: var(--ef-icon-spark);
+}
+
+#send_but {
+    --ef-control-icon: var(--ef-icon-action);
+}
+
+:is(
+    #top-settings-holder > #ai-config-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #sys-settings-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #advanced-formatting-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #WI-SP-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #user-settings-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #backgrounds-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #extensions-settings-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #persona-management-button > .drawer-toggle > .drawer-icon,
+    #top-settings-holder > #rightNavHolder > .drawer-toggle > .drawer-icon,
+    #options_button,
+    #extensionsMenuButton,
+    #send_but
+)::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 18px !important;
+    height: 18px !important;
+    vertical-align: middle;
+    background-color: currentColor !important;
+    -webkit-mask-image: var(--ef-control-icon) !important;
+    -webkit-mask-position: center !important;
+    -webkit-mask-repeat: no-repeat !important;
+    -webkit-mask-size: contain !important;
+    mask-image: var(--ef-control-icon) !important;
+    mask-position: center !important;
+    mask-repeat: no-repeat !important;
+    mask-size: contain !important;
+}
+
+#chat .menu_button {
+    color: var(--ef-ink) !important;
+    background: rgba(250, 251, 248, 0.48) !important;
+    border: 1px solid rgba(23, 26, 26, 0.2) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transition:
+        color var(--ef-fast) ease-out,
+        background-color var(--ef-fast) ease-out,
+        border-color var(--ef-fast) ease-out;
+}
+
+#chat .menu_button :is(.fa-solid, .fa-regular, .fa-brands) {
+    color: inherit !important;
+    opacity: 1 !important;
+}
+
+#chat .menu_button:hover {
+    color: var(--ef-ink) !important;
+    background: rgba(23, 26, 26, 0.065) !important;
+    border-color: rgba(23, 26, 26, 0.34) !important;
+}
+
+/* 激活态用黄色标记而非整块实心填充：SPEC 把黄色留给左轨、章节条、聚焦线和发送按钮，
+   次要图标按钮铺满黄底会稀释掉主强调。 */
+#chat .menu_button.active {
+    color: var(--ef-ink) !important;
+    background: rgba(236, 242, 0, 0.22) !important;
+    border-color: rgba(23, 26, 26, 0.28) !important;
+    box-shadow: inset 0 -3px 0 var(--ef-signal) !important;
+}
+
+#chat .menu_button:focus-visible,
+#chat .mes_button:focus-visible {
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: 1px;
+}
+
+#chat .mes_button {
+    border-radius: 0 !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transition:
+        color var(--ef-fast) ease-out,
+        background-color var(--ef-fast) ease-out,
+        opacity var(--ef-fast) ease-out;
+}
+
+#chat .mes_button:hover {
+    color: var(--ef-ink) !important;
+    background-color: rgba(23, 26, 26, 0.065) !important;
+    opacity: 1 !important;
+}
+
+#chat > .mes[is_user="true"] .menu_button {
+    color: var(--ef-paper-hi) !important;
+    background: rgba(255, 255, 255, 0.035) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+#chat > .mes[is_user="true"] .menu_button:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.32) !important;
+}
+
+#leftSendForm > div,
+#rightSendForm > div:not(#send_but) {
+    border-radius: 0 !important;
+    filter: none !important;
+    text-shadow: none !important;
+    transition:
+        color var(--ef-fast) ease-out,
+        background-color var(--ef-fast) ease-out,
+        box-shadow var(--ef-fast) ease-out;
+}
+
+#extensionsMenuButton {
+    border-left: 1px solid var(--ef-line) !important;
+}
+
+#leftSendForm > div:hover,
+#rightSendForm > div:not(#send_but):hover {
+    color: var(--ef-ink) !important;
+    background: rgba(23, 26, 26, 0.065) !important;
+    outline: 0 !important;
+}
+
+#leftSendForm > div:focus-visible,
+#rightSendForm > div:not(#send_but):focus-visible {
+    outline: 2px solid var(--ef-ink) !important;
+    outline-offset: -2px;
+}
+
+#send_but:is(.disabled, [disabled]),
+#chat .menu_button:is(.disabled, [disabled]) {
+    opacity: 0.44 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #top-settings-holder > .drawer > .drawer-toggle > .drawer-icon,
+    #chat .menu_button,
+    #chat .mes_button,
+    #leftSendForm > div,
+    #rightSendForm > div:not(#send_but),
+    #send_but {
+        transition: none !important;
+    }
+}

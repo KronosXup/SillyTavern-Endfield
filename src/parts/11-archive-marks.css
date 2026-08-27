@@ -1,0 +1,82 @@
+/*
+ * 档案页记号：页眉套准色条与 // 标签前缀。
+ *
+ * 套准色条实测（2025-12-09-dijiang-update-02.png，画布 1000px，行 y=17–21）：
+ *   高 5px；洋红 #d025ce 占 x 61–186，淡黄 #fcf56d 占 190–292，青绿 #34e3ad 占 295–605。
+ *   三段不等宽，起于 6.1%、止于 60.5%，右侧留空 —— 是印刷套准标记，不是装饰满铺。
+ *   注意这里的淡黄是套准色，不是主强调的 --ef-signal 纯黄，两者不可混用。
+ *
+ * // 前缀是官方图注的固定记号（形如「// 行迹高塔」），只给真实的子块标签，
+ * 不铺到普通正文或按钮上。
+ */
+
+#chat > .welcomePanel {
+    position: relative;
+}
+
+#chat > .welcomePanel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(
+        to right,
+        transparent 0 6.1%,
+        var(--ef-calib-m) 6.1% 18.7%,
+        transparent 18.7% 19%,
+        var(--ef-calib-y) 19% 29.3%,
+        transparent 29.3% 29.5%,
+        var(--ef-calib-c) 29.5% 60.5%,
+        transparent 60.5%
+    );
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .welcomeHeader {
+    padding-top: 13px !important;
+}
+
+/*
+ * 图注：官方形态是「深灰细竖条 + 黄块 + 白底斜体 // 标签 + 右侧黄条」。
+ * 实测（update-02，画布 1000px，y≈1155）：深竖条约 6px，黄块约 25px，// 为斜体。
+ * 挂在推理块头部 —— 它是聊天里唯一语义对得上的「子块标签」。
+ */
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header {
+    align-items: stretch !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: linear-gradient(
+        to right,
+        var(--ef-block) 0 6px,
+        var(--ef-signal) 6px 31px,
+        var(--ef-paper-hi) 31px
+    ) !important;
+}
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header::before {
+    content: "//";
+    margin-left: 39px;
+    padding-right: 6px;
+    color: var(--ef-ink);
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header_title {
+    padding: 3px 0 !important;
+    color: var(--ef-ink) !important;
+    font-family: var(--ef-font-display) !important;
+    font-weight: 700 !important;
+}
+
+/*
+ * 不给正文的「」和“”加任何装饰。
+ * 官方长图里角括号是「标题中引用专有名词」的排版记号，但在聊天正文里它就是对话引号 ——
+ * 实测 40 个聊天记录中出现 40,765 次「」与 71,176 次“”，几乎全是台词。
+ * 上色或加重会把满屏对白染成装饰，与「装饰降低对比度、正文保持高可读」直接冲突。
+ */
+

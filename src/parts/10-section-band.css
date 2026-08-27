@@ -1,0 +1,77 @@
+/*
+ * 分节横条：官号长图的章节头，两行结构。
+ *
+ * 官方构造（实测 2025-12-09-dijiang-update-02.png，画布 1000px）：
+ *   上层：炭灰块内嵌黄色两位编号 + 灰条白字英文标签，宽度贴合内容不铺满，条高 35px
+ *   下层：标题在**白纸底**上（不是压在黄条上），黄条从标题右侧起填满剩余宽度，行高 66px
+ *   标题字高 46px，正文字高 26px —— 标题/正文 = 1.77×，层级靠字号撑不靠字重
+ *
+ * 只挂真实存在的分节标题；聊天区没有原生分节边界（日期条是卡片正则产物），
+ * 逐条消息的编号由 09-floor-index 承担，两个装置不叠加。
+ * 编号用 counter 而非写死：分节数量由宿主决定，写死会在 ST 增减区块时说谎。
+ *
+ * 已知简化：官方上层条是「炭灰块+灰条」两段两色、编号为黄字，两个伪元素凑不出
+ * 三个盒子，所以用双色渐变底还原分段、文字统一取纸白。黄条不补写来源不明的微缩英文。
+ */
+
+#chat > .welcomePanel {
+    counter-reset: ef-section 0;
+}
+
+#chat > .welcomePanel .recentChatsTitle {
+    display: grid !important;
+    grid-template-columns: max-content 1fr;
+    align-items: stretch;
+    width: 100% !important;
+    counter-increment: ef-section;
+    padding: 0 !important;
+    color: var(--ef-ink) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    font-family: var(--ef-font-display) !important;
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.01em;
+    line-height: 1.2 !important;
+    text-shadow: none !important;
+}
+
+/* 上层条：横跨整行占位，再用 justify-self 收成内容宽度，背景才不会铺满。 */
+#chat > .welcomePanel .recentChatsTitle::before {
+    content: counter(ef-section, decimal-leading-zero) "  ARKNIGHTS: ENDFIELD";
+    grid-row: 1;
+    grid-column: 1 / -1;
+    justify-self: start;
+    padding: 3px 9px 3px 8px;
+    color: var(--ef-paper-hi);
+    background: linear-gradient(to right, var(--ef-block) 0 2.6em, var(--ef-label) 2.6em);
+    font: 600 11px/1.35 var(--ef-font-body);
+    letter-spacing: 0.14em;
+    white-space: pre;
+}
+
+/* 黄条：与标题同行，从标题右侧起填满剩余宽度。 */
+#chat > .welcomePanel .recentChatsTitle::after {
+    content: "";
+    grid-row: 2;
+    grid-column: 2;
+    display: block;
+    background: var(--ef-signal);
+}
+
+/* 标题自动落到第二行第一格；容器的字号字重由它继承。 */
+#chat > .welcomePanel .recentChatsTitle {
+    padding-right: 0 !important;
+}
+
+@media (max-width: 700px) {
+    #chat > .welcomePanel .recentChatsTitle {
+        font-size: 21px !important;
+    }
+
+    #chat > .welcomePanel .recentChatsTitle::before {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+    }
+}

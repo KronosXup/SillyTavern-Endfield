@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield Midterm Homepage</title>
+    <style>
+        :root {
+            --paper: #fdfdfd;
+            --paper-hi: #ffffff;
+            --workbench: #e5e5e5;
+            --ink: #061112;
+            --muted: #717776;
+            --signal: #ffff0f;
+            --block: #444444;
+            --label: #888888;
+            --line: rgba(23, 26, 26, 0.16);
+            --line-soft: rgba(23, 26, 26, 0.075);
+            --paper-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='g' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10 0H0V10' fill='none' stroke='%23171a1a' stroke-opacity='.018' stroke-width='.55'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23171a1a'%3E%3Cpath d='M0 .5H160M.5 0V160' stroke-opacity='.025' stroke-width='.65'/%3E%3Cpath d='M74 80H86M80 74V86' stroke-opacity='.09' stroke-width='.9'/%3E%3C/g%3E%3C/svg%3E");
+            --gray-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23434b49'%3E%3Cpath d='M0 .5H160M.5 0V160' stroke-opacity='.065' stroke-width='.7'/%3E%3Cpath d='M0 0L160 160M160 0L0 160' stroke-opacity='.014' stroke-width='.6'/%3E%3C/g%3E%3C/svg%3E");
+            --contours: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2Fsvg' width='300' height='62' viewBox='0 0 300 62'%3E%3Cg fill='none' stroke='%23171a1a' stroke-width='.65' opacity='.12'%3E%3Cpath d='M-8 33c35-22 60-21 83-3s51 18 75 2 55-21 82-4 49 17 76 1'/%3E%3Cpath d='M-8 42c36-24 65-24 91-5s47 16 70 0 55-23 84-6 48 16 69 7'/%3E%3Cpath d='M10 53c30-20 53-18 75-3s46 14 67 1 51-22 82-9 48 15 68 8'/%3E%3Cpath d='M23 18c22-13 39-12 55-1s34 10 49 1 38-15 61-5 39 10 59 3'/%3E%3C/g%3E%3C/svg%3E");
+            --display: "HarmonyOS Sans SC", "Noto Sans SC", "Microsoft YaHei UI", sans-serif;
+            --body: "Noto Sans SC", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+            --data: "Arial Narrow", "HarmonyOS Sans SC", sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            min-width: 320px;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            color: var(--ink);
+            background-color: #dfe1e0;
+            background-image: var(--gray-grid);
+            font-family: var(--body);
+        }
+
+        button { font: inherit; }
+
+        .app {
+            position: relative;
+            width: min(1080px, 100vw);
+            height: min(800px, 100vh);
+            overflow: hidden;
+            background: var(--paper);
+            border-inline: 1px solid rgba(23, 26, 26, 0.22);
+        }
+
+        .topbar {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            height: 36px;
+            color: rgba(255, 255, 255, 0.68);
+            background: #171b1c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .top-tool {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-width: 0;
+            padding: 0;
+            color: inherit;
+            background: transparent;
+            border: 0;
+        }
+
+        .top-tool svg {
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.55;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+        }
+
+        .top-tool.is-active {
+            color: var(--paper-hi);
+        }
+
+        .top-tool.is-active::after {
+            content: "";
+            position: absolute;
+            right: 30%;
+            bottom: 0;
+            left: 30%;
+            height: 3px;
+            background: var(--signal);
+        }
+
+        .page {
+            position: relative;
+            height: calc(100% - 36px - 48px);
+            overflow: hidden;
+            background-color: var(--paper);
+            background-image: var(--paper-grid);
+            border-left: 18px solid var(--signal);
+        }
+
+        .registration {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(
+                to right,
+                transparent 0 6.1%,
+                #d025ce 6.1% 18.7%,
+                transparent 18.7% 19%,
+                #fcf56d 19% 29.3%,
+                transparent 29.3% 29.5%,
+                #34e3ad 29.5% 60.5%,
+                transparent 60.5%
+            );
+        }
+
+        .masthead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            padding: 10px 26px 6px 28px;
+            background: rgba(253, 253, 253, 0.9);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .brand-mark {
+            position: relative;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--ink);
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            inset: 5px;
+            border: 1px solid var(--ink);
+            transform: rotate(45deg);
+        }
+
+        .brand-mark::after {
+            inset: 10px;
+            background: var(--ink);
+        }
+
+        .brand-copy {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            line-height: 1;
+        }
+
+        .brand-name {
+            font: 900 22px/1 var(--display);
+            letter-spacing: -0.025em;
+        }
+
+        .brand-version {
+            color: var(--muted);
+            font: 600 10px/1 var(--data);
+            letter-spacing: 0.06em;
+        }
+
+        .mast-actions {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            color: #4d5452;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .mast-actions span {
+            padding: 4px 10px;
+            border-left: 1px solid var(--line);
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            grid-template-rows: 24px 48px;
+            align-items: stretch;
+            padding: 0 26px 0 28px;
+            background: var(--paper);
+        }
+
+        .section-code {
+            grid-column: 1 / -1;
+            grid-row: 1;
+            justify-self: start;
+            display: grid;
+            grid-template-columns: 34px auto;
+            height: 24px;
+            color: var(--paper-hi);
+            font: 700 10px/24px var(--data);
+            letter-spacing: 0.12em;
+        }
+
+        .section-code b {
+            color: var(--signal);
+            background: var(--block);
+            text-align: center;
+            font-size: 16px;
+            letter-spacing: 0;
+        }
+
+        .section-code span {
+            padding: 0 9px;
+            background: var(--label);
+        }
+
+        .section-title {
+            grid-column: 1;
+            grid-row: 2;
+            align-self: center;
+            padding-right: 14px;
+            color: var(--ink);
+            background: var(--paper);
+            font: 900 30px/1 var(--display);
+            letter-spacing: -0.035em;
+            white-space: nowrap;
+        }
+
+        .section-signal {
+            position: relative;
+            grid-column: 2;
+            grid-row: 2;
+            overflow: hidden;
+            background-color: var(--signal);
+            background-image: var(--contours);
+            background-position: right center;
+            background-repeat: no-repeat;
+            background-size: 330px 68px;
+        }
+
+        .section-signal::before {
+            content: "";
+            position: absolute;
+            right: 28px;
+            bottom: 9px;
+            width: 88px;
+            height: 8px;
+            opacity: 0.22;
+            background:
+                linear-gradient(var(--ink), var(--ink)) 0 0 / 88px 1px no-repeat,
+                linear-gradient(var(--ink), var(--ink)) 30px 4px / 58px 1px no-repeat,
+                repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 6px) 0 7px / 88px 1px no-repeat;
+        }
+
+        .archive {
+            margin: 0 26px 0 28px;
+            background-color: rgba(253, 253, 253, 0.94);
+            background-image: var(--paper-grid);
+            border-top: 1px solid var(--line);
+        }
+
+        .archive-row {
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr) auto;
+            align-items: center;
+            min-height: 70px;
+            padding: 9px 10px 9px 12px;
+            border-bottom: 1px solid var(--line-soft);
+        }
+
+        .archive-avatar {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            filter: saturate(0.82) contrast(1.03);
+            border: 1px solid rgba(23, 26, 26, 0.28);
+            border-radius: 0;
+        }
+
+        .archive-copy {
+            min-width: 0;
+            padding-left: 14px;
+        }
+
+        .archive-name {
+            overflow: hidden;
+            color: var(--ink);
+            font: 750 15px/1.25 var(--display);
+            letter-spacing: 0.005em;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .archive-meta {
+            margin-top: 6px;
+            color: var(--muted);
+            font: 550 10px/1 var(--data);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.055em;
+        }
+
+        .archive-meta .pin-state {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #4d5452;
+        }
+
+        .archive-meta .pin-state::before {
+            content: "";
+            width: 10px;
+            height: 3px;
+            background: var(--signal);
+        }
+
+        .archive-tools {
+            display: flex;
+            align-items: center;
+            height: 28px;
+            color: #555c5a;
+        }
+
+        .archive-tools button {
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 28px;
+            padding: 0;
+            color: inherit;
+            background: transparent;
+            border: 0;
+            border-left: 1px solid var(--line-soft);
+        }
+
+        .archive-tools button.is-pinned {
+            color: var(--ink);
+            background: linear-gradient(to top, var(--signal) 0 3px, transparent 3px);
+        }
+
+        .archive-tools svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.55;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+        }
+
+        .archive-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 32px;
+            color: #555c5a;
+            font: 600 10px/1 var(--data);
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .archive-more::after {
+            content: "⌄";
+            margin-left: 8px;
+            color: var(--ink);
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        .closure {
+            position: relative;
+            height: 74px;
+            overflow: hidden;
+            background-color: var(--workbench);
+            background-image: var(--gray-grid);
+            border-block: 1px solid var(--line);
+        }
+
+        .closure::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 9%;
+            width: 42%;
+            opacity: 0.52;
+            background: repeating-linear-gradient(135deg, rgba(67, 75, 73, 0.065) 0 1px, transparent 1px 7px);
+        }
+
+        .message {
+            display: grid;
+            grid-template-columns: 64px minmax(0, 1fr);
+            min-height: 174px;
+            padding: 18px 36px 16px 28px;
+            background-color: var(--paper);
+            background-image: var(--paper-grid);
+        }
+
+        .message-aside {
+            position: relative;
+            padding-right: 13px;
+            border-right: 1px solid var(--line-soft);
+        }
+
+        .message-avatar {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            filter: saturate(0.82) contrast(1.03);
+            border: 1px solid rgba(23, 26, 26, 0.28);
+        }
+
+        .message-index {
+            margin-top: 8px;
+            color: var(--muted);
+            font: 600 10px/1 var(--data);
+            letter-spacing: 0.08em;
+        }
+
+        .message-index::after {
+            content: "";
+            display: block;
+            width: 15px;
+            height: 3px;
+            margin-top: 7px;
+            background: var(--signal);
+        }
+
+        .message-main {
+            min-width: 0;
+            padding-left: 18px;
+        }
+
+        .message-head {
+            display: flex;
+            align-items: baseline;
+            min-height: 30px;
+            border-bottom: 1px solid var(--line-soft);
+        }
+
+        .message-state {
+            width: 6px;
+            height: 19px;
+            margin-right: 9px;
+            background: var(--signal);
+        }
+
+        .message-name {
+            font: 800 17px/1 var(--display);
+            letter-spacing: -0.015em;
+        }
+
+        .message-time {
+            margin-left: 12px;
+            color: var(--muted);
+            font: 550 10px/1 var(--data);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .message-body {
+            max-width: 720px;
+            padding-top: 13px;
+            color: #1d2525;
+            font: 470 15px/1.6 var(--body);
+        }
+
+        .message-body p { margin: 0 0 10px; }
+
+        .utility-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 38px;
+            color: #555c5a;
+            background: rgba(229, 229, 229, 0.58);
+            border-top: 1px solid var(--line-soft);
+            font: 600 11px/1 var(--body);
+        }
+
+        .utility-row span + span::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 1px;
+            margin: 0 11px 3px;
+            background: var(--line);
+        }
+
+        .composer {
+            display: grid;
+            grid-template-columns: 44px 44px 1fr 50px;
+            height: 48px;
+            background: var(--paper-hi);
+            border-top: 1px solid var(--line);
+        }
+
+        .composer button {
+            display: grid;
+            place-items: center;
+            color: #565d5b;
+            background: transparent;
+            border: 0;
+            border-right: 1px solid var(--line-soft);
+        }
+
+        .composer .send {
+            color: var(--ink);
+            background: var(--signal);
+            border: 0;
+        }
+
+        .composer svg {
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+        }
+
+        .composer-placeholder {
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            color: #a0a4a2;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            .app { border-inline: 0; }
+            .topbar { height: 35px; }
+            .page {
+                height: calc(100% - 35px - 48px);
+                border-left-width: 5px;
+            }
+            .masthead {
+                align-items: flex-start;
+                height: 118px;
+                padding: 14px 12px 8px 12px;
+            }
+            .brand-mark { width: 30px; height: 30px; }
+            .brand-name { font-size: 19px; }
+            .brand-version { display: none; }
+            .mast-actions {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                width: 145px;
+                row-gap: 5px;
+            }
+            .mast-actions span { padding: 3px 6px; font-size: 9px; }
+            .section-head {
+                grid-template-rows: 22px 43px;
+                padding: 0 10px 0 11px;
+            }
+            .section-code { height: 22px; font-size: 9px; line-height: 22px; }
+            .section-code b { font-size: 14px; }
+            .section-title { padding-right: 8px; font-size: 22px; }
+            .section-signal { background-size: 210px 46px; }
+            .section-signal::before { right: 8px; width: 54px; }
+            .archive { margin: 0 10px 0 11px; }
+            .archive-row {
+                grid-template-columns: 44px minmax(0, 1fr) auto;
+                min-height: 66px;
+                padding-inline: 7px 3px;
+            }
+            .archive-avatar { width: 40px; height: 40px; }
+            .archive-copy { padding-left: 9px; }
+            .archive-name { font-size: 14px; }
+            .archive-meta { margin-top: 5px; font-size: 9px; }
+            .archive-tools button { width: 27px; }
+            .archive-tools button:nth-child(2) { display: none; }
+            .closure { height: 48px; }
+            .closure::before { left: 5%; width: 68%; }
+            .message {
+                grid-template-columns: 50px minmax(0, 1fr);
+                min-height: 190px;
+                padding: 16px 12px 14px 11px;
+            }
+            .message-aside { padding-right: 8px; }
+            .message-avatar { width: 38px; height: 38px; }
+            .message-index { font-size: 9px; }
+            .message-main { padding-left: 12px; }
+            .message-name { font-size: 15px; }
+            .message-time { margin-left: 8px; font-size: 8px; }
+            .message-body { font-size: 14px; }
+            .utility-row { font-size: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="app" aria-label="终末地风格 SillyTavern 首页中期稿">
+        <nav class="topbar" aria-label="主要设置">
+            <button class="top-tool is-active" aria-label="模型设置"><svg viewBox="0 0 24 24"><path d="M4 7h6m4 0h6M10 4v6M4 17h3m4 0h9M7 14v6"/></svg></button>
+            <button class="top-tool" aria-label="连接设置"><svg viewBox="0 0 24 24"><path d="M8 3v5m8-5v5M6 8h12v3a6 6 0 0 1-6 6v4m-3 0h6"/></svg></button>
+            <button class="top-tool" aria-label="格式设置"><svg viewBox="0 0 24 24"><path d="M5 5h14M12 5v14M8 19h8"/></svg></button>
+            <button class="top-tool" aria-label="世界书"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21V5.5Zm16 0A2.5 2.5 0 0 0 17.5 3H13v16h4.5A2.5 2.5 0 0 1 20 21V5.5Z"/></svg></button>
+            <button class="top-tool" aria-label="用户设置"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="top-tool" aria-label="背景"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><circle cx="8" cy="9" r="1.5"/><path d="M5 18l4-5 3 3 3-4 4 6"/></svg></button>
+            <button class="top-tool" aria-label="扩展"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h6v6h-6v-6Z"/></svg></button>
+            <button class="top-tool" aria-label="用户形象"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></button>
+            <button class="top-tool" aria-label="角色管理"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.8-1.7 2-2.5 3-2.5s2.2.8 3 2.5M14 10h4M14 14h4"/></svg></button>
+        </nav>
+
+        <section class="page">
+            <div class="registration" aria-hidden="true"></div>
+
+            <header class="masthead">
+                <div class="brand">
+                    <div class="brand-mark" aria-hidden="true"></div>
+                    <div class="brand-copy">
+                        <span class="brand-name">SillyTavern</span>
+                        <span class="brand-version">1.18.0</span>
+                    </div>
+                </div>
+                <div class="mast-actions" aria-label="欢迎页功能">
+                    <span>文档</span><span>GitHub</span><span>Discord</span><span>临时聊天</span>
+                </div>
+            </header>
+
+            <section class="section-head" aria-labelledby="recent-title">
+                <div class="section-code"><b>01</b><span>ARKNIGHTS: ENDFIELD</span></div>
+                <h1 class="section-title" id="recent-title">[ 最近的聊天 ]</h1>
+                <div class="section-signal" aria-hidden="true"></div>
+            </section>
+
+            <section class="archive" aria-label="最近聊天">
+                <article class="archive-row">
+                    <img class="archive-avatar" src="http://127.0.0.1:8000/characters/%E5%BC%A0%E9%9B%AA%E5%B3%B0.png" alt="张雪峰">
+                    <div class="archive-copy">
+                        <div class="archive-name">张雪峰 — 张雪峰</div>
+                        <div class="archive-meta"><span class="pin-state">置顶</span> · 2026-08-12 · 112.08 KB</div>
+                    </div>
+                    <div class="archive-tools" aria-label="聊天操作">
+                        <button class="is-pinned" aria-label="取消置顶"><svg viewBox="0 0 24 24"><path d="M8 3h8l-1 7 4 4H5l4-4-1-7Zm4 11v7"/></svg></button>
+                        <button aria-label="重命名"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Zm9-13 4 4M11 20h9"/></svg></button>
+                        <button aria-label="删除"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13M10 10v7m4-7v7"/></svg></button>
+                    </div>
+                </article>
+
+                <article class="archive-row">
+                    <img class="archive-avatar" src="http://127.0.0.1:8000/characters/default_Seraphina.png" alt="Seraphina">
+                    <div class="archive-copy">
+                        <div class="archive-name">Seraphina</div>
+                        <div class="archive-meta"><span class="pin-state">置顶</span> · 2023-05-12 · 108.86 KB</div>
+                    </div>
+                    <div class="archive-tools" aria-label="聊天操作">
+                        <button class="is-pinned" aria-label="取消置顶"><svg viewBox="0 0 24 24"><path d="M8 3h8l-1 7 4 4H5l4-4-1-7Zm4 11v7"/></svg></button>
+                        <button aria-label="重命名"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Zm9-13 4 4M11 20h9"/></svg></button>
+                        <button aria-label="删除"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13M10 10v7m4-7v7"/></svg></button>
+                    </div>
+                </article>
+
+                <article class="archive-row">
+                    <img class="archive-avatar" src="http://127.0.0.1:8000/characters/default_Assistant.png" alt="Assistant">
+                    <div class="archive-copy">
+                        <div class="archive-name">Assistant</div>
+                        <div class="archive-meta"><span class="pin-state">置顶</span> · 2026-08-01 · 239.15 KB</div>
+                    </div>
+                    <div class="archive-tools" aria-label="聊天操作">
+                        <button class="is-pinned" aria-label="取消置顶"><svg viewBox="0 0 24 24"><path d="M8 3h8l-1 7 4 4H5l4-4-1-7Zm4 11v7"/></svg></button>
+                        <button aria-label="重命名"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Zm9-13 4 4M11 20h9"/></svg></button>
+                        <button aria-label="删除"><svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13M10 10v7m4-7v7"/></svg></button>
+                    </div>
+                </article>
+                <div class="archive-more">展开更多</div>
+            </section>
+
+            <div class="closure" aria-hidden="true"></div>
+
+            <article class="message">
+                <aside class="message-aside">
+                    <img class="message-avatar" src="http://127.0.0.1:8000/characters/default_Assistant.png" alt="Assistant">
+                    <div class="message-index">00</div>
+                </aside>
+                <div class="message-main">
+                    <header class="message-head">
+                        <span class="message-state" aria-hidden="true"></span>
+                        <span class="message-name">Assistant</span>
+                        <span class="message-time">2026-08-27 17:09</span>
+                    </header>
+                    <div class="message-body">
+                        <p>如果您已连接到一个 API，试着问我点什么吧！</p>
+                        <p><strong>提示：</strong>您可以通过角色设置中的“更多…”菜单将角色设为欢迎页面的助手。</p>
+                    </div>
+                </div>
+            </article>
+
+            <div class="utility-row" aria-label="快速入口">
+                <span>API 连接</span><span>角色管理</span><span>扩展程序</span>
+            </div>
+        </section>
+
+        <footer class="composer">
+            <button aria-label="菜单"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h11M4 18h16"/></svg></button>
+            <button aria-label="扩展操作"><svg viewBox="0 0 24 24"><path d="M12 3l1.3 3.7L17 8l-3.7 1.3L12 13l-1.3-3.7L7 8l3.7-1.3L12 3ZM18.5 14l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7.7-2.1Z"/></svg></button>
+            <div class="composer-placeholder">输入想发送的消息，或输入 /? 获取帮助</div>
+            <button class="send" aria-label="发送"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        </footer>
+    </main>
+</body>
+</html>

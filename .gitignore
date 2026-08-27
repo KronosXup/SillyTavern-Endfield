@@ -1,0 +1,11 @@
+research/cache/
+research/logs/
+research/raw/
+research/temp/
+research/tools/
+research/reference/raw/
+research/reference/derived/*.mp4
+
+*.pid
+
+*.log

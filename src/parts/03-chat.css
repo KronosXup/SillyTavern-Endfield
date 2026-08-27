@@ -1,0 +1,364 @@
+/* Keep SillyTavern's native flex message skeleton and restyle its real nodes. */
+#chat > .mes {
+    box-sizing: border-box;
+    /* #chat is a fixed-height flex column: without this, messages shrink to
+       min-height and their text spills over the following message. */
+    flex-shrink: 0;
+    min-height: 104px;
+    margin: 0 !important;
+    padding: 18px 22px 18px 18px !important;
+    color: var(--ef-ink) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ef-line) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: background-color var(--ef-fast) ease-out;
+}
+
+#chat > .mes:hover,
+#chat > .mes:focus-within {
+    background-color: rgba(255, 255, 255, 0.34) !important;
+}
+
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 88px;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 0 20px 0 0 !important;
+    color: var(--ef-muted) !important;
+    border-right: 1px solid var(--ef-line) !important;
+}
+
+#chat > .last_mes:not(.smallSysMes) > .mesAvatarWrapper {
+    padding-bottom: 0 !important;
+}
+
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper::after {
+    content: "";
+    width: 18px;
+    height: 3px;
+    margin-top: 10px;
+    background: var(--ef-signal);
+}
+
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar,
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar img {
+    box-sizing: border-box;
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 0 !important;
+}
+
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar {
+    flex: 0 0 50px !important;
+    filter: grayscale(0.2) contrast(1.04);
+    background: var(--ef-graphite) !important;
+}
+
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar img {
+    object-fit: cover;
+    border: 1px solid rgba(23, 26, 26, 0.32) !important;
+    box-shadow: none !important;
+}
+
+#chat > .mes:not(.smallSysMes) > .mesAvatarWrapper :is(.mesIDDisplay, .mes_timer, .tokenCounterDisplay) {
+    max-width: 66px;
+    margin: 5px 0 0 !important;
+    color: var(--ef-muted) !important;
+    font: 600 10px/1.25 var(--ef-font-number) !important;
+    letter-spacing: 0.035em;
+    text-align: left !important;
+    text-shadow: none !important;
+}
+
+#chat > .mes:not(.smallSysMes) > .mes_block {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0 0 0 20px !important;
+    overflow-x: hidden;
+    color: var(--ef-ink) !important;
+}
+
+#chat > .mes .ch_name {
+    position: relative;
+    min-height: 26px;
+    padding: 0 0 8px !important;
+    color: var(--ef-ink) !important;
+    border-bottom: 1px solid var(--ef-line-soft);
+}
+
+#chat > .mes .ch_name .name_text {
+    position: relative;
+    z-index: 1;
+    color: var(--ef-ink) !important;
+    font-family: var(--ef-font-display) !important;
+    font-size: 1.12em;
+    font-weight: 800 !important;
+    letter-spacing: 0.025em;
+}
+
+#chat > .mes[is_user="false"]:not([is_system="true"]) .ch_name .name_text {
+    display: inline-block;
+    padding: 2px 7px 2px 6px;
+    color: var(--ef-ink) !important;
+    background: var(--ef-signal);
+}
+
+#chat > .mes[is_user="false"]:not([is_system="true"]) .ch_name .name_text::before {
+    content: "[";
+}
+
+#chat > .mes[is_user="false"]:not([is_system="true"]) .ch_name .name_text::after {
+    content: "]";
+}
+
+/* 时间戳含"年月日"，条件字体没有 CJK 字形会宽窄混杂，改用正文字体等宽数字。 */
+#chat > .mes .timestamp {
+    margin-left: 8px;
+    color: var(--ef-muted) !important;
+    font: 500 10px/1 var(--ef-font-body) !important;
+    font-variant-numeric: tabular-nums !important;
+    letter-spacing: 0.02em;
+    text-shadow: none !important;
+}
+
+/* 官方长图正文基线距 42px／字高 26px = 1.6；原 1.75 偏松，压紧后层级更清楚。 */
+#chat > .mes .mes_text {
+    padding: 12px var(--mes-right-spacing) 4px 0 !important;
+    color: var(--ef-ink) !important;
+    font-family: var(--ef-font-body) !important;
+    font-weight: 470 !important;
+    line-height: 1.6 !important;
+}
+
+#chat > .mes[is_user="false"] .mes_text :is(em, i) {
+    color: #4f5754 !important;
+}
+
+#chat > .mes[is_user="false"] .mes_text q {
+    color: #303735 !important;
+    font-weight: 650 !important;
+}
+
+#chat > .mes .mes_buttons,
+#chat > .mes .extraMesButtons,
+#chat > .mes .mes_edit_buttons,
+#chat > .mes .mes_reasoning_actions {
+    color: var(--ef-ink) !important;
+    text-shadow: none !important;
+}
+
+#chat > .mes :is(.mes_button, .extraMesButtons > div) {
+    color: inherit !important;
+    filter: none !important;
+}
+
+#chat > .mes .mes_reasoning_details {
+    margin-top: 9px;
+    color: #4e5653 !important;
+    background: rgba(23, 26, 26, 0.035) !important;
+    border: 1px solid var(--ef-line) !important;
+    border-radius: 0 !important;
+}
+
+#chat > .mes .mes_reasoning_summary,
+#chat > .mes .mes_reasoning {
+    color: inherit !important;
+    text-shadow: none !important;
+}
+
+#chat > .mes :is(.edit_textarea, .reasoning_edit_textarea) {
+    color: var(--ef-ink) !important;
+    caret-color: var(--ef-ink) !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(23, 26, 26, 0.26) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 3px 0 var(--ef-signal) !important;
+}
+
+#chat > .mes .mes_media_wrapper,
+#chat > .mes .mes_file_wrapper {
+    color: var(--ef-ink) !important;
+}
+
+/* User turns become local graphite evidence blocks, never full-width dark cards. */
+#chat > .mes[is_user="true"] {
+    background: rgba(23, 26, 26, 0.025) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block {
+    margin: 0 0 0 12px;
+    padding: 14px 16px 14px 20px !important;
+    color: var(--ef-paper-hi) !important;
+    background-color: var(--ef-graphite) !important;
+    background-image: var(--ef-hatch) !important;
+    box-shadow: inset 4px 0 0 var(--ef-signal) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block .ch_name {
+    color: var(--ef-paper-hi) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+#chat > .mes[is_user="true"] > .mes_block :is(.name_text, .mes_text, .mes_reasoning_summary, .mes_reasoning) {
+    color: var(--ef-paper-hi) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block .mes_text :is(em, i) {
+    color: rgba(250, 251, 248, 0.76) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block .mes_text q {
+    color: var(--ef-signal) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block .timestamp {
+    color: rgba(250, 251, 248, 0.52) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block :is(.mes_buttons, .extraMesButtons, .mes_edit_buttons, .mes_reasoning_actions) {
+    color: var(--ef-paper-hi) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block a {
+    color: var(--ef-signal) !important;
+    text-decoration-color: rgba(236, 242, 0, 0.48) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block :is(.mes_text, .mes_reasoning) blockquote {
+    color: rgba(250, 251, 248, 0.82) !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block :is(.mes_text, .mes_reasoning) :is(code, pre) {
+    color: var(--ef-paper-hi) !important;
+    background: rgba(0, 0, 0, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block .mes_reasoning_details {
+    color: rgba(250, 251, 248, 0.75) !important;
+    background: rgba(0, 0, 0, 0.16) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+#chat > .mes[is_user="true"] > .mes_block :is(.edit_textarea, .reasoning_edit_textarea) {
+    color: var(--ef-paper-hi) !important;
+    caret-color: var(--ef-signal) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+#chat > .mes.smallSysMes {
+    padding: 8px 18px !important;
+    color: #555d5a !important;
+    background-color: var(--ef-workbench) !important;
+    background-image: var(--ef-gray-grid), var(--ef-gray-hatch) !important;
+    background-size: 160px 160px, auto !important;
+    background-position: 0 0, 0 0 !important;
+    background-repeat: repeat, repeat !important;
+}
+
+#chat > .mes.smallSysMes > .mes_block {
+    color: inherit !important;
+}
+
+#chat > .mes.smallSysMes .mes_text {
+    padding: 4px 0 !important;
+    color: inherit !important;
+    line-height: 1.45 !important;
+}
+
+#chat > .mes.selected {
+    background-color: rgba(236, 242, 0, 0.22) !important;
+}
+
+#chat > .mes :is(.swipe_left, .swipe_right, .swipes-counter) {
+    color: var(--ef-ink) !important;
+    text-shadow: none !important;
+}
+
+#chat > .mes[is_user="true"] :is(.swipe_right, .swipes-counter) {
+    color: var(--ef-paper-hi) !important;
+}
+
+/* Optional extension control: retain the action while preventing a foreign round badge. */
+#chat .xiaobaix-collapse-btn {
+    box-sizing: border-box !important;
+    width: 24px !important;
+    height: 24px !important;
+    color: var(--ef-ink) !important;
+    background: transparent !important;
+    border: 1px solid var(--ef-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+#chat .xiaobaix-collapse-btn .xiaobaix-xstack {
+    transform: scale(0.66);
+}
+
+#chat > .mes[is_user="true"] .xiaobaix-collapse-btn {
+    color: var(--ef-paper-hi) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+@media (max-width: 700px) {
+    #chat > .mes {
+        padding: 13px 12px 14px 11px !important;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper {
+        flex-basis: 58px;
+        padding-right: 12px !important;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar,
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar img {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px;
+        min-height: 38px;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar {
+        flex-basis: 38px !important;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper::after {
+        width: 13px;
+        margin-top: 7px;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper :is(.mesIDDisplay, .mes_timer, .tokenCounterDisplay) {
+        max-width: 44px;
+        font-size: 8px !important;
+    }
+
+    #chat > .mes:not(.smallSysMes) > .mes_block {
+        padding-left: 12px !important;
+    }
+
+    #chat > .mes[is_user="true"] > .mes_block {
+        margin-left: 4px;
+        padding: 11px 10px 11px 14px !important;
+    }
+
+    #chat > .mes .mes_text {
+        padding-top: 9px !important;
+        line-height: 1.65 !important;
+    }
+
+    #chat > .mes .ch_name .name_text {
+        font-size: 0.86em;
+    }
+}
