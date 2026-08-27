@@ -5,6 +5,8 @@
     --ef-settings-soft: var(--ef-workbench);
     --ef-settings-rule: rgba(23, 26, 26, 0.18);
     --ef-settings-rule-strong: rgba(23, 26, 26, 0.38);
+    container-name: ef-user-settings;
+    container-type: inline-size;
     box-sizing: border-box;
     width: 100% !important;
     max-width: 1080px !important;
@@ -586,6 +588,58 @@ body.reduced-motion #user-settings-button #user-settings-block *::after {
     #user-settings-button #user-settings-block-content > :is(#UI-Customization, #power-user-options-block) {
         padding-top: 12px;
         border-top: 1px solid var(--ef-settings-rule);
+    }
+}
+
+/* 页面宽度可由酒馆设置为 50%；布局必须响应抽屉本身，而不是只看视口。 */
+@container ef-user-settings (max-width: 740px) {
+    #user-settings-button #user-settings-block-content {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+        padding-inline: 7px !important;
+    }
+
+    #user-settings-button #user-settings-block-content > :is(
+        #UI-Theme-Block,
+        #UI-Customization,
+        #power-user-options-block
+    ) {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 7px 18px !important;
+        border-inline: 0 !important;
+    }
+
+    #user-settings-button #user-settings-block-content > :is(#UI-Customization, #power-user-options-block) {
+        padding-top: 14px !important;
+        border-top: 1px solid var(--ef-settings-rule) !important;
+    }
+}
+
+@container ef-user-settings (min-width: 741px) and (max-width: 980px) {
+    #user-settings-button #user-settings-block-content {
+        flex-flow: row wrap !important;
+        align-items: flex-start !important;
+    }
+
+    #user-settings-button #user-settings-block-content > :is(#UI-Theme-Block, #UI-Customization) {
+        flex: 1 1 50% !important;
+        width: auto !important;
+    }
+
+    #user-settings-button #user-settings-block-content > #UI-Customization {
+        border-right: 0 !important;
+    }
+
+    #user-settings-button #user-settings-block-content > #power-user-options-block {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        margin-top: 14px;
+        padding-top: 14px !important;
+        border-top: 1px solid var(--ef-settings-rule) !important;
     }
 }
 
