@@ -41,23 +41,33 @@
 #user-settings-button #user-settings-block h3 {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     color: var(--ef-paper-hi) !important;
-    font-family: var(--ef-font-display) !important;
-    font-size: calc(var(--mainFontSize) * 1.12) !important;
-    font-weight: 700 !important;
-    line-height: 1.25;
-    letter-spacing: 0.015em;
+    font-family: "HarmonyOS Sans SC Black", var(--ef-font-display) !important;
+    font-size: calc(var(--mainFontSize) * 1.08) !important;
+    font-weight: 900 !important;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
     text-shadow: none !important;
 }
 
 #user-settings-button #user-settings-block h3::before {
     content: "";
-    width: 4px;
-    height: 18px;
-    flex: 0 0 4px;
+    width: 16px;
+    height: 2px;
+    flex: 0 0 16px;
     background: var(--ef-signal);
-    box-shadow: 7px 0 0 rgba(236, 242, 0, 0.22);
+    box-shadow: none;
+}
+
+#user-settings-button #user-settings-block h3 > span:first-child::before {
+    content: "[";
+    margin-right: 0.08em;
+}
+
+#user-settings-button #user-settings-block h3 > span:first-child::after {
+    content: "]";
+    margin-left: 0.08em;
 }
 
 #user-settings-button #user-settings-block .notes-link {
@@ -185,21 +195,51 @@
 }
 
 #user-settings-button #user-settings-block h4 {
-    min-height: 30px;
-    margin: 0 0 8px !important;
-    padding: 5px 7px !important;
-    color: var(--ef-paper-hi) !important;
-    background: var(--ef-graphite) !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 32px;
+    margin: 0 0 10px !important;
+    padding: 5px 8px 5px 9px !important;
+    color: var(--ef-ink) !important;
+    background: linear-gradient(90deg, rgba(68, 68, 68, 0.13), rgba(68, 68, 68, 0.055) 72%, transparent) !important;
     border: 0 !important;
-    border-left: 3px solid var(--ef-signal) !important;
-    border-bottom: 1px solid rgba(23, 26, 26, 0.52) !important;
+    border-left: 5px solid var(--ef-block) !important;
+    border-bottom: 1px solid var(--ef-line-soft) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    font-family: var(--ef-font-display) !important;
-    font-size: calc(var(--mainFontSize) * 0.98) !important;
-    font-weight: 700 !important;
-    line-height: 1.25;
+    font-family: "HarmonyOS Sans SC Black", var(--ef-font-display) !important;
+    font-size: calc(var(--mainFontSize) * 0.96) !important;
+    font-weight: 900 !important;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    text-align: left !important;
     text-shadow: none !important;
+}
+
+#user-settings-button #user-settings-block h4::before {
+    content: "//";
+    flex: 0 0 auto;
+    color: var(--ef-block);
+    font-family: Bahnschrift, "Arial Narrow", sans-serif;
+    font-size: 0.9em;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.12em;
+}
+
+#user-settings-button #user-settings-block h4 > .flex-container:last-child {
+    margin-left: auto;
+}
+
+/* 50% 页面宽度下三枚主题操作按钮需要独占下一行，避免把“UI 主题”挤成竖排。 */
+#user-settings-button #UI-presets-block h4.title_restorable {
+    flex-wrap: wrap;
+}
+
+#user-settings-button #UI-presets-block h4.title_restorable > span:first-child {
+    white-space: nowrap;
 }
 
 #user-settings-button #user-settings-block .inline-drawer-toggle.userSettingsInnerExpandable {
