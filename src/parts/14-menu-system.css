@@ -1,0 +1,161 @@
+/*
+ * Top-menu system: every entry shares one paper/workbench shell.
+ * Individual menus keep their native information architecture; this layer only
+ * establishes the common material, edge, type colour and scrolling language.
+ */
+
+#top-settings-holder > .drawer > .drawer-content {
+    --SmartThemeBodyColor: var(--ef-ink) !important;
+    --SmartThemeEmColor: #5f6765 !important;
+    --SmartThemeBlurTintColor: rgba(253, 253, 253, 0.985) !important;
+    --SmartThemeBorderColor: rgba(23, 26, 26, 0.22) !important;
+    --SmartThemeShadowColor: transparent !important;
+    box-sizing: border-box;
+    color: var(--ef-ink) !important;
+    background-color: var(--ef-paper) !important;
+    background-image: var(--ef-paper-grid) !important;
+    background-size: 160px 160px !important;
+    background-position: 0 0 !important;
+    background-repeat: repeat !important;
+    border: 1px solid rgba(23, 26, 26, 0.28) !important;
+    border-top: 3px solid var(--ef-void) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    scrollbar-color: rgba(23, 26, 26, 0.34) rgba(23, 26, 26, 0.055);
+}
+
+#top-settings-holder > .drawer > .drawer-content * {
+    text-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(h2, h3) {
+    color: var(--ef-ink) !important;
+    font-family: "HarmonyOS Sans SC Black", var(--ef-font-display) !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.018em;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) h4 {
+    color: var(--ef-graphite) !important;
+    font-family: var(--ef-font-display) !important;
+    font-weight: 800 !important;
+}
+
+/* The six standard centre drawers share one dark document header. */
+:is(
+    #rm_api_block > .wide100p:first-child,
+    #AdvancedFormatting > .flex-container:first-child,
+    #WorldInfo > .flex-container.alignitemscenter.gap10px,
+    #Backgrounds > #bg-header-fixed,
+    #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
+    #PersonaManagement > .flex-container.wide100p:first-child
+) {
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+    margin: -5px -5px 10px !important;
+    padding: 7px 10px 8px 13px !important;
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-void) !important;
+    border-bottom: 2px solid var(--ef-signal) !important;
+}
+
+#top-settings-holder > .drawer > #rm_api_block > .wide100p:first-child h3,
+#top-settings-holder > .drawer > #AdvancedFormatting > .flex-container:first-child h3,
+#top-settings-holder > .drawer > #WorldInfo > .flex-container.alignitemscenter.gap10px h3,
+#top-settings-holder > .drawer > #Backgrounds > #bg-header-fixed h3,
+#top-settings-holder > .drawer > #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child h3,
+#top-settings-holder > .drawer > #PersonaManagement > .flex-container.wide100p:first-child h3 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ef-paper-hi) !important;
+}
+
+#top-settings-holder > .drawer > #rm_api_block > .wide100p:first-child h3::before,
+#top-settings-holder > .drawer > #AdvancedFormatting > .flex-container:first-child h3::before,
+#top-settings-holder > .drawer > #WorldInfo > .flex-container.alignitemscenter.gap10px h3::before,
+#top-settings-holder > .drawer > #Backgrounds > #bg-header-fixed h3::before,
+#top-settings-holder > .drawer > #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child h3::before,
+#top-settings-holder > .drawer > #PersonaManagement > .flex-container.wide100p:first-child h3::before {
+    content: "";
+    width: 16px;
+    height: 2px;
+    flex: 0 0 16px;
+    background: var(--ef-signal);
+}
+
+/* Common field language for every menu except the already tuned user sheet. */
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    select,
+    textarea,
+    input[type="number"],
+    input[type="text"],
+    input[type="search"],
+    input[type="url"],
+    input[type="password"],
+    input:not([type])
+) {
+    box-sizing: border-box;
+    min-width: 0 !important;
+    color: var(--ef-ink) !important;
+    background-color: rgba(255, 255, 255, 0.72) !important;
+    border: 1px solid rgba(23, 26, 26, 0.24) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) select option {
+    color: var(--ef-ink) !important;
+    background: var(--ef-paper) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    .menu_button,
+    button:not(.drawer-toggle)
+) {
+    color: var(--ef-ink) !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    border: 1px solid rgba(23, 26, 26, 0.24) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    .menu_button,
+    button:not(.drawer-toggle),
+    select,
+    textarea,
+    input
+):focus-visible {
+    border-color: var(--ef-signal) !important;
+    outline: 2px solid rgba(23, 26, 26, 0.74) !important;
+    outline-offset: -2px;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    input[type="checkbox"],
+    input[type="radio"]
+) {
+    accent-color: var(--ef-signal) !important;
+}
+
+@media (max-width: 700px) {
+    #top-settings-holder > .drawer > .drawer-content {
+        border-inline: 0 !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #top-settings-holder > .drawer > .drawer-content,
+    #top-settings-holder > .drawer > .drawer-content * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
