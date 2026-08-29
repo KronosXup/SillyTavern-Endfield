@@ -44,6 +44,105 @@
     font-weight: 800 !important;
 }
 
+/*
+ * Internal hierarchy: remove SillyTavern's glossy capsule language.  Section
+ * bars, fold rows and notices read as flat archive furniture, while retaining
+ * the native order and hit targets of every menu.
+ */
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .standoutHeader {
+    box-sizing: border-box;
+    min-height: 28px;
+    padding: 4px 7px 4px 8px !important;
+    color: var(--ef-graphite) !important;
+    background: rgba(225, 228, 226, 0.88) !important;
+    border: 0 !important;
+    border-left: 3px solid var(--ef-graphite) !important;
+    border-bottom: 1px solid rgba(23, 26, 26, 0.2) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-toggle.inline-drawer-header {
+    box-sizing: border-box;
+    min-height: 30px;
+    padding: 4px 4px 4px 8px !important;
+    color: var(--ef-ink) !important;
+    background: rgba(231, 233, 231, 0.8) !important;
+    border: 0 !important;
+    border-left: 3px solid rgba(23, 26, 26, 0.72) !important;
+    border-bottom: 1px solid rgba(23, 26, 26, 0.18) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-toggle.inline-drawer-header:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-left-color: var(--ef-signal) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-toggle.inline-drawer-header:has(.inline-drawer-icon.up) {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-left-color: var(--ef-signal) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon {
+    display: inline-grid !important;
+    width: 22px !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    place-items: center;
+    padding: 0 !important;
+    color: var(--ef-ink) !important;
+    background: rgba(255, 255, 255, 0.68) !important;
+    border: 1px solid rgba(23, 26, 26, 0.24) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: 0 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon::before {
+    content: "" !important;
+    display: block;
+    box-sizing: border-box;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-1px) rotate(45deg);
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon.up {
+    color: var(--ef-paper-hi) !important;
+    background: var(--ef-graphite) !important;
+    border-color: var(--ef-graphite) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon.up::before {
+    transform: translateY(2px) rotate(225deg);
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .info-block {
+    box-sizing: border-box;
+    padding: 6px 9px !important;
+    color: var(--ef-graphite) !important;
+    background: rgba(235, 237, 235, 0.84) !important;
+    border: 0 !important;
+    border-left: 3px solid var(--ef-graphite) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .info-block.warning {
+    background: rgba(244, 233, 220, 0.76) !important;
+    border-left-color: #b45d24 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .info-block.warning > :is(i, .fa-solid) {
+    color: #9c491b !important;
+}
+
 /* The six standard centre drawers share one dark document header. */
 :is(
     #rm_api_block > .wide100p:first-child,
@@ -125,6 +224,78 @@
     box-shadow: none !important;
     filter: none !important;
     text-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    i.menu_button,
+    a.menu_button,
+    button.menu_button_icon
+):empty {
+    display: inline-grid !important;
+    box-sizing: border-box;
+    width: 26px !important;
+    min-width: 26px !important;
+    height: 26px !important;
+    padding: 0 !important;
+    place-items: center;
+    line-height: 24px !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .standoutHeader :is(
+    i.menu_button,
+    a.menu_button
+):empty {
+    width: 22px !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    line-height: 20px !important;
+    font-size: 12px !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    .menu_button,
+    button:not(.drawer-toggle)
+):hover {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border-color: rgba(23, 26, 26, 0.52) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    .menu_button.toggleEnabled,
+    .menu_button.selected
+) {
+    color: var(--ef-signal) !important;
+    background: var(--ef-graphite) !important;
+    border-color: var(--ef-graphite) !important;
+}
+
+/* Background-library tabs use registration lines instead of rounded pills. */
+#top-settings-holder > .drawer > #Backgrounds #bg_tabs {
+    background: rgba(253, 253, 253, 0.72) !important;
+    border: 1px solid rgba(23, 26, 26, 0.2) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > #Backgrounds #bg_tabs > .bg_tabs_list {
+    border-bottom: 1px solid rgba(23, 26, 26, 0.2) !important;
+    border-radius: 0 !important;
+}
+
+#top-settings-holder > .drawer > #Backgrounds #bg_tabs > .bg_tabs_list > .bg_tab_button {
+    color: var(--ef-graphite) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-right: 1px solid rgba(23, 26, 26, 0.14) !important;
+    border-bottom: 3px solid transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+#top-settings-holder > .drawer > #Backgrounds #bg_tabs > .bg_tabs_list > .bg_tab_button.ui-tabs-active {
+    color: var(--ef-ink) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-bottom-color: var(--ef-signal) !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
