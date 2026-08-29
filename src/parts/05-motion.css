@@ -17,6 +17,10 @@
     #chat > .last_mes:not(.smallSysMes) > .mes_block::after {
         animation: ef-registration-sweep 260ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
     }
+
+    #top-settings-holder > .drawer > .drawer-content.openDrawer {
+        animation: ef-menu-resolve var(--ef-shift) cubic-bezier(0.2, 0.72, 0.2, 1) both;
+    }
 }
 
 @keyframes ef-registration-sweep {
@@ -29,6 +33,21 @@
         opacity: 1;
         transform: scaleX(1);
     }
+}
+
+/* Official menu-category changes resolve from a short blank/dim interval. */
+@keyframes ef-menu-resolve {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+body.reduced-motion #top-settings-holder > .drawer > .drawer-content {
+    animation: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

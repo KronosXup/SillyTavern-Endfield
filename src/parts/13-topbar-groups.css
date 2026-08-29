@@ -13,25 +13,20 @@
     pointer-events: none;
 }
 
-/* Open state is a local signal, not a filled yellow tile. */
+/* The in-game settings strip uses a complete yellow tile for the active tab. */
+#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon) {
+    color: var(--ef-ink) !important;
+    background-color: var(--ef-signal) !important;
+}
+
 #top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.openIcon {
-    color: var(--ef-paper-hi) !important;
-    background-color: rgba(255, 255, 255, 0.035) !important;
+    color: var(--ef-ink) !important;
+    background-color: transparent !important;
     opacity: 1 !important;
 }
 
 #top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon)::after {
-    display: block !important;
-    right: 28% !important;
-    left: 28% !important;
-    height: 2px !important;
-    background: var(--ef-signal) !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon):hover::after,
-#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon):focus-within::after {
-    right: 20% !important;
-    left: 20% !important;
+    display: none !important;
 }
 
 @media (max-width: 700px) {
