@@ -226,6 +226,23 @@
     text-shadow: none !important;
 }
 
+/* Official menus reserve capsules for explicit actions; list rows and fields stay rectilinear. */
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    div.menu_button,
+    button:not(.drawer-toggle)
+):not(:empty):not(:has(> :is(i, svg):only-child)) {
+    min-height: 30px;
+    padding-inline: 12px !important;
+    border-radius: 999px !important;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+#extensions-settings-button #extensions_connect {
+    min-width: 52px !important;
+    justify-content: center;
+}
+
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     i.menu_button,
     a.menu_button,

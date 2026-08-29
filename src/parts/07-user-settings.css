@@ -140,7 +140,7 @@
     color: var(--ef-paper-hi) !important;
     background: transparent !important;
     border: 1px solid rgba(238, 240, 237, 0.24) !important;
-    border-radius: 0 !important;
+    border-radius: 999px !important;
     box-shadow: none !important;
     filter: none !important;
     text-shadow: none !important;
@@ -483,6 +483,24 @@
         color var(--ef-fast) ease-out,
         background-color var(--ef-fast) ease-out,
         border-color var(--ef-fast) ease-out;
+}
+
+#user-settings-button #user-settings-block-content div.menu_button:not(:empty):not(:has(> :is(i, svg):only-child)) {
+    min-height: 30px;
+    padding-inline: 12px !important;
+    border-radius: 999px !important;
+    line-height: 1.15;
+}
+
+#user-settings-button #user-settings-block-content div.menu_button:empty {
+    display: inline-grid !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    min-height: 28px;
+    padding: 0 !important;
+    place-items: center;
+    border-radius: 0 !important;
 }
 
 #user-settings-button #user-settings-block-content .menu_button:not(.disabled):not([disabled]):hover {
