@@ -1,6 +1,6 @@
 /*
  * 章节收束灰带：官方长图用约 #e5e5e5 的中灰留白分开大章节，
- * 160px 结构网格贯穿，细密斜纹只在局部出现，并不铺满正文。
+ * 160px 结构网格贯穿，交点带断开的套准斜线，等高线只在左侧局部出现。
  *
  * 普通聊天消息没有原生章节语义；纯 JSON/CSS 不能可靠推断剧情分段。
  * 因此这里只挂在首页“最近聊天”这个真实区块的末尾，作为档案索引与正文的过渡。
@@ -15,9 +15,9 @@
     width: 100%;
     min-height: 84px;
     background-color: var(--ef-workbench);
-    background-image: var(--ef-section-hatch), var(--ef-gray-grid);
-    background-size: min(460px, 48%) 100%, 160px 160px;
-    background-position: 11% 0, 0 0;
+    background-image: var(--ef-contours-light), var(--ef-gray-grid);
+    background-size: min(320px, 58%) 96px, 160px 160px;
+    background-position: -10px center, 0 0;
     background-repeat: no-repeat, repeat;
     border-top: 1px solid var(--ef-line);
     border-bottom: 1px solid var(--ef-line);
@@ -28,6 +28,6 @@
     #chat > .welcomePanel::after {
         flex-basis: 48px;
         min-height: 48px;
-        background-size: 72% 100%, 160px 160px;
+        background-size: min(250px, 72%) 64px, 160px 160px;
     }
 }

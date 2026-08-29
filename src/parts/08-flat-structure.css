@@ -24,10 +24,10 @@
 
 #chat > .welcomePanel .welcomeRecent {
     background-color: var(--ef-workbench) !important;
-    background-image: var(--ef-gray-grid), var(--ef-gray-hatch) !important;
-    background-size: 160px 160px, auto !important;
-    background-position: 0 0, 0 0 !important;
-    background-repeat: repeat, repeat !important;
+    background-image: var(--ef-gray-grid) !important;
+    background-size: 160px 160px !important;
+    background-position: 0 0 !important;
+    background-repeat: repeat !important;
     border-top: 1px solid var(--ef-line) !important;
     border-bottom: 1px solid var(--ef-line) !important;
     box-shadow: none !important;
