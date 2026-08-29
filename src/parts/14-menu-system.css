@@ -95,28 +95,32 @@
     place-items: center;
     padding: 0 !important;
     color: var(--ef-ink) !important;
-    background: rgba(255, 255, 255, 0.68) !important;
-    border: 1px solid rgba(23, 26, 26, 0.24) !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     font-size: 0 !important;
+    transition:
+        color 110ms linear,
+        background-color 110ms linear,
+        border-color 110ms linear;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon::before {
     content: "" !important;
     display: block;
     box-sizing: border-box;
-    width: 7px;
-    height: 7px;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
     transform: translateY(-1px) rotate(45deg);
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon.up {
-    color: var(--ef-paper-hi) !important;
-    background: var(--ef-graphite) !important;
-    border-color: var(--ef-graphite) !important;
+    color: var(--ef-ink) !important;
+    background: transparent !important;
+    border-color: transparent !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon.up::before {
@@ -144,7 +148,7 @@
 }
 
 /* The six standard centre drawers share one dark document header. */
-:is(
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     #rm_api_block > .wide100p:first-child,
     #AdvancedFormatting > .flex-container:first-child,
     #WorldInfo > .flex-container.alignitemscenter.gap10px,
@@ -217,13 +221,18 @@
     .menu_button,
     button:not(.drawer-toggle)
 ) {
+    box-sizing: border-box;
     color: var(--ef-ink) !important;
-    background: rgba(255, 255, 255, 0.72) !important;
-    border: 1px solid rgba(23, 26, 26, 0.24) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(23, 26, 26, 0.3) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     filter: none !important;
     text-shadow: none !important;
+    transition:
+        color 110ms linear,
+        background-color 110ms linear,
+        border-color 110ms linear;
 }
 
 /* Official menus reserve capsules for explicit actions; list rows and fields stay rectilinear. */
@@ -231,11 +240,54 @@
     div.menu_button,
     button:not(.drawer-toggle)
 ):not(:empty):not(:has(> :is(i, svg):only-child)) {
-    min-height: 30px;
-    padding-inline: 12px !important;
+    min-height: 28px;
+    padding: 4px 10px !important;
     border-radius: 999px !important;
-    line-height: 1.15;
+    font-family: var(--ef-font-body) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 18px !important;
+    letter-spacing: 0.005em;
     white-space: nowrap;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    div.menu_button,
+    button:not(.drawer-toggle)
+):not(:empty):not(:has(> :is(i, svg):only-child)) > :is(i, svg) {
+    margin-inline-end: 5px;
+    font-size: 0.92em;
+}
+
+/*
+ * Shape belongs to hierarchy, not to whether the control happens to contain
+ * text.  Dark document headers use one rectilinear tool rail; capsules are
+ * reserved for explicit actions inside the light content sheet.
+ */
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    #rm_api_block > .wide100p:first-child,
+    #AdvancedFormatting > .flex-container:first-child,
+    #WorldInfo > .flex-container.alignitemscenter.gap10px,
+    #Backgrounds > #bg-header-fixed,
+    #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
+    #PersonaManagement > .flex-container.wide100p:first-child
+) :is(.menu_button, button:not(.drawer-toggle)) {
+    min-height: 28px !important;
+    height: 28px !important;
+    border-radius: 0 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    #rm_api_block > .wide100p:first-child,
+    #AdvancedFormatting > .flex-container:first-child,
+    #WorldInfo > .flex-container.alignitemscenter.gap10px,
+    #Backgrounds > #bg-header-fixed,
+    #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
+    #PersonaManagement > .flex-container.wide100p:first-child
+) :is(i.menu_button, a.menu_button, div.menu_button.fa-solid, div.menu_button.fa-regular):empty {
+    width: 28px !important;
+    min-width: 28px !important;
+    line-height: 26px !important;
 }
 
 #extensions-settings-button #extensions_connect {
@@ -246,7 +298,9 @@
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     i.menu_button,
     a.menu_button,
-    button.menu_button_icon
+    button.menu_button_icon,
+    div.menu_button.fa-solid,
+    div.menu_button.fa-regular
 ):empty {
     display: inline-grid !important;
     box-sizing: border-box;
@@ -255,6 +309,7 @@
     height: 26px !important;
     padding: 0 !important;
     place-items: center;
+    font-size: 13px !important;
     line-height: 24px !important;
 }
 
@@ -272,18 +327,39 @@
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     .menu_button,
     button:not(.drawer-toggle)
-):hover {
+):not(:disabled):not(.disabled):not([aria-disabled="true"]):hover {
     background: rgba(255, 255, 255, 0.96) !important;
-    border-color: rgba(23, 26, 26, 0.52) !important;
+    border-color: rgba(23, 26, 26, 0.58) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon:hover {
+    background: rgba(255, 255, 255, 0.54) !important;
+    border-color: rgba(23, 26, 26, 0.16) !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     .menu_button.toggleEnabled,
-    .menu_button.selected
+    .menu_button.selected,
+    .menu_button[aria-pressed="true"]
 ) {
     color: var(--ef-signal) !important;
     background: var(--ef-graphite) !important;
     border-color: var(--ef-graphite) !important;
+}
+
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    .menu_button:disabled,
+    .menu_button.disabled,
+    .menu_button[aria-disabled="true"],
+    button:not(.drawer-toggle):disabled,
+    button:not(.drawer-toggle).disabled,
+    button:not(.drawer-toggle)[aria-disabled="true"]
+) {
+    color: rgba(23, 26, 26, 0.5) !important;
+    background: rgba(232, 234, 232, 0.72) !important;
+    border-color: rgba(23, 26, 26, 0.16) !important;
+    opacity: 0.58 !important;
+    cursor: default !important;
 }
 
 /* Background-library tabs use registration lines instead of rounded pills. */
@@ -322,9 +398,8 @@
     textarea,
     input
 ):focus-visible {
-    border-color: var(--ef-signal) !important;
-    outline: 2px solid rgba(23, 26, 26, 0.74) !important;
-    outline-offset: -2px;
+    outline: 2px solid var(--ef-signal) !important;
+    outline-offset: 1px;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
