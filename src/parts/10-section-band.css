@@ -1,77 +1,109 @@
 /*
- * 分节横条：官号长图的章节头，两行结构。
- *
- * 官方构造（实测 2025-12-09-dijiang-update-02.png，画布 1000px）：
- *   上层：炭灰块内嵌黄色两位编号 + 灰条白字英文标签，宽度贴合内容不铺满，条高 35px
- *   下层：标题在**白纸底**上（不是压在黄条上），黄条从标题右侧起填满剩余宽度，行高 66px
- *   标题字高 46px，正文字高 26px —— 标题/正文 = 1.77×，层级靠字号撑不靠字重
- *
- * 只挂真实存在的分节标题；聊天区没有原生分节边界（日期条是卡片正则产物），
- * 逐条消息的编号由 09-floor-index 承担，两个装置不叠加。
- * 编号用 counter 而非写死：分节数量由宿主决定，写死会在 ST 增减区块时说谎。
- *
- * 已知简化：官方上层条是「炭灰块+灰条」两段两色、编号为黄字，两个伪元素凑不出
- * 三个盒子，所以用双色渐变底还原分段、文字统一取纸白。黄条不补写来源不明的微缩英文。
+ * 档案章节头：大黄编号 / 矮灰英文签 / 白标题板与右侧黄带。
+ * 依据锦陇官方长图局部：英文签贴编号块下沿，白标题板遮住编号下沿。
+ * 保留原生标题文字与快捷入口；借父级伪元素放编号，不新增 DOM 或位图文字。
+ * 字体仅用现有字体栈，不把本机近似字形声称为官方字体。
  */
 
 #chat > .welcomePanel {
     counter-reset: ef-section 0;
 }
 
-#chat > .welcomePanel .recentChatsTitle {
-    display: grid !important;
-    grid-template-columns: max-content 1fr;
-    align-items: stretch;
-    width: 100% !important;
+#chat > .welcomePanel .welcomeHeader {
+    --ef-section-title-size: 26px;
+    --ef-section-title-row: calc(var(--ef-section-title-size) * 1.3);
+    --ef-section-meta-row: calc(var(--ef-section-title-row) * 0.53);
+    --ef-section-number-width: calc(var(--ef-section-title-row) * 1.58);
+    --ef-section-number-size: calc(var(--ef-section-title-row) * 1.05);
+    --ef-section-overlap: calc(var(--ef-section-title-row) * 0.16);
+    --ef-section-label-size: 8px;
+    position: relative;
+    isolation: isolate;
     counter-increment: ef-section;
+}
+
+/* 编号在标题下层；以底行定位，右侧快捷入口换行也不会拖散两层。 */
+#chat > .welcomePanel .welcomeHeader::before {
+    content: counter(ef-section, decimal-leading-zero);
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    bottom: calc(var(--ef-section-title-row) - var(--ef-section-overlap));
+    box-sizing: border-box;
+    width: var(--ef-section-number-width);
+    height: calc(var(--ef-section-meta-row) + var(--ef-section-overlap));
+    padding: 0 2px 0 0;
+    overflow: hidden;
+    color: var(--ef-signal);
+    background: var(--ef-block);
+    font: 400 var(--ef-section-number-size)/0.8 var(--ef-font-number);
+    letter-spacing: -0.015em;
+    text-align: right;
+    text-shadow: none;
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .recentChatsTitle {
+    position: relative;
+    z-index: 1;
+    display: grid !important;
+    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-rows: var(--ef-section-meta-row) var(--ef-section-title-row);
+    column-gap: 6px;
+    align-items: stretch;
+    align-self: flex-end;
+    width: 100% !important;
+    min-width: 0;
     padding: 0 !important;
     color: var(--ef-ink) !important;
-    background: transparent !important;
+    /* 仅底行是不透明白板，上行透明，才能露出下层编号。 */
+    background: linear-gradient(var(--ef-paper-hi), var(--ef-paper-hi)) left bottom / 100% var(--ef-section-title-row) no-repeat !important;
     border: 0 !important;
     border-radius: 0 !important;
     font-family: var(--ef-font-display) !important;
-    font-size: 26px !important;
+    font-size: var(--ef-section-title-size) !important;
     font-weight: 900 !important;
     letter-spacing: 0.01em;
-    line-height: 1.2 !important;
+    line-height: 1.3 !important;
     text-shadow: none !important;
 }
 
-/* 上层条：横跨整行占位，再用 justify-self 收成内容宽度，背景才不会铺满。 */
+/* 英文只作低矮附签，不与编号共享字号、基线或字距。 */
 #chat > .welcomePanel .recentChatsTitle::before {
-    content: counter(ef-section, decimal-leading-zero) "  ARKNIGHTS: ENDFIELD";
+    content: "ARKNIGHTS: ENDFIELD";
     grid-row: 1;
     grid-column: 1 / -1;
     justify-self: start;
-    padding: 3px 9px 3px 8px;
+    align-self: end;
+    margin-left: var(--ef-section-number-width);
+    padding: 0 4px;
     color: var(--ef-paper-hi);
-    background: linear-gradient(to right, var(--ef-block) 0 2.6em, var(--ef-label) 2.6em);
-    font: 600 11px/1.35 var(--ef-font-body);
-    letter-spacing: 0.14em;
-    white-space: pre;
+    background: var(--ef-label);
+    font: 600 var(--ef-section-label-size)/1.3 Arial, sans-serif;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    pointer-events: none;
 }
 
-/* 黄条：与标题同行，从标题右侧起填满剩余宽度。 */
+/* 原生中文文字自动落在第二行第一格，右侧黄带延续到标题区边缘。 */
 #chat > .welcomePanel .recentChatsTitle::after {
     content: "";
     grid-row: 2;
     grid-column: 2;
     display: block;
     background: var(--ef-signal);
+    pointer-events: none;
 }
 
-/* 标题自动落到第二行第一格；容器的字号字重由它继承。 */
-#chat > .welcomePanel .recentChatsTitle {
-    padding-right: 0 !important;
+/* 原生“隐藏最近聊天”状态必须连同新增的编号一起隐藏。 */
+#chat > .welcomePanel.recentHidden .recentChatsTitle,
+#chat > .welcomePanel.recentHidden .welcomeHeader::before {
+    display: none !important;
 }
 
 @media (max-width: 700px) {
-    #chat > .welcomePanel .recentChatsTitle {
-        font-size: 21px !important;
-    }
-
-    #chat > .welcomePanel .recentChatsTitle::before {
-        font-size: 10px;
-        letter-spacing: 0.1em;
+    #chat > .welcomePanel .welcomeHeader {
+        --ef-section-title-size: 21px;
+        --ef-section-label-size: 7px;
     }
 }
