@@ -1,0 +1,82 @@
+/*
+ * 欢迎页快捷入口：移到章节头上方，作为独立的轻量工具行。
+ * 标题仍在 header 最底部，保留编号依赖底边的遮挡关系。
+ * 四个原生入口、文字和键盘顺序均保留；不影响其它菜单按钮。
+ */
+
+#chat > .welcomePanel .welcomeHeader {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 4px !important;
+}
+
+#chat > .welcomePanel .recentChatsTitle {
+    flex-grow: 0 !important;
+    align-self: stretch !important;
+}
+
+#chat > .welcomePanel .welcomeShortcuts {
+    order: -1;
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 4px 8px !important;
+}
+
+#chat > .welcomePanel .welcomeShortcuts > :is(a, button) {
+    box-sizing: border-box;
+    min-height: 28px;
+    margin: 0 !important;
+    padding: 4px 6px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--ef-muted) !important;
+    font: 500 12px/1.25 var(--ef-font-body) !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+
+/* 外部资源只显示文字，避免四个大图标同章节编号争抢注意力。 */
+#chat > .welcomePanel .welcomeShortcuts > a > i,
+#chat > .welcomePanel .welcomeShortcutsSeparator {
+    display: none !important;
+}
+
+/* 覆盖宿主窄屏隐藏链接文字的规则，保留名称与可访问性。 */
+#chat > .welcomePanel .welcomeShortcuts > a > span {
+    display: inline !important;
+}
+
+#chat > .welcomePanel .welcomeShortcuts > :is(a, button) > span {
+    font: inherit !important;
+}
+
+#chat > .welcomePanel .welcomeShortcuts > .openTemporaryChat {
+    margin-left: auto !important;
+    color: var(--ef-ink) !important;
+}
+
+#chat > .welcomePanel .welcomeShortcuts > a:hover {
+    color: var(--ef-ink) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+}
+
+#chat > .welcomePanel .welcomeShortcuts > .openTemporaryChat:hover {
+    background: var(--ef-line-soft) !important;
+}
+
+#chat > .welcomePanel .welcomeShortcuts > :is(a, button):focus-visible {
+    outline: 2px solid var(--ef-ink) !important;
+    outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+    #chat > .welcomePanel .welcomeShortcuts > :is(a, button) {
+        min-height: 40px;
+    }
+}
