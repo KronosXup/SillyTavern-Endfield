@@ -49,54 +49,7 @@
     opacity: 1 !important;
 }
 
-#top-settings-holder > #ai-config-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-tune);
-}
-
-#top-settings-holder > #sys-settings-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-plug);
-}
-
-#top-settings-holder > #advanced-formatting-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-type);
-}
-
-#top-settings-holder > #WI-SP-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-book);
-}
-
-#top-settings-holder > #user-settings-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-settings);
-}
-
-#top-settings-holder > #backgrounds-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-image);
-}
-
-#top-settings-holder > #extensions-settings-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-modules);
-}
-
-#top-settings-holder > #persona-management-button > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-persona);
-}
-
-#top-settings-holder > #rightNavHolder > .drawer-toggle > .drawer-icon {
-    --ef-control-icon: var(--ef-icon-archive);
-}
-
-#options_button {
-    --ef-control-icon: var(--ef-icon-menu);
-}
-
-#extensionsMenuButton {
-    --ef-control-icon: var(--ef-icon-spark);
-}
-
-#send_but {
-    --ef-control-icon: var(--ef-icon-action);
-}
-
+/* 保留原生 FA 字形，只调整视觉字号，不改变按钮点击区域。 */
 :is(
     #top-settings-holder > #ai-config-button > .drawer-toggle > .drawer-icon,
     #top-settings-holder > #sys-settings-button > .drawer-toggle > .drawer-icon,
@@ -106,25 +59,17 @@
     #top-settings-holder > #backgrounds-button > .drawer-toggle > .drawer-icon,
     #top-settings-holder > #extensions-settings-button > .drawer-toggle > .drawer-icon,
     #top-settings-holder > #persona-management-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #rightNavHolder > .drawer-toggle > .drawer-icon,
-    #options_button,
-    #extensionsMenuButton,
-    #send_but
+    #top-settings-holder > #rightNavHolder > .drawer-toggle > .drawer-icon
 )::before {
-    content: "" !important;
-    display: inline-block !important;
-    width: 18px !important;
-    height: 18px !important;
+    font-size: 17px !important;
+    line-height: 1 !important;
     vertical-align: middle;
-    background-color: currentColor !important;
-    -webkit-mask-image: var(--ef-control-icon) !important;
-    -webkit-mask-position: center !important;
-    -webkit-mask-repeat: no-repeat !important;
-    -webkit-mask-size: contain !important;
-    mask-image: var(--ef-control-icon) !important;
-    mask-position: center !important;
-    mask-repeat: no-repeat !important;
-    mask-size: contain !important;
+}
+
+:is(#options_button, #extensionsMenuButton, #send_but)::before {
+    font-size: 18px !important;
+    line-height: 1 !important;
+    vertical-align: middle;
 }
 
 #chat .menu_button {

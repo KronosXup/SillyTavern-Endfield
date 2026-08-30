@@ -530,30 +530,6 @@
     border-radius: 0 !important;
 }
 
-#user-settings-button #account_button > i {
-    --ef-settings-icon: var(--ef-icon-account);
-}
-
-#user-settings-button #ui_preset_import_button > i {
-    --ef-settings-icon: var(--ef-icon-import);
-}
-
-#user-settings-button #ui_preset_export_button > i {
-    --ef-settings-icon: var(--ef-icon-export);
-}
-
-#user-settings-button #ui-preset-delete-button > i {
-    --ef-settings-icon: var(--ef-icon-trash);
-}
-
-#user-settings-button #ui-preset-update-button > i {
-    --ef-settings-icon: var(--ef-icon-save);
-}
-
-#user-settings-button #ui-preset-save-button > i {
-    --ef-settings-icon: var(--ef-icon-new-file);
-}
-
 #user-settings-button :is(
     #account_button,
     #ui_preset_import_button,
@@ -562,13 +538,9 @@
     #ui-preset-update-button,
     #ui-preset-save-button
 ) > i::before {
-    content: "" !important;
-    display: block !important;
-    width: 16px !important;
-    height: 16px !important;
-    background-color: currentColor !important;
-    -webkit-mask: var(--ef-settings-icon) center / contain no-repeat !important;
-    mask: var(--ef-settings-icon) center / contain no-repeat !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+    vertical-align: middle;
 }
 
 body.reduced-motion #user-settings-button #user-settings-block,
