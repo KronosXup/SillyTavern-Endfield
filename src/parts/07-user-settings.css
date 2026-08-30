@@ -1,10 +1,10 @@
 /* User Settings sample: dark title shell, continuous light work surface, sparse signal yellow. */
 
 #user-settings-button > #user-settings-block {
-    --ef-settings-field: #fafbf8;
+    --ef-settings-field: rgba(23, 26, 26, 0.045);
     --ef-settings-soft: var(--ef-workbench);
     --ef-settings-rule: rgba(23, 26, 26, 0.18);
-    --ef-settings-rule-strong: rgba(23, 26, 26, 0.38);
+    --ef-settings-rule-strong: rgba(23, 26, 26, 0.22);
     container-name: ef-user-settings;
     container-type: inline-size;
     box-sizing: border-box;
@@ -45,30 +45,35 @@
     align-items: center;
     gap: 6px;
     color: var(--ef-paper-hi) !important;
-    font-family: "HarmonyOS Sans SC Black", var(--ef-font-display) !important;
+    font-family: var(--ef-font-display) !important;
     font-size: calc(var(--mainFontSize) * 1.08) !important;
-    font-weight: 900 !important;
+    font-weight: 700 !important;
     line-height: 1.2;
-    letter-spacing: -0.018em;
+    letter-spacing: 0.005em;
     text-shadow: none !important;
 }
 
 #user-settings-button #user-settings-block h3::before {
-    content: "";
-    width: 16px;
-    height: 2px;
-    flex: 0 0 16px;
-    background: var(--ef-signal);
+    content: "//";
+    width: auto;
+    height: auto;
+    flex: 0 0 auto;
+    color: rgba(238, 240, 237, 0.82);
+    background: transparent;
     box-shadow: none;
+    font-family: Bahnschrift, "Arial Narrow", sans-serif;
+    font-size: 0.86em;
+    font-weight: 700;
+    letter-spacing: -0.08em;
 }
 
 #user-settings-button #user-settings-block h3 > span:first-child::before {
-    content: "[";
+    content: "";
     margin-right: 0.08em;
 }
 
 #user-settings-button #user-settings-block h3 > span:first-child::after {
-    content: "]";
+    content: "";
     margin-left: 0.08em;
 }
 
@@ -92,7 +97,8 @@
     margin: 0 !important;
     color: var(--ef-paper-hi) !important;
     background-color: rgba(255, 255, 255, 0.045) !important;
-    border: 1px solid rgba(238, 240, 237, 0.2) !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(238, 240, 237, 0.22) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     text-shadow: none !important;
@@ -114,7 +120,8 @@
     resize: none;
     color: var(--ef-paper-hi) !important;
     background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(238, 240, 237, 0.18) !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(238, 240, 237, 0.22) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     text-shadow: none !important;
@@ -128,8 +135,9 @@
 #user-settings-button #settingsSearch:focus-visible,
 #user-settings-button #ui_language_select:focus-visible {
     border-color: var(--ef-signal) !important;
-    outline: 0 !important;
-    box-shadow: inset 3px 0 0 var(--ef-signal) !important;
+    outline: 1px solid var(--ef-signal) !important;
+    outline-offset: 1px;
+    box-shadow: inset 2px 0 0 var(--ef-signal) !important;
 }
 
 #user-settings-button #account_button {
@@ -138,8 +146,8 @@
     padding: 4px 10px !important;
     gap: 6px !important;
     color: var(--ef-paper-hi) !important;
-    background: transparent !important;
-    border: 1px solid rgba(238, 240, 237, 0.24) !important;
+    background: rgba(255, 255, 255, 0.065) !important;
+    border: 1px solid transparent !important;
     border-radius: 999px !important;
     box-shadow: none !important;
     filter: none !important;
@@ -150,7 +158,7 @@
 #user-settings-button #account_button:focus-visible {
     color: var(--ef-paper-hi) !important;
     background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(238, 240, 237, 0.46) !important;
+    border-color: transparent !important;
 }
 
 #user-settings-button #account_button:focus-visible {
@@ -200,39 +208,36 @@
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-start !important;
     gap: 7px;
     min-height: 32px;
     margin: 0 0 10px !important;
-    padding: 5px 8px 5px 9px !important;
+    padding: 5px 8px 5px 0 !important;
     color: var(--ef-ink) !important;
-    background: linear-gradient(90deg, rgba(68, 68, 68, 0.13), rgba(68, 68, 68, 0.055) 72%, transparent) !important;
+    background: transparent !important;
     border: 0 !important;
-    border-left: 5px solid var(--ef-block) !important;
-    border-bottom: 1px solid var(--ef-line-soft) !important;
+    border-bottom: 1px solid var(--ef-settings-rule) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    font-family: "HarmonyOS Sans SC Black", var(--ef-font-display) !important;
+    font-family: var(--ef-font-display) !important;
     font-size: calc(var(--mainFontSize) * 0.96) !important;
-    font-weight: 900 !important;
+    font-weight: 700 !important;
     line-height: 1.2;
-    letter-spacing: -0.015em;
+    letter-spacing: 0.005em;
     text-align: left !important;
     text-shadow: none !important;
 }
 
 #user-settings-button #user-settings-block h4::before {
-    content: "//";
-    flex: 0 0 auto;
-    color: var(--ef-block);
-    font-family: Bahnschrift, "Arial Narrow", sans-serif;
-    font-size: 0.9em;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.12em;
+    content: "";
+    flex: 0 0 2px;
+    width: 2px;
+    height: 14px;
+    background: var(--ef-signal);
 }
 
-#user-settings-button #user-settings-block h4 > .flex-container:last-child {
-    margin-left: auto;
+#user-settings-button #user-settings-block h4 > .flex-container {
+    margin-left: auto !important;
 }
 
 /* 50% 页面宽度下三枚主题操作按钮需要独占下一行，避免把“UI 主题”挤成竖排。 */
@@ -251,7 +256,7 @@
     color: var(--ef-ink) !important;
     background: rgba(23, 26, 26, 0.045) !important;
     border: 0 !important;
-    border-top: 1px solid var(--ef-settings-rule) !important;
+    border-left: 2px solid transparent !important;
     border-bottom: 1px solid var(--ef-settings-rule) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -267,11 +272,9 @@
 }
 
 #user-settings-button #user-settings-block .inline-drawer-toggle.userSettingsInnerExpandable:has(> .inline-drawer-icon.up) {
-    padding-left: 5px !important;
-    color: var(--ef-paper-hi) !important;
-    background: var(--ef-graphite) !important;
-    border-left: 3px solid var(--ef-signal) !important;
-    border-block-color: var(--ef-graphite) !important;
+    color: var(--ef-ink) !important;
+    background: rgba(23, 26, 26, 0.045) !important;
+    border-left-color: var(--ef-signal) !important;
 }
 
 #user-settings-button #user-settings-block .inline-drawer-icon {
@@ -302,10 +305,8 @@
 #user-settings-button #user-settings-block .inline-drawer-content {
     padding: 8px 8px 10px !important;
     color: var(--ef-ink) !important;
-    background: rgba(250, 251, 248, 0.8) !important;
-    border-left: 1px solid var(--ef-settings-rule) !important;
-    border-right: 1px solid var(--ef-settings-rule) !important;
-    border-bottom: 1px solid var(--ef-settings-rule) !important;
+    background: rgba(23, 26, 26, 0.018) !important;
+    border: 0 !important;
     border-radius: 0 !important;
 }
 
@@ -318,7 +319,8 @@
     background-position: right 9px center !important;
     background-repeat: no-repeat !important;
     background-size: 10px 8px !important;
-    border: 1px solid var(--ef-settings-rule-strong) !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ef-settings-rule-strong) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding-block: 4px !important;
@@ -354,7 +356,8 @@
     min-height: 30px;
     color: var(--ef-ink) !important;
     background: var(--ef-settings-field) !important;
-    border: 1px solid var(--ef-settings-rule-strong) !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ef-settings-rule-strong) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 5px 7px !important;
@@ -363,9 +366,10 @@
 }
 
 #user-settings-button #user-settings-block-content :is(select, textarea, input[type="number"], input[type="text"], input[type="search"], input[type="url"], input[type="password"], input:not([type])):focus-visible {
-    border-color: var(--ef-signal) !important;
-    outline: 0 !important;
-    box-shadow: inset 3px 0 0 var(--ef-signal) !important;
+    border-bottom-color: var(--ef-signal) !important;
+    outline: 1px solid var(--ef-graphite) !important;
+    outline-offset: 1px;
+    box-shadow: inset 2px 0 0 var(--ef-signal) !important;
 }
 
 #user-settings-button #user-settings-block-content :is(textarea, input)::placeholder {
@@ -473,7 +477,7 @@
     padding: 4px 10px !important;
     color: var(--ef-ink) !important;
     background: var(--ef-settings-field) !important;
-    border: 1px solid var(--ef-settings-rule-strong) !important;
+    border: 1px solid transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     filter: none !important;
@@ -503,18 +507,19 @@
     border-radius: 0 !important;
 }
 
-#user-settings-button #user-settings-block-content .menu_button:not(.disabled):not([disabled]):hover {
+#user-settings-button #user-settings-block-content .menu_button:not(.disabled):not([disabled]):not([aria-disabled="true"]):hover {
     color: var(--ef-paper-hi) !important;
     background: var(--ef-graphite) !important;
-    border-color: var(--ef-graphite) !important;
+    border-color: transparent !important;
 }
 
 #user-settings-button #user-settings-block-content .menu_button:focus-visible {
-    outline: 2px solid var(--ef-signal) !important;
+    outline: 1px solid var(--ef-graphite) !important;
     outline-offset: 1px;
+    box-shadow: inset 2px 0 0 var(--ef-signal) !important;
 }
 
-#user-settings-button #user-settings-block-content .menu_button:is(.disabled, [disabled]) {
+#user-settings-button #user-settings-block-content .menu_button:is(.disabled, [disabled], [aria-disabled="true"]) {
     opacity: 0.42 !important;
 }
 

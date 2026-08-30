@@ -33,15 +33,19 @@
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(h2, h3) {
     color: var(--ef-ink) !important;
-    font-family: "HarmonyOS Sans SC Black", var(--ef-font-display) !important;
-    font-weight: 900 !important;
-    letter-spacing: -0.018em;
+    font-family: var(--ef-font-display) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.005em;
 }
 
-#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) h4 {
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) h4,
+#top-settings-holder > .drawer > #rm_api_block #title_api {
     color: var(--ef-graphite) !important;
-    font-family: var(--ef-font-display) !important;
-    font-weight: 800 !important;
+    font-family: var(--ef-font-body) !important;
+    font-size: calc(var(--mainFontSize) * 0.9) !important;
+    font-weight: 650 !important;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
 }
 
 /*
@@ -50,41 +54,49 @@
  * the native order and hit targets of every menu.
  */
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .standoutHeader {
+    position: relative;
     box-sizing: border-box;
     min-height: 28px;
-    padding: 4px 7px 4px 8px !important;
+    padding: 4px 7px 4px 9px !important;
     color: var(--ef-graphite) !important;
-    background: rgba(225, 228, 226, 0.88) !important;
+    background: transparent !important;
     border: 0 !important;
-    border-left: 3px solid var(--ef-graphite) !important;
-    border-bottom: 1px solid rgba(23, 26, 26, 0.2) !important;
+    border-bottom: 1px solid rgba(23, 26, 26, 0.14) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     filter: none !important;
 }
 
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .standoutHeader:not(.inline-drawer-header)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    height: 14px;
+    background: var(--ef-signal);
+    transform: translateY(-50%);
+}
+
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-toggle.inline-drawer-header {
     box-sizing: border-box;
     min-height: 30px;
-    padding: 4px 4px 4px 8px !important;
+    padding: 4px 4px 4px 9px !important;
     color: var(--ef-ink) !important;
-    background: rgba(231, 233, 231, 0.8) !important;
+    background: rgba(23, 26, 26, 0.035) !important;
     border: 0 !important;
-    border-left: 3px solid rgba(23, 26, 26, 0.72) !important;
-    border-bottom: 1px solid rgba(23, 26, 26, 0.18) !important;
+    border-bottom: 1px solid rgba(23, 26, 26, 0.12) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     filter: none !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-toggle.inline-drawer-header:hover {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-left-color: var(--ef-signal) !important;
+    background: rgba(23, 26, 26, 0.065) !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-toggle.inline-drawer-header:has(.inline-drawer-icon.up) {
-    background: rgba(255, 255, 255, 0.94) !important;
-    border-left-color: var(--ef-signal) !important;
+    background: rgba(23, 26, 26, 0.095) !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon {
@@ -154,7 +166,7 @@
     #WorldInfo > .flex-container.alignitemscenter.gap10px,
     #Backgrounds > #bg-header-fixed,
     #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
-    #PersonaManagement > .flex-container.wide100p:first-child
+    #PersonaManagement > .flex-container.wide100p:first-child > .flex-container.alignItemsBaseline.wide100p:first-child
 ) {
     position: relative;
     z-index: 3;
@@ -171,7 +183,7 @@
 #top-settings-holder > .drawer > #WorldInfo > .flex-container.alignitemscenter.gap10px h3,
 #top-settings-holder > .drawer > #Backgrounds > #bg-header-fixed h3,
 #top-settings-holder > .drawer > #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child h3,
-#top-settings-holder > .drawer > #PersonaManagement > .flex-container.wide100p:first-child h3 {
+#top-settings-holder > .drawer > #PersonaManagement > .flex-container.wide100p:first-child > .flex-container.alignItemsBaseline.wide100p:first-child h3 {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -183,12 +195,17 @@
 #top-settings-holder > .drawer > #WorldInfo > .flex-container.alignitemscenter.gap10px h3::before,
 #top-settings-holder > .drawer > #Backgrounds > #bg-header-fixed h3::before,
 #top-settings-holder > .drawer > #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child h3::before,
-#top-settings-holder > .drawer > #PersonaManagement > .flex-container.wide100p:first-child h3::before {
-    content: "";
-    width: 16px;
-    height: 2px;
-    flex: 0 0 16px;
-    background: var(--ef-signal);
+#top-settings-holder > .drawer > #PersonaManagement > .flex-container.wide100p:first-child > .flex-container.alignItemsBaseline.wide100p:first-child h3::before {
+    content: "//";
+    width: auto;
+    height: auto;
+    flex: 0 0 auto;
+    color: rgba(238, 240, 237, 0.82);
+    background: transparent;
+    font-family: Bahnschrift, "Arial Narrow", sans-serif;
+    font-size: 0.86em;
+    font-weight: 700;
+    letter-spacing: -0.08em;
 }
 
 /* Common field language for every menu except the already tuned user sheet. */
@@ -205,8 +222,9 @@
     box-sizing: border-box;
     min-width: 0 !important;
     color: var(--ef-ink) !important;
-    background-color: rgba(255, 255, 255, 0.72) !important;
-    border: 1px solid rgba(23, 26, 26, 0.24) !important;
+    background-color: rgba(23, 26, 26, 0.04) !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(23, 26, 26, 0.2) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     text-shadow: none !important;
@@ -217,14 +235,38 @@
     background: var(--ef-paper) !important;
 }
 
+/* Dark document rails use one filled control surface; the outline belongs to focus, not rest. */
+#top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
+    #rm_api_block > .wide100p:first-child,
+    #AdvancedFormatting > .flex-container:first-child,
+    #WorldInfo > .flex-container.alignitemscenter.gap10px,
+    #Backgrounds > #bg-header-fixed,
+    #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
+    #PersonaManagement > .flex-container.wide100p:first-child > .flex-container.alignItemsBaseline.wide100p:first-child
+) :is(
+    select,
+    textarea,
+    input[type="number"],
+    input[type="text"],
+    input[type="search"],
+    input[type="url"],
+    input[type="password"],
+    input:not([type])
+) {
+    color: var(--ef-ink) !important;
+    background-color: rgba(238, 240, 237, 0.84) !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(238, 240, 237, 0.42) !important;
+}
+
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     .menu_button,
     button:not(.drawer-toggle)
 ) {
     box-sizing: border-box;
-    color: var(--ef-ink) !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(23, 26, 26, 0.3) !important;
+    color: var(--ef-menu-action-ink, var(--ef-ink)) !important;
+    background: var(--ef-menu-action-fill, rgba(23, 26, 26, 0.065)) !important;
+    border: 1px solid transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     filter: none !important;
@@ -270,8 +312,12 @@
     #WorldInfo > .flex-container.alignitemscenter.gap10px,
     #Backgrounds > #bg-header-fixed,
     #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
-    #PersonaManagement > .flex-container.wide100p:first-child
+    #PersonaManagement > .flex-container.wide100p:first-child > .flex-container.alignItemsBaseline.wide100p:first-child
 ) :is(.menu_button, button:not(.drawer-toggle)) {
+    --ef-menu-action-ink: var(--ef-paper-hi);
+    --ef-menu-action-fill: transparent;
+    --ef-menu-action-hover: rgba(255, 255, 255, 0.1);
+    --ef-menu-focus-line: var(--ef-signal);
     min-height: 28px !important;
     height: 28px !important;
     border-radius: 0 !important;
@@ -283,7 +329,7 @@
     #WorldInfo > .flex-container.alignitemscenter.gap10px,
     #Backgrounds > #bg-header-fixed,
     #rm_extensions_block > .extensions_block > .alignitemscenter.flex-container.wide100p:first-child,
-    #PersonaManagement > .flex-container.wide100p:first-child
+    #PersonaManagement > .flex-container.wide100p:first-child > .flex-container.alignItemsBaseline.wide100p:first-child
 ) :is(i.menu_button, a.menu_button, div.menu_button.fa-solid, div.menu_button.fa-regular):empty {
     width: 28px !important;
     min-width: 28px !important;
@@ -327,14 +373,14 @@
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
     .menu_button,
     button:not(.drawer-toggle)
-):not(:disabled):not(.disabled):not([aria-disabled="true"]):hover {
-    background: rgba(255, 255, 255, 0.96) !important;
-    border-color: rgba(23, 26, 26, 0.58) !important;
+):not(:disabled):not(.disabled):not([aria-disabled="true"]):not(.toggleEnabled):not(.selected):not([aria-pressed="true"]):hover {
+    background: var(--ef-menu-action-hover, rgba(23, 26, 26, 0.11)) !important;
+    border-color: transparent !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) .inline-drawer-icon:hover {
     background: rgba(255, 255, 255, 0.54) !important;
-    border-color: rgba(23, 26, 26, 0.16) !important;
+    border-color: transparent !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
@@ -344,7 +390,7 @@
 ) {
     color: var(--ef-signal) !important;
     background: var(--ef-graphite) !important;
-    border-color: var(--ef-graphite) !important;
+    border-color: transparent !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
@@ -357,7 +403,7 @@
 ) {
     color: rgba(23, 26, 26, 0.5) !important;
     background: rgba(232, 234, 232, 0.72) !important;
-    border-color: rgba(23, 26, 26, 0.16) !important;
+    border-color: transparent !important;
     opacity: 0.58 !important;
     cursor: default !important;
 }
@@ -398,8 +444,9 @@
     textarea,
     input
 ):focus-visible {
-    outline: 2px solid var(--ef-signal) !important;
+    outline: 1px solid var(--ef-menu-focus-line, var(--ef-graphite)) !important;
     outline-offset: 1px;
+    box-shadow: inset 2px 0 0 var(--ef-signal) !important;
 }
 
 #top-settings-holder > .drawer > .drawer-content:not(#user-settings-block) :is(
