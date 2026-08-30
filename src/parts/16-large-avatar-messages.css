@@ -1,0 +1,198 @@
+/*
+ * 正文人物档案：上方贯通图像区，下方全宽正文，姓名牌压接图像下沿。
+ * 取自锦陇调研档案的“大图／图外名牌”关系；黄色只标记图像登记边。
+ * 保留真实楼层号、原生姓名、时间与操作节点，不制造第二套内容。
+ */
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
+    --ef-avatar-stage-height: clamp(240px, 30vw, 320px);
+    --ef-avatar-name-overlap: 24px;
+    display: grid !important;
+    grid-template-columns: 30px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: start;
+    padding-bottom: 20px !important;
+}
+
+/* 真实 mesid 仍是图像左侧的小型档案槽，不挪成装饰号。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes)::before {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: start;
+    box-sizing: border-box;
+    width: 30px;
+    padding-top: 15px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper {
+    position: relative;
+    grid-row: 1;
+    grid-column: 2;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--ef-avatar-stage-height);
+    min-width: 0;
+    margin: 0;
+    padding: 0 !important;
+    overflow: visible;
+    border-right: 0 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar img {
+    box-sizing: border-box;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    border-radius: 0 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar {
+    flex: 0 0 100% !important;
+    overflow: hidden;
+    background: var(--ef-workbench) !important;
+    filter: grayscale(0.1) contrast(1.035);
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .avatar img {
+    object-fit: cover;
+    object-position: center 20%;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* 黄色登记线依附大图左缘。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    inset: 0 auto 0 0;
+    width: 5px;
+    height: 100%;
+    margin: 0;
+    background: var(--ef-signal);
+    pointer-events: none;
+}
+
+/* 楼层号已承担消息编号；其余元数据压成图像右上角的工具标签。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .mesIDDisplay {
+    display: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper :is(.mes_timer, .tokenCounterDisplay) {
+    position: absolute;
+    z-index: 2;
+    right: 8px;
+    box-sizing: border-box;
+    max-width: calc(100% - 22px);
+    margin: 0 !important;
+    padding: 3px 5px;
+    overflow: hidden;
+    color: var(--ef-paper-hi) !important;
+    background: rgba(23, 26, 26, 0.76);
+    font: 600 9px/1.2 var(--ef-font-number) !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .mes_timer {
+    top: 8px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper .tokenCounterDisplay {
+    top: 30px;
+}
+
+/* 正文脱离头像侧栏，完整占据下一行。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block {
+    position: relative;
+    grid-row: 2;
+    grid-column: 1 / -1;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    overflow: visible;
+}
+
+/* 名牌会跨入正文头部；把原生时间、状态和编辑工具整体让到名牌下方。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .ch_name {
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 26px 0 8px !important;
+}
+
+/* 批量选择框仍归楼层槽，不允许成为隐式的第三行。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > :is(.for_checkbox, .del_checkbox) {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: end;
+    justify-self: center;
+    z-index: 3;
+    margin: 0 0 8px !important;
+}
+
+/* 使用真实 name_text 形成压接名牌，不复制角色名。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .ch_name .name_text {
+    position: absolute !important;
+    z-index: 3;
+    top: calc(-1 * var(--ef-avatar-name-overlap));
+    left: 30px;
+    box-sizing: border-box;
+    width: clamp(190px, 55%, 300px);
+    min-height: 44px;
+    margin: 0 !important;
+    padding: 8px 12px 7px !important;
+    overflow: hidden;
+    color: var(--ef-ink) !important;
+    background-color: rgba(224, 226, 223, 0.97) !important;
+    background-image: var(--ef-gray-grid) !important;
+    background-size: 160px 160px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--ef-line) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    clip-path: none !important;
+    font: 850 clamp(19px, 2vw, 24px)/1.15 var(--ef-font-display) !important;
+    letter-spacing: 0.015em;
+    text-overflow: ellipsis;
+    text-shadow: none !important;
+    white-space: nowrap !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .ch_name .name_text::before {
+    content: "[ " !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .ch_name .name_text::after {
+    content: " ]" !important;
+}
+
+@media (max-width: 700px) {
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
+        --ef-avatar-stage-height: clamp(210px, 68vw, 260px);
+        --ef-avatar-name-overlap: 20px;
+        grid-template-columns: 20px minmax(0, 1fr);
+        padding-bottom: 18px !important;
+    }
+
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes)::before {
+        width: 20px;
+        padding-top: 12px;
+    }
+
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .ch_name .name_text {
+        left: 20px;
+        width: clamp(170px, 62%, 230px);
+        min-height: 38px;
+        padding: 7px 9px 6px !important;
+        font-size: clamp(17px, 4.8vw, 20px) !important;
+    }
+
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .ch_name {
+        min-height: 46px;
+        padding: 22px 0 8px !important;
+    }
+}
