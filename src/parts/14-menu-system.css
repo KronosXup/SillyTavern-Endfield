@@ -409,15 +409,15 @@
 }
 
 /*
- * P1 pilot: only Assets and Expressions.  A light entry sits above a quieter
+ * P1 scoped entries: Assets, Expressions and Quick Reply. A light entry sits above a quieter
  * content sheet; spacing and type encode hierarchy without extra badges.
  * Keep native visibility, column layout and all nested controls intact.
  */
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child {
     margin-bottom: 8px;
 }
 
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child > .inline-drawer-header {
     min-height: 34px;
     margin: 0 !important;
     padding: 6px 8px 6px 10px !important;
@@ -427,24 +427,24 @@
     line-height: 1.45;
 }
 
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header > b {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child > .inline-drawer-header > :is(b, strong) {
     font-weight: 650;
 }
 
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header:hover {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child > .inline-drawer-header:hover {
     background: rgba(23, 26, 26, 0.045) !important;
 }
 
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header:has(> .inline-drawer-icon.up) {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child > .inline-drawer-header:has(> .inline-drawer-icon.up) {
     border-bottom-color: rgba(23, 26, 26, 0.22) !important;
 }
 
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header:has(> .inline-drawer-icon:focus-visible) {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child > .inline-drawer-header:has(> .inline-drawer-icon:focus-visible) {
     outline: 1px solid var(--ef-graphite);
     outline-offset: 1px;
 }
 
-#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content {
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings, #qr--settings) > .inline-drawer:first-child > .inline-drawer-content {
     box-sizing: border-box;
     margin: 0 !important;
     padding: 10px 10px 12px;
@@ -505,6 +505,202 @@
     line-height: 1.5;
     text-align: start;
     opacity: 1;
+}
+
+/* Quick Reply has ordinary subsections, not nested drawers. Keep its data and
+ * sortable item nodes intact; only reflow the crowded controls inside them. */
+#extensions-settings-button #rm_extensions_block #qr--settings > .inline-drawer > .inline-drawer-content > hr {
+    margin: 12px 0 8px;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--ef-line-soft);
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings :is(#qr--global, #qr--chat, #qr--character, #qr--editor) > .qr--head {
+    min-width: 0;
+    min-height: 28px;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--head > .qr--title {
+    min-width: 0;
+    color: var(--ef-graphite);
+    font-size: calc(var(--mainFontSize) * 0.866667);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--head > .qr--actions {
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--head > .qr--actions > .menu_button {
+    margin-block: 0;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings > .inline-drawer > .inline-drawer-content > label,
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--set-settings > label {
+    min-height: 26px;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 3px 0;
+    line-height: 20px;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings :is(.qr--head > small, #qr--injectInputContainer small) {
+    color: #626967;
+    font-size: calc(var(--mainFontSize) * 0.8);
+    line-height: 1.5;
+    opacity: 1;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList {
+    color: #626967;
+    font-size: calc(var(--mainFontSize) * 0.8);
+    line-height: 1.5;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList > .qr--item {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) 26px 26px;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 0;
+    color: var(--ef-ink);
+    font-size: calc(var(--mainFontSize) * 0.9);
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList > .qr--item > .drag-handle {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList > .qr--item > .qr--set {
+    grid-column: 2 / -1;
+    grid-row: 1;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList > .qr--item > .qr--visible {
+    grid-column: 2;
+    grid-row: 2;
+    min-height: 26px;
+    align-items: center;
+    gap: 6px;
+    font-size: calc(var(--mainFontSize) * 0.8);
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList > .qr--item > .menu_button {
+    grid-column: 3;
+    grid-row: 2;
+    margin: 0;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--setList > .qr--item > .qr--del {
+    grid-column: 4;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--editor > .qr--head {
+    flex-wrap: wrap;
+    row-gap: 6px;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--editor > .qr--head > :is(.qr--title, .qr--actions) {
+    flex: 1 1 100%;
+    min-width: 0;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--editor > .qr--head > .qr--actions {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    justify-content: flex-start;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--set {
+    flex: 1 0 100%;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings :is(select, input.qr--set-itemLabel, textarea.qr--set-itemMessage) {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100%;
+    margin-block: 0 !important;
+    font-family: var(--ef-font-body) !important;
+    font-size: calc(var(--mainFontSize) * 0.9) !important;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--set-settings {
+    margin: 12px 0;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings #qr--set-qrList > .qr--set-qrListContents {
+    padding: 0;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--set-item > .qr--content {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) 28.25px;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0 10px;
+    border-bottom: 1px solid var(--ef-line-soft);
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings :is(.qr--item, .qr--content) > .drag-handle {
+    display: grid;
+    place-items: center;
+    min-height: 44.5px;
+    margin: 0;
+    padding: 0;
+    color: #626967;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--content > .qr--set-itemLabelContainer {
+    min-width: 0;
+    grid-column: 2;
+    gap: 6px;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--content > .qr--set-optionsContainer {
+    grid-column: 3;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--set-optionsContainer > .qr--action {
+    width: 28.25px;
+    height: 28px;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--content > .qr--set-itemMessage {
+    grid-column: 1 / -1;
+    min-height: 54px;
+    line-height: 1.5;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .qr--content > .qr--actions {
+    grid-column: 1 / -1;
+    justify-self: end;
+    gap: 4px;
+}
+
+/* Preserve existing meanings. Hidden chat buttons do not disable a set. */
+#extensions-settings-button #rm_extensions_block #qr--settings .menu_button:is(.redWarningBG, .qr--del):not(:disabled):not(.disabled):not([aria-disabled="true"]) {
+    color: #8e3327 !important;
+    background: rgba(142, 51, 39, 0.075) !important;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .menu_button:is(.redWarningBG, .qr--del):not(:disabled):not(.disabled):not([aria-disabled="true"]):hover {
+    background: rgba(142, 51, 39, 0.15) !important;
+}
+
+#extensions-settings-button #rm_extensions_block #qr--settings .menu_button.qr--success:not(:disabled):not(.disabled):not([aria-disabled="true"]) {
+    color: #2f6b3b !important;
 }
 
 /* Background-library tabs use registration lines instead of rounded pills. */
