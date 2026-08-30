@@ -408,6 +408,105 @@
     cursor: default !important;
 }
 
+/*
+ * P1 pilot: only Assets and Expressions.  A light entry sits above a quieter
+ * content sheet; spacing and type encode hierarchy without extra badges.
+ * Keep native visibility, column layout and all nested controls intact.
+ */
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child {
+    margin-bottom: 8px;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header {
+    min-height: 34px;
+    margin: 0 !important;
+    padding: 6px 8px 6px 10px !important;
+    background: rgba(255, 255, 255, 0.88) !important;
+    font-family: var(--ef-font-body) !important;
+    font-size: calc(var(--mainFontSize) * 0.933333) !important;
+    line-height: 1.45;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header > b {
+    font-weight: 650;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header:hover {
+    background: rgba(23, 26, 26, 0.045) !important;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header:has(> .inline-drawer-icon.up) {
+    border-bottom-color: rgba(23, 26, 26, 0.22) !important;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-header:has(> .inline-drawer-icon:focus-visible) {
+    outline: 1px solid var(--ef-graphite);
+    outline-offset: 1px;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content {
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 10px 10px 12px;
+    background: rgba(23, 26, 26, 0.026) !important;
+    border: 0 !important;
+    font-size: calc(var(--mainFontSize) * 0.9);
+    line-height: 1.5;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content > :is(.assets-url-block, .expression_api_block, .expression_llm_prompt_block, .expression_prompt_type_block, .expression_fallback_block, .expression_custom_block) {
+    margin: 12px 0 0 !important;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content > div > label:not(.checkbox_label),
+#extensions-settings-button #rm_extensions_block #expressions_container > .expression_settings > .inline-drawer:first-child > .inline-drawer-content > .expression_prompt_type_block > .title_restorable {
+    color: var(--ef-graphite);
+    font-size: calc(var(--mainFontSize) * 0.866667);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content > :is(.assets-url-block, .expression_api_block, .expression_llm_prompt_block, .expression_fallback_block, .expression_custom_block) :is(select, textarea, input[type="text"], input:not([type])) {
+    margin-block: 0 !important;
+    font-family: var(--ef-font-body) !important;
+    font-size: calc(var(--mainFontSize) * 0.9) !important;
+}
+
+#extensions-settings-button #rm_extensions_block #expressions_container .expression_settings > .inline-drawer:first-child > .inline-drawer-content > .checkbox_label {
+    min-height: 26px;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 3px 0;
+    line-height: 20px;
+}
+
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content > small,
+#extensions-settings-button #rm_extensions_block :is(#assets_ui, #expressions_container > .expression_settings) > .inline-drawer:first-child > .inline-drawer-content > div > small {
+    display: block;
+    margin: 2px 0 6px;
+    color: #626967 !important;
+    font-size: calc(var(--mainFontSize) * 0.8);
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 1;
+}
+
+#extensions-settings-button #rm_extensions_block #assets_ui > .inline-drawer:first-child > .inline-drawer-content > small > .assets-install-hint-link {
+    color: var(--ef-graphite) !important;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+#extensions-settings-button #rm_extensions_block #no_chat_expressions {
+    margin: 12px 0 0;
+    color: #626967;
+    font-size: calc(var(--mainFontSize) * 0.8);
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: start;
+    opacity: 1;
+}
+
 /* Background-library tabs use registration lines instead of rounded pills. */
 #top-settings-holder > .drawer > #Backgrounds #bg_tabs {
     background: rgba(253, 253, 253, 0.72) !important;
