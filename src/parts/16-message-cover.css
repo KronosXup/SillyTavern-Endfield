@@ -1,18 +1,21 @@
 /*
- * 消息封面：受控方形头像、稳定姓名底板，灰底接全宽正文。
+ * 消息封面：整幅横向铺满、1:1方形裁切，稳定姓名底板接全宽正文。
  * 独立替换旧侧栏/横幅模型；不增删节点，不依赖脚本搬移。
  * 注意：CSS 不会恢复宿主缩略图中已经被裁掉的原图内容。
  */
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
-    --ef-cover-board: #dedfdd;
+    --ef-cover-board: #dfdfdf;
+    --ef-cover-ink: #242424;
+    --ef-cover-muted: #707070;
     --ef-cover-pad: clamp(14px, 4cqw, 28px);
-    --ef-cover-avatar-size: min(100cqw, 280px);
-    --ef-cover-name-width: min(clamp(236px, 46cqw, 260px), calc(100cqw - var(--ef-cover-index-width) - var(--ef-cover-pad) - 10px));
+    --ef-cover-avatar-size: 100cqw;
+    --ef-cover-name-width: min(clamp(236px, 46cqw, 360px), calc(100cqw - var(--ef-cover-index-width) - var(--ef-cover-pad) - 10px));
     --ef-cover-name-inset: calc(var(--ef-cover-name-width) * 0.1);
     --ef-cover-title-size: clamp(28px, calc(var(--ef-cover-name-width) * 0.145), 38px);
     --ef-cover-index-width: clamp(56px, 18cqw, 110px);
     --ef-cover-index-height: clamp(24px, 6cqw, 36px);
+    --ef-cover-extra-meta: 0px;
     container-type: inline-size;
     display: block !important;
     padding-bottom: 26px !important;
@@ -37,9 +40,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     padding: 0 !important;
     overflow: visible;
     border: 0 !important;
-    background-color: var(--ef-cover-board) !important;
-    background-image: var(--ef-gray-grid) !important;
-    background-size: 160px 160px !important;
+    background: var(--ef-cover-board) !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .avatar,
@@ -94,7 +95,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     max-width: none;
     margin: 0 !important;
     overflow: hidden;
-    color: #6c716e !important;
+    color: var(--ef-cover-muted) !important;
     background: transparent !important;
     font: 500 10px/1.3 var(--ef-font-body) !important;
     font-variant-numeric: tabular-nums;
@@ -109,7 +110,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     top: calc(100% - var(--ef-cover-index-height) * 0.6);
     min-height: var(--ef-cover-index-height);
     padding: 4px 9px;
-    color: var(--ef-ink) !important;
+    color: var(--ef-cover-ink) !important;
     background: var(--ef-signal) !important;
     font: 750 clamp(14px, 3.5cqw, 22px)/1.15 var(--ef-font-number) !important;
     text-align: left !important;
@@ -155,7 +156,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     margin: 0 !important;
     padding: 0 var(--ef-cover-pad) 12px !important;
     overflow: visible;
-    color: var(--ef-ink) !important;
+    color: var(--ef-cover-ink) !important;
     background: var(--ef-cover-board) !important;
     border: 0 !important;
     box-shadow: none !important;
@@ -165,7 +166,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
     content: "";
     grid-area: 1 / 2 / 4 / 3;
-    min-height: calc(var(--ef-cover-index-height) * 0.4 + 38px);
+    min-height: calc(var(--ef-cover-index-height) * 0.4 + 38px + var(--ef-cover-extra-meta));
     pointer-events: none;
 }
 
@@ -174,7 +175,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     display: contents !important;
 }
 
-/* 姓名板独立于文字长度；窄屏为英文名留宽，宽屏上限避免完全盖住方图下沿。 */
+/* 姓名板独立于文字长度；窄屏为英文名留宽，宽屏保持左侧约46%的分量。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text {
     grid-area: 1 / 1 / 2 / -1;
     position: relative !important;
@@ -188,7 +189,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     margin: -1.03em 0 0 calc(-1 * var(--ef-cover-pad)) !important;
     padding: 0.25em calc(var(--ef-cover-name-inset) + 0.38em) 0.12em !important;
     overflow: visible;
-    color: var(--ef-ink) !important;
+    color: var(--ef-cover-ink) !important;
     background: var(--ef-cover-board) !important;
     border: 0 !important;
     border-radius: 0 !important;
@@ -235,8 +236,8 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     min-width: 0;
     margin: 7px 0 0 calc(var(--ef-cover-name-inset) - var(--ef-cover-pad)) !important;
     padding: 6px 8px;
-    color: #515754 !important;
-    background: #d1d3d0;
+    color: #4b4b4b !important;
+    background: #d5d5d5;
     font: 500 clamp(10px, 2.7cqw, 13px)/1.3 var(--ef-font-body) !important;
     white-space: normal;
     overflow-wrap: anywhere;
@@ -245,7 +246,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .mes_ghost {
     grid-area: 3 / 1 / 4 / 2;
     margin-top: 8px;
-    color: #686e6b !important;
+    color: var(--ef-cover-muted) !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > :is(.mes_buttons, .mes_edit_buttons) {
@@ -262,7 +263,34 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name :is(.mes_buttons, .extraMesButtons, .mes_edit_buttons) {
-    color: var(--ef-ink) !important;
+    color: var(--ef-cover-ink) !important;
+}
+
+/* 收藏扩展把按钮插在姓名内部；保留点击功能，退出文字行并进入右侧信息列。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.name_text > .sp-anchor-btn) {
+    --ef-cover-extra-meta: 28px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn {
+    position: absolute !important;
+    top: calc(var(--ef-cover-title-size) * 1.03 + var(--ef-cover-index-height) * 0.4 + 39px);
+    left: calc(100cqw - var(--ef-cover-pad) - 22px);
+    right: auto;
+    bottom: auto;
+    width: 22px !important;
+    height: 22px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #5e5e5e !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    font-size: 14px !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn.sp-anchor-saved {
+    color: var(--ef-cover-ink) !important;
+    background: var(--ef-signal) !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .extraMesButtons {
