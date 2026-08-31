@@ -349,8 +349,115 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     padding: 18px var(--ef-cover-pad) 16px !important;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > :is(.mes_reasoning_details, .mes_media_wrapper, .mes_file_wrapper) {
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > :is(.mes_media_wrapper, .mes_file_wrapper) {
     margin-inline: var(--ef-cover-pad);
+}
+
+/* 白封面在此结束。细套准线不增加封面高度；推理被原生隐藏时仍留下轻量分界。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: var(--ef-cover-name-inset);
+    width: 55%;
+    height: 2px;
+    background: linear-gradient(to right, var(--ef-calib-m) 0 23%, var(--ef-calib-y) 23% 43%, var(--ef-calib-c) 43%);
+    pointer-events: none;
+}
+
+/* 推理成为封面与正文之间的整宽灰色分区，不再是缩进的带框小卡片。
+   不指定 display，保留宿主的无推理、隐藏推理、编辑中等显隐判断。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_reasoning_details {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: var(--ef-workbench) !important;
+    box-shadow: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    margin: 0 !important;
+    padding: 8px var(--ef-cover-pad) !important;
+    gap: 6px 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    color: var(--ef-cover-ink) !important;
+    background-color: var(--ef-workbench);
+    background-image: var(--ef-gray-grid);
+    background-size: 160px 160px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header_block {
+    flex: 1 1 140px;
+    min-width: 0;
+}
+
+/* 保留真实的展开目标及箭头，去掉原标签里的黄黑块与嵌套白板。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 28px;
+    margin: 0;
+    padding: 4px 24px 4px 0 !important;
+    gap: 7px;
+    align-items: center !important;
+    color: var(--ef-cover-ink) !important;
+    background: transparent !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header::before {
+    margin: 0;
+    padding: 0;
+    color: #707070;
+    font-weight: 500;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header_title {
+    min-width: 0;
+    padding: 0 !important;
+    overflow-wrap: anywhere;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_actions {
+    max-width: 100%;
+    margin: 0;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    color: var(--ef-cover-ink) !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning {
+    margin: 0 !important;
+    padding: 4px var(--ef-cover-pad) 14px;
+    border: 0;
+    border-radius: 0;
+}
+
+/* 用户消息展开后的推理正文仍沿用深色阅读面，浅灰仅用于分区标题。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) .mes_reasoning {
+    background: var(--ef-graphite);
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details > .reasoning_edit_textarea {
+    box-sizing: border-box;
+    width: calc(100% - var(--ef-cover-pad) * 2);
+    margin: 0 var(--ef-cover-pad) 12px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) .mes_reasoning_details > .reasoning_edit_textarea {
+    background: var(--ef-graphite) !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > :is(.for_checkbox, .del_checkbox) {
