@@ -4,6 +4,40 @@
  * establishes the common material, edge, type colour and scrolling language.
  */
 
+/* 宿主在1000px以下提前全屏化抽屉；本主题阅读平面到700px才全宽。
+ * 统一中间菜单的外框，不改变内部排版或原生展开/关闭状态。
+ */
+@media (min-width: 701px) {
+    #top-settings-holder > .drawer > .drawer-content:not(#left-nav-panel):not(#right-nav-panel) {
+        width: min(var(--sheldWidth), 1080px) !important;
+        min-width: 0 !important;
+        max-width: 1080px !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-inline: auto !important;
+    }
+
+    /* 恢复宿主fillLeft/fillRight的剩余空间公式，而不是写死295px。
+     * 1184px/50%时295px；890px/50%时221.5px。最大化仍交给宿主。
+     */
+    #top-settings-holder > .drawer > :is(#left-nav-panel, #right-nav-panel):not(.maximized) {
+        width: max(100px, calc((100dvw - min(var(--sheldWidth), 1080px) - 2px) / 2)) !important;
+        min-width: 100px !important;
+        max-width: none !important;
+        margin-inline: 0 !important;
+    }
+
+    #top-settings-holder > .drawer > #left-nav-panel:not(.maximized) {
+        left: 0 !important;
+        right: auto !important;
+    }
+
+    #top-settings-holder > .drawer > #right-nav-panel:not(.maximized) {
+        left: auto !important;
+        right: 0 !important;
+    }
+}
+
 #top-settings-holder > .drawer > .drawer-content {
     --SmartThemeBodyColor: var(--ef-ink) !important;
     --SmartThemeEmColor: #5f6765 !important;

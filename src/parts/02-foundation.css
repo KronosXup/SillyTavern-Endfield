@@ -6,6 +6,12 @@
     max-width: 1080px !important;
 }
 
+/* 宿主在窄窗口把图标条改为 fixed；半宽页面仍须与背景条共同居中。 */
+#top-settings-holder {
+    inset-inline: 0;
+    margin-inline: auto !important;
+}
+
 #top-bar {
     background: rgba(16, 20, 21, 0.96) !important;
     border: 0 !important;
