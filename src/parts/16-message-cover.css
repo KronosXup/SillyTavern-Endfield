@@ -16,7 +16,9 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
     --ef-cover-title-size: clamp(28px, calc(var(--ef-cover-name-width) * 0.145), 38px);
     --ef-cover-index-width: clamp(56px, 18cqw, 110px);
     --ef-cover-index-height: clamp(24px, 6cqw, 36px);
-    --ef-cover-extra-meta: 0px;
+    --ef-cover-meta-width: calc(var(--ef-cover-name-width) - var(--ef-cover-name-inset) * 2);
+    --ef-cover-meta-row: 0px;
+    --ef-cover-meta-gap: 0px;
     container-type: inline-size;
     display: block !important;
     padding-bottom: 26px !important;
@@ -142,15 +144,16 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     display: none !important;
 }
 
-/* 普通姓名与照片合计为正方形；超长姓名/多行工具允许增高，不能压住正文。 */
+/* 普通姓名与照片合计为正方形；超长姓名/多行工具允许增高，不能压住正文。
+   外层只分信息区与工具行，剩余白底留在信息下方，不再把姓名整体向下推。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name {
     position: relative;
     z-index: 2;
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) var(--ef-cover-index-width);
-    grid-template-rows: max-content max-content max-content max-content;
+    grid-template-rows: minmax(max-content, 1fr) max-content;
     align-items: start;
-    align-content: end;
+    align-content: stretch;
     gap: 0 10px;
     box-sizing: border-box;
     width: 100%;
@@ -165,17 +168,45 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     box-shadow: none !important;
 }
 
-/* 为右侧真实元数据预留空间；时间戳单独关闭也不挤到操作按钮。 */
+/* 右侧元数据只约束信息行的最低高度，不再撑开姓名和时间之间的轨道。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
     content: "";
-    grid-area: 1 / 2 / 4 / 3;
-    min-height: calc(var(--ef-cover-index-height) * 0.4 + 38px + var(--ef-cover-extra-meta));
+    grid-area: 1 / 2 / 2 / 3;
+    min-height: calc(var(--ef-cover-index-height) * 0.4 + 38px);
     pointer-events: none;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1,
+body.no-timer.no-tokenCount.no-mesIDDisplay:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
+    content: none;
+    display: none;
+}
+
+/* 保留真实的局部信息组：宿主插入的模型图标不会再掉进外层空轨道。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1 {
+    grid-area: 1 / 1 / 2 / -1;
+    display: block !important;
+    align-self: start;
+    min-width: 0;
+    width: 100%;
+}
+
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1 > .alignItemsBaseline {
-    display: contents !important;
+    display: grid !important;
+    grid-template-columns: var(--ef-cover-meta-width) 14px;
+    grid-template-rows: max-content minmax(var(--ef-cover-meta-row), max-content);
+    gap: var(--ef-cover-meta-gap) 8px;
+    align-items: start;
+    justify-content: start;
+    width: max-content;
+    max-width: 100%;
+    margin-left: calc(var(--ef-cover-name-inset) - var(--ef-cover-pad));
+}
+
+body:not(.no-timestamps):not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes),
+body:not(.no-modelIcons):not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.timestamp-icon),
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.name_text > .sp-anchor-btn) {
+    --ef-cover-meta-row: 30px;
+    --ef-cover-meta-gap: 7px;
 }
 
 /* 姓名板独立于文字长度；窄屏为英文名留宽，宽屏保持左侧约46%的分量。 */
@@ -189,7 +220,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     min-width: 0;
     max-width: 100cqw;
     min-height: 0;
-    margin: -1.03em 0 0 calc(-1 * var(--ef-cover-pad)) !important;
+    margin: -1.03em 0 0 calc(-1 * var(--ef-cover-name-inset)) !important;
     padding: 0.25em calc(var(--ef-cover-name-inset) + 0.38em) 0.12em !important;
     overflow: visible;
     color: var(--ef-cover-ink) !important;
@@ -232,12 +263,14 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp {
-    grid-area: 2 / 1 / 3 / -1;
+    grid-area: 2 / 1 / 3 / 2;
     box-sizing: border-box;
-    width: calc(var(--ef-cover-name-width) - var(--ef-cover-name-inset) * 2);
+    width: 100%;
     max-width: 100%;
     min-width: 0;
-    margin: 7px 0 0 calc(var(--ef-cover-name-inset) - var(--ef-cover-pad)) !important;
+    min-height: var(--ef-cover-meta-row);
+    align-content: center;
+    margin: 0 !important;
     padding: 6px 8px;
     color: #242424 !important;
     background: #d9d9d9;
@@ -246,14 +279,22 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     overflow-wrap: anywhere;
 }
 
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp-icon {
+    grid-area: 2 / 2 / 3 / 3;
+    align-self: start;
+    width: 14px;
+    height: 14px;
+    margin: calc((var(--ef-cover-meta-row) - 14px) / 2) 0 0 !important;
+}
+
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .mes_ghost {
     grid-area: 3 / 1 / 4 / 2;
-    margin-top: 8px;
+    margin: 0;
     color: var(--ef-cover-muted) !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > :is(.mes_buttons, .mes_edit_buttons) {
-    grid-area: 4 / 1 / 5 / -1;
+    grid-area: 2 / 1 / 3 / -1;
     position: static !important;
     float: none;
     min-width: 0;
@@ -269,23 +310,14 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     color: var(--ef-cover-ink) !important;
 }
 
-/* 收藏扩展把按钮插在姓名内部；保留点击功能，退出姓名文字行，与时间条同排。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.name_text > .sp-anchor-btn) {
-    --ef-cover-extra-meta: 28px;
-}
-
-/* 收藏控件落在时间条末端；关闭时间戳时也保留独立一行，不挤进操作栏。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name:has(.name_text > .sp-anchor-btn) {
-    grid-template-rows: max-content minmax(29px, max-content) max-content max-content;
-}
-
+/* 收藏仍在姓名节点内；局部网格不拉伸姓名行，按钮与时间共享同一个行距。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.name_text > .sp-anchor-btn) > .mes_block > .ch_name .timestamp {
     padding-right: 36px;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn {
     position: absolute !important;
-    top: calc(100% + 10px);
+    top: calc(100% + var(--ef-cover-meta-gap) + (var(--ef-cover-meta-row) - 22px) / 2);
     left: calc(var(--ef-cover-name-width) - var(--ef-cover-name-inset) - 28px);
     right: auto;
     bottom: auto;
