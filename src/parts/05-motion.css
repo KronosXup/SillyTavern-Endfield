@@ -13,6 +13,39 @@
     transform-origin: left;
 }
 
+body:not(.hideChatAvatars):not(.documentstyle)
+#chat > .mes:not(.smallSysMes)
+.mes_reasoning_details > .mes_reasoning_summary {
+    position: relative;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle)
+#chat > .mes:not(.smallSysMes)
+.mes_reasoning_details > .mes_reasoning_summary::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    height: 2px;
+    pointer-events: none;
+    background-image: linear-gradient(
+        to right,
+        var(--ef-calib-m) 0 11.5%,
+        var(--ef-calib-y) 11.5% 21.5%,
+        var(--ef-calib-c) 21.5% 50%,
+        var(--ef-calib-m) 50% 61.5%,
+        var(--ef-calib-y) 61.5% 71.5%,
+        var(--ef-calib-c) 71.5% 100%
+    );
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    background-size: 200% 100%;
+    opacity: 0;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     #chat > .last_mes:not(.smallSysMes) > .mes_block::after {
         animation: ef-registration-sweep 260ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
@@ -20,6 +53,12 @@
 
     #top-settings-holder > .drawer > .drawer-content.openDrawer {
         animation: ef-menu-resolve var(--ef-shift) cubic-bezier(0.2, 0.72, 0.2, 1) both;
+    }
+
+    body[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
+    #chat > .last_mes:not(.smallSysMes)
+    .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+        animation: ef-reasoning-calibration-run 1600ms linear infinite;
     }
 }
 
@@ -46,8 +85,45 @@
     }
 }
 
-body.reduced-motion #top-settings-holder > .drawer > .drawer-content {
+@keyframes ef-reasoning-calibration-run {
+    0% {
+        background-position: 0 0;
+        background-size: 200% 100%;
+        opacity: 0.92;
+    }
+
+    34% {
+        background-position: 34% 0;
+        background-size: 300% 100%;
+        opacity: 0.92;
+    }
+
+    68% {
+        background-position: 72% 0;
+        background-size: 145% 100%;
+        opacity: 0.92;
+    }
+
+    100% {
+        background-position: 100% 0;
+        background-size: 200% 100%;
+        opacity: 0.92;
+    }
+}
+
+body.reduced-motion #top-settings-holder > .drawer > .drawer-content,
+body.reduced-motion[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
+#chat > .last_mes:not(.smallSysMes)
+.mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
     animation: none !important;
+}
+
+body.reduced-motion[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
+#chat > .last_mes:not(.smallSysMes)
+.mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+    background-position: 0 0;
+    background-size: 200% 100%;
+    opacity: 0.92;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -65,5 +141,13 @@ body.reduced-motion #top-settings-holder > .drawer > .drawer-content {
     #chat > .last_mes:not(.smallSysMes) > .mes_block::after,
     #send_form::before {
         transform: scaleX(1) !important;
+    }
+
+    body[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
+    #chat > .last_mes:not(.smallSysMes)
+    .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+        background-position: 0 0;
+        background-size: 200% 100%;
+        opacity: 0.92;
     }
 }
