@@ -15,8 +15,8 @@
 - 已确认游戏资源：`<游戏安装目录>/Endfield_Data/StreamingAssets/VFS`，约 57 GB 的 `.chk` 加少量 `.blc` 索引。
 - 已确认测试宿主：普通 SillyTavern 1.18.0 与 Luker 2.7.0；首要验收仍以普通 SillyTavern 为准。
 - 工作区：已建立 `src → build → themes` 维护边界并初始化 Git；设计基准与参考素材分批提交，便于回滚。
-- 首要交付：可直接导入普通 SillyTavern 的单文件主题 `themes/Endfield-Wuling.json`
-  （文件名保留旧后缀，内容已非武陵）。
+- 首要交付：可直接导入普通 SillyTavern 的单文件主题 `themes/Endfield.json`
+  （使用通用文件名，内容不绑定具体地区）。
 - 可选交付：仅在 CSS 无法承担关键动效时，增加一个薄型动画插件。
 - 已定主视觉：**官号档案长图的连续纸面阅读区**。白／极浅灰纸面、左侧窄荧光黄识别轨、
   两位数编号分节、局部深灰媒体块；黄色只承担左轨、章节条、关键词标记与主操作。
@@ -179,7 +179,7 @@ scripts/
   verify-theme.mjs
   extract-ui-samples.ps1
 themes/
-  Endfield-Wuling.json
+  Endfield.json
 ```
 
 构建要求：
@@ -206,7 +206,7 @@ themes/
 
 暂不实现顶栏、抽屉、设置、世界书、modern-ui 和 Luker。
 
-产物：`Endfield-Wuling.json` 的第一份可导入候选。
+产物：`Endfield.json` 的第一份可导入候选。
 
 闸门：技术验收已通过；等待用户目视确认视觉和动效方向后再扩展顶栏。
 

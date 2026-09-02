@@ -44,7 +44,7 @@
 
 ## β0.3 — 2026-08-24
 
-构建产物：`themes/Endfield-Wuling.json`（文件名仍留旧后缀，内容为档案长图方向）
+构建产物：`themes/Endfield-Wuling.json`（当时仍沿用旧文件名，内容为档案长图方向）
 
 ### 离线闸门
 

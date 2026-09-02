@@ -6,7 +6,7 @@ const scriptDir = dirname(fileURLToPath(import.meta.url));
 const rootDir = dirname(scriptDir);
 const sourcePath = join(rootDir, 'src', 'base-theme.json');
 const partsDir = join(rootDir, 'src', 'parts');
-const outputPath = join(rootDir, 'themes', 'Endfield-Wuling.json');
+const outputPath = join(rootDir, 'themes', 'Endfield.json');
 
 const theme = JSON.parse(await readFile(sourcePath, 'utf8'));
 const partNames = (await readdir(partsDir))
@@ -29,4 +29,3 @@ await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(theme, null, 4)}\n`, 'utf8');
 
 console.log(`THEME_BUILD_OK ${partNames.length} parts -> ${outputPath}`);
-

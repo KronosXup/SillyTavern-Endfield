@@ -1,5 +1,5 @@
 {
-  "name": "endfield-wuling-sillytavern-theme",
+  "name": "endfield-sillytavern-theme",
   "version": "0.1.0-alpha.1",
   "private": true,
   "type": "module",
@@ -9,4 +9,3 @@
     "check": "npm run build && npm run verify"
   }
 }
-

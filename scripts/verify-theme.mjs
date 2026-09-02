@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const rootDir = dirname(scriptDir);
-const themePath = join(rootDir, 'themes', 'Endfield-Wuling.json');
+const themePath = join(rootDir, 'themes', 'Endfield.json');
 const raw = await readFile(themePath, 'utf8');
 const theme = JSON.parse(raw);
 const css = theme.custom_css;

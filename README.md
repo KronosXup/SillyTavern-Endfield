@@ -22,7 +22,7 @@ npm run build
 npm run verify
 ```
 
-构建产物：`themes/Endfield-Wuling.json`
+构建产物：`themes/Endfield.json`
 
 ## 研究边界
 
