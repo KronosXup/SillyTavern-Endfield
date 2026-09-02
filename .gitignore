@@ -6,6 +6,9 @@ research/tools/
 research/reference/raw/
 research/reference/derived/*.mp4
 
+# Local handoff notes stay on the workstation; do not publish them.
+HANDOFF.md
+
 *.pid
 
 *.log
