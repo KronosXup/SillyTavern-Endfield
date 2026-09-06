@@ -1,0 +1,42 @@
+/*
+ * 官网质感第一步（2026-09-06）：参照 endfield.hypergryph.com/operator。
+ * 外底纹理在下部显现；可点击条目轻抬，不改变阅读面与消息封面。
+ * 官网卡片约 200ms 上移；宿主连续列表间距更紧，位移限为 1px。
+ */
+
+body {
+    /* 用同色遮层收住上半部网格，保留底部的制图纹理。
+     * 两层固定在视口上，滚动长聊天时不会反复出现整块渐变接缝。
+     */
+    background-image:
+        linear-gradient(
+            180deg,
+            var(--ef-workbench) 0%,
+            var(--ef-workbench) 30%,
+            rgba(229, 229, 229, 0.94) 44%,
+            rgba(229, 229, 229, 0.52) 72%,
+            rgba(229, 229, 229, 0.12) 100%
+        ),
+        var(--ef-gray-grid) !important;
+    background-size: 100% 100%, 160px 160px !important;
+    background-position: center, 0 0 !important;
+    background-repeat: no-repeat, repeat !important;
+    background-attachment: fixed, fixed !important;
+}
+
+/* 仅桌面鼠标产生位移。保留宿主批量选择、键盘聚焦及触屏行为。 */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body:not(.reduced-motion) #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat:not(.hidden),
+    body:not(.reduced-motion) #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > .character_select {
+        transition:
+            transform 200ms ease,
+            background-color var(--ef-fast) ease-out,
+            box-shadow 200ms ease !important;
+    }
+
+    body:not(.reduced-motion) #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat:not(.hidden):hover,
+    body:not(.reduced-motion) #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > .character_select:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 3px rgba(23, 26, 26, 0.1) !important;
+    }
+}
