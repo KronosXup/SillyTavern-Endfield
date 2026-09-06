@@ -62,7 +62,7 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     padding: 0 !important;
     aspect-ratio: auto !important;
     object-fit: cover;
-    object-position: center;
+    object-position: 50% 40%;
     border: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
