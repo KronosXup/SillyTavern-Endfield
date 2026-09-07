@@ -1,0 +1,20 @@
+/* 仅首页助手消息不显示封面头像；仍保留姓名、编号、正文和所有原生操作。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat:has(> .welcomePanel) > .mes[type="assistant_message"] > .mesAvatarWrapper > .avatar,
+body:not(.hideChatAvatars):not(.documentstyle) #chat:has(> .welcomePanel) > .mes[type="assistant_message"] > .mesAvatarWrapper::after {
+    display: none !important;
+}
+
+/* 姓名不再向上压在图片上。编号回到原本共用的元信息轨道，保留相同叠压量。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat:has(> .welcomePanel) > .mes[type="assistant_message"] > .mes_block > .ch_name .name_text {
+    margin-top: 0 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat:has(> .welcomePanel) > .mes[type="assistant_message"] > .mesAvatarWrapper > .mesIDDisplay {
+    grid-area: meta / 5 / reasoning / 6;
+    position: relative;
+    top: auto;
+    right: auto;
+    align-self: start;
+    justify-self: end;
+    margin-top: -3.61cqw !important;
+}

@@ -39,38 +39,129 @@
 }
 
 /*
- * 图注：官方形态是「深灰细竖条 + 黄块 + 白底斜体 // 标签 + 右侧黄条」。
- * 实测（update-02，画布 1000px，y≈1155）：深竖条约 6px，黄块约 25px，// 为斜体。
- * 挂在推理块头部 —— 它是聊天里唯一语义对得上的「子块标签」。
+ * 推理头块：文档式深色当前块（学官网 Button_button / 百科当前条目）。
+ * 实测依据：Button_button 142×32、#383838、2px 角、黄竖线 ::after（左 0.5rem、
+ * 宽 1rem 裁 25%、高 55%）、texture 全铺 ::before、hover 只动单维度 0.2s。
+ * 纹理用主题自有的 --ef-contours-light（白线），不 hotlink 官网图。
+ *
+ * 真实 DOM：summary > header_block > header > (title + arrow)，另有 actions。
+ * thinking/done 的真区分 CSS 拿不到（酒馆 1.18 不写 data-state/body[data-generating]，
+ * 纯 JS 变量），用 .last_mes 近似：最新消息=跑，旧消息=静。刚生成完未发下一句
+ * 的窗口动画会多跑一会儿，记为 recent-activity，不宣称真思考态。
  */
 
-#chat > .mes .mes_reasoning_summary .mes_reasoning_header {
-    align-items: stretch !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    background: linear-gradient(
-        to right,
-        var(--ef-block) 0 6px,
-        var(--ef-signal) 6px 31px,
-        var(--ef-paper-hi) 31px
-    ) !important;
+#chat > .mes .mes_reasoning_summary {
+    flex-wrap: wrap !important;
+    gap: 0 12px !important;
 }
 
+/* 头块底发丝线：静态通栏，不做状态区分。 */
+#chat > .mes .mes_reasoning_summary::after {
+    content: "" !important;
+    flex: none !important;
+    order: 99 !important;
+    flex-basis: 100% !important;
+    height: 1px !important;
+    margin-top: 0 !important;
+    background: var(--ef-line) !important;
+}
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header_block {
+    display: flex !important;
+}
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header {
+    position: relative;
+    display: inline-flex !important;
+    align-items: center !important;
+    align-self: flex-start !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 8px 32px 8px 10px !important;
+    border-radius: 2px !important;
+    color: var(--ef-paper-hi) !important;
+    background: #2b2f2e !important;
+}
+
+/* 黄竖线：2px 宽、55% 高，学官网 tick。 */
 #chat > .mes .mes_reasoning_summary .mes_reasoning_header::before {
-    content: "//";
-    margin-left: 39px;
-    padding-right: 6px;
-    color: var(--ef-ink);
-    font-style: italic;
-    font-weight: 800;
-    letter-spacing: 0.02em;
+    content: "" !important;
+    flex: none !important;
+    width: 2px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: var(--ef-signal) !important;
+}
+
+/* 等高线只进深色块右侧，左半渐隐不压字。thinking 态在 05 里复位成色段。 */
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 55% !important;
+    background-image: var(--ef-contours-light) !important;
+    background-repeat: no-repeat !important;
+    background-position: right center !important;
+    background-size: cover !important;
+    opacity: 0.5 !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 35%, black 75%) !important;
+    mask-image: linear-gradient(to right, transparent 35%, black 75%) !important;
+    pointer-events: none !important;
+}
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* // 注脚：白字降透明，不抢标题。 */
+#chat > .mes .mes_reasoning_summary .mes_reasoning_header_title::before {
+    content: "// " !important;
+    color: rgba(253, 253, 253, 0.6) !important;
+    font-style: italic !important;
+    font-weight: 600 !important;
 }
 
 #chat > .mes .mes_reasoning_summary .mes_reasoning_header_title {
-    padding: 3px 0 !important;
-    color: var(--ef-ink) !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    overflow-wrap: anywhere !important;
+    color: var(--ef-paper-hi) !important;
     font-family: var(--ef-font-display) !important;
+    font-size: 14.5px !important;
     font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+}
+
+#chat > .mes .mes_reasoning_summary .mes_reasoning_arrow {
+    color: rgba(253, 253, 253, 0.65) !important;
+}
+
+/* 展开收尾：details 折叠时伪元素一起藏，展开才见细线 + 120px 右黑段。
+   不做思考/done 区分，纯静态注脚。 */
+#chat > .mes:not(.smallSysMes) .mes_reasoning_details::after {
+    content: "" !important;
+    display: block !important;
+    height: 4px !important;
+    margin-top: 12px !important;
+    background-image:
+        linear-gradient(to right, var(--ef-dark) 0 120px, transparent 120px),
+        linear-gradient(to right, var(--ef-line) 0 100%) !important;
+    background-size:
+        120px 4px,
+        100% 1px !important;
+    background-position:
+        100% 100%,
+        0 100% !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 用户消息深底：头块再压深，保证可见。 */
+#chat > .mes[is_user="true"] .mes_reasoning_summary .mes_reasoning_header {
+    background: rgba(0, 0, 0, 0.45) !important;
 }
 
 /*

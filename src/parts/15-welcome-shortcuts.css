@@ -7,7 +7,7 @@
 #chat > .welcomePanel .welcomeHeader {
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 4px !important;
+    gap: 0 !important;
 }
 
 #chat > .welcomePanel .recentChatsTitle {
@@ -21,20 +21,21 @@
     min-width: 0;
     flex-wrap: wrap !important;
     justify-content: flex-start !important;
-    gap: 4px 8px !important;
+    gap: 8px 18px !important;
+    margin-bottom: 19px;
 }
 
 #chat > .welcomePanel .welcomeShortcuts > :is(a, button) {
     box-sizing: border-box;
     min-height: 28px;
     margin: 0 !important;
-    padding: 4px 6px !important;
+    padding: 5px 0 !important;
     border: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
-    color: var(--ef-muted) !important;
-    font: 500 12px/1.25 var(--ef-font-body) !important;
+    color: #686868 !important;
+    font: 400 12px/1.5 "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif !important;
     text-shadow: none !important;
     text-decoration: none !important;
     white-space: nowrap;

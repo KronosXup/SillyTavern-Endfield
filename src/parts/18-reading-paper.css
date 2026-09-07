@@ -1,0 +1,191 @@
+/* 公告纸面定稿：外部网格不变；正文、媒体与尾部操作共享纸面。
+ * 装饰只占现有 reply→end 轨道，不产生高度，不拦截点击。
+ * SVG 与官方点阵随构建嵌入；维护素材位于 src/assets/reading/。
+ */
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
+    --ef-reading-paper: #fff;
+    --ef-reading-contour-rt: url("asset:reading/contours-top-right.svg");
+    --ef-reading-contour-lb: url("asset:reading/contours-bottom-left.svg");
+    --ef-reading-dots: url("asset:reading/points-bg.png");
+    isolation: isolate;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) {
+    --ef-reading-paper: #e7eae4;
+}
+
+/* 两个角各限于半张阅读面；短回复等比收小，长回复达到素材定稿尺寸。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes)::after {
+    content: "";
+    display: block;
+    grid-area: reply / 1 / end / -1;
+    align-self: stretch;
+    justify-self: stretch;
+    z-index: -2;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    border: 0;
+    background-color: var(--ef-reading-paper);
+    background-image: var(--ef-reading-contour-rt), var(--ef-reading-contour-lb);
+    background-size: min(55%, 380px) min(50%, 226px), min(46%, 315px) min(50%, 315px);
+    background-position: right top, left bottom;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* ch_name 本体仍透明且不建立堆叠层，正文/媒体和原生控件保留原位置。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block {
+    background: transparent !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
+    content: "" !important;
+    display: block !important;
+    grid-area: reply / 1 / end / -1;
+    align-self: stretch;
+    justify-self: stretch;
+    position: relative;
+    z-index: -1;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    background-image: var(--ef-reading-dots);
+    background-size: 12px 12px;
+    background-position: left bottom;
+    background-repeat: repeat;
+    opacity: .06;
+    /* 短纸面保留约三分之一强度，再随实际高度渐显；长文沿用原尾部点阵。 */
+    mask-image: linear-gradient(to bottom, transparent 50%, #000 90%),
+        linear-gradient(to bottom, rgb(0 0 0 / .333333) 120px, #000 300px);
+    mask-size: 100% min(220px, 100%), 100% 100%;
+    mask-position: left bottom, left top;
+    mask-repeat: no-repeat;
+    mask-composite: intersect;
+    pointer-events: none;
+}
+
+/* 沿用字标的 SVG 位置和斜纹，只在延续区末端淡出。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details[open]:has(> :is(.mes_reasoning:not(:empty), .reasoning_edit_textarea))::before,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text::before {
+    mask-image: var(--ef-reasoning-wordmark), linear-gradient(to bottom, #000 65%, transparent);
+    mask-size: 100cqw var(--ef-reasoning-word-size), 100% 100%;
+    mask-position: 5cqw calc(var(--ef-reasoning-word-top) - var(--ef-reasoning-band-height)), 0 0;
+    mask-repeat: no-repeat;
+    mask-composite: intersect;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block :is(.mes_text, .mes_media_wrapper, .mes_file_wrapper) {
+    color: #282e29 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block .mes_text {
+    line-height: 1.7 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block .mes_text :is(em, i) {
+    color: #4f5750 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block .mes_text q {
+    color: #282e29 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block a {
+    color: #374b3d !important;
+    text-decoration-color: #8e9b8b !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block :is(.mes_text, .mes_reasoning) blockquote {
+    color: #4b554c !important;
+    background: rgba(40, 46, 41, .035) !important;
+    border-left-color: #a7b1a2 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block :is(.mes_text, .mes_reasoning) :is(code, pre) {
+    color: #282e29 !important;
+    background: rgba(40, 46, 41, .045) !important;
+    border-color: rgba(40, 46, 41, .16) !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) > .mes_block :is(.edit_textarea, .reasoning_edit_textarea) {
+    color: #282e29 !important;
+    caret-color: #282e29 !important;
+    background: rgba(255, 255, 255, .7) !important;
+    border-color: rgba(40, 46, 41, .26) !important;
+}
+
+/* 同重的页尾图标与一条弹性细线；显隐继续交给宿主。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > :is(.mes_buttons, .mes_edit_buttons) {
+    margin-left: 1cqw;
+    margin-right: 1cqw;
+    gap: 8px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > :is(.mes_buttons, .mes_edit_buttons)::before {
+    content: "";
+    flex: 1 1 24px;
+    align-self: center;
+    height: 1px;
+    margin-right: 6px;
+    background: #c4cbc0;
+    pointer-events: none;
+}
+
+/* 编辑态保留 32px 原生点击区，装饰线让位给完整的一组操作。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .mes_edit_buttons {
+    gap: 6px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .mes_edit_buttons::before {
+    content: none;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block :is(.mes_edit_buttons, .mes_reasoning_actions) > .menu_button {
+    color: #6d756e !important;
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block :is(.mes_edit_buttons, .mes_reasoning_actions) > .menu_button:not(.disabled):not([disabled]):not([aria-disabled="true"]) {
+    opacity: 1;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block :is(.mes_edit_buttons, .mes_reasoning_actions) > .menu_button:hover {
+    color: #282e29 !important;
+    background: rgba(40, 46, 41, .06) !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name:has(.sp-anchor-btn) > :is(.mes_buttons, .mes_edit_buttons) {
+    padding-left: 30px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn {
+    left: 5cqw !important;
+    opacity: 1;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name :is(.mes_buttons, .mes_edit_buttons) .mes_button:not(.disabled):not([disabled]):not([aria-disabled="true"]) {
+    opacity: 1;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block .mes_reasoning_actions > .mes_button:not(.disabled):not([disabled]):not([aria-disabled="true"]) {
+    opacity: 1;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) :is(.mes_buttons, .extraMesButtons, .mes_edit_buttons, .swipe_left, .swipe_right, .swipes-counter, .xiaobaix-collapse-btn) {
+    color: #6d756e !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .xiaobaix-collapse-btn {
+    border-color: transparent !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .xiaobaix-xstack > span {
+    color: inherit !important;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .xiaobaix-xstack > span:nth-child(1) { opacity: .1; }
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .xiaobaix-xstack > span:nth-child(2) { opacity: .2; }
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .xiaobaix-xstack > span:nth-child(3) { opacity: .4; }

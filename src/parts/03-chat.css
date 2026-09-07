@@ -165,8 +165,8 @@
 #chat > .mes .mes_reasoning_details {
     margin-top: 9px;
     color: #4e5653 !important;
-    background: rgba(23, 26, 26, 0.035) !important;
-    border: 1px solid var(--ef-line) !important;
+    background: transparent !important;
+    border: 0 !important;
     border-radius: 0 !important;
 }
 
@@ -247,8 +247,8 @@
 
 #chat > .mes[is_user="true"] > .mes_block .mes_reasoning_details {
     color: rgba(250, 251, 248, 0.75) !important;
-    background: rgba(0, 0, 0, 0.16) !important;
-    border-color: rgba(255, 255, 255, 0.14) !important;
+    background: transparent !important;
+    border: 0 !important;
 }
 
 #chat > .mes[is_user="true"] > .mes_block :is(.edit_textarea, .reasoning_edit_textarea) {

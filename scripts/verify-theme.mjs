@@ -45,6 +45,7 @@ if (paperGridDeclaration.includes('%3Ccircle')) {
 
 if (/https?:\/\//i.test(css)) failures.push('custom_css contains a remote URL');
 if (/research[\\/]raw/i.test(css)) failures.push('custom_css references raw research assets');
+if (css.includes('asset:')) failures.push('custom_css contains an unembedded local asset');
 
 const openBraces = [...css].filter((char) => char === '{').length;
 const closeBraces = [...css].filter((char) => char === '}').length;

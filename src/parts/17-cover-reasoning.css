@@ -1,0 +1,396 @@
+/*
+ * 封面推理分区。16-message-cover 提供父网格；本模块仅占 mes_block 第 3 行。
+ * 官方原图量值：灰带 6.3% 消息宽，实字顶部距带顶 2.4%，浅纸面延续 6.4%。
+ * 完整 ENDFIELD 轮廓来自已确认的交互稿，避开系统字体度量变化。
+ * 不指定 details/正文/actions 的 display；空推理、编辑及隐藏推理由宿主控制。
+ */
+
+@property --ef-reasoning-stop-a {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 0%;
+}
+
+@property --ef-reasoning-stop-b {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 70%;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
+    --ef-reasoning-band-height: 6.3cqw;
+    --ef-reasoning-word-top: 2.4cqw;
+    --ef-reasoning-word-size: 16cqw;
+    --ef-reasoning-pale-height: 6.4cqw;
+    --ef-reasoning-wordmark: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiID8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjEwMDAiIGhlaWdodD0iMTYwIj4KCTxwYXRoIGZpbGw9IndoaXRlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDExNSkiIGQ9Ik0xMS42NDA2MjUgLTExNC41MzEyNUwxMDYuNDg0MzggLTExNC41MzEyNUwxMDYuNDg0MzggLTkwLjA3ODEyNUw0Ny4xMDkzNzUgLTkwLjA3ODEyNUw0Ny4xMDkzNzUgLTcxLjg3NUwxMDIuMTg3NSAtNzEuODc1TDEwMi4xODc1IC00OC41MTU2MjVMNDcuMTA5Mzc1IC00OC41MTU2MjVMNDcuMTA5Mzc1IC0yNS45Mzc1TDEwOC4yMDMxMiAtMjUuOTM3NUwxMDguMjAzMTIgMEwxMS42NDA2MjUgMEwxMS42NDA2MjUgLTExNC41MzEyNVoiLz4KCTxwYXRoIGZpbGw9IndoaXRlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTUuNTQ3IDExNSkiIGQ9Ik0xMS45NTMxMjUgLTExNC41MzEyNUw0NSAtMTE0LjUzMTI1TDg4LjEyNSAtNTEuMTcxODc1TDg4LjEyNSAtMTE0LjUzMTI1TDEyMS40ODQzOCAtMTE0LjUzMTI1TDEyMS40ODQzOCAwTDg4LjEyNSAwTDQ1LjIzNDM3NSAtNjIuODkwNjI1TDQ1LjIzNDM3NSAwTDExLjk1MzEyNSAwTDExLjk1MzEyNSAtMTE0LjUzMTI1WiIvPgoJPHBhdGggZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI0OC44MjggMTE1KSIgZD0iTTEyLjE4NzUgLTExNC41MzEyNUw2NC43NjU2MjUgLTExNC41MzEyNVE4MC4zMTI1IC0xMTQuNTMxMjUgODkuODgyODEyIC0xMTAuMzEyNVE5OS40NTMxMjUgLTEwNi4wOTM3NSAxMDUuNzAzMTIgLTk4LjIwMzEyNVExMTEuOTUzMTIgLTkwLjMxMjUgMTE0Ljc2NTYyIC03OS44NDM3NVExMTcuNTc4MTIgLTY5LjM3NSAxMTcuNTc4MTIgLTU3LjY1NjI1UTExNy41NzgxMiAtMzkuMjk2ODc1IDExMy4zOTg0NCAtMjkuMTc5Njg4UTEwOS4yMTg3NSAtMTkuMDYyNSAxMDEuNzk2ODggLTEyLjIyNjU2MlE5NC4zNzUgLTUuMzkwNjI1IDg1Ljg1OTM3NSAtMy4xMjVRNzQuMjE4NzUgMCA2NC43NjU2MjUgMEwxMi4xODc1IDBMMTIuMTg3NSAtMTE0LjUzMTI1Wk00Ny41NzgxMjUgLTg4LjU5Mzc1TDQ3LjU3ODEyNSAtMjYuMDE1NjI1TDU2LjI1IC0yNi4wMTU2MjVRNjcuMzQzNzUgLTI2LjAxNTYyNSA3Mi4wMzEyNSAtMjguNDc2NTYyUTc2LjcxODc1IC0zMC45Mzc1IDc5LjM3NSAtMzcuMDcwMzEyUTgyLjAzMTI1IC00My4yMDMxMjUgODIuMDMxMjUgLTU2Ljk1MzEyNVE4Mi4wMzEyNSAtNzUuMTU2MjUgNzYuMDkzNzUgLTgxLjg3NVE3MC4xNTYyNSAtODguNTkzNzUgNTYuNDA2MjUgLTg4LjU5Mzc1TDQ3LjU3ODEyNSAtODguNTkzNzVaIi8+Cgk8cGF0aCBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzczLjI4MSAxMTUpIiBkPSJNMTEuODc1IC0xMTQuNTMxMjVMOTkuMzc1IC0xMTQuNTMxMjVMOTkuMzc1IC04OS45MjE4NzVMNDcuNDIxODc1IC04OS45MjE4NzVMNDcuNDIxODc1IC02OS45MjE4NzVMOTEuNzk2ODc1IC02OS45MjE4NzVMOTEuNzk2ODc1IC00Ni43OTY4NzVMNDcuNDIxODc1IC00Ni43OTY4NzVMNDcuNDIxODc1IDBMMTEuODc1IDBMMTEuODc1IC0xMTQuNTMxMjVaIi8+Cgk8cGF0aCBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDgwIDExNSkiIGQ9Ik0xMy4xMjUgLTExNC41MzEyNUw0OC41OTM3NSAtMTE0LjUzMTI1TDQ4LjU5Mzc1IDBMMTMuMTI1IDBMMTMuMTI1IC0xMTQuNTMxMjVaIi8+Cgk8cGF0aCBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTQyLjI2NiAxMTUpIiBkPSJNMTEuNjQwNjI1IC0xMTQuNTMxMjVMMTA2LjQ4NDM4IC0xMTQuNTMxMjVMMTA2LjQ4NDM4IC05MC4wNzgxMjVMNDcuMTA5Mzc1IC05MC4wNzgxMjVMNDcuMTA5Mzc1IC03MS44NzVMMTAyLjE4NzUgLTcxLjg3NUwxMDIuMTg3NSAtNDguNTE1NjI1TDQ3LjEwOTM3NSAtNDguNTE1NjI1TDQ3LjEwOTM3NSAtMjUuOTM3NUwxMDguMjAzMTIgLTI1LjkzNzVMMTA4LjIwMzEyIDBMMTEuNjQwNjI1IDBMMTEuNjQwNjI1IC0xMTQuNTMxMjVaIi8+Cgk8cGF0aCBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjU3LjgxMiAxMTUpIiBkPSJNMTEuNzE4NzUgLTExNC41MzEyNUw0Ny4xMDkzNzUgLTExNC41MzEyNUw0Ny4xMDkzNzUgLTI4LjIwMzEyNUwxMDIuMzQzNzUgLTI4LjIwMzEyNUwxMDIuMzQzNzUgMEwxMS43MTg3NSAwTDExLjcxODc1IC0xMTQuNTMxMjVaIi8+Cgk8cGF0aCBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzY0LjUzMSAxMTUpIiBkPSJNMTIuMTg3NSAtMTE0LjUzMTI1TDY0Ljc2NTYyNSAtMTE0LjUzMTI1UTgwLjMxMjUgLTExNC41MzEyNSA4OS44ODI4MTIgLTExMC4zMTI1UTk5LjQ1MzEyNSAtMTA2LjA5Mzc1IDEwNS43MDMxMiAtOTguMjAzMTI1UTExMS45NTMxMiAtOTAuMzEyNSAxMTQuNzY1NjIgLTc5Ljg0Mzc1UTExNy41NzgxMiAtNjkuMzc1IDExNy41NzgxMiAtNTcuNjU2MjVRMTE3LjU3ODEyIC0zOS4yOTY4NzUgMTEzLjM5ODQ0IC0yOS4xNzk2ODhRMTA5LjIxODc1IC0xOS4wNjI1IDEwMS43OTY4OCAtMTIuMjI2NTYyUTk0LjM3NSAtNS4zOTA2MjUgODUuODU5Mzc1IC0zLjEyNVE3NC4yMTg3NSAwIDY0Ljc2NTYyNSAwTDEyLjE4NzUgMEwxMi4xODc1IC0xMTQuNTMxMjVaTTQ3LjU3ODEyNSAtODguNTkzNzVMNDcuNTc4MTI1IC0yNi4wMTU2MjVMNTYuMjUgLTI2LjAxNTYyNVE2Ny4zNDM3NSAtMjYuMDE1NjI1IDcyLjAzMTI1IC0yOC40NzY1NjJRNzYuNzE4NzUgLTMwLjkzNzUgNzkuMzc1IC0zNy4wNzAzMTJRODIuMDMxMjUgLTQzLjIwMzEyNSA4Mi4wMzEyNSAtNTYuOTUzMTI1UTgyLjAzMTI1IC03NS4xNTYyNSA3Ni4wOTM3NSAtODEuODc1UTcwLjE1NjI1IC04OC41OTM3NSA1Ni40MDYyNSAtODguNTkzNzVMNDcuNTc4MTI1IC04OC41OTM3NVoiLz4KPC9zdmc+Cg==");
+    --ef-reasoning-paper-start: #eeeeee;
+    --ef-reasoning-paper-end: #f5f6f3;
+    --ef-reasoning-reply-paper: #ffffff;
+    --ef-reasoning-pale-ink: #e4e4e4;
+}
+
+/* 两个网格伪元素常驻；没有推理时，第 3 行仍由灰带自身撑起。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block::before,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block::after {
+    content: "" !important;
+    display: block !important;
+    grid-area: reasoning / 1 / reply / -1;
+    align-self: start;
+    justify-self: stretch;
+    position: relative !important;
+    inset: auto !important;
+    box-sizing: border-box;
+    width: 100% !important;
+    height: var(--ef-reasoning-band-height) !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    pointer-events: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block::before {
+    z-index: 0;
+    background: #d0d0d0 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block::after {
+    z-index: 1;
+    background: repeating-linear-gradient(135deg, #b3b3b3 0 1px, transparent 1px 3px) !important;
+    -webkit-mask-image: var(--ef-reasoning-wordmark) !important;
+    mask-image: var(--ef-reasoning-wordmark) !important;
+    -webkit-mask-size: 100cqw var(--ef-reasoning-word-size) !important;
+    mask-size: 100cqw var(--ef-reasoning-word-size) !important;
+    -webkit-mask-position: 5cqw var(--ef-reasoning-word-top) !important;
+    mask-position: 5cqw var(--ef-reasoning-word-top) !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+}
+
+/* 色条属于封面边界；与 details 的有无、折叠或编辑无关。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::after,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name:has(~ .mes_reasoning_details)::after {
+    content: "" !important;
+    display: block !important;
+    grid-area: reasoning / 1 / reply / -1;
+    align-self: start;
+    justify-self: start;
+    position: relative !important;
+    inset: auto !important;
+    z-index: 4;
+    width: 56% !important;
+    height: 2px !important;
+    margin: 0 0 0 5% !important;
+    padding: 0 !important;
+    background: linear-gradient(to right, var(--ef-calib-m) 0 23%, var(--ef-calib-y) 23% 43%, var(--ef-calib-c) 43% 100%) !important;
+    background-size: 100% 2px !important;
+    opacity: 1 !important;
+    transform: translateY(-2px) !important;
+    animation: none !important;
+    pointer-events: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_reasoning_details {
+    grid-area: reasoning / 1 / reply / -1;
+    align-self: start;
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* 移除旧深色标题块、第二条色线与黑色页脚。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary::after,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header::before,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header::after,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header_title::before,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details::after {
+    content: none !important;
+    display: none !important;
+    animation: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary {
+    position: static !important;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--ef-reasoning-band-height);
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    list-style: none;
+    background: transparent !important;
+    border: 0 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary:focus-visible {
+    outline: 1px solid #596154;
+    outline-offset: -3px;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header_block {
+    position: static !important;
+    flex: 1 1 100% !important;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 宿主仅允许从 header 内触发折叠，故实际点击区铺满灰带。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary .mes_reasoning_header {
+    position: relative !important;
+    align-self: stretch !important;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: #656b63 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* 只做视觉隐藏，读屏仍能读到宿主更新的思考状态与耗时。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary .mes_reasoning_header_title {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    min-width: 0 !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary .mes_reasoning_arrow {
+    position: absolute !important;
+    top: 42% !important;
+    right: 5% !important;
+    width: 7px !important;
+    height: 7px !important;
+    margin: 0 !important;
+    border: solid #656b63 !important;
+    border-width: 0 1px 1px 0 !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    transform: rotate(45deg) !important;
+    transition: border-color 150ms ease;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details[open] .mes_reasoning_arrow {
+    top: 51% !important;
+    transform: rotate(225deg) !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_arrow::before {
+    content: none !important;
+}
+
+@media (hover: hover) {
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header:hover .mes_reasoning_arrow {
+        border-color: #323b2a !important;
+    }
+}
+
+/* 旧 11 的 display: inline-flex !important 曾盖住宿主编辑态隐藏规则。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details:has(> .reasoning_edit_textarea) .mes_reasoning_header {
+    display: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details[open]:has(> :is(.mes_reasoning:not(:empty), .reasoning_edit_textarea)) {
+    padding-bottom: 36px !important;
+    background: linear-gradient(to bottom, transparent 0 var(--ef-reasoning-band-height), var(--ef-reasoning-paper-start) var(--ef-reasoning-band-height), var(--ef-reasoning-paper-end) calc(var(--ef-reasoning-band-height) + var(--ef-reasoning-pale-height))) !important;
+    border-bottom: 1px solid #e0e3dd !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_actions {
+    position: absolute !important;
+    z-index: 3;
+    right: 5%;
+    bottom: 7px;
+    left: auto;
+    top: auto;
+    max-width: 90%;
+    margin: 0 !important;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    color: #66705e !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details > .mes_reasoning {
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
+    padding: 18px 5% 12px !important;
+    color: #626c58 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    animation: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details > .reasoning_edit_textarea {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 18px 5% 12px;
+}
+
+/* 浅纸面中的同一个字标继续向下，不另起第二个 ENDFIELD。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details[open]:has(> :is(.mes_reasoning:not(:empty), .reasoning_edit_textarea))::before,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text::before {
+    content: "" !important;
+    position: absolute !important;
+    z-index: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: var(--ef-reasoning-pale-height);
+    margin: 0;
+    background: repeating-linear-gradient(135deg, var(--ef-reasoning-pale-ink) 0 1px, transparent 1px 3px);
+    opacity: 0.45;
+    -webkit-mask-image: var(--ef-reasoning-wordmark);
+    mask-image: var(--ef-reasoning-wordmark);
+    -webkit-mask-size: 100cqw var(--ef-reasoning-word-size);
+    mask-size: 100cqw var(--ef-reasoning-word-size);
+    -webkit-mask-position: 5cqw calc(var(--ef-reasoning-word-top) - var(--ef-reasoning-band-height));
+    mask-position: 5cqw calc(var(--ef-reasoning-word-top) - var(--ef-reasoning-band-height));
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    pointer-events: none !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details[open]::before {
+    top: var(--ef-reasoning-band-height);
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text {
+    position: relative;
+    isolation: isolate;
+    /* 18-reading-paper 在 reply→end 轨道绘制连续纸面。 */
+    background: transparent !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text::before {
+    top: 0;
+    z-index: -1;
+}
+
+/* 仅真正可见的展开内容接浅纸；被宿主隐藏的空 details 不改变正文顶部。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes.reasoning:not(.smallSysMes):has(> .mes_block > .mes_reasoning_details[open] > :is(.mes_reasoning:not(:empty), .reasoning_edit_textarea)) > .mes_block > .mes_text {
+    background: transparent !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes.reasoning:not(.smallSysMes):has(> .mes_block > .mes_reasoning_details[open] > :is(.mes_reasoning:not(:empty), .reasoning_edit_textarea)) > .mes_block > .mes_text::before {
+    content: none !important;
+}
+
+/* 用户正文接浅灰纸面；灰带与字标的位置继续和 AI 消息共用。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) {
+    --ef-reasoning-paper-start: #e7eae4;
+    --ef-reasoning-paper-end: #e7eae4;
+    --ef-reasoning-reply-paper: #e7eae4;
+    --ef-reasoning-pale-ink: #d2d8cd;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) .mes_reasoning_details > .mes_reasoning {
+    color: #626c58 !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) .mes_reasoning_actions {
+    color: #66705e !important;
+}
+
+/* 只有宿主真实 thinking 状态驱动；完成后立即回到静态 M/Y/C 套准线。 */
+@media (prefers-reduced-motion: no-preference) {
+    body:not(.hideChatAvatars):not(.documentstyle):not(.reduced-motion) #chat > .mes:not(.smallSysMes):is([data-reasoning-state="thinking"], :has(> .mes_block > .mes_reasoning_details[data-state="thinking"])) > .mes_block > .ch_name::after {
+        background-image: linear-gradient(to right,
+            var(--ef-reasoning-color-a, var(--ef-calib-c)) 0 var(--ef-reasoning-stop-a),
+            var(--ef-reasoning-color-b, var(--ef-calib-m)) var(--ef-reasoning-stop-a) var(--ef-reasoning-stop-b),
+            var(--ef-reasoning-color-c, var(--ef-calib-y)) var(--ef-reasoning-stop-b) 100%) !important;
+        animation: ef-cover-reasoning-calibration-run 1800ms linear infinite !important;
+    }
+}
+
+@keyframes ef-cover-reasoning-calibration-run {
+    0% {
+        --ef-reasoning-stop-a: 0%;
+        --ef-reasoning-stop-b: 70%;
+        --ef-reasoning-color-a: var(--ef-calib-c);
+        --ef-reasoning-color-b: var(--ef-calib-m);
+        --ef-reasoning-color-c: var(--ef-calib-y);
+        animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+    }
+    33.32% {
+        --ef-reasoning-stop-a: 70%;
+        --ef-reasoning-stop-b: 100%;
+        --ef-reasoning-color-a: var(--ef-calib-c);
+        --ef-reasoning-color-b: var(--ef-calib-m);
+        --ef-reasoning-color-c: var(--ef-calib-y);
+        animation-timing-function: steps(1, end);
+    }
+    33.34% {
+        --ef-reasoning-stop-a: 0%;
+        --ef-reasoning-stop-b: 70%;
+        --ef-reasoning-color-a: var(--ef-calib-y);
+        --ef-reasoning-color-b: var(--ef-calib-c);
+        --ef-reasoning-color-c: var(--ef-calib-m);
+        animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+    }
+    66.65% {
+        --ef-reasoning-stop-a: 70%;
+        --ef-reasoning-stop-b: 100%;
+        --ef-reasoning-color-a: var(--ef-calib-y);
+        --ef-reasoning-color-b: var(--ef-calib-c);
+        --ef-reasoning-color-c: var(--ef-calib-m);
+        animation-timing-function: steps(1, end);
+    }
+    66.67% {
+        --ef-reasoning-stop-a: 0%;
+        --ef-reasoning-stop-b: 70%;
+        --ef-reasoning-color-a: var(--ef-calib-m);
+        --ef-reasoning-color-b: var(--ef-calib-y);
+        --ef-reasoning-color-c: var(--ef-calib-c);
+        animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+    }
+    99.98% {
+        --ef-reasoning-stop-a: 70%;
+        --ef-reasoning-stop-b: 100%;
+        --ef-reasoning-color-a: var(--ef-calib-m);
+        --ef-reasoning-color-b: var(--ef-calib-y);
+        --ef-reasoning-color-c: var(--ef-calib-c);
+        animation-timing-function: steps(1, end);
+    }
+    100% {
+        --ef-reasoning-stop-a: 0%;
+        --ef-reasoning-stop-b: 70%;
+        --ef-reasoning-color-a: var(--ef-calib-c);
+        --ef-reasoning-color-b: var(--ef-calib-m);
+        --ef-reasoning-color-c: var(--ef-calib-y);
+    }
+}

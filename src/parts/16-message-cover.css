@@ -1,57 +1,81 @@
-/*
- * 消息封面：头像与姓名区合计为1:1，白色标题区下方接全宽正文。
- * 独立替换旧侧栏/横幅模型；不增删节点，不依赖脚本搬移。
- * 注意：CSS 不会恢复宿主缩略图中已经被裁掉的原图内容。
+/* 已确认的公告式封面。原生 wrapper 保留实盒，subgrid 共用元信息轨道；按钮排在消息末尾。
+ * 不搬移节点、不改聊天数据；原生显隐开关及编辑态 display 继续生效。
+ * 命名轨道共用姓名、元信息、推理、正文、媒体、附件、附注与操作行。
  */
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
-    --ef-cover-board: #ffffff;
-    --ef-cover-ink: #141414;
-    --ef-cover-muted: #707070;
-    --ef-cover-pad: clamp(14px, 4cqw, 28px);
-    --ef-cover-header-size: clamp(124px, 28cqw, 160px);
-    --ef-cover-photo-size: calc(100cqw - var(--ef-cover-header-size));
-    --ef-cover-name-width: min(clamp(236px, 46cqw, 360px), calc(100cqw - var(--ef-cover-index-width) - var(--ef-cover-pad) - 10px));
-    --ef-cover-name-inset: calc(var(--ef-cover-name-width) * 0.1);
-    --ef-cover-title-size: clamp(28px, calc(var(--ef-cover-name-width) * 0.145), 38px);
-    --ef-cover-index-width: clamp(56px, 18cqw, 110px);
-    --ef-cover-index-height: clamp(24px, 6cqw, 36px);
-    --ef-cover-meta-width: calc(var(--ef-cover-name-width) - var(--ef-cover-name-inset) * 2);
-    --ef-cover-meta-row: 0px;
-    --ef-cover-meta-gap: 0px;
+body:not(.hideChatAvatars):not(.documentstyle) #chat {
     container-type: inline-size;
-    display: block !important;
-    padding-bottom: 26px !important;
+    container-name: ef-chat;
 }
 
-/* 楼层号只保留原生节点，不再同时绘制侧槽编号。 */
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
+    --ef-cover-board: #fff;
+    --ef-cover-ink: #151818;
+    --ef-cover-label: #535b50;
+    --ef-cover-muted: #707767;
+    --ef-cover-meta-gap: clamp(10px, 3.5cqw, 18px);
+    --ef-cover-meta-size: clamp(10px, 2.3cqw, 11px);
+    --ef-cover-photo-size: 103cqw;
+    --ef-cover-title-size: 8.1cqw;
+    --ef-cover-index-size: clamp(20px, 5.2cqw, 30px);
+    --ef-cover-index-edge: clamp(4px, calc(var(--ef-cover-index-size) * .27), 8px);
+    --ef-cover-index-height: calc(var(--ef-cover-index-size) * .9 + 8px + var(--ef-cover-index-edge));
+    --ef-cover-index-clearance: max(0px, calc(var(--ef-cover-index-height) - 3.61cqw));
+    --ef-cover-bottom-gap: 2.3cqw;
+    --ef-font-display: "EF Cover Harmony Bold", "Microsoft YaHei", sans-serif;
+    --ef-font-body: "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif;
+    --ef-font-number: "EF Cover Novecento Medium", Arial, sans-serif;
+    container-type: inline-size;
+    container-name: ef-message;
+    position: relative;
+    display: grid !important;
+    grid-template-columns: 4% minmax(0, max-content) minmax(0, max-content) minmax(0, max-content) minmax(22%, 1fr) 4%;
+    grid-template-rows: [photo] auto [name] max-content [meta] auto [reasoning] auto [reply] auto [media] auto [file] auto [extra] auto [actions] auto [end];
+    align-items: start;
+    box-sizing: border-box;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible;
+}
+
+body.no-mesIDDisplay:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes),
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(> .mesAvatarWrapper > .mesIDDisplay:empty) {
+    --ef-cover-index-clearance: 0px;
+}
+
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes)::before {
     content: none !important;
     display: none !important;
 }
 
-/* 两个宿主直系 wrapper 均保留，滑动、编辑和插件定位仍有原锚点。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper {
+    grid-area: photo / 1 / reasoning / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
     position: relative;
-    display: block;
-    flex: none !important;
-    box-sizing: border-box;
-    width: 100%;
+    align-self: stretch;
     min-width: 0;
-    height: var(--ef-cover-photo-size);
-    margin: 0;
+    width: 100%;
+    height: auto;
+    margin: 0 !important;
     padding: 0 !important;
-    overflow: visible;
     border: 0 !important;
     background: var(--ef-cover-board) !important;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .avatar,
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .avatar > img {
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper::before {
+    content: "";
+    grid-area: meta / 1 / reasoning / -1;
+    min-height: calc(var(--ef-cover-index-clearance) + var(--ef-cover-bottom-gap));
+    pointer-events: none;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .avatar {
+    grid-area: photo / 1 / name / -1;
     position: relative;
     display: block;
-    flex: none !important;
-    box-sizing: border-box;
     width: 100% !important;
     height: var(--ef-cover-photo-size) !important;
     min-width: 0 !important;
@@ -60,281 +84,261 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
-    aspect-ratio: auto !important;
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    background: var(--ef-graphite) !important;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .avatar > img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
     object-fit: cover;
     object-position: 50% 40%;
+    aspect-ratio: auto !important;
     border: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     filter: none !important;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .avatar {
-    overflow: hidden;
-    background: var(--ef-graphite) !important;
-}
-
-/* 黄边只沿照片左侧，由抬起的白色姓名区盖住末端。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper::after {
     content: "";
     position: absolute;
     z-index: 1;
-    inset: 0 auto 0 0;
-    width: clamp(5px, 1.3cqw, 9px);
-    height: auto;
+    inset: 0 auto auto 0;
+    width: 3cqw;
+    height: 95cqw;
     margin: 0;
     background: var(--ef-signal);
     pointer-events: none;
 }
 
-/* 右侧使用真实楼层/耗时/token，所有原生隐藏开关继续生效。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > :is(.mesIDDisplay, .mes_timer, .tokenCounterDisplay) {
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .mesIDDisplay {
     position: absolute;
-    z-index: 3;
-    right: var(--ef-cover-pad);
+    z-index: 4;
+    top: 102.2cqw;
+    right: 4cqw;
     box-sizing: border-box;
-    width: var(--ef-cover-index-width);
+    width: max-content;
     min-width: 0;
     max-width: none;
+    min-height: var(--ef-cover-index-height);
     margin: 0 !important;
-    overflow: hidden;
-    color: var(--ef-cover-muted) !important;
-    background: transparent !important;
-    font: 500 10px/1.3 var(--ef-font-body) !important;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
-    text-align: right !important;
-    text-overflow: ellipsis;
+    padding: 4px 7px;
+    color: #353b2f !important;
+    background: var(--ef-signal) !important;
+    border: 0 !important;
+    border-bottom: var(--ef-cover-index-edge) solid #9a9d97 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font: 400 var(--ef-cover-index-size)/.9 var(--ef-font-number) !important;
+    letter-spacing: 0;
+    text-align: center !important;
+    text-shadow: none !important;
     white-space: nowrap;
     opacity: 1;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .mesIDDisplay {
-    top: calc(100% - var(--ef-cover-index-height) * 0.6);
-    min-height: var(--ef-cover-index-height);
-    padding: 4px 9px;
-    color: var(--ef-cover-ink) !important;
-    background: var(--ef-signal) !important;
-    font: 750 clamp(14px, 3.5cqw, 22px)/1.15 var(--ef-font-number) !important;
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > :is(.mes_timer, .tokenCounterDisplay),
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 3;
+    align-self: start;
+    box-sizing: border-box;
+    width: max-content;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 1cqw var(--ef-cover-meta-gap) var(--ef-cover-bottom-gap) 0;
+    color: var(--ef-cover-muted) !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    font: 400 var(--ef-cover-meta-size)/1.45 var(--ef-font-body) !important;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
     text-align: left !important;
+    text-shadow: none !important;
+    white-space: nowrap;
+    overflow: visible;
+    opacity: 1;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .mes_timer {
-    top: calc(100% + var(--ef-cover-index-height) * 0.4 + 7px);
+    grid-area: meta / 3 / reasoning / 4;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .tokenCounterDisplay {
-    top: calc(100% + var(--ef-cover-index-height) * 0.4 + 23px);
+    grid-area: meta / 4 / reasoning / 5;
+    padding-right: 0;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > :is(.mesIDDisplay, .mes_timer, .tokenCounterDisplay):empty,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp:empty {
+    display: none;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .timestamp:not(:empty)::before,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > :is(.mes_timer, .tokenCounterDisplay):not(:empty)::before {
+    display: block;
+    margin: 0 0 3px;
+    color: var(--ef-cover-label);
+    font: 700 var(--ef-cover-meta-size)/1.15 var(--ef-font-display);
+    letter-spacing: 0;
+    text-shadow: none;
+    white-space: nowrap;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .timestamp:not(:empty)::before {
+    content: "TIME";
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .mes_timer:not(:empty)::before {
+    content: "GEN";
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .tokenCounterDisplay:not(:empty)::before {
+    content: "TOK";
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block {
+    grid-area: name / 1 / end / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
     position: relative;
+    align-self: stretch;
     box-sizing: border-box;
-    width: 100%;
     min-width: 0;
+    width: 100%;
     margin: 0 !important;
     padding: 0 !important;
     overflow: visible;
+    border: 0 !important;
     box-shadow: none !important;
 }
 
-/* 旧正文顶部的短黄线不属于封面，不能穿过新标题。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block::after {
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name {
+    grid-area: name / 1 / end / -1;
+    display: grid !important;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    color: var(--ef-cover-ink) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    gap: 0;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
     content: none !important;
     display: none !important;
 }
 
-/* 普通姓名与照片合计为正方形；超长姓名/多行工具允许增高，不能压住正文。
-   外层只分信息区与工具行，剩余白底留在信息下方，不再把姓名整体向下推。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name {
-    position: relative;
-    z-index: 2;
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1,
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1 > .alignItemsBaseline {
+    grid-area: name / 1 / reasoning / -1;
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) var(--ef-cover-index-width);
-    grid-template-rows: minmax(max-content, 1fr) max-content;
-    align-items: start;
-    align-content: stretch;
-    gap: 0 10px;
-    box-sizing: border-box;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    position: static;
+    align-self: stretch;
+    min-width: 0;
     width: 100%;
     height: auto;
-    min-height: var(--ef-cover-header-size);
     margin: 0 !important;
-    padding: 0 var(--ef-cover-pad) 12px !important;
-    overflow: visible;
-    color: var(--ef-cover-ink) !important;
-    background: var(--ef-cover-board) !important;
-    border: 0 !important;
-    box-shadow: none !important;
+    padding: 0;
+    gap: 0;
+    background: var(--ef-cover-board);
 }
 
-/* 右侧元数据只约束信息行的最低高度，不再撑开姓名和时间之间的轨道。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
-    content: "";
-    grid-area: 1 / 2 / 2 / 3;
-    min-height: calc(var(--ef-cover-index-height) * 0.4 + 38px);
-    pointer-events: none;
-}
-
-body.no-timer.no-tokenCount.no-mesIDDisplay:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::before {
-    content: none;
-    display: none;
-}
-
-/* 保留真实的局部信息组：宿主插入的模型图标不会再掉进外层空轨道。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1 {
-    grid-area: 1 / 1 / 2 / -1;
-    display: block !important;
-    align-self: start;
-    min-width: 0;
-    width: 100%;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > .flex1 > .alignItemsBaseline {
-    display: grid !important;
-    grid-template-columns: var(--ef-cover-meta-width) 14px;
-    grid-template-rows: max-content minmax(var(--ef-cover-meta-row), max-content);
-    gap: var(--ef-cover-meta-gap) 8px;
-    align-items: start;
-    justify-content: start;
-    width: max-content;
-    max-width: 100%;
-    margin-left: calc(var(--ef-cover-name-inset) - var(--ef-cover-pad));
-}
-
-body:not(.no-timestamps):not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes),
-body:not(.no-modelIcons):not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.timestamp-icon),
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.name_text > .sp-anchor-btn) {
-    --ef-cover-meta-row: 30px;
-    --ef-cover-meta-gap: 7px;
-}
-
-/* 姓名板独立于文字长度；窄屏为英文名留宽，宽屏保持左侧约46%的分量。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text {
-    grid-area: 1 / 1 / 2 / -1;
-    position: relative !important;
-    inset: auto !important;
+    grid-area: name / 1 / meta / -1;
+    position: static !important;
     display: block;
+    align-self: start;
+    justify-self: start;
     box-sizing: border-box;
-    width: var(--ef-cover-name-width);
+    width: max-content;
     min-width: 0;
-    max-width: 100cqw;
-    min-height: 0;
-    margin: -1.03em 0 0 calc(-1 * var(--ef-cover-name-inset)) !important;
-    padding: 0.25em calc(var(--ef-cover-name-inset) + 0.38em) 0.12em !important;
-    overflow: visible;
+    max-width: 74cqw;
+    margin: -8cqw 0 0 !important;
+    padding: 1.1cqw 2.8cqw .8cqw 6.5cqw !important;
     color: var(--ef-cover-ink) !important;
-    background: var(--ef-cover-board) !important;
+    background-color: var(--ef-cover-board) !important;
+    background-image: linear-gradient(var(--ef-cover-ink), var(--ef-cover-ink)), linear-gradient(var(--ef-cover-ink), var(--ef-cover-ink)), linear-gradient(var(--ef-cover-ink), var(--ef-cover-ink)), linear-gradient(var(--ef-cover-ink), var(--ef-cover-ink)), linear-gradient(var(--ef-cover-ink), var(--ef-cover-ink)), linear-gradient(var(--ef-cover-ink), var(--ef-cover-ink)) !important;
+    background-size: .075em calc(100% - .25em), .24em .075em, .24em .075em, .075em calc(100% - .25em), .24em .075em, .24em .075em !important;
+    background-position: 4cqw .22em, 4cqw .22em, 4cqw calc(100% - .03em), calc(100% - .6cqw) .22em, calc(100% - .6cqw) .22em, calc(100% - .6cqw) calc(100% - .03em) !important;
+    background-repeat: no-repeat !important;
     border: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     clip-path: none !important;
-    font: 850 var(--ef-cover-title-size)/1.15 var(--ef-font-display) !important;
-    letter-spacing: -0.025em;
-    text-align: center;
-    text-overflow: clip;
+    font: 700 var(--ef-cover-title-size)/1.1 var(--ef-font-display) !important;
+    letter-spacing: -.035em !important;
+    text-align: left !important;
     text-shadow: none !important;
     white-space: normal !important;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     word-break: normal;
 }
 
-/* 方括号随字高，不随多行姓名拉成巨型框。 */
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text::before,
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text::after {
-    content: "" !important;
-    position: absolute;
-    top: 0.29em;
-    box-sizing: border-box;
-    width: 0.28em;
-    height: 1.04em;
-    border-block: 0.095em solid currentColor;
-    pointer-events: none;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text::before {
-    left: var(--ef-cover-name-inset);
-    border-left: 0.095em solid currentColor;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text::after {
-    right: var(--ef-cover-name-inset);
-    border-right: 0.095em solid currentColor;
+    content: none !important;
+    display: none !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp {
-    grid-area: 2 / 1 / 3 / 2;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    min-height: var(--ef-cover-meta-row);
-    align-content: center;
-    margin: 0 !important;
-    padding: 6px 8px;
-    color: #242424 !important;
-    background: #d9d9d9;
-    font: 500 clamp(10px, 2.7cqw, 13px)/1.3 var(--ef-font-body) !important;
-    white-space: normal;
-    overflow-wrap: anywhere;
+    grid-area: meta / 2 / reasoning / 3;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp-icon {
-    grid-area: 2 / 2 / 3 / 3;
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name :is(.timestamp-icon, .mes_ghost) {
+    grid-area: meta / 5 / reasoning / 6;
     align-self: start;
-    width: 14px;
-    height: 14px;
-    margin: calc((var(--ef-cover-meta-row) - 14px) / 2) 0 0 !important;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .mes_ghost {
-    grid-area: 3 / 1 / 4 / 2;
-    margin: 0;
+    justify-self: start;
+    width: 13px;
+    height: 13px;
+    margin: calc(1cqw + var(--ef-cover-meta-size) * 1.15 + 3px) 0 0 8px !important;
     color: var(--ef-cover-muted) !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name > :is(.mes_buttons, .mes_edit_buttons) {
-    grid-area: 2 / 1 / 3 / -1;
-    position: static !important;
+    grid-area: actions / 2 / end / 6;
+    position: relative !important;
     float: none;
-    min-width: 0;
-    max-width: 100%;
-    min-height: 22px;
-    margin: 10px 0 0;
+    align-self: end;
+    justify-self: stretch;
     flex-wrap: wrap;
     justify-content: flex-end;
-    filter: none;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name :is(.mes_buttons, .extraMesButtons, .mes_edit_buttons) {
-    color: var(--ef-cover-ink) !important;
-}
-
-/* 收藏仍在姓名节点内；局部网格不拉伸姓名行，按钮与时间共享同一个行距。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes):has(.name_text > .sp-anchor-btn) > .mes_block > .ch_name .timestamp {
-    padding-right: 36px;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn {
-    position: absolute !important;
-    top: calc(100% + var(--ef-cover-meta-gap) + (var(--ef-cover-meta-row) - 22px) / 2);
-    left: calc(var(--ef-cover-name-width) - var(--ef-cover-name-inset) - 28px);
-    right: auto;
-    bottom: auto;
-    width: 22px !important;
-    height: 22px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    color: #5e5e5e !important;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 24px;
+    margin: 8px 0 0;
+    padding: 4px 0 var(--ef-cover-bottom-gap);
+    color: #6d756e !important;
     background: transparent !important;
-    border: 0 !important;
-    box-shadow: none !important;
-    font-size: 14px !important;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn.sp-anchor-saved {
-    color: var(--ef-cover-ink) !important;
-    background: var(--ef-signal) !important;
+    filter: none;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .extraMesButtons {
@@ -342,135 +346,85 @@ body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > 
     min-width: 0;
     max-width: 100%;
     overflow: visible;
+    color: inherit !important;
 }
 
-/* 正文始终从封面下方另起整行，用户消息原有深色纸面保持。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text {
-    padding: 18px var(--ef-cover-pad) 16px !important;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > :is(.mes_media_wrapper, .mes_file_wrapper) {
-    margin-inline: var(--ef-cover-pad);
-}
-
-/* 白封面在此结束。细套准线不增加封面高度；推理被原生隐藏时仍留下轻量分界。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: var(--ef-cover-name-inset);
-    width: 55%;
-    height: 2px;
-    background: linear-gradient(to right, var(--ef-calib-m) 0 23%, var(--ef-calib-y) 23% 43%, var(--ef-calib-c) 43%);
-    pointer-events: none;
-}
-
-/* 推理成为封面与正文之间的整宽灰色分区，不再是缩进的带框小卡片。
-   不指定 display，保留宿主的无推理、隐藏推理、编辑中等显隐判断。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_reasoning_details {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 0;
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn {
+    position: absolute !important;
+    z-index: 4;
+    inset: auto auto var(--ef-cover-bottom-gap) 4cqw !important;
+    width: 22px !important;
+    height: 22px !important;
     margin: 0 !important;
-    padding: 0;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: var(--ef-workbench) !important;
-    box-shadow: none !important;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_summary {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 0;
-    min-height: 44px;
-    margin: 0 !important;
-    padding: 8px var(--ef-cover-pad) !important;
-    gap: 6px 12px;
-    flex-wrap: wrap;
-    align-items: center;
-    color: var(--ef-cover-ink) !important;
-    background-color: var(--ef-workbench);
-    background-image: var(--ef-gray-grid);
-    background-size: 160px 160px;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header_block {
-    flex: 1 1 140px;
-    min-width: 0;
-}
-
-/* 保留真实的展开目标及箭头，去掉原标签里的黄黑块与嵌套白板。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header {
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 0;
-    min-height: 28px;
-    margin: 0;
-    padding: 4px 24px 4px 0 !important;
-    gap: 7px;
-    align-items: center !important;
-    color: var(--ef-cover-ink) !important;
-    background: transparent !important;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header::before {
-    margin: 0;
-    padding: 0;
-    color: #707070;
-    font-weight: 500;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_header_title {
-    min-width: 0;
     padding: 0 !important;
-    overflow-wrap: anywhere;
-    font-size: 13px;
-    line-height: 1.4;
+    color: #6d756e !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    font-size: 14px !important;
+    line-height: 22px !important;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_actions {
-    max-width: 100%;
-    margin: 0;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .name_text > .sp-anchor-btn.sp-anchor-saved {
     color: var(--ef-cover-ink) !important;
+    background: var(--ef-signal) !important;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning {
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_reasoning_details {
+    grid-area: reasoning / 1 / reply / -1;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text {
+    grid-area: reply / 1 / media / -1;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_media_wrapper {
+    grid-area: media / 2 / file / 6;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_file_wrapper {
+    grid-area: file / 2 / extra / 6;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > :not(.ch_name, .mes_reasoning_details, .mes_text, .mes_media_wrapper, .mes_file_wrapper) {
+    grid-area: extra / 2 / actions / 6;
+}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .mes_text {
+    min-width: 0;
     margin: 0 !important;
-    padding: 4px var(--ef-cover-pad) 14px;
-    border: 0;
-    border-radius: 0;
-}
-
-/* 用户消息展开后的推理正文仍沿用深色阅读面，浅灰仅用于分区标题。 */
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) .mes_reasoning {
-    background: var(--ef-graphite);
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) .mes_reasoning_details > .reasoning_edit_textarea {
-    box-sizing: border-box;
-    width: calc(100% - var(--ef-cover-pad) * 2);
-    margin: 0 var(--ef-cover-pad) 12px;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes[is_user="true"]:not(.smallSysMes) .mes_reasoning_details > .reasoning_edit_textarea {
-    background: var(--ef-graphite) !important;
+    padding: 18px 5cqw 16px !important;
 }
 
 body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > :is(.for_checkbox, .del_checkbox) {
     position: absolute;
-    z-index: 4;
-    top: 24px;
-    right: 28px;
+    z-index: 5;
+    top: 18px;
+    right: 4cqw;
     margin: 0 !important;
 }
 
-@media (max-width: 700px) {
-    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > :is(.for_checkbox, .del_checkbox) {
-        top: 21px;
-        right: 20px;
+/* 窄屏把 GEN 与 TOK 一起移到日期下方；原生空值/隐藏时轨道仍自然收缩。 */
+@container ef-chat (max-width: 359px) {
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) {
+        grid-template-rows: [photo] auto [name] max-content [meta] auto [meta-counts] auto [reasoning] auto [reply] auto [media] auto [file] auto [extra] auto [actions] auto [end];
     }
+}
+@container ef-chat (max-width: 359px) {
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name .timestamp {
+        grid-area: meta / 2 / meta-counts / 5;
+        padding-right: 0;
+        padding-bottom: var(--ef-cover-bottom-gap);
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .mes_timer {
+        grid-area: meta-counts / 2 / reasoning / 3;
+        padding-top: 0;
+    }
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mesAvatarWrapper > .tokenCounterDisplay {
+        grid-area: meta-counts / 3 / reasoning / 4;
+        padding-top: 0;
+    }
+    body:not(.hideChatAvatars):not(.documentstyle) #chat > .mes:not(.smallSysMes) > .mes_block > .ch_name :is(.timestamp-icon, .mes_ghost) { grid-area: meta-counts / 4 / reasoning / 5; }
 }

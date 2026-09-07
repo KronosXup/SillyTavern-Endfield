@@ -13,38 +13,8 @@
     transform-origin: left;
 }
 
-body:not(.hideChatAvatars):not(.documentstyle)
-#chat > .mes:not(.smallSysMes)
-.mes_reasoning_details > .mes_reasoning_summary {
-    position: relative;
-}
-
-body:not(.hideChatAvatars):not(.documentstyle)
-#chat > .mes:not(.smallSysMes)
-.mes_reasoning_details > .mes_reasoning_summary::after {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    right: auto;
-    bottom: 0;
-    left: 0;
-    width: 40%;
-    height: 2px;
-    pointer-events: none;
-    background-image: linear-gradient(
-        to right,
-        var(--ef-calib-m) 0 11.5%,
-        var(--ef-calib-y) 11.5% 21.5%,
-        var(--ef-calib-c) 21.5% 50%,
-        var(--ef-calib-m) 50% 61.5%,
-        var(--ef-calib-y) 61.5% 71.5%,
-        var(--ef-calib-c) 71.5% 100%
-    );
-    background-repeat: repeat-x;
-    background-position: 0 0;
-    background-size: 200% 100%;
-    opacity: 0;
-}
+/* 推理：只做诚实的展开淡入。思考态真信号酒馆没给 DOM，
+   不做 last_mes 冒充的假加载（2026-09-04 决议）。 */
 
 @media (prefers-reduced-motion: no-preference) {
     #chat > .last_mes:not(.smallSysMes) > .mes_block::after {
@@ -55,10 +25,9 @@ body:not(.hideChatAvatars):not(.documentstyle)
         animation: ef-menu-resolve var(--ef-shift) cubic-bezier(0.2, 0.72, 0.2, 1) both;
     }
 
-    body[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
-    #chat > .last_mes:not(.smallSysMes)
-    .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
-        animation: ef-reasoning-calibration-run 1600ms linear infinite;
+    /* 推理展开：正文短淡入，每次打开都播一次。 */
+    #chat > .mes .mes_reasoning_details[open] > .mes_reasoning {
+        animation: ef-reasoning-expand 190ms cubic-bezier(0.2, 0.72, 0.2, 1) both;
     }
 }
 
@@ -85,45 +54,21 @@ body:not(.hideChatAvatars):not(.documentstyle)
     }
 }
 
-@keyframes ef-reasoning-calibration-run {
-    0% {
-        background-position: 0 0;
-        background-size: 200% 100%;
-        opacity: 0.92;
+/* 推理展开：短淡入 + 3px 上浮归位。 */
+@keyframes ef-reasoning-expand {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
     }
 
-    34% {
-        background-position: 34% 0;
-        background-size: 300% 100%;
-        opacity: 0.92;
-    }
-
-    68% {
-        background-position: 72% 0;
-        background-size: 145% 100%;
-        opacity: 0.92;
-    }
-
-    100% {
-        background-position: 100% 0;
-        background-size: 200% 100%;
-        opacity: 0.92;
+    to {
+        opacity: 1;
+        transform: none;
     }
 }
 
-body.reduced-motion #top-settings-holder > .drawer > .drawer-content,
-body.reduced-motion[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
-#chat > .last_mes:not(.smallSysMes)
-.mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+body.reduced-motion #top-settings-holder > .drawer > .drawer-content {
     animation: none !important;
-}
-
-body.reduced-motion[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
-#chat > .last_mes:not(.smallSysMes)
-.mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
-    background-position: 0 0;
-    background-size: 200% 100%;
-    opacity: 0.92;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,13 +86,5 @@ body.reduced-motion[data-generating="true"]:not(.hideChatAvatars):not(.documents
     #chat > .last_mes:not(.smallSysMes) > .mes_block::after,
     #send_form::before {
         transform: scaleX(1) !important;
-    }
-
-    body[data-generating="true"]:not(.hideChatAvatars):not(.documentstyle)
-    #chat > .last_mes:not(.smallSysMes)
-    .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
-        background-position: 0 0;
-        background-size: 200% 100%;
-        opacity: 0.92;
     }
 }

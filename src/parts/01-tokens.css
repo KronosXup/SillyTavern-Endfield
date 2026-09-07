@@ -8,6 +8,8 @@
     --ef-workbench: #e5e5e5;
     --ef-ink: #061112;
     --ef-graphite: #25292a;
+    /* 深色当前块：学官网 Button(#383838)与百科当前条目，取中间值。 */
+    --ef-dark: #2b2f2e;
     --ef-muted: #707674;
     --ef-signal: #ffff0f;
     --ef-block: #444444;

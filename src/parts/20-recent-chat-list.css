@@ -1,0 +1,564 @@
+/* Accepted recent-chat layout, applied to SillyTavern 1.18's native nodes.
+ * One continuous drawing belongs to the list. Each row's white veil dims it
+ * from .65 to .30 at rest; hover removes that veil without moving the drawing.
+ * No row-index offsets, copied content, click handlers or extension are needed.
+ */
+#chat > .welcomePanel {
+    --ef-recent-contours: url("asset:welcome/recent-chat-contours.svg");
+    --ef-recent-halo: url("asset:welcome/avatar-halo.svg");
+    --ef-recent-button-texture: url("asset:welcome/more-chat-texture.png");
+    --ef-recent-dots: url("asset:reading/points-bg.png");
+    --ef-signal: #fffa00;
+    --ef-recent-ink: #242424;
+    --ef-recent-muted: #646464;
+    --ef-recent-more-height: 36px;
+    container: ef-welcome / inline-size;
+    flex-shrink: 0;
+    gap: 0;
+    padding: 14px 12px 18px !important;
+    color: var(--ef-recent-ink);
+    background: #fff !important;
+    font-family: "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif;
+}
+
+#chat > .welcomePanel .welcomeHeader {
+    margin-bottom: 8px;
+}
+
+#chat > .welcomePanel .welcomeRecent {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+}
+
+#chat > .welcomePanel .welcomeRecent .recentChatList {
+    --ef-recent-footer: 0px;
+    --ef-recent-mask: linear-gradient(90deg, transparent 28%, #000 72%);
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #bfbfbf;
+    background: #fff;
+}
+
+#chat > .welcomePanel .recentChatList:has(> .showMoreChats) {
+    --ef-recent-footer: calc(16px + var(--ef-recent-more-height));
+}
+
+#chat > .welcomePanel .recentChatList::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 var(--ef-recent-footer);
+    background: var(--ef-recent-contours) right top / auto 840px no-repeat;
+    opacity: .65;
+    mask-image: var(--ef-recent-mask);
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .recentChatList::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: var(--ef-recent-footer);
+    width: min(64%, 420px);
+    height: min(calc((100% - var(--ef-recent-footer)) * .46), 168px);
+    background: var(--ef-recent-dots) left bottom / 12px 12px repeat;
+    opacity: .1625;
+    mask-image: radial-gradient(ellipse 95% 100% at 0% 100%, #000 0%, rgb(0 0 0 / .7) 32%, transparent 76%);
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 88px max-content minmax(0, 1fr) auto;
+    grid-template-rows: 24px 22px 22px minmax(32px, auto);
+    grid-template-areas: "avatar name name name" "avatar message message message" "avatar file file file" "avatar date stats tools";
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 0;
+    width: 100%;
+    min-width: 0;
+    min-height: 112px;
+    margin: 0 !important;
+    padding: 6px 6px 6px 2px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: var(--ef-recent-ink);
+    box-shadow: none !important;
+    transform: none !important;
+    text-shadow: none !important;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+#chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat.hidden {
+    display: none;
+}
+
+#chat > .welcomePanel .recentChat::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: #fff;
+    opacity: .5384615;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .recentChat::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(to right, #777 0 14px, #bfbfbf 14px 100%);
+    pointer-events: none;
+}
+
+/* Keep the host's real data and listeners while sharing one layout grid. */
+#chat > .welcomePanel .recentChat :is(.recentChatInfo, .chatNameContainer, .chatName, .chatMessageContainer) {
+    display: contents;
+}
+
+#chat > .welcomePanel .recentChat > .recentChatPinned,
+#chat > .welcomePanel .recentChat .chatName > span:first-of-type {
+    display: none;
+}
+
+#chat > .welcomePanel .recentChat > :is(.avatar, .missing-avatar) {
+    grid-area: avatar;
+    align-self: center;
+    justify-self: center;
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 5.3px rgb(2 2 2 / .4);
+}
+
+#chat > .welcomePanel .recentChat > .avatar::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 88.2353px;
+    height: 88.2353px;
+    transform: translate(-50%, -50%);
+    background: var(--ef-recent-halo) center / contain no-repeat;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .recentChat > :is(.avatar, .missing-avatar)::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%);
+    border: 3px solid #f2f2f2;
+    border-radius: 50%;
+    transition: border-color .3s ease-in-out;
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .recentChat > .avatar:not(.avatar_collage) > img {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 52.9412px;
+    height: 52.9412px;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    transform: translate(-50%, -50%);
+    border: 0;
+    border-radius: 50%;
+    background: #f8f8f8;
+    object-fit: cover;
+}
+
+/* Clip each collage tile to the same inner circle, leaving the halo outside. */
+#chat > .welcomePanel .recentChat > .avatar.avatar_collage {
+    display: block;
+    min-width: 60px;
+    max-width: 60px;
+    aspect-ratio: 1;
+    background: #f8f8f8;
+}
+#chat > .welcomePanel .recentChat > .avatar.avatar_collage > img {
+    width: 100%;
+    height: 100%;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    clip-path: circle(26.4706px at 30px 30px);
+}
+#chat > .welcomePanel .recentChat > .avatar.avatar_collage > .img_2 {
+    clip-path: circle(26.4706px at 0 30px);
+}
+#chat > .welcomePanel .recentChat > .avatar.avatar_collage > .img_3 {
+    clip-path: circle(26.4706px at 30px 0);
+}
+#chat > .welcomePanel .recentChat > .avatar.avatar_collage > .img_4 {
+    clip-path: circle(26.4706px at 0 0);
+}
+#chat > .welcomePanel .recentChat > .avatar.collage_1 > img {
+    top: 0;
+    left: 0;
+}
+#chat > .welcomePanel .recentChat > .missing-avatar {
+    display: grid;
+    place-items: center;
+    background: #f8f8f8;
+    color: var(--ef-recent-muted);
+}
+
+#chat > .welcomePanel .recentChat .characterName {
+    grid-area: name;
+    position: relative;
+    display: block;
+    min-width: 0;
+    margin: 0;
+    padding: 0 28px 0 0;
+    overflow: hidden;
+    color: var(--ef-recent-ink);
+    font: 700 20px/24px "EF Cover Harmony Bold", "Microsoft YaHei", sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#chat > .welcomePanel .recentChat .characterName::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 8px;
+    height: 20px;
+    background: #858585;
+    clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);
+    transform: translate(0, -50%);
+    transition: clip-path .2s ease, transform .2s ease, background-color .2s ease;
+    pointer-events: none;
+}
+
+#chat > .welcomePanel .recentChat .chatMessage {
+    grid-area: message;
+    align-self: start;
+    display: block !important;
+    min-width: 0;
+    margin: 0;
+    padding: 3px 0 0;
+    overflow: hidden;
+    color: var(--ef-recent-ink);
+    font: 400 13px/19px "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+}
+
+#chat > .welcomePanel .recentChat .chatName > span:last-child {
+    grid-area: file;
+    align-self: start;
+    display: block;
+    min-width: 0;
+    margin: 0;
+    padding: 5px 0 0;
+    overflow: hidden;
+    color: var(--ef-recent-muted);
+    font: 400 12px/17px "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#chat > .welcomePanel .recentChat .chatMessage[title="[The message is empty]"] {
+    color: var(--ef-recent-muted);
+}
+
+#chat > .welcomePanel .recentChat :is(.chatDate, .chatStats) {
+    min-width: 0;
+    margin: 2px 0 0;
+    color: var(--ef-recent-muted);
+    opacity: 1;
+    font: 400 11px/17px "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif;
+}
+
+#chat > .welcomePanel .recentChat .chatDate {
+    grid-area: date;
+    white-space: nowrap;
+}
+
+#chat > .welcomePanel .recentChat .chatStats {
+    grid-area: stats;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 0 0 0 11px;
+    border-left: 1px solid #cecece;
+    white-space: nowrap;
+}
+
+#chat > .welcomePanel .recentChat .chatStats .counterBlock {
+    align-items: center;
+    gap: 0;
+}
+
+#chat > .welcomePanel .recentChat .chatStats .counterBlock > i {
+    display: none;
+}
+
+#chat > .welcomePanel .recentChat .chatStats .counterBlock::after {
+    content: none;
+}
+
+#chat > .welcomePanel .recentChat .chatStats small {
+    color: inherit;
+    opacity: 1;
+    font: inherit;
+}
+
+#chat > .welcomePanel .recentChat .chatStats .counterBlock > small::after {
+    content: " 条消息";
+}
+
+#chat > .welcomePanel .recentChat .chatStats .fileSize {
+    padding-left: 11px;
+    border-left: 1px solid #cecece;
+}
+
+#chat > .welcomePanel .recentChat .chatActions {
+    grid-area: tools;
+    justify-self: end;
+    align-self: center;
+    gap: 3px;
+    margin: 2px 0 0;
+}
+
+#chat > .welcomePanel .recentChat .chatActions > button {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 3px solid transparent !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-clip: padding-box !important;
+    color: var(--ef-recent-muted) !important;
+    box-shadow: none !important;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#chat > .welcomePanel .recentChat .chatActions > button:hover {
+    background-color: #eee !important;
+}
+
+#chat > .welcomePanel .recentChat .chatActions > .pinChat.active {
+    background-color: var(--ef-signal) !important;
+    color: var(--ef-recent-ink) !important;
+}
+
+#chat > .welcomePanel .recentChatList > .showMoreChats {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    width: 160px;
+    height: var(--ef-recent-more-height);
+    min-height: var(--ef-recent-more-height);
+    margin: 16px 0 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 2px !important;
+    background: #383838 var(--ef-recent-button-texture) center / cover no-repeat !important;
+    color: #eee !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 0 2px rgb(0 0 0 / .25)) !important;
+    font: 400 14px/1 "EF Cover Harmony Regular", "Microsoft YaHei", sans-serif;
+    text-shadow: none;
+    transform: none !important;
+    cursor: pointer;
+    transition: color .2s ease, background-color .2s ease, border-radius .2s ease;
+}
+
+#chat > .welcomePanel .showMoreChats > small {
+    display: none;
+}
+
+#chat > .welcomePanel .showMoreChats::before {
+    content: "更多聊天";
+}
+
+#chat > .welcomePanel .showMoreChats.rotated::before {
+    content: "收起聊天";
+}
+
+#chat > .welcomePanel .showMoreChats::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    width: 8px;
+    height: 55%;
+    background: var(--ef-signal);
+    clip-path: polygon(0 0, 25% 0, 25% 100%, 0 100%);
+    transition: clip-path .2s ease, transform .2s ease;
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat:hover:not(:has(.chatActions:hover)) {
+        background-color: rgb(36 36 36 / .025) !important;
+    }
+    #chat > .welcomePanel .recentChat:hover:not(:has(.chatActions:hover))::before {
+        opacity: 0;
+    }
+    #chat > .welcomePanel .recentChat:hover:not(:has(.chatActions:hover)) .characterName::after {
+        background-color: #252525;
+        clip-path: polygon(0 20%, 100% 50%, 0 80%, 0 80%);
+        transform: translate(7px, -50%);
+    }
+    #chat > .welcomePanel .recentChat:hover:not(:has(.chatActions:hover)) > .avatar::before {
+        opacity: 1;
+    }
+    #chat > .welcomePanel .recentChat:hover:not(:has(.chatActions:hover)) > :is(.avatar, .missing-avatar)::after {
+        border-width: 2px;
+        border-color: var(--ef-signal);
+    }
+    #chat > .welcomePanel .recentChatList > .showMoreChats:hover {
+        color: #fff !important;
+        background-color: #484848 !important;
+        border-radius: 6px !important;
+    }
+    #chat > .welcomePanel .showMoreChats:hover::after {
+        clip-path: polygon(0 20%, 100% 50%, 0 80%, 0 80%);
+        transform: translateX(7px);
+    }
+}
+
+#chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat:active:not(:has(.chatActions:active)) {
+    background-color: rgb(36 36 36 / .055) !important;
+    transition-duration: 50ms;
+}
+#chat > .welcomePanel .recentChat:active:not(:has(.chatActions:active))::before {
+    opacity: 0;
+}
+#chat > .welcomePanel .recentChat:active:not(:has(.chatActions:active)) .characterName::after {
+    background-color: #252525;
+    clip-path: polygon(0 20%, 100% 50%, 0 80%, 0 80%);
+    transform: translate(7px, -50%);
+}
+#chat > .welcomePanel .recentChat:active:not(:has(.chatActions:active)) > .avatar::before {
+    opacity: 1;
+}
+#chat > .welcomePanel .recentChat:active:not(:has(.chatActions:active)) > :is(.avatar, .missing-avatar)::after {
+    border-width: 2px;
+    border-color: var(--ef-signal);
+}
+
+/* At small widths, metadata uses the full row instead of squeezing the body. */
+@container ef-welcome (max-width: 520px) {
+    #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat {
+        grid-template-columns: 88px minmax(0, 1fr) auto;
+        grid-template-rows: 30px 25px 33px auto auto;
+        grid-template-areas: "avatar name name" "avatar message message" "avatar file file" "date date tools" "stats stats tools";
+        column-gap: 8px;
+        padding: 6px 2px !important;
+    }
+    #chat > .welcomePanel .recentChatList {
+        --ef-recent-mask: linear-gradient(90deg, transparent 35%, #000 88%);
+    }
+    #chat > .welcomePanel .recentChat :is(.chatDate, .chatStats) {
+        margin-top: 2px;
+    }
+    #chat > .welcomePanel .recentChat .chatStats {
+        gap: 8px;
+        padding-left: 0;
+        border-left: 0;
+    }
+    #chat > .welcomePanel .recentChat .chatStats .fileSize {
+        padding-left: 0;
+        border-left: 0;
+    }
+}
+
+body.hideChatAvatars #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat {
+    grid-template-columns: 0 max-content minmax(0, 1fr) auto;
+    column-gap: 8px;
+    padding-left: 0 !important;
+}
+body.hideChatAvatars #chat > .welcomePanel .recentChat > :is(.avatar, .missing-avatar) {
+    display: none;
+}
+
+@container ef-welcome (max-width: 520px) {
+    body.hideChatAvatars #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat {
+        grid-template-columns: 0 minmax(0, 1fr) auto;
+    }
+}
+
+@media (pointer: coarse) {
+    #chat > .welcomePanel {
+        --ef-recent-more-height: 44px;
+    }
+    #chat > .welcomePanel .recentChat .chatActions {
+        gap: 2px;
+    }
+    #chat > .welcomePanel .recentChat .chatActions > button {
+        width: 44px;
+        height: 44px;
+        border-width: 8px !important;
+    }
+}
+
+body.reduced-motion #chat > .welcomePanel :is(.recentChat, .characterName, .avatar, .missing-avatar, .showMoreChats),
+body.reduced-motion #chat > .welcomePanel :is(.recentChat, .characterName, .avatar, .missing-avatar, .showMoreChats)::before,
+body.reduced-motion #chat > .welcomePanel :is(.recentChat, .characterName, .avatar, .missing-avatar, .showMoreChats)::after {
+    transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    #chat > .welcomePanel :is(.recentChat, .characterName, .avatar, .missing-avatar, .showMoreChats),
+    #chat > .welcomePanel :is(.recentChat, .characterName, .avatar, .missing-avatar, .showMoreChats)::before,
+    #chat > .welcomePanel :is(.recentChat, .characterName, .avatar, .missing-avatar, .showMoreChats)::after {
+        transition: none !important;
+    }
+}

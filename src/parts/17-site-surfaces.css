@@ -26,7 +26,6 @@ body {
 
 /* 仅桌面鼠标产生位移。保留宿主批量选择、键盘聚焦及触屏行为。 */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    body:not(.reduced-motion) #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat:not(.hidden),
     body:not(.reduced-motion) #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > .character_select {
         transition:
             transform 200ms ease,
@@ -34,7 +33,6 @@ body {
             box-shadow 200ms ease !important;
     }
 
-    body:not(.reduced-motion) #chat > .welcomePanel .welcomeRecent .recentChatList > .recentChat:not(.hidden):hover,
     body:not(.reduced-motion) #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > .character_select:hover {
         transform: translateY(-1px);
         box-shadow: 0 2px 3px rgba(23, 26, 26, 0.1) !important;

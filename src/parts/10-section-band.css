@@ -2,7 +2,7 @@
  * 档案章节头：大黄编号 / 矮灰英文签 / 白标题板与右侧黄带。
  * 依据锦陇官方长图局部：英文签贴编号块下沿，白标题板遮住编号下沿。
  * 保留原生标题文字与快捷入口；借父级伪元素放编号，不新增 DOM 或位图文字。
- * 字体仅用现有字体栈，不把本机近似字形声称为官方字体。
+ * 使用主题已内嵌的字体；编号增加露出高度，保留标题压住下沿的关系。
  */
 
 #chat > .welcomePanel {
@@ -10,12 +10,12 @@
 }
 
 #chat > .welcomePanel .welcomeHeader {
-    --ef-section-title-size: 26px;
-    --ef-section-title-row: calc(var(--ef-section-title-size) * 1.3);
-    --ef-section-meta-row: calc(var(--ef-section-title-row) * 0.53);
-    --ef-section-number-width: calc(var(--ef-section-title-row) * 1.58);
-    --ef-section-number-size: calc(var(--ef-section-title-row) * 1.05);
-    --ef-section-overlap: calc(var(--ef-section-title-row) * 0.16);
+    --ef-section-title-size: 28px;
+    --ef-section-title-row: calc(var(--ef-section-title-size) * 1.25);
+    --ef-section-meta-row: 32px;
+    --ef-section-number-width: 54px;
+    --ef-section-number-size: 39px;
+    --ef-section-overlap: 5px;
     --ef-section-label-size: 8px;
     position: relative;
     isolation: isolate;
@@ -32,11 +32,11 @@
     box-sizing: border-box;
     width: var(--ef-section-number-width);
     height: calc(var(--ef-section-meta-row) + var(--ef-section-overlap));
-    padding: 0 2px 0 0;
+    padding: 0 3px 0 0;
     overflow: hidden;
     color: var(--ef-signal);
     background: var(--ef-block);
-    font: 400 var(--ef-section-number-size)/0.8 var(--ef-font-number);
+    font: 400 var(--ef-section-number-size)/.88 "EF Cover Novecento Medium", "Arial Narrow", sans-serif;
     letter-spacing: -0.015em;
     text-align: right;
     text-shadow: none;
@@ -49,22 +49,22 @@
     display: grid !important;
     grid-template-columns: max-content minmax(0, 1fr);
     grid-template-rows: var(--ef-section-meta-row) var(--ef-section-title-row);
-    column-gap: 6px;
+    column-gap: 7px;
     align-items: stretch;
     align-self: flex-end;
     width: 100% !important;
     min-width: 0;
     padding: 0 !important;
-    color: var(--ef-ink) !important;
+    color: #191919 !important;
     /* 仅底行是不透明白板，上行透明，才能露出下层编号。 */
     background: linear-gradient(var(--ef-paper-hi), var(--ef-paper-hi)) left bottom / 100% var(--ef-section-title-row) no-repeat !important;
     border: 0 !important;
     border-radius: 0 !important;
-    font-family: var(--ef-font-display) !important;
+    font-family: "EF Cover Harmony Bold", "Microsoft YaHei", sans-serif !important;
     font-size: var(--ef-section-title-size) !important;
-    font-weight: 900 !important;
-    letter-spacing: 0.01em;
-    line-height: 1.3 !important;
+    font-weight: 700 !important;
+    letter-spacing: -.025em;
+    line-height: 1.25 !important;
     text-shadow: none !important;
 }
 
@@ -79,8 +79,8 @@
     padding: 0 4px;
     color: var(--ef-paper-hi);
     background: var(--ef-label);
-    font: 600 var(--ef-section-label-size)/1.3 Arial, sans-serif;
-    letter-spacing: -0.02em;
+    font: 700 var(--ef-section-label-size)/1.3 Arial, sans-serif;
+    letter-spacing: 0;
     white-space: nowrap;
     pointer-events: none;
 }
@@ -101,9 +101,8 @@
     display: none !important;
 }
 
-@media (max-width: 700px) {
+@container ef-welcome (max-width: 520px) {
     #chat > .welcomePanel .welcomeHeader {
-        --ef-section-title-size: 21px;
-        --ef-section-label-size: 7px;
+        --ef-section-title-size: 24px;
     }
 }

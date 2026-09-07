@@ -19,7 +19,13 @@ if (partNames.length === 0) {
 
 const parts = [];
 for (const name of partNames) {
-    const css = (await readFile(join(partsDir, name), 'utf8')).trim();
+    let css = (await readFile(join(partsDir, name), 'utf8')).trim();
+    // Local reading-paper assets stay editable; the exported theme is self-contained.
+    for (const [token, asset, format] of css.matchAll(/url\("asset:([a-z0-9/-]+\.(svg|png))"\)/g)) {
+        const bytes = await readFile(join(rootDir, 'src', 'assets', asset));
+        const mime = format === 'svg' ? 'image/svg+xml' : 'image/png';
+        css = css.replaceAll(token, `url("data:${mime};base64,${bytes.toString('base64')}")`);
+    }
     parts.push(`/* ${name} */\n${css}`);
 }
 
