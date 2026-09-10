@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1" height="16" viewBox="0 0.5 1 16" preserveAspectRatio="none">
 <defs><filter id="soft" x="-20" y="-80" width="60" height="240" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="2.4"/></filter></defs>
 <g transform="matrix(0 1 1 0 0 0)">
-<g fill="#000" opacity="0.3" filter="url(#soft)"><rect x="6" y="-50" width="5" height="120" rx="2.5"/></g>
-<rect x="5.7" y="-50" width="5.6" height="120" fill="#bdbdbd"/><rect x="6.3" y="-50" width="4.4" height="120" fill="#ececec"/>
+<g fill="#000" opacity="0.18" filter="url(#soft)"><rect x="6" y="-50" width="5" height="120" rx="2.5"/></g>
+<rect x="5.7" y="-50" width="5.6" height="120" fill="#949494"/><rect x="6.3" y="-50" width="4.4" height="120" fill="#ececec"/>
 </g></svg>

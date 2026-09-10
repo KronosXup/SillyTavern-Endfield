@@ -140,7 +140,7 @@
 }
 
 #right-nav-panel #HotSwapWrapper > .hotswap {
-    --ef-sb-track: #545454;
+    --ef-sb-cross-rail: url("asset:scrollbar/dark-h-track.svg");
     --ef-sb-cap-left: url("asset:scrollbar/dark-h-start.svg");
     --ef-sb-cap-right: url("asset:scrollbar/dark-h-end.svg");
     --ef-sb-cross-shaft: url("asset:scrollbar/dark-h-middle.svg");
@@ -918,6 +918,8 @@ body.reduced-motion #right-nav-panel #rm_print_characters_block > * { transition
     }
 
     #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select) {
+      /* Match the shared rail geometry; keep contrast on this medium-gray surface. */
+      --ef-sb-rail: url("asset:scrollbar/gray-v-track.svg");
       box-sizing: border-box;
       width: 144px;
       min-width: 0;
@@ -991,12 +993,13 @@ body.reduced-motion #right-nav-panel #rm_print_characters_block > * { transition
       opacity: .55;
     }
 
+    @media (forced-colors: none) {
     #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar {
       width: 16px;
       background: transparent;
     }
     #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar-track {
-      background: linear-gradient(90deg, transparent calc(50% - 1px), #a8a8a8 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
+      background: var(--ef-sb-rail) center / 16px 100% no-repeat;
     }
     #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar-thumb {
       border: 0;
@@ -1009,6 +1012,7 @@ body.reduced-motion #right-nav-panel #rm_print_characters_block > * { transition
     }
     #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar-button {
       display: none;
+    }
     }
   }
 }
