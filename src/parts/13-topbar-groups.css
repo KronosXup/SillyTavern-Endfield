@@ -1,44 +1,185 @@
-/* Top bar grouping: three functional clusters, separated like a printed control strip. */
+/* Approved toolbar: continuous dark rail, symmetric texture fade and light open tiles. */
+:root {
+    /* Native chat/drawer offsets share this token with the visible toolbar. */
+    --topBarBlockSize: 44px;
+}
 
-/* The holder already has three equal groups; mark only their two real boundaries. */
-#top-settings-holder > #WI-SP-button > .drawer-toggle::before,
-#top-settings-holder > #extensions-settings-button > .drawer-toggle::before {
-    content: "";
-    position: absolute;
-    top: 8px;
-    bottom: 8px;
-    left: 0;
-    width: 1px;
-    background: rgba(238, 240, 237, 0.24);
+#top-bar,
+body.no-blur #top-bar {
+    box-sizing: border-box;
+    height: var(--topBarBlockSize) !important;
+    overflow: hidden;
+    background: #292929 !important;
+    border: 1px solid #454343 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 1px 3px #00000020 !important;
+    backdrop-filter: none !important;
     pointer-events: none;
 }
 
-/* The in-game settings strip uses a complete yellow tile for the active tab. */
-#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon) {
-    color: var(--ef-ink) !important;
-    background-color: var(--ef-signal) !important;
+#top-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(135deg, #ffffff22 0 1px, transparent 1px 4px);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 25% 75%, transparent 100%);
+    pointer-events: none;
 }
 
-#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.openIcon {
-    color: var(--ef-ink) !important;
-    background-color: transparent !important;
+#top-settings-holder {
+    --ef-toolbar-glyph: clamp(17px, calc(min(var(--sheldWidth), 1080px) / 21.111), 18px);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    padding-inline: 1px;
+    /* Native drawers must remain free to extend outside the toolbar. */
+    overflow: visible;
+}
+
+#top-settings-holder > .drawer {
+    min-width: 0;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: var(--topBarBlockSize);
+    color: #d1cdcd !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    transition: none;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 2px;
+    background: transparent;
+    transition: background-color 100ms linear;
+    pointer-events: none;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle::after {
+    content: none;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--topBarBlockSize);
+    margin: 0;
+    padding: 0;
+    color: inherit !important;
+    font-size: var(--ef-toolbar-glyph);
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
     opacity: 1 !important;
+    transition: color 100ms linear;
 }
 
-#top-settings-holder > .drawer > .drawer-toggle:has(> .drawer-icon.openIcon)::after {
-    display: none !important;
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon::before {
+    font-size: var(--ef-toolbar-glyph) !important;
+    line-height: 1 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:hover,
+#top-settings-holder > .drawer > .drawer-toggle:focus-within {
+    color: #fffafa !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:hover::before,
+#top-settings-holder > .drawer > .drawer-toggle:focus-within::before {
+    background: #ffffff1a;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:has(> .openIcon) {
+    color: #484545 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:has(> .openIcon)::before {
+    background: #eeeded;
+    box-shadow: inset 0 0 0 1px #cac7c7;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon:focus-visible {
+    outline: 2px solid #f6f2f2 !important;
+    outline-offset: -5px;
+    border-radius: 3px !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.openIcon:focus-visible {
+    outline-color: #514a4a !important;
+}
+
+#top-settings-holder > :is(#WI-SP-button, #extensions-settings-button) > .drawer-toggle > .drawer-icon::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 12px;
+    width: 1px;
+    height: 20px;
+    background: #c3bebe55;
+    pointer-events: none;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > #API-status-top.redOverlayGlow {
+    color: #efaaa0 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle:hover > #API-status-top.redOverlayGlow,
+#top-settings-holder > .drawer > .drawer-toggle:focus-within > #API-status-top.redOverlayGlow {
+    color: #ffd6d1 !important;
+}
+
+#top-settings-holder > .drawer > .drawer-toggle > #API-status-top.redOverlayGlow.openIcon {
+    color: #a14b41 !important;
 }
 
 @media (max-width: 700px) {
-    #top-settings-holder > #WI-SP-button > .drawer-toggle::before,
-    #top-settings-holder > #extensions-settings-button > .drawer-toggle::before {
-        top: 9px;
-        bottom: 9px;
+    #top-settings-holder {
+        --ef-toolbar-glyph: clamp(17px, calc(100vw / 21.111), 18px);
     }
 }
 
+/* The host's iOS branch hard-codes 36px; keep its offsets tied to this toolbar. */
+@supports (-webkit-touch-callout: none) {
+    #sheld {
+        height: calc(100vh - var(--topBarBlockSize) - 1px);
+        height: calc(100dvh - var(--topBarBlockSize) - 1px);
+        max-height: calc(100dvh - var(--topBarBlockSize) - 1px);
+    }
+
+    #top-settings-holder > .drawer > .drawer-content:not(#left-nav-panel):not(#right-nav-panel) {
+        top: var(--topBarBlockSize);
+        margin-top: 0 !important;
+    }
+
+    #top-settings-holder > .drawer > :is(#left-nav-panel, #right-nav-panel) {
+        margin-top: 0 !important;
+    }
+}
+
+body:is(.reduced-motion, .no_animation) #top-settings-holder > .drawer > .drawer-toggle::before,
+body:is(.reduced-motion, .no_animation) #top-settings-holder > .drawer > .drawer-toggle > .drawer-icon {
+    transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
-    #top-settings-holder > .drawer > .drawer-toggle::after {
+    #top-settings-holder > .drawer > .drawer-toggle::before,
+    #top-settings-holder > .drawer > .drawer-toggle > .drawer-icon {
         transition: none !important;
     }
 }

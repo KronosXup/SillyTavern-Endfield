@@ -1,0 +1,1014 @@
+/* ENDFIELD_PART_22_CHARACTER_MANAGEMENT */
+/* Approved character-management surface, mapped to native SillyTavern nodes.
+ * Source: character-management-material / character-list-review (2026-09-09).
+ * Native search, filters, pagination, folders, selection and detail views own
+ * their state. This sheet provides no sample data and no visibility driver.
+ */
+
+:root { --ef-character-management: 1; }
+
+#rm_characters_block,
+#CharListButtonAndHotSwaps {
+    --ef-font-body: "EF Cover Harmony Regular", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+    font-family: var(--ef-font-body);
+}
+
+#top-settings-holder > .drawer > #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) {
+    padding: 0 !important;
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) > #rm_PinAndTabs {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) > #rm_PinAndTabs:has(#rm_button_selected_ch > h2:empty) {
+    display: none;
+}
+/* A selected chat keeps its native shortcut when returning to the list.
+ * Keep that link compact on the dark control surface; detail-page headings
+ * and their token/statistics actions retain their existing presentation. */
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) > #rm_PinAndTabs {
+    background: linear-gradient(115deg, #303030, #242424 75%);
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #right-nav-panel-tabs {
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_selected_ch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 4px 9px;
+    opacity: 1;
+    cursor: pointer;
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_selected_ch > h2 {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    color: #c6c6c6 !important;
+    font-family: "EF Cover Harmony Regular", var(--ef-font-body) !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 18px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_selected_ch::after {
+    content: "";
+    flex: 0 0 5px;
+    width: 5px;
+    height: 5px;
+    margin-right: 2px;
+    border: solid #999;
+    border-width: 1px 1px 0 0;
+    transform: rotate(45deg);
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_selected_ch:hover {
+    background: #ffffff0a;
+}
+#right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_selected_ch:has(> h2:focus-visible) {
+    outline: 1px solid #fffa00;
+    outline-offset: -2px;
+}
+
+#right-nav-panel {
+    --ef-manager-strip: linear-gradient(90deg, #fffa00 0 30%, #00ffa2 30% 70%, #ff00f0 70%);
+    container-type: inline-size;
+    container-name: ef-character-panel;
+}
+
+/* The shared navigation retains the native lock, list and favorite actions. */
+#right-nav-panel #CharListButtonAndHotSwaps {
+    position: relative;
+    isolation: isolate;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    margin: 0;
+    padding: 8px 8px 5px;
+    color: #a4a4a4;
+    background: linear-gradient(115deg, #303030, #242424 75%);
+    box-shadow: inset 0 1px #ffffff24;
+}
+
+#right-nav-panel #CharListButtonAndHotSwaps::before,
+#right-nav-panel #rm_characters_block #charListFixedTop::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("asset:character-management/contours-r02.svg") center top / 420px 184px no-repeat;
+    mask-image: linear-gradient(90deg, transparent 0, transparent max(180px, 50%), #000 85%), linear-gradient(180deg, #000 0%, #000 30%, #000b 65%, transparent 100%);
+    mask-composite: intersect;
+}
+
+#right-nav-panel #CharListButtonAndHotSwaps > .flex-container {
+    flex: 0 0 auto;
+    gap: 2px;
+}
+
+#right-nav-panel #CharListButtonAndHotSwaps .right_menu_button {
+    width: 24px;
+    height: 23px;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 23px;
+    text-align: center;
+    color: #a4a4a4;
+}
+
+#right-nav-panel #rm_button_panel_pin:checked + label .checked {
+    color: #fffa00;
+    background: #121212;
+    box-shadow: inset 0 0 0 1px #ffffff1c;
+}
+
+#right-nav-panel #HotSwapWrapper {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    margin: 0;
+}
+
+#right-nav-panel #HotSwapWrapper > .hotswap {
+    --ef-sb-track: #545454;
+    --ef-sb-cap-left: url("asset:scrollbar/dark-h-start.svg");
+    --ef-sb-cap-right: url("asset:scrollbar/dark-h-end.svg");
+    --ef-sb-cross-shaft: url("asset:scrollbar/dark-h-middle.svg");
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    max-height: none;
+    margin: 0;
+    padding: 3px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: auto;
+}
+
+#right-nav-panel #HotSwapWrapper > .hotswap > :is(.avatar, .missing-avatar) {
+    flex: 0 0 50px !important;
+    width: 50px !important;
+    min-width: 50px;
+    height: 60px !important;
+    max-height: 60px;
+    margin: 0 !important;
+    padding: 0;
+    border: 1px solid #dedede80;
+    border-radius: 1px !important;
+    background: #cfcfcf;
+    color: #717171;
+    box-shadow: 0 1px 2px #0006;
+    outline: none;
+    opacity: 1;
+    overflow: hidden;
+    scroll-margin-inline: 3px;
+}
+
+#right-nav-panel #HotSwapWrapper > .hotswap > .avatar:not(.avatar_collage) > img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border: 0;
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+
+#right-nav-panel #HotSwapWrapper > .hotswap > .avatar:hover {
+    border-color: #f0f0f0;
+    box-shadow: 0 1px 3px #0009, 0 0 0 1px #ffffff20;
+}
+
+#right-nav-panel #HotSwapWrapper > .hotswap > small {
+    color: #ababab;
+    font-size: 11px;
+    line-height: 1.5;
+    white-space: normal;
+}
+
+/* Grid changes placement only; search and ordinary-tag display remain native. */
+#right-nav-panel #rm_characters_block #charListFixedTop {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 61px repeat(3, 28px) minmax(0, 1fr) 28px;
+    align-items: start;
+    gap: 7px 4px;
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 7px 9px 8px;
+    color: #d1d1d1;
+    background: linear-gradient(115deg, #303030, #242424 75%);
+    border-top: 1px solid #ffffff15;
+}
+
+#right-nav-panel #rm_characters_block #charListFixedTop::before {
+    background-position: center bottom;
+}
+
+/* One continuous texture spans the native navigation and tool wrappers.
+ * Anchors follow favorite/search/tag heights without a fixed navigation offset.
+ * Browsers without anchors retain the two local background layers above.
+ */
+@supports (top: anchor(--ef-manager-nav top)) {
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #CharListButtonAndHotSwaps {
+        anchor-name: --ef-manager-nav;
+        isolation: auto;
+    }
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #charListFixedTop {
+        anchor-name: --ef-manager-tools;
+        isolation: auto;
+    }
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) :is(#CharListButtonAndHotSwaps, #charListFixedTop)::before {
+        content: none;
+    }
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"]))::after {
+        content: "";
+        position: absolute;
+        top: anchor(--ef-manager-nav top);
+        bottom: anchor(--ef-manager-tools bottom);
+        left: 0;
+        right: 0;
+        max-height: 184px;
+        z-index: 1;
+        pointer-events: none;
+        background: url("asset:character-management/contours-r02.svg") center top / 420px 184px no-repeat;
+        mask-image: linear-gradient(90deg, transparent 0, transparent max(180px, 50%), #000 85%), linear-gradient(180deg, #000 0%, #000 30%, #000b 65%, transparent 100%);
+        mask-composite: intersect;
+    }
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #CharListButtonAndHotSwaps > *,
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #charListFixedTop > *,
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_bar > *,
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_buttons_container > *,
+    #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) #rm_button_selected_ch {
+        position: relative;
+        z-index: 2;
+    }
+    /* The tag row reserves the sort slot but still covers it for hit testing.
+     * Keep sorting above that transparent placeholder and the texture layer. */
+    #right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order,
+    #right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order + .select2-container {
+        z-index: 3;
+    }
+}
+
+#right-nav-panel #rm_button_bar { display: contents; }
+#right-nav-panel #rm_buttons_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+    grid-column: 5;
+    grid-row: 1;
+    min-width: 0;
+}
+#right-nav-panel #rm_button_create { grid-column: 1; grid-row: 1; }
+#right-nav-panel #character_import_button { grid-column: 2; grid-row: 1; }
+#right-nav-panel #external_import_button { grid-column: 3; grid-row: 1; }
+#right-nav-panel #rm_button_group_chats { grid-column: 4; grid-row: 1; }
+#right-nav-panel #rm_button_search { grid-column: 6; grid-row: 1; }
+
+#right-nav-panel #rm_characters_block #charListFixedTop :is(.menu_button, .right_menu_button, .rm_tag_filter > .tag.actionable) {
+    --ef-round-fill: #dfdfdf;
+    --ef-round-ink: #3b3b3b;
+    --ef-round-edge: #b7b7b7;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 28px;
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 28px !important;
+    min-height: 28px;
+    margin: 0;
+    padding: 0 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    color: var(--ef-round-ink) !important;
+    background: var(--ef-round-fill) !important;
+    border: 1px solid var(--ef-round-edge) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 1px 2px #0005 !important;
+    opacity: 1;
+    filter: none !important;
+    cursor: pointer;
+    transition: background-color 120ms linear, color 120ms linear, border-color 120ms linear, box-shadow 120ms linear;
+}
+
+#right-nav-panel #rm_characters_block #charListFixedTop :is(.menu_button, .right_menu_button, .rm_tag_filter > .tag.actionable):hover {
+    --ef-round-fill: #a0a0a0;
+    --ef-round-ink: #fff;
+    --ef-round-edge: #c1c1c1;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop :is(.menu_button, .right_menu_button, .rm_tag_filter > .tag.actionable):active {
+    --ef-round-fill: #858585;
+    --ef-round-ink: #fff;
+    box-shadow: inset 0 1px 2px #0004, 0 1px 1px #0003 !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.actionable.selected {
+    --ef-round-fill: #626262;
+    --ef-round-ink: #fff;
+    --ef-round-edge: #d6d6d6;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.actionable.selected:hover { --ef-round-fill: #797979; }
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.actionable.excluded {
+    --ef-round-fill: #444;
+    --ef-round-ink: #dedede;
+    --ef-round-edge: #898989;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.actionable.excluded::after {
+    content: "";
+    inset: auto;
+    width: 17px;
+    height: 1px;
+    color: inherit;
+    text-shadow: none;
+    background: currentColor;
+    transform: rotate(-43deg);
+    box-shadow: 0 1px var(--ef-round-fill);
+}
+
+#right-nav-panel #rm_characters_block #charListFixedTop #rm_button_bar #rm_button_create {
+    --ef-round-fill: #d1d1d1;
+    --ef-round-rim: #7c7c7c;
+    flex-basis: 61px;
+    width: 61px !important;
+    min-width: 61px !important;
+    height: 29px !important;
+    gap: 5px;
+    border-color: #969696 !important;
+    border-radius: 999px !important;
+    box-shadow: inset 0 0 0 1px var(--ef-round-fill), inset 0 0 0 2px var(--ef-round-rim), 0 2px 3px #0005 !important;
+    background-image: url("asset:welcome/more-chat-texture.png") !important;
+    background-position: right center !important;
+    background-size: 107px 24px !important;
+    background-repeat: no-repeat !important;
+    overflow: hidden;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop #rm_button_bar #rm_button_create:hover {
+    --ef-round-fill: #969696;
+    --ef-round-rim: #c7c7c7;
+    --ef-round-ink: #fff;
+    border-color: #adadad !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop #rm_button_bar #rm_button_create:active {
+    --ef-round-fill: #7e7e7e;
+    --ef-round-rim: #aaa;
+    --ef-round-ink: #fff;
+    box-shadow: inset 0 0 0 1px var(--ef-round-fill), inset 0 0 0 2px var(--ef-round-rim), inset 0 2px 4px #0005, 0 1px 1px #0003 !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop #rm_button_create::before { order: 2; font-size: 11px; }
+#right-nav-panel #rm_characters_block #charListFixedTop #rm_button_create::after {
+    content: "新建";
+    order: 1;
+    font: 11px/1 var(--ef-font-body);
+}
+
+#right-nav-panel #form_character_search_form {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 0;
+    min-width: 0;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop #character_search_bar {
+    width: 100%;
+    min-width: 0;
+    height: 34px;
+    margin: 0;
+    padding: 5px 9px;
+    background: #efefef !important;
+    border: 1px solid #171717 !important;
+    border-radius: 1px !important;
+    color: #242424 !important;
+    font: 13px/1.5 var(--ef-font-body);
+    box-shadow: inset 0 1px 2px #0003, 0 1px #ffffff18 !important;
+}
+
+#right-nav-panel #rm_characters_block #charListFixedTop > .rm_tag_controls {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    max-height: 40dvh;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter {
+    flex: 1 0 100%;
+    min-width: 0;
+    align-items: center;
+    gap: 4px 2px;
+}
+/* Reserve the sorting control on the first line, then let tags use full width. */
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter::before {
+    content: "";
+    order: 0;
+    flex: 0 0 91px;
+    height: 27px;
+    margin-left: auto;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.actionable {
+    order: -1;
+    width: 25px !important;
+    min-width: 25px !important;
+    flex-basis: 25px;
+    height: 25px !important;
+    min-height: 25px;
+    font-size: 12px !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop :is(.menu_button, .right_menu_button, .tag.actionable)[style*="display: none"] {
+    display: none !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.manageTags { margin-left: 5px; }
+#right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.showTagList.indicator::after {
+    content: "";
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    top: auto;
+    width: 4px;
+    height: 4px;
+    background: #fffa00;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .tag:not(.actionable) {
+    order: 1;
+    max-width: 100%;
+    min-height: 26px;
+    padding: 3px 6px;
+    border-radius: 1px;
+    font: 11px/1.5 var(--ef-font-body);
+    color: #c3c3c3;
+    background: #ffffff08;
+    border-color: #ffffff24;
+    opacity: 1;
+    filter: none;
+    scroll-margin: 5px;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .tag:not(.actionable) .tag_name { white-space: normal; overflow-wrap: anywhere; }
+#right-nav-panel #rm_characters_block #charListFixedTop .tag:not(.actionable).selected {
+    color: #1b1b1b !important;
+    background: linear-gradient(#d5d5d5, #bababa) !important;
+    border-color: #f0f0f0c9 !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .tag:not(.actionable).excluded {
+    color: #b3b3b3 !important;
+    background: #161616 !important;
+    border-color: #737373 !important;
+    text-decoration: line-through;
+    filter: none !important;
+}
+#right-nav-panel #rm_characters_block #charListFixedTop .tag:not(.actionable).excluded::after { content: none; }
+
+/* Native fallback controls remain usable when Select2 has not been attached. */
+#right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order,
+#right-nav-panel #rm_characters_block #rm_print_characters_pagination .paginationjs-size-changer select {
+    appearance: none;
+    width: 84px;
+    min-width: 0 !important;
+    height: 27px;
+    margin: 0;
+    padding: 2px 22px 2px 7px;
+    color: #3b3b3b !important;
+    background-color: #ededed !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox='0 0 8 5'%3E%3Cpath d='m.6.7 3.4 3.5L7.4.7' fill='none' stroke='%23555555' stroke-width='1.1'/%3E%3C/svg%3E"), linear-gradient(#aaa, #aaa) !important;
+    background-position: right 7px center, right 20px center;
+    background-size: 7px 5px, 1px 12px;
+    background-repeat: no-repeat;
+    border: 1px solid #c5c5c5 !important;
+    border-radius: 999px !important;
+    box-shadow: inset 0 1px #fff9, 0 1px 2px #0004 !important;
+    font: 11px/1.5 var(--ef-font-body);
+    color-scheme: light;
+    cursor: pointer;
+}
+#right-nav-panel #character_sort_order,
+#right-nav-panel #character_sort_order + .select2-container {
+    grid-column: 5 / 7;
+    grid-row: 3;
+    align-self: start;
+    justify-self: end;
+    width: 84px;
+    min-width: 0;
+    z-index: 2;
+}
+
+/* Keep the sorting hover rim even against the dark control surface. */
+#right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order:hover {
+    color: #fff !important;
+    background-color: #949494 !important;
+    border-color: #d2d2d2 !important;
+    box-shadow: inset 0 0 0 1px #ffffff26, 0 1px 2px #0004 !important;
+}
+#right-nav-panel #rm_characters_block #rm_print_characters_pagination .paginationjs-size-changer select:hover {
+    color: #fff !important;
+    background-color: #949494 !important;
+    border-color: #d2d2d2 !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+    body:not(.reduced-motion) #right-nav-panel #rm_characters_block #rm_print_characters_pagination .paginationjs-size-changer select {
+        transition: background-color 120ms linear, color 120ms linear, border-color 120ms linear;
+    }
+}
+
+#right-nav-panel #rm_print_characters_pagination {
+    position: relative;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3px;
+    margin: 0;
+    padding: 6px 8px 7px;
+    min-width: 0;
+    color: #606060;
+    background: linear-gradient(#ededed, #dfdfdf);
+    border-top: 1px solid #fbfbfb;
+    border-bottom: 1px solid #bdbdbd;
+    box-shadow: 0 -1px #141414, inset 0 1px #fff7;
+}
+#right-nav-panel #rm_print_characters_pagination .paginationjs { display: contents; }
+#right-nav-panel #rm_print_characters_pagination .paginationjs-nav {
+    margin-right: auto;
+    padding: 0;
+    font: 11px/1.3 var(--ef-font-body);
+    font-variant-numeric: tabular-nums;
+    color: #666;
+    white-space: nowrap;
+}
+#right-nav-panel #rm_print_characters_pagination .paginationjs-pages ul { gap: 0; margin: 0; }
+#right-nav-panel #rm_print_characters_pagination .paginationjs-pages a {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: 1px;
+    color: #5e5e5e;
+}
+#right-nav-panel #rm_print_characters_pagination .paginationjs-pages .disabled a { opacity: .24; }
+#right-nav-panel #rm_print_characters_pagination .paginationjs-size-changer { flex: 0 0 84px; min-width: 0; }
+#right-nav-panel #rm_characters_block #rm_print_characters_pagination > .menu_button {
+    box-sizing: border-box;
+    flex: 0 0 25px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 25px !important;
+    min-width: 25px !important;
+    height: 26px !important;
+    margin: 0;
+    padding: 6px 0 !important;
+    font-size: 12px !important;
+    text-align: center;
+    color: #606060 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 1px !important;
+    box-shadow: none !important;
+}
+#right-nav-panel #rm_characters_block #rm_print_characters_pagination > .menu_button[style*="display: none"] {
+    display: none !important;
+}
+#right-nav-panel #rm_print_characters_pagination > .menu_button:hover,
+#right-nav-panel #rm_print_characters_pagination .paginationjs-pages li:not(.disabled) a:hover { background: #c7c7c7 !important; color: #252525 !important; }
+body.charListGrid #right-nav-panel #charListGridToggle,
+#right-nav-panel #rm_print_characters_pagination #bulkEditButton.bulk_edit_overlay_active {
+    color: #ededed !important;
+    background: #464646 !important;
+    box-shadow: inset 0 1px #121212, inset 0 -1px #fff2 !important;
+}
+#right-nav-panel #rm_print_characters_pagination #bulkSelectedCount { margin-left: auto; }
+#right-nav-panel #rm_print_characters_pagination #bulkDeleteButton { color: #874b4b !important; }
+
+/* Cards retain real names, versions, tags, group members and folder counters. */
+#right-nav-panel #rm_print_characters_block {
+    --ef-manager-avatar: 66px;
+    min-height: 0;
+    min-width: 0;
+    padding: 10px 2px 10px 7px;
+    gap: 8px;
+    background: #eaeae8;
+    scroll-padding-block: 10px;
+    overscroll-behavior: contain;
+}
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    min-width: 0;
+    min-height: 88px;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    color: #242424;
+    background: #fff;
+    border: 0;
+    border-bottom: 3px solid #bcbcbc;
+    border-radius: 1px;
+    box-shadow: 0 2px 3px #00000012 !important;
+    transform: none;
+}
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select).is_fav { border-bottom-color: #fffa00; }
+/* The approved list changes surface color; only grid cards lift on hover. */
+@media (hover: hover) and (pointer: fine) {
+    #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select):hover {
+        background-color: #f2f2ef;
+    }
+    #right-nav-panel #rm_print_characters_block:is(.bulk_select, .group_overlay_mode_select) > :is(.group_select, .bogus_folder_select):hover {
+        background-color: #fff;
+    }
+    body.charListGrid #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select):hover {
+        box-shadow: 0 3px 5px #0002 !important;
+    }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body:not(.reduced-motion) #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) {
+        transition: background-color 160ms ease, box-shadow 160ms ease !important;
+    }
+    body.charListGrid:not(.reduced-motion) #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) {
+        transition: transform 160ms ease, box-shadow 160ms ease !important;
+    }
+    body.charListGrid:not(.reduced-motion) #right-nav-panel #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > :is(.character_select, .group_select, .bogus_folder_select):hover {
+        transform: translateY(-1px);
+    }
+}
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > .avatar {
+    position: relative;
+    flex: 0 0 var(--ef-manager-avatar) !important;
+    align-self: stretch;
+    width: var(--ef-manager-avatar) !important;
+    min-width: 0;
+    height: auto !important;
+    min-height: 85px;
+    margin: 0;
+    border: 0;
+    border-radius: 0 !important;
+    outline: none;
+    background: #ededeb;
+    color: #595954;
+    overflow: hidden;
+    box-shadow: none;
+}
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > .avatar:not(.avatar_collage) > img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border: 0;
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+
+#right-nav-panel #HotSwapWrapper .avatar_collage > img,
+#right-nav-panel #rm_print_characters_block .avatar_collage > img {
+    object-fit: cover;
+    border: 0;
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > :is(.character_select_container, .group_select_container) {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    gap: 3px;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    padding: 10px 9px 8px;
+    background-image: var(--ef-manager-strip);
+    background-position: left top;
+    background-size: 52% 2px;
+    background-repeat: no-repeat;
+}
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > :is(.character_select_container, .group_select_container)::before {
+    content: none;
+}
+#right-nav-panel #rm_print_characters_block .character_name_block { align-items: baseline; gap: 6px; margin: 0 0 2px; }
+#right-nav-panel #rm_print_characters_block .character_name_block .ch_name {
+    display: -webkit-box;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    max-width: none;
+    white-space: normal;
+    text-wrap: wrap;
+    overflow-wrap: anywhere;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font: 700 14px/1.35 var(--ef-font-body);
+    color: #242424;
+}
+#right-nav-panel #rm_print_characters_block .character_version {
+    align-self: center;
+    max-width: 36%;
+    padding: 1px 3px;
+    background: #ececea;
+    color: #71716c;
+    font: 10px/1.3 var(--ef-font-body);
+}
+#right-nav-panel #rm_print_characters_block :is(.group_select_counter, .bogus_folder_counter) {
+    font: 10px/1.3 var(--ef-font-body);
+    color: #fff;
+    background: #484545;
+    padding: 2px 4px;
+}
+#right-nav-panel #rm_print_characters_block .ch_description { margin: 0; font: 11px/1.55 var(--ef-font-body); color: #6b6864; }
+#right-nav-panel #rm_print_characters_block .character_name_block_sub_line { position: static; width: 100%; font-size: 10px; color: #777; }
+#right-nav-panel #rm_print_characters_block .tags_inline { flex: 0 0 auto; gap: 3px; max-height: none; opacity: 1; }
+#right-nav-panel #rm_print_characters_block .tags_inline .tag { font: 10px/1.4 var(--ef-font-body); padding: 1px 4px; border: 0; border-radius: 1px; color: #646464; background: #e9e9e7; }
+#right-nav-panel #rm_print_characters_block :is(.ch_fav_icon, .group_fav_icon) {
+    position: absolute;
+    top: 4px;
+    left: calc(4px - var(--ef-manager-avatar));
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    padding: 3px;
+    color: #242424;
+    background: #fffa00;
+    filter: none;
+    font-size: 9px;
+    line-height: 9px;
+    text-align: center;
+}
+/* Native rendering hides every icon inline; reveal only actual favorites. */
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select).is_fav :is(.ch_fav_icon, .group_fav_icon) {
+    display: block !important;
+}
+#right-nav-panel #rm_print_characters_block .bogus_folder_select_back > .bogus_folder_back_placeholder { display: none; }
+#right-nav-panel #rm_print_characters_block .bogus_folder_select_back > .avatar { display: flex !important; }
+
+body.charListGrid #right-nav-panel #rm_print_characters_block {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: max-content;
+    align-content: start;
+    justify-content: stretch;
+    gap: 12px 8px;
+}
+body.charListGrid #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) {
+    flex-direction: column;
+    align-items: stretch !important;
+    width: 100%;
+    min-height: 0;
+    max-width: none;
+    height: auto;
+    overflow: hidden;
+}
+body.charListGrid #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > .avatar {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    aspect-ratio: 1;
+}
+body.charListGrid #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > :is(.character_select_container, .group_select_container) {
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: none;
+    padding: 8px 7px 7px;
+}
+body.charListGrid #right-nav-panel #rm_print_characters_block .character_name_block { flex-direction: row; align-items: center; gap: 3px; margin: 0; }
+body.charListGrid #right-nav-panel #rm_print_characters_block .character_name_block .ch_name { display: block; font-size: 12px; line-height: 1.45; white-space: nowrap; text-wrap: nowrap; text-align: left; }
+body.charListGrid #right-nav-panel #rm_print_characters_block :is(.group_select_counter, .bogus_folder_counter) { width: auto; max-width: 40%; flex: 0 1 auto; font-size: 9px; }
+body.charListGrid #right-nav-panel #rm_print_characters_block :is(.ch_description, .tags_inline, .character_version, .ch_avatar_url, .character_name_block_sub_line) { display: none; }
+body.charListGrid #right-nav-panel #rm_print_characters_block :is(.ch_fav_icon, .group_fav_icon) { left: 5px; top: 5px; }
+/* Favorite icons are descendants of the text area: let the card anchor them. */
+body.charListGrid #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select).is_fav > :is(.character_select_container, .group_select_container) { position: static; }
+body.charListGrid #right-nav-panel #rm_print_characters_block > :is(.text_block, .empty_block, .hidden_block) { grid-column: 1 / -1; }
+
+/* Preserve native selected-state visibility, including group overlay mode. */
+#right-nav-panel #rm_print_characters_block > .character_select.character_selected {
+    outline: 2px solid #777;
+    outline-offset: -2px;
+    background: #f4f4ed;
+}
+#right-nav-panel #rm_print_characters_block > .character_select > .bulk_select_checkbox {
+    position: absolute;
+    top: 7px;
+    right: 6px;
+    z-index: 2;
+}
+#right-nav-panel #rm_print_characters_block.bulk_select > .character_select > .character_select_container { padding-right: 28px; }
+
+/* Protocol-pass inspired entry: trigger a short time animation on scroll entry.
+ * The row stays in place; only its contents settle, preserving focus geometry.
+ */
+@keyframes ef-manager-row-fade {
+    from { opacity: .45; }
+    to { opacity: 1; }
+}
+@keyframes ef-manager-row-content-enter {
+    from { translate: 8px 0; }
+    to { translate: 0 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+    @supports (timeline-trigger: --ef-manager-row view(block 0px) cover 8px cover calc(100% - 8px) / cover 0% cover 100%) and (animation-trigger: --ef-manager-row replay reset) and (trigger-scope: --ef-manager-row) {
+        /* Keep the scrollport at its final height when row triggers initialize.
+         * The drawer's opacity reveal remains; its native height tween would
+         * leave stale trigger boundaries on the first opening.
+         */
+        body:not(.charListGrid):not(.reduced-motion) #right-nav-panel:has(#rm_characters_block:not([style*="display: none"])) {
+            transition-property: display !important;
+        }
+        body:not(.charListGrid):not(.reduced-motion) #right-nav-panel #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) {
+            overflow-x: hidden;
+        }
+        body:not(.charListGrid):not(.reduced-motion) #right-nav-panel #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > .entity_block:is(.character_select, .group_select, .bogus_folder_select):not(.useless) {
+            overflow: clip;
+            trigger-scope: --ef-manager-row;
+            timeline-trigger: --ef-manager-row view(block 0px) cover 8px cover calc(100% - 8px) / cover 0% cover 100%;
+            animation: ef-manager-row-fade 280ms cubic-bezier(.2,.7,.25,1) both;
+            animation-trigger: --ef-manager-row replay reset;
+        }
+        body:not(.charListGrid):not(.reduced-motion) #right-nav-panel #rm_print_characters_block:not(.bulk_select):not(.group_overlay_mode_select) > .entity_block:is(.character_select, .group_select, .bogus_folder_select):not(.useless) > :is(.avatar, .character_select_container, .group_select_container) {
+            animation: ef-manager-row-content-enter 280ms cubic-bezier(.2,.7,.25,1) both;
+            animation-trigger: --ef-manager-row replay reset;
+        }
+    }
+}
+
+#right-nav-panel :is(#CharListButtonAndHotSwaps .interactable, #charListFixedTop .menu_button, #rm_button_search, #charListFixedTop .tag, #character_sort_order, #character_search_bar):focus-visible { outline: 2px solid #fffa00; outline-offset: 2px; }
+#right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select):focus-visible { outline: 2px solid #383838; outline-offset: -2px; }
+#right-nav-panel #rm_print_characters_pagination :is(.menu_button, select, a):focus-visible { outline: 2px solid #383838; outline-offset: 2px; }
+
+@container ef-character-panel (max-width: 275px) {
+    #right-nav-panel #rm_print_characters_block { --ef-manager-avatar: 60px; }
+    #right-nav-panel #rm_print_characters_block > :is(.character_select, .group_select, .bogus_folder_select) > :is(.character_select_container, .group_select_container) { padding-inline: 7px; }
+    #right-nav-panel #rm_print_characters_block .character_name_block .ch_name { font-size: 13px; }
+    body.charListGrid #right-nav-panel #rm_print_characters_block .character_name_block .ch_name { font-size: 12px; }
+    #right-nav-panel #rm_print_characters_pagination .paginationjs-nav { flex-basis: 100%; }
+}
+@container ef-character-panel (max-width: 269px) {
+    #right-nav-panel #rm_characters_block #charListFixedTop { grid-template-columns: 58px repeat(3, 28px) minmax(0, 1fr) 28px; column-gap: 3px; padding-inline: 7px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop #rm_button_bar #rm_button_create { width: 58px !important; min-width: 58px !important; }
+    #right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter { column-gap: 1px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter::before { flex-basis: 90px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.manageTags { margin-left: 4px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter > .tag.actionable { width: 24px !important; min-width: 24px !important; height: 24px !important; min-height: 24px; flex-basis: 24px; }
+}
+@media (pointer: coarse) {
+    #right-nav-panel #rm_characters_block #charListFixedTop { display: block; }
+    #right-nav-panel #rm_button_bar { display: flex; gap: 5px; margin-bottom: 8px; }
+    #right-nav-panel #rm_buttons_container { display: contents; }
+    #right-nav-panel #rm_button_search { margin-left: auto; }
+    #right-nav-panel #rm_characters_block #charListFixedTop :is(.menu_button, .right_menu_button, .rm_tag_filter > .tag.actionable):not(#rm_button_create) { width: 40px; min-width: 40px; height: 40px; min-height: 40px; flex-basis: 40px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop #rm_button_create { min-height: 40px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop .rm_tag_filter::before { content: none; }
+    #right-nav-panel #rm_characters_block #charListFixedTop .tag:not(.actionable) { min-height: 36px; }
+    #right-nav-panel #form_character_search_form { margin-bottom: 8px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop #character_search_bar { height: 40px; }
+    #right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order,
+    #right-nav-panel #rm_print_characters_pagination .paginationjs-size-changer select { height: 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #right-nav-panel #rm_characters_block #charListFixedTop *, #right-nav-panel #rm_print_characters_block > * { transition: none !important; animation: none !important; }
+}
+body.reduced-motion #right-nav-panel #rm_characters_block #charListFixedTop *,
+body.reduced-motion #right-nav-panel #rm_print_characters_block > * { transition: none !important; animation: none !important; }
+
+/* Native customizable selects, following Gruvbox's CSS path.
+ * Only the two character-management controls; no script or host changes.
+ * Touch-first devices retain their native picker. Unsupported browsers ignore
+ * this enhancement and keep the trigger/fallback styles already in part 22.
+ */
+@media (hover: hover) and (pointer: fine) {
+  @supports (appearance: base-select) and selector(select::picker(select)) {
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select),
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select) {
+      appearance: base-select !important;
+    }
+
+    /* Preserve the approved 84 x 27 trigger from part 22; only prevent the rich
+     * selected-value box from wrapping. Keep the existing drawn arrow. */
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) {
+      white-space: nowrap !important;
+      align-items: center;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker-icon {
+      display: none;
+    }
+
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select) {
+      box-sizing: border-box;
+      width: 144px;
+      min-width: 0;
+      max-width: calc(100vw - 16px);
+      max-height: min(240px, calc(50dvh - 28px));
+      margin-block: 3px;
+      padding: 5px 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-padding-block: 5px;
+      color: #363636;
+      background: #d1d1d1;
+      border: 1px solid #b5b5b5;
+      border-radius: 3px;
+      box-shadow: 0 3px 7px #0004;
+      scrollbar-width: auto;
+      /* Non-auto standard colors suppress the detailed scrollbar artwork. */
+      scrollbar-color: auto;
+    }
+
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option {
+      position: relative;
+      box-sizing: border-box;
+      min-height: 32px;
+      padding: 6px 27px 6px 14px;
+      border: 0;
+      border-radius: 0;
+      font: 12px/20px var(--ef-font-body, sans-serif);
+      white-space: normal !important;
+      overflow-wrap: anywhere;
+      color: #363636 !important;
+      background: transparent !important;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option[hidden] {
+      display: none !important;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option::checkmark {
+      display: none;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option:is(:hover, :focus-visible):not(:disabled) {
+      color: #303030 !important;
+      background: #fafafa !important;
+      outline: 0;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option:checked:not(:disabled) {
+      color: #fff !important;
+      background: #646464 !important;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option:checked::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: #f7f7f7;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option:checked::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      width: 6px;
+      height: 10px;
+      border: solid currentColor;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select) option:disabled {
+      opacity: .55;
+    }
+
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar {
+      width: 16px;
+      background: transparent;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar-track {
+      background: linear-gradient(90deg, transparent calc(50% - 1px), #a8a8a8 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px));
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar-thumb {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      min-height: 28px;
+      background: var(--ef-sb-cap-start) center top / 16px 14px no-repeat,
+        var(--ef-sb-cap-end) center bottom / 16px 14px no-repeat,
+        var(--ef-sb-shaft) center / 16px calc(100% - 28px) no-repeat;
+    }
+    #right-nav-panel #rm_characters_block :is(#character_sort_order, #rm_print_characters_pagination .J-paginationjs-size-select)::picker(select)::-webkit-scrollbar-button {
+      display: none;
+    }
+  }
+}

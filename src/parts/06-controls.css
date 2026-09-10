@@ -1,77 +1,5 @@
 /* Functional controls: neutral tools, yellow only for selected navigation and primary action. */
 
-#top-settings-holder > .drawer > .drawer-toggle {
-    background: transparent !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle::after {
-    display: none !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon {
-    color: inherit !important;
-    background-color: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    filter: none !important;
-    text-shadow: none !important;
-    transition:
-        color var(--ef-fast) ease-out,
-        background-color var(--ef-fast) ease-out,
-        opacity var(--ef-fast) ease-out;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.closedIcon {
-    opacity: 0.68 !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle:hover,
-#top-settings-holder > .drawer > .drawer-toggle:focus-within {
-    color: var(--ef-paper-hi) !important;
-    background: transparent !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle:hover > .drawer-icon,
-#top-settings-holder > .drawer > .drawer-toggle:focus-within > .drawer-icon {
-    background-color: rgba(255, 255, 255, 0.06) !important;
-    opacity: 1 !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon:focus-visible {
-    outline: 2px solid var(--ef-signal) !important;
-    outline-offset: -2px;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle > .drawer-icon.openIcon {
-    color: var(--ef-ink) !important;
-    background-color: var(--ef-signal) !important;
-    opacity: 1 !important;
-}
-
-/* 保留原生 FA 字形，只调整视觉字号，不改变按钮点击区域。 */
-:is(
-    #top-settings-holder > #ai-config-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #sys-settings-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #advanced-formatting-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #WI-SP-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #user-settings-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #backgrounds-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #extensions-settings-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #persona-management-button > .drawer-toggle > .drawer-icon,
-    #top-settings-holder > #rightNavHolder > .drawer-toggle > .drawer-icon
-)::before {
-    font-size: 17px !important;
-    line-height: 1 !important;
-    vertical-align: middle;
-}
-
-:is(#options_button, #extensionsMenuButton, #send_but)::before {
-    font-size: 18px !important;
-    line-height: 1 !important;
-    vertical-align: middle;
-}
-
 #chat .menu_button {
     color: var(--ef-ink) !important;
     background: rgba(250, 251, 248, 0.48) !important;
@@ -137,34 +65,6 @@
 #chat > .mes[is_user="true"] .menu_button:hover {
     background: rgba(255, 255, 255, 0.08) !important;
     border-color: rgba(255, 255, 255, 0.32) !important;
-}
-
-#leftSendForm > div,
-#rightSendForm > div:not(#send_but) {
-    border-radius: 0 !important;
-    filter: none !important;
-    text-shadow: none !important;
-    transition:
-        color var(--ef-fast) ease-out,
-        background-color var(--ef-fast) ease-out,
-        box-shadow var(--ef-fast) ease-out;
-}
-
-#extensionsMenuButton {
-    border-left: 1px solid var(--ef-line) !important;
-}
-
-#leftSendForm > div:hover,
-#rightSendForm > div:not(#send_but):hover {
-    color: var(--ef-ink) !important;
-    background: rgba(23, 26, 26, 0.065) !important;
-    outline: 0 !important;
-}
-
-#leftSendForm > div:focus-visible,
-#rightSendForm > div:not(#send_but):focus-visible {
-    outline: 2px solid var(--ef-ink) !important;
-    outline-offset: -2px;
 }
 
 #send_but:is(.disabled, [disabled]),

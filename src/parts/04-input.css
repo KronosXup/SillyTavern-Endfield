@@ -1,129 +1,564 @@
+/* Accepted input-review: fine shell, focus line and textured paper-plane button. */
 #form_sheld {
+    --ef-input-ink: #242424;
+    --ef-input-paper: #eeeded;
+    --ef-input-paper-hi: #faf9f9;
+    --ef-input-signal: #fffa00;
+    --ef-input-font: "EF Cover Harmony Regular", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+    position: relative;
     box-sizing: border-box;
+    container: ef-input / inline-size;
+    flex-shrink: 0;
+    width: 100%;
     margin-top: 0 !important;
-    padding-left: 9px;
-    background: var(--ef-paper) !important;
-    border-inline: 1px solid rgba(23, 26, 26, 0.24);
-    box-shadow: inset 8px 0 0 var(--ef-signal);
-    color: var(--ef-ink) !important;
+    padding: 0;
+    white-space: normal;
+    color: var(--ef-input-ink);
+    background: var(--ef-input-paper);
+    border: 1px solid #a8a5a5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #0000001a, 0 0 0 1px #ffffff70;
+    isolation: isolate;
 }
 
 body.no-blur #send_form,
 body:not(.no-blur) #send_form {
+    --bottomFormBlockSize: 34px;
     position: relative;
     box-sizing: border-box;
-    width: 100% !important;
-    margin: 0 !important;
-    color: var(--ef-ink) !important;
-    background: var(--ef-paper-hi) !important;
-    border: 0 !important;
-    border-top: 1px solid var(--ef-line) !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    clip-path: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+    color: var(--ef-input-ink);
+    background: var(--ef-input-paper-hi) !important;
+    border: 0;
+    border-top: 1px solid #fff;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px #fff;
+    clip-path: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 #send_form::before {
     content: "";
     position: absolute;
-    z-index: 2;
-    top: -1px;
-    left: 0;
+    z-index: 4;
+    top: 0;
+    left: 3px;
     width: 104px;
     height: 3px;
     pointer-events: none;
-    background: var(--ef-signal);
-    transform: scaleX(0.24);
+    background: var(--ef-input-signal);
+    transform: scaleX(.24);
     transform-origin: left;
-    transition: transform var(--ef-shift) ease-out;
+    transition: transform 190ms ease-out;
 }
 
-#send_form:focus-within {
-    border-top-color: var(--ef-signal) !important;
-    outline: 2px solid rgba(23, 26, 26, 0.72) !important;
-    outline-offset: -2px;
-}
-
-#send_form:focus-within::before {
-    transform: scaleX(1);
-}
+#form_sheld:focus-within { border-color: #8c8888; }
+#send_form:focus-within,
+#send_form:has(#send_textarea:focus-visible) { outline: none; border-top-color: #fff; }
+#send_form:focus-within::before { transform: scaleX(1); }
 
 #nonQRFormItems {
-    color: var(--ef-ink) !important;
-    background: transparent !important;
+    --ef-input-columns: auto minmax(0, 1fr) auto;
+    --ef-input-text-column: 2;
+    --ef-input-tool-row: 1;
+    --ef-input-right-column: 3;
+    --ef-input-tool-border: 1px solid #d6d4d4;
+    --ef-input-right-wrap: nowrap;
+    order: 25;
+    display: grid;
+    grid-template-columns: var(--ef-input-columns);
+    align-items: end;
+    gap: 5px;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 5px;
+    color: var(--ef-input-ink);
+    background: transparent;
 }
 
 #leftSendForm,
 #rightSendForm {
-    color: var(--ef-ink) !important;
+    display: flex;
+    align-items: center;
+    align-self: end;
+    grid-row: var(--ef-input-tool-row);
+    gap: 2px;
+    width: auto;
+    min-width: 0;
+    min-height: 34px;
+    padding: 0;
 }
 
+#send_form #leftSendForm {
+    grid-column: 1;
+    justify-self: start;
+    flex-wrap: nowrap;
+    padding-right: 3px;
+    border-right: var(--ef-input-tool-border);
+}
+
+#send_form #rightSendForm {
+    grid-column: var(--ef-input-right-column);
+    justify-self: end;
+    justify-content: flex-end;
+    flex-wrap: var(--ef-input-right-wrap);
+    max-width: 100%;
+}
+
+/* The host owns display for generation, scripts and extension toggles. */
 #leftSendForm > div,
-#rightSendForm > div {
-    color: var(--ef-ink) !important;
-    text-shadow: none !important;
+#rightSendForm > div:not(.mes_stop),
+#rightSendForm > .mes_stop {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 30px;
+    height: 34px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    color: #5a5858;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 1;
+    filter: none;
+    text-shadow: none;
+    outline-offset: -2px;
+    transition: background-color 100ms linear, color 100ms linear;
 }
 
 #leftSendForm > div:hover,
 #leftSendForm > div:focus-visible,
 #rightSendForm > div:not(#send_but):hover,
 #rightSendForm > div:not(#send_but):focus-visible {
-    color: var(--ef-ink) !important;
-    background: rgba(23, 26, 26, 0.075) !important;
-    filter: none !important;
-    outline: 1px solid rgba(23, 26, 26, 0.24);
+    color: #252424;
+    background: #dedbdb;
+    filter: none;
+    outline: 1px solid #bab7b7;
     outline-offset: -2px;
 }
 
+#leftSendForm > div[aria-expanded="true"] {
+    color: #fff;
+    background: #7f7c7c;
+}
+
 #send_textarea {
-    color: var(--ef-ink) !important;
-    caret-color: var(--ef-ink) !important;
-    font-family: var(--ef-font-body) !important;
-    font-weight: 470;
-    text-shadow: none !important;
+    grid-column: var(--ef-input-text-column);
+    grid-row: 1;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 34px;
+    height: auto;
+    max-height: 50vh;
+    max-height: 50dvh;
+    margin: 0;
+    padding: 6px 6px 4px;
+    resize: vertical;
+    field-sizing: content;
+    overflow: auto;
+    color: var(--ef-input-ink);
+    background: transparent;
+    font: 400 14px/21px var(--ef-input-font);
+    letter-spacing: 0;
+    text-align: left;
+    box-shadow: none;
+    text-shadow: none;
+    caret-color: var(--ef-input-ink);
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+    --progColor: #91a7bd;
+    --progFlashColor: #b29582;
+    --progSuccessColor: #789771;
+    --progErrorColor: #b65c59;
+    --progAbortedColor: #b29582;
+    /* Keep the host's --prog/--progDone, border, clip and status animation. */
 }
 
-#send_textarea::placeholder {
-    color: rgba(23, 26, 26, 0.4) !important;
+#send_textarea:focus-visible { outline: none; }
+#send_textarea::placeholder { color: #a5a1a1 !important; opacity: 1; text-align: left; }
+
+#rightSendForm > #send_but {
+    --button-fill: #edebeb;
+    --button-rim: #b6b0b0;
+    width: 74px;
+    min-width: 74px;
+    height: 30px;
+    align-self: center;
+    margin-inline: 3px 1px;
+    border: 1px solid #8f8989;
+    border-radius: 999px;
+    color: #a7a0a0;
+    background:
+        linear-gradient(90deg, var(--button-fill) 48%, color-mix(in srgb, var(--button-fill) 10%, transparent) 68%),
+        url("asset:welcome/more-chat-texture.png") right center / 107px 24px no-repeat,
+        var(--button-fill);
+    box-shadow: inset 0 0 0 2px var(--button-fill), inset 0 0 0 3px var(--button-rim), 0 2px 3px #00000026;
+    font-size: 15px;
+    transition: background-color 100ms linear, color 100ms linear;
 }
 
-#send_but {
-    width: 46px !important;
-    min-width: 46px !important;
-    color: var(--ef-ink) !important;
-    background: var(--ef-signal) !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: inset 0 0 0 1px rgba(23, 26, 26, 0.16) !important;
-    filter: none !important;
-    opacity: 1 !important;
-    transition: color var(--ef-fast) ease-out, background-color var(--ef-fast) ease-out;
+#send_but::before {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    color: #656060;
+    font-size: 11px;
+    line-height: 1;
+    transition: color 100ms linear;
 }
 
-#send_but:hover,
-#send_but:focus-visible {
-    color: var(--ef-paper-hi) !important;
-    background: var(--ef-ink) !important;
-    outline: 2px solid var(--ef-signal) !important;
-    outline-offset: -3px;
+#send_but::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    width: 24px;
+    height: 3px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    background:
+        radial-gradient(circle at center, currentColor 0 1px, transparent 1.2px) left center / 3px 3px no-repeat,
+        radial-gradient(circle at center, currentColor 0 1px, transparent 1.2px) right center / 3px 3px no-repeat,
+        linear-gradient(currentColor, currentColor) center / calc(100% - 4px) 1px no-repeat;
 }
 
+#rightSendForm > #send_but:hover,
+#rightSendForm > #send_but:focus-visible {
+    --button-fill: #999696;
+    --button-rim: #c4bfbf;
+    color: #f0eded;
+    outline: none;
+}
+
+#rightSendForm > #send_but:focus-visible { outline: 2px solid #292929; outline-offset: 2px; }
+#send_but:hover::before,
+#send_but:focus-visible::before { color: #faf7f7; }
+#rightSendForm > #mes_stop,
+#rightSendForm > #stscript_stop { color: #944e4e; }
+
+#send_form #rightSendForm > .stscript_btn > .fa-solid {
+    width: 16px;
+    height: 16px;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    background: transparent;
+    box-shadow: none;
+    font-size: 14px;
+}
+
+#form_sheld.isExecutingCommandsFromChatInput #send_but,
+#form_sheld.isExecutingCommandsFromChatInput #mes_continue {
+    width: 0;
+    min-width: 0;
+    height: 0;
+    min-height: 0;
+    margin: 0;
+    border: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+#send_form > :is(#qr--bar, #qr-bar) {
+    gap: 5px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+#send_form > #qr--bar:has(.qr--button),
+#send_form > #qr-bar:has(.qr--button, button) {
+    padding: 7px 9px;
+    border-bottom: 1px solid #d4d1d1;
+}
+
+#send_form :is(#qr--bar, #qr-bar) :is(.qr--button, button) {
+    max-width: 100%;
+    padding: 3px 10px;
+    border: 1px solid #c8c4c4;
+    border-radius: 3px;
+    background: #e9e6e6;
+    color: #595656;
+    font: 400 12px/1.6 var(--ef-input-font);
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+#send_form :is(#qr--bar, #qr-bar) :is(.qr--button, button):hover {
+    background: #9b9696;
+    color: #fff;
+}
+
+#send_form #file_form {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0 9px;
+    border-bottom: 1px solid #d6d2d2;
+    background: #eeebeb;
+}
+
+#file_form .file_attached {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    min-height: 37px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+#file_form .file_attached > i { color: #8d8888; font-size: 14px; flex-shrink: 0; }
+#file_form .file_name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #625d5d;
+    font: 400 12px/1.6 var(--ef-input-font);
+}
+#file_form .file_size { color: #8b8585; font: 10px/1.6 Arial, sans-serif; white-space: nowrap; flex-shrink: 0; }
+
+#file_form #file_form_reset {
+    flex-shrink: 0;
+    width: 32px;
+    height: 34px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    color: #706969;
+    font-size: 15px;
+    box-shadow: none;
+    filter: none;
+}
+#file_form #file_form_reset:hover { color: #262323; background: #dfd9d9; }
+
+/* The host still opens/closes this sibling of #send_form. */
 #dialogue_del_mes {
-    color: var(--ef-ink) !important;
-    background: var(--ef-paper-hi) !important;
-    border-top: 1px solid var(--ef-line) !important;
+    margin: 0;
+    padding: 8px;
+    min-height: 47px;
+    text-align: right;
+    color: var(--ef-input-ink);
+    background: #eeebeb;
+    border: 0;
+    border-radius: 4px;
+}
+#dialogue_del_mes > .menu_button {
+    display: inline-flex;
+    width: auto;
+    margin: 0;
+    padding: 4px 14px;
+    border: 1px solid #b5adad;
+    border-radius: 999px;
+    background: #f4f0f0;
+    color: #6a6060;
+    box-shadow: inset 0 0 0 1px #fff;
+    font: 400 12px/1.6 var(--ef-input-font);
+}
+#dialogue_del_mes > .menu_button + .menu_button { margin-left: 8px; }
+#dialogue_del_mes > #dialogue_del_mes_ok { background: #9b6565; border-color: #8b5555; color: #fff; }
+
+/* Extra actions use a separate tool row; hidden controls keep their native rules. */
+#send_form:not(.compact) #nonQRFormItems,
+#form_sheld.isExecutingCommandsFromChatInput #nonQRFormItems,
+#nonQRFormItems:has(> #rightSendForm > :is(#mes_impersonate, #mes_continue, #message_preview_btn):not(.displayNone):not([hidden]):not([style*="display: none"]):not([style*="display:none"])) {
+    --ef-input-columns: auto minmax(0, 1fr);
+    --ef-input-text-column: 1 / -1;
+    --ef-input-tool-row: 2;
+    --ef-input-right-column: 2;
+    --ef-input-tool-border: 0;
+    --ef-input-right-wrap: wrap;
+}
+#send_form:not(.compact) #send_textarea { min-height: 65px; }
+
+@container ef-input (max-width: 460px) {
+    #nonQRFormItems { gap: 3px; padding: 4px; }
+    #send_form #leftSendForm { gap: 0; padding-right: 2px; }
+    #leftSendForm > div,
+    #rightSendForm > div:not(.mes_stop),
+    #rightSendForm > .mes_stop { width: 28px; }
+    #send_textarea { padding-inline: 4px; font-size: 13px; }
+    #rightSendForm > #send_but { width: 58px; min-width: 58px; }
+    #send_but::after { width: 13px; left: 8px; }
 }
 
 @media (max-width: 700px) {
-    #form_sheld {
-        padding-left: 6px;
-        border-inline: 0;
-        box-shadow: inset 5px 0 0 var(--ef-signal) !important;
-    }
+    #send_form::before { width: 72px; }
+}
 
-    #send_form::before {
-        width: 72px;
+@media (pointer: coarse) {
+    #leftSendForm > div,
+    #rightSendForm > div:not(.mes_stop),
+    #rightSendForm > .mes_stop,
+    #file_form #file_form_reset { min-width: 44px; min-height: 44px; }
+    #rightSendForm > #send_but { height: 38px; }
+    #nonQRFormItems {
+        --ef-input-columns: auto minmax(0, 1fr);
+        --ef-input-text-column: 1 / -1;
+        --ef-input-tool-row: 2;
+        --ef-input-right-column: 2;
+        --ef-input-tool-border: 0;
+        --ef-input-right-wrap: wrap;
     }
+    #send_textarea { min-height: 44px; font-size: 16px; }
+    #send_form :is(#qr--bar, #qr-bar) :is(.qr--button, button) { min-height: 36px; }
+}
+
+body.reduced-motion #send_form::before,
+body.reduced-motion #send_textarea,
+body.reduced-motion #leftSendForm > div,
+body.reduced-motion #rightSendForm > div,
+body.reduced-motion #send_but::before {
+    transition: none !important;
+    animation: none !important;
+}
+body.reduced-motion #send_form::before { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+    #send_textarea,
+    #send_but::before { transition: none !important; animation: none !important; }
+}
+
+/* Input menus live under body; keep host positioning, visibility and actions. */
+#options,
+#extensionsMenu {
+    box-sizing: border-box;
+    width: max-content;
+    min-width: min(160px, calc(100vw - 24px));
+    max-width: min(330px, calc(100vw - 24px));
+    max-height: min(470px, calc(100vh - (2 * var(--bottomFormBlockSize) + 10px)));
+    max-height: min(470px, calc(100dvh - (2 * var(--bottomFormBlockSize) + 10px)));
+    padding: 5px;
+    color: #444;
+    background: #eee;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 0 4px 18px #0002;
+    font: 13px/1.5 "EF Cover Harmony Regular", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+    white-space: normal;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* Approved Wuling footer: fixed-size original artwork, clear of the scrollbar. */
+#options,
+#extensionsMenu {
+    background-image: url("asset:menu/wuling-bottom.svg");
+    background-size: calc(100% - 28px) 76px;
+    background-position: right 2px bottom 1px;
+    background-repeat: no-repeat;
+    background-origin: padding-box;
+    background-clip: padding-box;
+    background-attachment: scroll;
+}
+
+#options > .options-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    font: inherit;
+}
+
+#options > .options-content,
+#extensionsMenu {
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+#extensionsMenu > .extension_container > a:not([hidden]),
+#extensionsMenu > a:not([hidden]) { display: flex; }
+
+:is(#options > .options-content > a,
+    #extensionsMenu > .extension_container > :is(div, a),
+    #extensionsMenu > :is(div, a):not(.extension_container)) {
+    box-sizing: border-box;
+    min-width: 0;
+    width: 100%;
+    padding: 7px 8px;
+    align-items: center;
+    column-gap: 6px;
+    color: #444;
+    background: transparent;
+    border-radius: 2px;
+    opacity: 1;
+    font: inherit;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+
+:is(#options > .options-content > a,
+    #extensionsMenu > .extension_container > :is(div, a),
+    #extensionsMenu > :is(div, a):not(.extension_container)):is(:hover, :focus-visible) {
+    color: #444;
+    background: #d9d9d9;
+    outline: 1px solid #aaa;
+    outline-offset: -1px;
+}
+
+:is(#options > .options-content > a,
+    #extensionsMenu > .extension_container > :is(div, a),
+    #extensionsMenu > :is(div, a):not(.extension_container)):is(.disabled, [aria-disabled="true"]) {
+    opacity: .5;
+}
+
+:is(#options > .options-content > a,
+    #extensionsMenu > .extension_container > :is(div, a),
+    #extensionsMenu > :is(div, a):not(.extension_container)) > :is(i, .extensionsMenuExtensionButton) {
+    flex: 0 0 24px;
+    width: 24px;
+    min-width: 24px;
+    height: 20px;
+    margin: 0;
+    font-size: 14px;
+}
+
+:is(#options > .options-content > a,
+    #extensionsMenu > .extension_container > :is(div, a),
+    #extensionsMenu > :is(div, a):not(.extension_container)) > span {
+    min-width: 0;
+}
+
+#options > .options-content > hr {
+    margin: 4px 7px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    background: transparent;
+}
+
+@media (pointer: coarse) {
+    :is(#options > .options-content > a,
+        #extensionsMenu > .extension_container > :is(div, a),
+        #extensionsMenu > :is(div, a):not(.extension_container)) { min-height: 44px; }
 }

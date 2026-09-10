@@ -20,7 +20,6 @@
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    scrollbar-color: rgba(238, 240, 237, 0.32) var(--ef-void-soft);
     transition-duration: var(--ef-shift) !important;
 }
 

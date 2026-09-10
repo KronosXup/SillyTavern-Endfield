@@ -12,15 +12,6 @@
     margin-inline: auto !important;
 }
 
-#top-bar {
-    background: rgba(16, 20, 21, 0.96) !important;
-    border: 0 !important;
-    border-bottom: 1px solid rgba(238, 240, 237, 0.14) !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-}
-
 #chat {
     isolation: isolate;
     box-sizing: border-box;
@@ -61,39 +52,6 @@
     border-color: rgba(23, 26, 26, 0.16) !important;
     border-radius: 0 !important;
     text-shadow: none !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle {
-    position: relative;
-    color: rgba(238, 240, 237, 0.62) !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    transition: color var(--ef-fast) ease-out, background-color var(--ef-fast) ease-out;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle::after {
-    content: "";
-    position: absolute;
-    right: 50%;
-    bottom: 0;
-    left: 50%;
-    height: 2px;
-    background: var(--ef-signal);
-    transition: right var(--ef-shift) ease-out, left var(--ef-shift) ease-out;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle:hover,
-#top-settings-holder > .drawer > .drawer-toggle:focus-within {
-    color: var(--ef-paper-hi) !important;
-    background: rgba(255, 255, 255, 0.035) !important;
-}
-
-#top-settings-holder > .drawer > .drawer-toggle:hover::after,
-#top-settings-holder > .drawer > .drawer-toggle:focus-within::after {
-    right: 20%;
-    left: 20%;
 }
 
 @media (max-width: 700px) {

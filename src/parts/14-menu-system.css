@@ -58,7 +58,6 @@
     text-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    scrollbar-color: rgba(23, 26, 26, 0.34) rgba(23, 26, 26, 0.055);
 }
 
 #top-settings-holder > .drawer > .drawer-content * {

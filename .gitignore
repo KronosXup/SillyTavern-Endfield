@@ -6,6 +6,22 @@ research/tools/
 research/reference/raw/
 research/reference/derived/*.mp4
 
+# Keep local research captures and drafts out of new commits on every checkout.
+# Existing tracked reference records remain tracked.
+/research/
+/references/**/*.png
+/references/**/*.jpg
+/references/**/*.jpeg
+/references/**/*.gif
+/references/**/*.mp4
+/references/**/*.m4s
+/PLAN.md
+/NEXT_PASS_PLAN.md
+/references/midterm/MIDTERM_V2_BRIEF.md
+/references/midterm/WELCOME_V3_DRAFT.md
+/references/midterm/WELCOME_V4_DRAFT.md
+/references/concepts/wuling-sillytavern-concept-v1.md
+
 # Local handoff notes stay on the workstation; do not publish them.
 HANDOFF.md
 
