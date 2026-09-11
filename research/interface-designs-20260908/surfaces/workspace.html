@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>组合聊天场景 · Endfield 候选</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="workspace.css">
+  <script defer src="../assets/common.js"></script>
+  <script defer src="workspace.js"></script>
+</head>
+<body class="preview-page" data-surface="workspace" data-variant="a">
+  <header class="lab-intro"><div><p class="lab-kicker">ENDFIELD / COMBINED WORKSPACE / 03</p><h1>放在同一页里看</h1><p>顶部入口、阅读纸面、输入栏和浮层同时出现。选一套组合，再打开菜单或重命名窗口，看它们是否属于同一个界面。</p></div><span class="lab-disclaimer">虚构对话 · 本地演示 · 未实装</span></header>
+  <nav class="variant-picker" aria-label="组合方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>推荐组合 · 白纸连续</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>深色操作组合</button>
+  </nav>
+  <div class="lab-toolbar">
+    <label>预览宽度 <select id="scene-width" aria-label="组合界面预览宽度"><option value="wide">自适应</option><option value="390">390px</option><option value="320">320px</option></select></label>
+    <label><input type="checkbox" id="scene-touch">44px 触控</label>
+    <label><input type="checkbox" id="scene-short">短窗口示例</label>
+    <label><input type="checkbox" data-toggle-motion>减少动态</label>
+    <button type="button" class="lab-button" id="load-scene-draft">填入多行草稿</button>
+    <button type="button" class="lab-button" id="open-scene-settings">打开设置抽屉</button>
+    <button type="button" class="lab-button" id="reset-scene">重置本页示例</button>
+  </div>
+  <main class="workspace-frame" id="workspace-frame">
+    <section class="demo-stage workspace-stage" id="workspace-stage" aria-label="组合聊天场景">
+      <div class="workspace-top">
+        <div id="top-bar" aria-hidden="true"></div>
+        <div id="top-settings-holder" aria-label="九个设置入口">
+          <div class="drawer" id="ai-config-button"><button type="button" class="drawer-toggle" data-nav="0" aria-label="AI 响应配置" aria-controls="settings-drawer" aria-expanded="false" title="AI 响应配置"><span class="drawer-icon fa-solid fa-sliders closedIcon" aria-hidden="true"></span><span class="nav-label">响应配置</span></button></div>
+          <div class="drawer" id="sys-settings-button"><button type="button" class="drawer-toggle" data-nav="1" aria-label="API 连接" aria-controls="settings-drawer" aria-expanded="false" title="API 连接"><span class="drawer-icon fa-solid fa-plug closedIcon" aria-hidden="true"></span><span class="nav-label">API 连接</span></button></div>
+          <div class="drawer" id="advanced-formatting-button"><button type="button" class="drawer-toggle" data-nav="2" aria-label="高级格式" aria-controls="settings-drawer" aria-expanded="false" title="高级格式"><span class="drawer-icon fa-solid fa-font closedIcon" aria-hidden="true"></span><span class="nav-label">高级格式</span></button></div>
+          <div class="drawer" id="WI-SP-button"><button type="button" class="drawer-toggle" data-nav="3" aria-label="世界书" aria-controls="settings-drawer" aria-expanded="false" title="世界书"><span class="drawer-icon fa-solid fa-book-atlas closedIcon" aria-hidden="true"></span><span class="nav-label">世界书</span></button></div>
+          <div class="drawer" id="user-settings-button"><button type="button" class="drawer-toggle" data-nav="4" aria-label="用户设置" aria-controls="settings-drawer" aria-expanded="false" title="用户设置"><span class="drawer-icon fa-solid fa-user-gear closedIcon" aria-hidden="true"></span><span class="nav-label">用户设置</span></button></div>
+          <div class="drawer" id="backgrounds-button"><button type="button" class="drawer-toggle" data-nav="5" aria-label="背景" aria-controls="settings-drawer" aria-expanded="false" title="背景"><span class="drawer-icon fa-solid fa-image closedIcon" aria-hidden="true"></span><span class="nav-label">背景</span></button></div>
+          <div class="drawer" id="extensions-settings-button"><button type="button" class="drawer-toggle" data-nav="6" aria-label="扩展设置" aria-controls="settings-drawer" aria-expanded="false" title="扩展设置"><span class="drawer-icon fa-solid fa-cubes closedIcon" aria-hidden="true"></span><span class="nav-label">扩展设置</span></button></div>
+          <div class="drawer" id="persona-management-button"><button type="button" class="drawer-toggle" data-nav="7" aria-label="用户角色" aria-controls="settings-drawer" aria-expanded="false" title="用户角色"><span class="drawer-icon fa-solid fa-id-card closedIcon" aria-hidden="true"></span><span class="nav-label">用户角色</span></button></div>
+          <div class="drawer" id="rightNavHolder"><button type="button" class="drawer-toggle" data-nav="8" aria-label="角色管理" aria-controls="settings-drawer" aria-expanded="false" title="角色管理"><span class="drawer-icon fa-solid fa-address-card closedIcon" aria-hidden="true"></span><span class="nav-label">角色管理</span></button></div>
+        </div>
+      </div>
+      <header class="chat-heading"><div class="chat-heading-text"><span class="chat-kicker">FICTIONAL SAMPLE</span><h2 id="chat-title">未完的记录</h2></div><button type="button" class="scene-icon" id="rename-chat" aria-label="重命名这段示例" title="重命名这段示例"><i class="fa-solid fa-pencil" aria-hidden="true"></i></button><button type="button" class="scene-icon" id="delete-chat" aria-label="删除这段本地示例" title="删除这段本地示例"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></header>
+      <div id="chat" tabindex="0" aria-label="虚构示例对话">
+        <div id="initial-messages">
+          <article class="mes reading-sheet" aria-label="示例叙述">
+            <header class="ch_name reading-cover"><span class="cover-number">01</span><div><small>示例叙述 · 纯文字背景</small><h3>下一页，留给尚未说完的话。</h3></div></header>
+            <div class="reasoning-band" aria-hidden="true"></div>
+            <div class="reading-paper">
+              <div class="reading-body mes_text"><p>窗边的纸页被风翻起一角，又慢慢落回桌上。铅笔横在尚未写完的句子旁，窗外只有很轻的雨声。</p><p>记录没有替任何人作出决定。它只是停在这里，等下一句话自然地接上。</p><p class="fiction-note">以上为虚构排版样本，不是游戏台词或真实聊天。</p></div>
+              <div class="message-tools"><span></span><button type="button" class="scene-icon" id="message-menu-trigger" title="这条示例的操作" aria-label="这条示例的操作" aria-controls="message-menu" aria-expanded="false"><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button><button type="button" class="scene-icon" id="copy-sample" title="复制这段示例文字" aria-label="复制这段示例文字"><i class="fa-solid fa-copy" aria-hidden="true"></i></button></div>
+            </div>
+          </article>
+          <article class="user-line"><strong>你</strong><p>不用着急收尾。就从这页继续。</p><small>虚构示例</small></article>
+        </div>
+        <div id="live-messages" aria-label="本地生成示例"></div>
+        <div class="chat-empty" id="chat-empty" hidden><span class="empty-number">00</span><p>这份本地示例已清空。</p><button type="button" class="ef-button" id="restore-chat">恢复示例</button></div>
+      </div>
+      <div id="form_sheld">
+        <div id="send_form">
+          <form id="file_form" hidden aria-label="附件汇总示例"><div class="file_attached"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><span class="file_name"></span><span class="file_size"></span><button type="reset" id="file_form_reset" class="scene-icon" aria-label="移除这批附件示例" title="移除这批附件示例"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div></form>
+          <div id="nonQRFormItems"><div id="leftSendForm"><button type="button" id="options_button" class="scene-icon" aria-label="聊天菜单" title="聊天菜单" aria-controls="options" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button><button type="button" id="extensionsMenuButton" class="scene-icon" aria-label="扩展快捷菜单" title="扩展快捷菜单" aria-controls="extensionsMenu" aria-expanded="false"><i class="fa-solid fa-magic-wand-sparkles" aria-hidden="true"></i></button></div><textarea id="send_textarea" rows="1" aria-label="消息草稿" placeholder="写下下一句话…" spellcheck="false"></textarea><div id="rightSendForm"><button type="button" id="mes_continue" class="scene-icon" aria-label="续写本地示例" title="续写本地示例" hidden><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button><button type="button" id="mes_impersonate" class="scene-icon" aria-label="代写草稿示例" title="代写草稿示例" hidden><i class="fa-solid fa-user-secret" aria-hidden="true"></i></button><button type="button" id="mes_stop" class="scene-icon" aria-label="停止本地生成" title="停止本地生成" hidden><i class="fa-solid fa-circle-stop" aria-hidden="true"></i></button><button type="button" id="send_but" class="scene-icon" aria-label="发送本地示例" title="发送本地示例"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button></div></div>
+        </div>
+        <div class="composer-foot"><span class="foot-marker" aria-hidden="true"></span><span id="scene-state" role="status">仅本地示例 · 点击输入框查看聚焦伸展</span><span class="foot-label">LOCAL</span></div>
+      </div>
+      <aside class="settings-drawer closedDrawer" id="settings-drawer" aria-labelledby="settings-heading" hidden>
+        <header class="settings-header"><div><span class="settings-index">05</span><h2 id="settings-heading">用户设置</h2><button type="button" id="close-settings" class="scene-icon" aria-label="关闭设置抽屉"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><p>九入口共用控件样本，仅比较选中与抽屉层级。</p></header>
+        <div class="settings-body" tabindex="0"><div class="setting-columns"><section class="setting-group"><h3>阅读</h3><div class="setting-row stacked"><label for="sample-theme">主题预设</label><select id="sample-theme"><option>Endfield · 当前组合示例</option><option>名称很长的纸面主题预设 · 用于检查窄屏折行与显示边界</option></select><small id="theme-sample-status">只展示控件状态，不切换实际主题。</small></div><div class="setting-row stacked"><label for="sample-font-size">示例正文字号 <output for="sample-font-size">100%</output></label><input id="sample-font-size" type="range" min="0.9" max="1.2" step="0.05" value="1"></div><label class="setting-row switch-row"><span>显示排版说明</span><input type="checkbox" id="show-fiction-note" checked role="switch"></label><label class="setting-row switch-row"><span>很长的设置标签仍然保留完整文字，不挤走右侧开关</span><input type="checkbox" id="long-setting-example" role="switch"></label></section><section class="setting-group"><h3>操作</h3><label class="setting-row switch-row"><span>显示快速续写与代写</span><input type="checkbox" id="enable-quick-actions" role="switch"></label><label class="setting-row switch-row"><span>连接就绪（仅模拟）</span><input type="checkbox" id="scene-connected" checked role="switch"></label><details class="setting-details"><summary>更多本地示例 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><p>此处是同一组设置样本，用来比较两套组合中的抽屉层级。九个入口分别保留名称与选中状态。</p><button type="button" id="settings-load-draft" class="ef-button">载入书写样本</button></details><p class="settings-hint">关闭抽屉后，查看字号与输入动作的变化。</p></section></div></div>
+        <footer class="settings-footer"><span id="settings-state" role="status">示例已就绪</span><button type="button" id="settings-reset">恢复示例设置</button></footer>
+      </aside>
+      <div class="menu-portal">
+        <div id="options" class="menu-shell" role="menu" aria-label="聊天菜单示例" hidden><div class="menu-heading">聊天选项 <small>LOCAL</small></div><div class="options-content"><button type="button" role="menuitem" data-action="rename"><i class="fa-solid fa-pencil" aria-hidden="true"></i><span>重命名当前示例</span></button><button type="button" role="menuitem" data-action="draft"><i class="fa-solid fa-align-left" aria-hidden="true"></i><span>填入多行草稿</span></button><button type="button" role="menuitem" data-action="continue"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span>继续上一段本地示例</span></button><button type="button" role="menuitem" data-action="settings"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span>打开设置样本</span></button><hr><button type="button" role="menuitem" data-action="delete" data-danger="true"><i class="fa-solid fa-trash-can" aria-hidden="true"></i><span>删除当前本地示例</span></button></div></div>
+        <div id="extensionsMenu" class="menu-shell" role="menu" aria-label="扩展快捷菜单示例" hidden><div class="menu-heading">扩展快捷菜单 <small>LOCAL</small></div><div class="extension_container" id="attach_file_wand_container"><button type="button" role="menuitem" id="attachFile" data-action="attach"><i class="fa-solid fa-paperclip" aria-hidden="true"></i><span>添加附件示例</span></button><button type="button" role="menuitem" data-action="longfile"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><span>添加一份名字很长的资料文件样本</span></button></div><hr><button type="button" role="menuitem" data-action="draft"><i class="fa-solid fa-pen" aria-hidden="true"></i><span>载入书写样本</span></button></div>
+        <div id="message-menu" class="menu-shell" role="menu" aria-label="消息操作示例" hidden><div class="menu-heading">消息操作 <small>SAMPLE</small></div><button type="button" role="menuitem" data-action="copy"><i class="fa-solid fa-copy" aria-hidden="true"></i><span>复制示例文字</span></button><button type="button" role="menuitem" data-action="bookmark"><i class="fa-solid fa-flag-checkered" aria-hidden="true"></i><span>给这条示例加上检查点</span></button><button type="button" role="menuitem" data-action="delete"><i class="fa-solid fa-trash-can" aria-hidden="true"></i><span>打开删除确认示例</span></button></div>
+      </div>
+    </section>
+    <div class="demo-legend"><span id="combination-caption">A / 输入 A · 顶栏 A · 菜单 A · 弹窗 B · 设置 A</span><span>静态阅读背景；思考、推理展开与宿主消息状态未在此演示。</span></div>
+  </main>
+  <details class="design-notes"><summary>组合依据与原型边界</summary><div class="note-grid"><section data-variant-note="a"><h2>A · 白纸连续</h2><p>页边短签输入栏、白纸索引顶栏与白纸目录菜单。设置保留深色标题＋白色内容，重命名/删除使用紧凑档案窗口，给浮层一个清楚而短的深色抬头。</p></section><section data-variant-note="b" hidden><h2>B · 深色操作组合</h2><p>双层书写台输入栏配深色顶栏、菜单和设置操作面；确认窗口反过来用横向白纸，让关键文字与后方深色层次拉开。</p></section><section><h2>保留了什么</h2><p>输入聚焦短线伸展、九个顶部入口、原生菜单显隐思路、发送/停止状态与附件汇总。背景沿用白纸、灰带、既有字标与阅读角纹的比例表达；没有新增人物肖像，也没有重做最近聊天。</p><p>本页复用一个设置样本观察九入口状态，未提供各业务设置的完整设计。真实宿主仍各有独立抽屉；这里的菜单开关、示例数据和确认操作由本地脚本演示，不是可以直接导入的扩展。</p></section></div><p>320/390px 时，九入口为两排44px，输入文字独占一行。短窗口仅显示高度压力；它不模拟真实手机键盘、可视视口偏移或输入法行为。全部交互不调用 API、不上传文件、不修改宿主设置；复制按钮仅复制虚构样本。</p></details>
+  <p class="prototype-footnote">观察顺序：聚焦输入 → 打开菜单 → 九个入口/设置抽屉 → 重命名/删除确认 → 输入发送与停止。可随时用“重置本页示例”恢复。</p>
+  <dialog class="workspace-dialog" id="workspace-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <form class="dialog-shell" id="dialog-form" method="dialog" novalidate><div class="dialog-context"><span>当前示例记录</span><button type="button" id="dialog-close" class="dialog-close" aria-label="关闭确认窗口"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><header class="dialog-heading"><span class="dialog-symbol" aria-hidden="true"><i class="fa-solid fa-pencil" id="dialog-symbol"></i></span><h2 id="dialog-title">重命名示例</h2></header><div class="dialog-content"><p class="dialog-description" id="dialog-description"></p><div class="record-subject"><strong id="dialog-subject"></strong><small>虚构记录 · 只在当前页面生效</small></div><div id="rename-fields"><label for="rename-input" class="field-label">新的示例名称</label><input id="rename-input" type="text" maxlength="80" autocomplete="off" aria-describedby="rename-hint rename-error"><p id="rename-hint" class="input-hint">最多80个字符；允许中文与空格。</p><p id="rename-error" class="field-error" role="alert" hidden>名称不能为空。</p></div><p id="delete-note" class="delete-note" hidden>删除后清空这份预览的消息；可用重置恢复。不会删除任何实际聊天。</p></div><footer class="dialog-footer"><small>本地演示</small><div class="dialog-controls"><button type="button" class="ef-button" id="dialog-cancel">取消</button><button type="submit" class="ef-button primary" id="dialog-confirm">确认名称</button></div></footer></form>
+  </dialog>
+</body>
+</html>

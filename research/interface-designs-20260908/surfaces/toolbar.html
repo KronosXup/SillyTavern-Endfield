@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>工具栏 · Endfield 设计候选</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="toolbar.css">
+  <script defer src="../assets/common.js"></script>
+  <script defer src="toolbar.js"></script>
+</head>
+<body class="preview-page" data-surface="toolbar" data-variant="a">
+  <header class="lab-intro"><div><p class="lab-kicker">ENDFIELD / INTERFACE STUDIES / 02</p><h1>九个入口，一条控制栏</h1><p>保留原生九入口和当前抽屉状态。白色索引签更接近阅读纸面，深色控制条保留终末地的黑黄节奏。</p></div><span class="lab-disclaimer">独立原型 · 本地模拟 · 未实装</span></header>
+  <nav class="variant-picker" aria-label="工具栏设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>纸面索引签</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>深色控制条</button>
+  </nav>
+  <div class="lab-toolbar">
+    <label>预览宽度 <select id="toolbar-width" aria-label="工具栏预览宽度"><option value="wide">自适应</option><option value="390">390px</option><option value="320">320px</option></select></label>
+    <label><input type="checkbox" id="toolbar-touch">44px 触控</label>
+    <label><input type="checkbox" id="long-labels">长标签压力样本</label>
+    <label><input type="checkbox" data-toggle-motion>减少动态</label>
+    <button type="button" class="lab-button" id="show-message-actions">展开消息工具示例</button>
+    <button type="button" class="lab-button" id="reset-toolbar">重置</button>
+  </div>
+  <main class="toolbar-viewport" id="toolbar-viewport">
+    <section class="demo-stage toolbar-stage" aria-label="顶栏和消息工具原型">
+      <div class="toolbar-surface">
+        <div id="top-bar" aria-hidden="true"></div>
+        <div id="top-settings-holder" aria-label="设置入口">
+          <div id="ai-config-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="left-nav-panel" title="AI 响应配置" aria-label="AI 响应配置" aria-expanded="false" aria-controls="left-nav-panel"><span id="leftNavDrawerIcon" class="drawer-icon fa-solid fa-sliders closedIcon" aria-hidden="true"></span><span class="nav-label">响应配置</span></button><section id="left-nav-panel" class="drawer-content closedDrawer" aria-label="AI 响应配置示例" hidden></section></div>
+          <div id="sys-settings-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="rm_api_block" title="API 连接" aria-label="API 连接" aria-expanded="false" aria-controls="rm_api_block"><span id="API-status-top" class="drawer-icon fa-solid fa-plug closedIcon" aria-hidden="true"></span><span class="nav-label">API 连接</span></button><section id="rm_api_block" class="drawer-content closedDrawer" aria-label="API 连接示例" hidden></section></div>
+          <div id="advanced-formatting-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="AdvancedFormatting" title="高级格式" aria-label="高级格式" aria-expanded="false" aria-controls="AdvancedFormatting"><span class="drawer-icon fa-solid fa-font closedIcon" aria-hidden="true"></span><span class="nav-label">高级格式</span></button><section id="AdvancedFormatting" class="drawer-content closedDrawer" aria-label="高级格式示例" hidden></section></div>
+          <div id="WI-SP-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="WorldInfo" title="世界书" aria-label="世界书" aria-expanded="false" aria-controls="WorldInfo"><span class="drawer-icon fa-solid fa-book-atlas closedIcon" aria-hidden="true"></span><span class="nav-label">世界书</span></button><section id="WorldInfo" class="drawer-content closedDrawer" aria-label="世界书示例" hidden></section></div>
+          <div id="user-settings-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="user-settings-block" title="用户设置" aria-label="用户设置" aria-expanded="false" aria-controls="user-settings-block"><span class="drawer-icon fa-solid fa-user-gear closedIcon" aria-hidden="true"></span><span class="nav-label">用户设置</span></button><section id="user-settings-block" class="drawer-content closedDrawer" aria-label="用户设置示例" hidden></section></div>
+          <div id="backgrounds-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="Backgrounds" title="背景" aria-label="背景" aria-expanded="false" aria-controls="Backgrounds"><span class="drawer-icon fa-solid fa-image closedIcon" aria-hidden="true"></span><span class="nav-label">背景</span></button><section id="Backgrounds" class="drawer-content closedDrawer" aria-label="背景示例" hidden></section></div>
+          <div id="extensions-settings-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="rm_extensions_block" title="扩展设置" aria-label="扩展设置" aria-expanded="false" aria-controls="rm_extensions_block"><span class="drawer-icon fa-solid fa-cubes closedIcon" aria-hidden="true"></span><span class="nav-label">扩展设置</span></button><section id="rm_extensions_block" class="drawer-content closedDrawer" aria-label="扩展设置示例" hidden></section></div>
+          <div id="persona-management-button" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="PersonaManagement" title="用户角色" aria-label="用户角色" aria-expanded="false" aria-controls="PersonaManagement"><span class="drawer-icon fa-solid fa-id-card closedIcon" aria-hidden="true"></span><span class="nav-label">用户角色</span></button><section id="PersonaManagement" class="drawer-content closedDrawer" aria-label="用户角色示例" hidden></section></div>
+          <div id="rightNavHolder" class="drawer"><button class="drawer-toggle drawer-header" type="button" data-panel="right-nav-panel" title="角色管理" aria-label="角色管理" aria-expanded="false" aria-controls="right-nav-panel"><span id="rightNavDrawerIcon" class="drawer-icon fa-solid fa-address-card closedIcon" aria-hidden="true"></span><span class="nav-label">角色管理</span></button><section id="right-nav-panel" class="drawer-content closedDrawer" aria-label="角色管理示例" hidden></section></div>
+        </div>
+        <div class="selection-caption"><span class="caption-marker" aria-hidden="true"></span><span id="selection-caption">选择一个入口，查看当前项和抽屉示例。</span></div>
+        <div class="reader-preview" id="reader-preview">
+          <div class="reader-title"><span class="reader-number">02</span><div><small>READING AREA</small><h2>工具在边缘，故事在纸上。</h2></div></div>
+          <p class="reader-copy">白纸保留足够的安静。每一个设置入口都在熟悉的位置，只有正在使用的那一项留下黄色标记。</p>
+          <article class="message-demo mes" id="message-demo">
+            <div class="mes_block"><div class="ch_name"><strong id="demo-character-name">示例角色</strong><span class="message-time">今天 · 本地示例</span></div><div class="mes_text" id="sample-message">“先把这页读完。”<br>他把笔放在页边，留下一个小小的记号。</div>
+              <div class="mes_buttons">
+                <span class="tool-rule" aria-hidden="true"></span>
+                <button type="button" class="mes_button extraMesButtonsHint" title="消息操作" aria-label="消息操作" aria-expanded="false"><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
+                <div class="extraMesButtons" hidden>
+                  <button type="button" class="mes_button mes_translate" data-message-action="translate" title="翻译示例" aria-label="翻译示例"><i class="fa-solid fa-language" aria-hidden="true"></i></button>
+                  <button type="button" class="mes_button mes_prompt" data-message-action="prompt" title="查看提示词示例" aria-label="查看提示词示例"><i class="fa-solid fa-square-poll-horizontal" aria-hidden="true"></i></button>
+                  <button type="button" class="mes_button mes_hide" data-message-action="hide" title="排除这条示例" aria-label="排除这条示例"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                  <button type="button" class="mes_button mes_embed" data-message-action="embed" title="添加附件示例" aria-label="添加附件示例"><i class="fa-solid fa-paperclip" aria-hidden="true"></i></button>
+                  <button type="button" class="mes_button mes_create_bookmark" data-message-action="bookmark" title="标记检查点示例" aria-label="标记检查点示例"><i class="fa-solid fa-flag-checkered" aria-hidden="true"></i></button>
+                  <button type="button" class="mes_button mes_create_branch" data-message-action="branch" title="创建分支示例" aria-label="创建分支示例"><i class="fa-solid fa-code-branch" aria-hidden="true"></i></button>
+                  <button type="button" class="mes_button mes_copy" data-message-action="copy" title="复制此处示例文字" aria-label="复制此处示例文字"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>
+                </div>
+                <button type="button" class="mes_button mes_edit" title="编辑此处示例" aria-label="编辑此处示例"><i class="fa-solid fa-pencil" aria-hidden="true"></i></button>
+              </div>
+              <div class="mes_edit_buttons" hidden><button type="button" class="mes_edit_done" aria-label="确认编辑">确认</button><button type="button" class="mes_edit_cancel" aria-label="取消编辑">取消</button></div>
+              <div id="message-result" class="message-result" role="status" hidden></div>
+            </div>
+          </article>
+          <div class="reader-bottom"><span></span><small>页面下方仍保留原生消息操作。</small></div>
+        </div>
+      </div>
+    </section>
+    <div class="demo-legend"><span id="toolbar-caption">A / 图标与短标题同列，白纸索引签。</span><span>九项 × 44px = 396px；320 / 390px 触控模式为两排。</span></div>
+  </main>
+  <details class="design-notes"><summary>设计差异、真实节点与窄屏取舍</summary><div class="note-grid"><section data-variant-note="a"><h2>A · 纸面索引签</h2><p>图标与短标题分成两层，灰竖签 hover 时转成小箭头。当前入口填入黄色。抽屉仍是一张连续白纸，只用细线划分内容。</p></section><section data-variant-note="b" hidden><h2>B · 深色控制条</h2><p>压低顶栏高度，保留原生图标。近黑底、细灰分组和选中黄片，形成清楚的顶部边缘；内容区继续保持白纸。</p></section><section><h2>九入口全部保留</h2><p>原生 <code>#top-settings-holder > .drawer</code> 是九个兄弟节点，分组线位于第4、第7项。当前态跟随 <code>.drawer-icon.openIcon</code> 与 <code>.drawer-content.openDrawer</code>。</p><p>触控窄屏使用真实44×44目标，两排5+4，第二排不拉长按钮填满空白。这里展示了高度代价，没有把入口偷偷藏进一个不存在的“更多”。</p></section></div><p>每个抽屉只展示少量本地交互样本，用来检验长标签、输入与当前态；不会修改实际 API、主题、背景、角色或扩展。抽屉内容不是对完整宿主设置页的复刻。</p></details>
+  <p class="prototype-footnote">可点路径：九个设置入口及关闭、示例开关/选择/输入；消息操作展开、翻译、排除、附件、检查点、分支、复制、编辑确认/取消。真实剪贴板仅在点击“复制示例文字”时写入。</p>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield character drawer preview</title>
+    <style>
+        :root {
+            --ef-paper: #fdfdfd;
+            --ef-ink: #061112;
+            --ef-muted: #4e5653;
+            --ef-faint: #707674;
+            --ef-line: rgba(23, 26, 26, 0.16);
+            --ef-block: #444444;
+            --ef-pill: #e5e5e5;
+            --ef-signal: #ffff0f;
+            --ef-calib-m: #d025ce;
+            --ef-calib-y: #fcf56d;
+            --ef-calib-c: #34e3ad;
+            --ef-workbench: #e5e5e5;
+            --ef-paper-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='g' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10 0H0V10' fill='none' stroke='%23171a1a' stroke-opacity='.018' stroke-width='.55'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23171a1a'%3E%3Cpath d='M0 .5H160M.5 0V160' stroke-opacity='.025' stroke-width='.65'/%3E%3Cpath d='M74 80H86M80 74V86' stroke-opacity='.09' stroke-width='.9'/%3E%3C/g%3E%3C/svg%3E");
+            --ef-gray-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='x' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Cpath d='M-2 0L8 10M8-2L-2 8' fill='none' stroke='%23434b49' stroke-opacity='.03' stroke-width='.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23x)'/%3E%3Cg fill='none' stroke='%23434b49' stroke-width='.65'%3E%3Cpath d='M66 66L76 76M84 84L94 94M94 66L84 76M76 84L66 94' stroke-opacity='.11'/%3E%3C/g%3E%3Ccircle cx='80' cy='80' r='1' fill='%23434b49' fill-opacity='.14'/%3E%3C/svg%3E");
+            --ef-seam: repeating-linear-gradient(-45deg, rgba(23, 26, 26, 0.12) 0 3px, transparent 3px 6px);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            display: grid;
+            place-items: center;
+            gap: 24px;
+            color: var(--ef-ink);
+            background-color: var(--ef-workbench);
+            background-image: var(--ef-gray-grid);
+            background-size: 160px 160px;
+            font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .tag {
+            width: min(400px, calc(100vw - 32px));
+            margin: 0;
+            color: #5f686a;
+            font-size: 13px;
+        }
+
+        /* ---- 右抽屉外壳：纸面 + 细边，无投影 ---- */
+        #right-nav-panel {
+            width: min(400px, calc(100vw - 32px));
+            background-color: var(--ef-paper);
+            background-image: var(--ef-paper-grid);
+            border: 1px solid var(--ef-line);
+        }
+
+        .drawer-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--ef-line);
+        }
+
+        .drawer-head .label {
+            font-size: 13.5px;
+            font-weight: 650;
+        }
+
+        /* 干员页顶行：// + 小三色标（与标题同宽、几 px 高）。 */
+        .drawer-head .opmark {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .opmark .tri {
+            width: 96px;
+            height: 4px;
+            margin-bottom: 3px;
+            background: linear-gradient(
+                to right,
+                var(--ef-calib-m) 0 30%,
+                var(--ef-calib-y) 30% 55%,
+                var(--ef-calib-c) 55% 100%
+            );
+        }
+
+        .opmark .txt {
+            color: var(--ef-faint);
+            font-size: 12px;
+            font-style: italic;
+            letter-spacing: 0.04em;
+        }
+
+        /* 筛选控件：灰 pill，只属于控件，不进文档面。 */
+        .rm_controls {
+            display: flex;
+            gap: 8px;
+            padding: 10px 14px;
+        }
+
+        .pill {
+            flex: none;
+            padding: 5px 12px;
+            color: var(--ef-ink);
+            background: var(--ef-pill);
+            border: 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .pill.dark {
+            color: var(--ef-paper);
+            background: var(--ef-block);
+        }
+
+        #character_search_bar {
+            flex: 1;
+            min-width: 0;
+            padding: 5px 10px;
+            border: 1px solid var(--ef-line);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .rm_tag_controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0 14px 10px;
+        }
+
+        .tagchip {
+            padding: 2px 10px;
+            color: var(--ef-muted);
+            background: transparent;
+            border: 1px solid var(--ef-line);
+            border-radius: 999px;
+            font-size: 12px;
+        }
+
+        .tagchip.on {
+            color: var(--ef-ink);
+            background: var(--ef-pill);
+            border-color: transparent;
+        }
+
+        /* ---- 卡片列：真类名，直角白卡，只有当前项有底色条 ---- */
+        #rm_print_characters_block {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 12px 14px 16px;
+        }
+
+        .character_select {
+            position: relative;
+            display: flex;
+            gap: 12px;
+            padding: 10px 12px 13px;
+            background: var(--ef-paper);
+            border: 1px solid var(--ef-line);
+            transition: background-color 0.2s ease;
+        }
+
+        .character_select:hover {
+            background-color: var(--ef-pill);
+        }
+
+        .character_select .avatar {
+            flex: none;
+            width: 56px;
+            height: 56px;
+            display: grid;
+            place-items: center;
+            color: var(--ef-paper);
+            background: var(--ef-block);
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .character_select_container { flex: 1; min-width: 0; }
+
+        .character_name_block {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .ch_name {
+            font-size: 14px;
+            font-weight: 650;
+        }
+
+        .ch_additional_info {
+            color: var(--ef-faint);
+            font-size: 11.5px;
+        }
+
+        .ch_fav_icon {
+            margin-left: auto;
+            color: #c9cdc9;
+            font-size: 13px;
+        }
+
+        .is_fav .ch_fav_icon { color: var(--ef-ink); }
+
+        .ch_description {
+            margin-top: 4px;
+            color: var(--ef-muted);
+            font-size: 12.5px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tags_inline { display: flex; gap: 6px; margin-top: 6px; }
+
+        .tags_inline .tagchip { font-size: 11.5px; }
+
+        /* 当前项：底部 3px 深灰条 + 左端 24px 黄短标（酒馆没有属性语义，不发明 hue）。 */
+        .character_select.ef-current::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: -1px;
+            right: -1px;
+            height: 3px;
+            background: linear-gradient(
+                to right,
+                var(--ef-signal) 0 24px,
+                var(--ef-block) 24px 100%
+            );
+        }
+
+        /* 网格视图对照：一行两张小卡，立绘上、姓名下。 */
+        .grid-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 0 14px 16px;
+        }
+
+        .grid-demo .character_select {
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .grid-demo .avatar {
+            width: 100%;
+            height: 96px;
+            font-size: 30px;
+        }
+
+        /* 底部斜纹收束带：学干员详情页底带，斜纹只出现在这条接缝。 */
+        .drawer-foot {
+            height: 16px;
+            background-image: var(--ef-seam);
+            border-top: 1px solid var(--ef-line);
+        }
+    </style>
+</head>
+<body>
+    <p class="tag">角色管理（右抽屉）干员页映射：顶行 // 小三色标、灰筛选 pill、直角白卡、只有当前项有底色条。hover 为官网同款灰底 0.2s。</p>
+    <nav id="right-nav-panel">
+        <div class="drawer-head">
+            <span class="label">角色管理</span>
+            <div class="opmark">
+                <div class="tri"></div>
+                <div class="txt">// CHARACTERS</div>
+            </div>
+        </div>
+        <div class="rm_controls">
+            <input id="character_search_bar" type="search" placeholder="Search...">
+            <button class="pill">▼ 名称</button>
+            <button class="pill dark">▦</button>
+        </div>
+        <div class="rm_tag_controls">
+            <span class="tagchip on">全部</span>
+            <span class="tagchip">科幻</span>
+            <span class="tagchip">奇幻</span>
+            <span class="tagchip">日常</span>
+        </div>
+        <div id="rm_print_characters_block">
+            <div class="character_select entity_block is_fav ef-current">
+                <div class="avatar">瑟</div>
+                <div class="character_select_container">
+                    <div class="character_name_block">
+                        <span class="ch_name">Seraphina</span>
+                        <small class="ch_additional_info">v2.1</small>
+                        <i class="ch_fav_icon">★</i>
+                    </div>
+                    <div class="ch_description">档案馆管理员。知道每条走廊通向哪里，但从不直说，只给你编号和一盏灯。</div>
+                    <div class="tags tags_inline">
+                        <span class="tagchip">科幻</span>
+                        <span class="tagchip">长篇</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character_select entity_block">
+                <div class="avatar">张</div>
+                <div class="character_select_container">
+                    <div class="character_name_block">
+                        <span class="ch_name">示例角色</span>
+                        <small class="ch_additional_info">v2026.08</small>
+                        <i class="ch_fav_icon">☆</i>
+                    </div>
+                    <div class="ch_description">直播间连麦体。输出很猛，编导在后台捏着速效救心丸。</div>
+                    <div class="tags tags_inline">
+                        <span class="tagchip">日常</span>
+                    </div>
+                </div>
+            </div>
+            <div class="character_select entity_block">
+                <div class="avatar">助</div>
+                <div class="character_select_container">
+                    <div class="character_name_block">
+                        <span class="ch_name">Assistant</span>
+                        <small class="ch_additional_info">欢迎页助手</small>
+                        <i class="ch_fav_icon">☆</i>
+                    </div>
+                    <div class="ch_description">默认助手。没接 API 的时候只会说这一句。</div>
+                    <div class="tags tags_inline"></div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-demo">
+            <div class="character_select entity_block">
+                <div class="avatar">瑟</div>
+                <div class="character_name_block">
+                    <span class="ch_name">Seraphina</span>
+                </div>
+            </div>
+            <div class="character_select entity_block ef-current">
+                <div class="avatar">张</div>
+                <div class="character_name_block">
+                    <span class="ch_name">示例角色</span>
+                </div>
+            </div>
+        </div>
+        <div class="drawer-foot"></div>
+    </nav>
+</body>
+</html>

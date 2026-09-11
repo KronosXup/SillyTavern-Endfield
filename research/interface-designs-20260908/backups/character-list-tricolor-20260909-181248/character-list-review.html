@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>角色列表 · 官网参考稿</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css"><link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="character-list-review.css"><script src="character-list-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header"><div><p class="eyebrow">ENDFIELD / 局部设计</p><h1>角色列表 <span>· 官网参考稿</span></h1></div><a href="character-tools-review.html">工具区方案 ↗</a></header>
+  <main class="review-layout">
+    <section class="work-area" aria-label="角色列表与网格的独立方案">
+      <div class="review-controls">
+        <label>抽屉宽度 <select id="panel-width"><option value="295">295px</option><option value="320">320px</option><option value="390">390px</option></select></label>
+        <label class="search-control"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="query" type="search" aria-label="搜索示例角色" placeholder="搜索示例角色"></label>
+        <label><input type="checkbox" id="favorites-only"> 仅收藏</label>
+        <button id="reset" class="review-button">重置示例</button>
+      </div>
+      <p class="intro">取官网总览的肖像比例、姓名信息条和层次，改成酒馆的紧凑列表与网格。两边使用同一组示例。</p>
+      <div class="workbench">
+        <section class="example"><header><h2>日常列表</h2><span>姓名、备注与标签</span></header><div class="list-shell"><div class="panel-heading"><span>角色</span><span class="result-count"></span></div><div id="role-list" class="role-collection list-view" aria-label="列表示例"></div></div></section>
+        <section class="example"><header><h2>网格视图</h2><span>肖像与姓名优先</span></header><div class="list-shell"><div class="panel-heading"><span>角色</span><span class="result-count"></span></div><div id="role-grid" class="role-collection grid-view" aria-label="网格示例"></div></div></section>
+      </div>
+      <p class="demo-status" id="demo-status" role="status" aria-live="polite">点击条目查看演示说明。收藏标记常驻；批量选择使用独立勾选状态。</p>
+      <div class="bulk-controls"><label><input type="checkbox" id="bulk-mode"> 批量选择</label><span id="selection-count" hidden>已选 0</span><button id="select-all" class="review-button" hidden>选择当前结果</button></div>
+      <details class="test-controls"><summary>检查特殊内容 <span aria-hidden="true">＋</span></summary><div class="test-options"><label><input type="checkbox" id="long-content"> 长名称、长版本与长标签</label><label><input type="checkbox" id="short-height"> 短列表高度</label><label><input type="checkbox" id="reduce-motion"> 减少动态</label></div></details>
+      <div class="scope-note"><strong>独立方案，尚未实装。</strong><p>上方搜索、批量与计数用于演示条目状态；本页不重新设计工具区。网格沿用宿主的精简信息模式，完整备注与标签在列表中查看。</p><p>肖像来自官网公开素材，仅作裁切与版式示例；备注、标签和版本号是虚构测试数据。正式使用各角色原有图片，不添加游戏职业、属性或稀有度。</p></div>
+    </section>
+    <aside class="reference-notes" aria-label="官网参考与酒馆适配说明">
+      <h2>参考的是这套关系</h2>
+      <section><h3><span>01</span> 肖像与底部信息条</h3><div class="official-card" aria-hidden="true"><img src="../research/operator-site-2026-09-09/removed-reference.svg" alt=""><div class="official-label"><strong>提弗洛斯</strong><small>// Typhoeus <span>01 / 33</span></small></div></div><p>官网总览将大肖像与白色姓名条叠在一起。这里用原素材作局部结构示意，完整界面以官网为准。</p><a href="https://endfield.hypergryph.com/operator" target="_blank" rel="noopener">查看官网干员总览 ↗</a></section>
+      <section><h3><span>02</span> 压缩结构，保留信息</h3><p>列表将肖像移到左侧，姓名、版本、备注、标签放在右侧。网格保留上图下文，姓名条随一行或两行文字收紧，同排卡片齐底。长名称最多两行，版本与备注遵循宿主原有的隐藏规则。</p><p class="boundary">没有给普通角色编造职业、元素、稀有度或英文代号；分组与文件夹保留自己的标识。</p></section>
+      <section><h3><span>03</span> 色彩跟着真实状态</h3><p>收藏用黄色短线与星标；普通条目保留深色姓名和灰色次级信息。批量选择使用深底、黄色勾选，与收藏分开。</p><p class="boundary">头像周边的浅底只承接图像。官网大字底纹和大面积黄背景不缩塞进每个条目。</p></section>
+      <section><h3><span>04</span> 反馈保持紧凑</h3><p>官网网格有轻抬反馈；本稿网格缩为轻移 1px，列表保持原位。键盘焦点有独立轮廓，减少动态时取消位移。</p><p class="boundary">未发现宿主可直接使用的当前聊天角色标记，因此本稿不模拟常驻“当前角色”黄环。</p></section>
+      <a class="contract-link" href="../verification/character-list-review-2026-09-09.md" target="_blank">查看依据与验证边界 ↗</a>
+    </aside>
+  </main>
+  <dialog id="demo-dialog" aria-labelledby="dialog-title"><h2 id="dialog-title"></h2><p id="dialog-text"></p><form method="dialog"><button class="review-button">返回方案</button></form></dialog>
+</body></html>

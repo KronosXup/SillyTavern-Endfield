@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>Endfield 弹窗比例 · 全屏试用</title>
+  <link rel="stylesheet" href="stage.css">
+  <link rel="stylesheet" href="host-popup.css">
+  <link rel="stylesheet" href="current.css">
+  <link rel="stylesheet" href="candidate.css">
+</head>
+<body data-variant="candidate">
+  <div class="demo-background" aria-hidden="true">
+    <div class="host-tabs"><span>☷</span><span>◈</span><span>▧</span><span>♟</span><span>▣</span><span>⚙</span><span>☰</span></div>
+    <section class="settings-sheet">
+      <p class="slider-help">单击滑块以手动输入值。</p>
+      <h2>对话补全预设</h2><div class="preset-row">Default<span>⌄</span></div>
+      <div class="mock-check"><b>✓</b> 解锁上下文上限</div>
+      <div class="mock-setting"><p>上下文长度 (Token)</p><div class="mock-slider"></div><span>32768</span></div>
+      <div class="mock-setting"><p>最大回复长度 (Token)</p><div class="mock-slider"></div><span>4096</span></div>
+      <div class="mock-setting"><p>温度</p><div class="mock-slider"></div><span>1.00</span></div>
+      <div class="mock-setting"><p>Top P</p><div class="mock-slider"></div><span>0.98</span></div>
+      <div class="preset-row">快速提示词编辑<span>⌄</span></div>
+      <div class="preset-row">实用提示词<span>⌄</span></div>
+    </section>
+    <div class="demo-watermark">预览用示意背景</div>
+  </div>
+  <section class="closed-panel" id="closed-panel" hidden>
+    <p id="outcome" role="status"></p>
+    <p>这是独立预览，酒馆数据未改变。</p>
+    <div><button id="reopen" type="button">重新打开</button><a href="index.html" target="_top">返回方案</a></div>
+  </section>
+  <dialog class="popup popup--animation-none" data-id="proposal-dialog" aria-label="弹窗示例">
+    <div class="popup-body">
+      <div class="popup-content"></div>
+      <div class="popup-crop-wrap" style="display: none;"></div>
+      <textarea class="popup-input text_pole result-control auto-select" rows="1" aria-label="名称" style="display: none;"></textarea>
+      <div class="popup-inputs" style="display: none;"></div>
+      <div class="popup-controls">
+        <div class="popup-button-ok menu_button result-control menu_button_default" data-result="1" tabindex="0" role="button">确定</div>
+        <div class="popup-button-cancel menu_button result-control" data-result="0" tabindex="0" role="button">否</div>
+      </div>
+    </div>
+  </dialog>
+  <script src="stage.js"></script>
+</body>
+</html>

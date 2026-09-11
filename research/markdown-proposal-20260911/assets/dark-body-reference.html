@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Endfield · 完整深色内容面参考</title><style>
+@font-face{font-family:Harmony;src:url('Harmony-Regular.woff2')}@font-face{font-family:Harmony;src:url('Harmony-Bold.woff2');font-weight:700}
+*{box-sizing:border-box}body{margin:0;border-top:5px solid #ffff0f;background:#e9e9e9;color:#303030;font:15px/1.8 Harmony,sans-serif}main{max-width:1120px;margin:auto;padding:24px 26px 55px}a{color:inherit;text-underline-offset:.2em}h1{font-size:30px;line-height:1.4;margin:22px 0 12px}h2{font-size:20px;margin:30px 0 12px;border-left:5px solid #ffff0f;padding-left:12px}h3{font-size:16px;margin:0 0 12px}p{margin:8px 0 15px}.intro,.fine{color:#616161}.fine{font-size:12px}.grid{display:grid;grid-template-columns:minmax(240px,.82fr) minmax(0,1.18fr);gap:22px;align-items:start}figure{margin:0 0 18px;padding:13px;background:#fafafa;border:1px solid #ccc}figure>img{display:block;width:100%;height:auto}figcaption{font-size:12px;line-height:1.7;margin-top:10px;color:#606060}.crop{aspect-ratio:1050/620;position:relative;overflow:hidden;background:#151515}.crop img{position:absolute;width:106.666667%;height:auto;max-width:none;left:-1.52381%}.mid img{top:-108.064516%}.lower img{top:-212.903226%}.materials{display:grid;grid-template-columns:1fr 1fr;gap:20px}.swatch{background:#252525;overflow:hidden;min-height:120px;display:grid;place-items:center}.swatch img{display:block;width:100%;height:auto}.dots{height:210px}.dots img{opacity:.08}.note{border-top:1px solid #bfbfbf;padding-top:17px;margin-top:26px}@media(max-width:720px){main{padding:18px 15px 40px}.grid,.materials{grid-template-columns:1fr}.full{max-width:430px;margin:auto}h1{font-size:25px}}
+</style></head><body><main>
+<a href="../index.html">← 返回正文方案</a>
+<h1>完整深色内容面</h1>
+<p class="intro">主参考是你提供的「标记显示管理」游戏截图，原图 1120×2158。这里同时展示完整面板、中段和下段，不再用标题条代替整个主体。</p>
+<div class="grid"><figure class="full"><img src="game-full-dark-panel.png" alt="游戏标记显示管理完整深色面板"><figcaption>用户提供的完整面板截图，覆盖首组内容至底部操作。<a href="game-full-dark-panel.png" target="_blank" rel="noopener">打开原尺寸 ↗</a></figcaption></figure><section>
+<h3>中段：内容组仍共用同一块底面</h3><figure><div class="crop mid"><img src="game-full-dark-panel.png" alt="资源和作战分组之间持续的深色底材"></div><figcaption>分类灰带覆盖在底面上。细密底质继续穿过组间空隙，内容主体没有退成无纹理的纯色块。</figcaption></figure>
+<h3>下段：底质延续到下方内容</h3><figure><div class="crop lower"><img src="game-full-dark-panel.png" alt="收集分组及其下方的深色底面"></div><figcaption>下方同样有连续底质；上部较醒目的轮廓场到这里已经明显减弱。</figcaption></figure>
+<p>当前 V2.5 代码区保留<strong>完整灰底与很淡的宽幅轮廓场</strong>，已移除点阵，让正文更干净。标题栏继续承担语言和复制入口。</p>
+</section></div>
+<h2>用于整面适配的游戏原件</h2>
+<div class="materials"><figure><div class="swatch"><img src="game-contour-field.png" alt="1064乘260的透明宽幅等高线场"></div><figcaption>1064×260 · 透明白线场。这里用深底显示原透明度，线条覆盖整张素材，不是实底选中横条。</figcaption></figure><figure><div class="swatch dots"><img src="game-dot-field.png" alt="620乘516的渐变点阵"></div><figcaption>620×516 · 渐变点阵。这里以 8% 强度显示，仅留作研究记录；当前代码方案已移除这层。</figcaption></figure></div>
+<p class="fine">两张原件均来自本机已提取的游戏资源，文件像素未修改。尚未证实它们正是上方面板绑定的贴图；本次沿用其形态做整面适配，不声称逐像素复刻。</p>
+<p class="note">当前方案仅留一层淡轮廓，从代码主体顶部延续到底部，保持比例并裁切。可在预览中切换「淡纹理」「纯色对照」「角落纹理对照」。自动换行和复制行为保留。</p>
+</main></body></html>

@@ -1,0 +1,29 @@
+/* Saved texture study: opt in per host; no global selectors or JavaScript. */
+.ef-operator-texture-host {
+  position: relative;
+  isolation: isolate;
+  --ef-operator-stripes: linear-gradient(-45deg, transparent, transparent 13.9512529279%, #000 0, #000 36.0487470721%, transparent 0, transparent 63.9512529279%, #000 0, #000 86.0487470721%, transparent 0, transparent);
+  --ef-operator-grid: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDUiIGhlaWdodD0iMjA1IiB2aWV3Qm94PSIwIDAgMjA1IDIwNSI+CiAgPGRlc2M+U3F1YXJlIGFuZCBkaWFnb25hbCBjb25zdHJ1Y3Rpb24gbGluZXMgcmVjb25zdHJ1Y3RlZCBmcm9tIHRoZSBzdXBwbGllZCBvcGVyYXRvci1wYWdlIHNjcmVlbnNob3QuPC9kZXNjPgogIDxwYXRoIGQ9Ik0wIDBIMjA1VjIwNUgwWk0wIDBMMjA1IDIwNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEuOCIvPgo8L3N2Zz4K");
+}
+
+.ef-operator-texture {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  bottom: 0;
+  width: min(60%, 280px);
+  height: min(46%, 168px);
+  background: var(--ef-operator-stripes) left bottom / 5.6px 5.6px repeat;
+  opacity: .05;
+  mask-image: linear-gradient(0deg, #000 0%, #000 62%, transparent 100%), linear-gradient(90deg, #000 0%, #000 55%, transparent 100%);
+  mask-composite: intersect;
+  pointer-events: none;
+}
+
+.ef-operator-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 22.8667px 30.8px;
+  background: var(--ef-operator-grid) left .42px bottom 3px / 95.6667px 95.6667px repeat;
+  pointer-events: none;
+}

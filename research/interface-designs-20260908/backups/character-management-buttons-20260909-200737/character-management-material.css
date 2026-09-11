@@ -1,0 +1,160 @@
+/* Independent console design. Shared character cards are owned by character-list-review.css. */
+.management-review{max-width:1100px;grid-template-columns:minmax(0,1fr) 270px;gap:32px}
+.management-review .workbench{display:block;padding:24px 20px;background:#e5e5e5}
+.management-review .comparisons{display:flex;width:100%;justify-content:center}
+.management-review .example>header{display:none}
+.management-review .example-footer{margin-bottom:0;color:#777}
+.management-review .intro{margin:14px 0}
+.management-review .reference-notes{align-self:start}
+.management-review .reference-notes h2{margin-top:3px}
+.management-review .reference-notes p{line-height:1.8}
+.preview-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;font-size:12px}
+.preview-toolbar label{display:flex;align-items:center;gap:7px}
+.preview-toolbar select{border:1px solid #cdcdcd;background:transparent;border-radius:3px;padding:4px 22px 4px 7px}
+
+.management-review .drawer-slice{
+  --control-ink:#d1d1d1;--control-muted:#ababab;--control-base:#292929;
+  width:100%;container-type:inline-size;color:#242424;background:#e9e9e9;
+  border:1px solid #8b8b8b;border-radius:2px;box-shadow:0 1px 1px #00000016,0 5px 14px -8px #0005;
+}
+.management-console{
+  position:relative;isolation:isolate;min-width:0;padding-bottom:8px;
+  color:var(--control-ink);background:linear-gradient(115deg,#303030,#242424 75%);
+  border-radius:1px 1px 0 0;box-shadow:inset 0 1px #ffffff24;
+}
+.management-console::before{
+  content:"";position:absolute;inset:0 0 auto;height:142px;max-height:100%;z-index:-1;pointer-events:none;
+  background:url('../assets/recent-chat-contours.svg') right -30px top -112px/370px auto no-repeat;
+  filter:invert(1);opacity:.72;mask-image:linear-gradient(180deg,#000,transparent 85%);
+}
+.management-review .tool{
+  display:inline-grid;place-items:center;position:relative;flex:0 0 28px;width:28px;height:30px;
+  padding:0;border:1px solid transparent;border-radius:1px;line-height:1;font-size:13px;
+  background:transparent;color:inherit;white-space:nowrap;cursor:pointer;
+  transition:background-color 120ms linear,border-color 120ms linear,box-shadow 120ms linear,color 120ms linear;
+}
+.management-console .tool:hover{color:#f3f3f3;background:#ffffff0d;border-color:#ffffff20;box-shadow:inset 0 1px #ffffff0a}
+.management-console .tool:active{background:#1118;box-shadow:inset 0 1px 2px #0005}
+.management-review :is(.tool,.sort-order,.tag-name,.page-size,.page-buttons button):focus-visible{outline:2px solid #383838;outline-offset:2px}
+.management-review .management-console :is(.tool,.sort-order,.tag-name):focus-visible{outline-color:#fffa00}
+.management-review .tool:disabled{opacity:.32;cursor:default;box-shadow:none}
+.management-review .tool:disabled:hover{background:transparent;border-color:transparent;color:inherit}
+.manager-navigation{display:flex;align-items:center;gap:7px;padding:8px 8px 5px;min-width:0}
+.manager-navigation-tools{display:flex;flex-direction:column;gap:2px;flex:none;color:#a4a4a4}
+.manager-navigation:has(.manager-hotswaps[hidden]) .manager-navigation-tools{flex-direction:row}
+.manager-navigation-tools .tool{width:24px;height:23px;flex-basis:23px;font-size:12px}
+.manager-navigation-tools .tool[aria-pressed=true]{color:#fffa00;background:#121212;box-shadow:inset 0 0 0 1px #ffffff1c}
+.manager-hotswaps{display:flex;align-items:center;flex:1;min-width:0;gap:4px;overflow:auto;overflow-y:hidden;overscroll-behavior:contain;padding:3px;scrollbar-width:auto}
+.manager-hotswaps button{
+  display:grid;place-items:center;flex:0 0 30px;width:30px;height:36px;padding:0;
+  border:1px solid #dedede80;border-radius:1px;background:#cfcfcf;color:#717171;
+  box-shadow:0 1px 2px #0006;overflow:hidden;scroll-margin-inline:3px;
+  transition:border-color 120ms linear,box-shadow 120ms linear;
+}
+.manager-hotswaps button img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.manager-hotswaps button:hover{border-color:#f0f0f0;box-shadow:0 1px 3px #0009,0 0 0 1px #ffffff20}
+.manager-hotswaps button:focus-visible{outline:2px solid #fffa00;outline-offset:0}
+.manager-hotswaps .hotswap-empty{font-size:11px;color:#ababab;line-height:1.5;white-space:normal;padding-left:3px}
+.manager-hotswaps::-webkit-scrollbar{width:16px;height:16px;background:transparent}
+.manager-hotswaps::-webkit-scrollbar-track:horizontal{background:linear-gradient(0deg,transparent calc(50% - 1px),#545454 calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
+.manager-hotswaps::-webkit-scrollbar-thumb{border:0;min-width:28px;background:url('../assets/scrollbar/dark-h-start.svg') left center/14px 16px no-repeat,url('../assets/scrollbar/dark-h-end.svg') right center/14px 16px no-repeat,url('../assets/scrollbar/dark-h-middle.svg') center/calc(100% - 28px) 16px no-repeat}
+.manager-hotswaps::-webkit-scrollbar-button{display:none}
+
+.management-review .tools{padding:0 9px}
+.management-review .action-bar{display:flex;align-items:center;flex-wrap:wrap;gap:4px;padding:7px 0 8px;border-top:1px solid #ffffff15}
+.management-review .action-bar .create-tool{
+  display:inline-flex;justify-content:center;gap:6px;width:61px;flex-basis:61px;height:29px;
+  font-size:12px;color:#292929;background:linear-gradient(#e4e4e4,#cacaca);
+  border:1px solid #edededb3;box-shadow:inset 0 1px #fff9,0 1px 2px #0006;
+}
+.management-review .action-bar .create-tool i{font-size:12px}
+.management-review .action-bar .create-tool:hover{color:#1a1a1a;background:linear-gradient(#f2f2f2,#dcdcdc);border-color:#fff9}
+.management-review .action-bar .create-tool:active{background:#c3c3c3;box-shadow:inset 0 1px 2px #0005}
+.management-review .extra-buttons{display:contents}
+.management-review .action-bar .search-toggle{margin-left:auto;background:#ffffff06;border-color:#ffffff20;box-shadow:inset 0 1px #ffffff0a}
+.management-review .action-bar .search-toggle.active{background:#dddddd;color:#212121;border-color:#efefef;box-shadow:inset 0 0 0 1px #ffffff40}
+.management-review .search-form{margin:0;padding:0 0 8px}
+.management-review .search-form input{
+  display:block;width:100%;min-width:0;height:34px;padding:5px 9px;
+  background:#efefef;border:1px solid #171717;border-radius:1px;color:#242424;
+  font-size:13px;box-shadow:inset 0 1px 2px #0003,0 1px #ffffff18;
+}
+.management-review .search-form input:focus{outline:1px solid #fffa00;outline-offset:1px}
+.management-review .tag-controls{display:grid;grid-template-columns:minmax(0,1fr) 84px;align-items:center;gap:7px;padding:0;min-width:0}
+.management-review .tags{display:flex;align-items:center;gap:2px;min-width:0}
+.management-review .filter-tool{flex-basis:25px;width:25px;height:29px;font-size:12px;color:var(--control-muted)}
+.management-review .manage-tags{margin-left:5px}
+.management-review .manage-tags::before{content:"";position:absolute;left:-5px;top:7px;bottom:7px;width:1px;background:#ffffff28}
+.management-review .filter-tool[data-state=include],.management-review .tag-name[data-state=include]{background:linear-gradient(#d5d5d5,#bababa);color:#1b1b1b;border-color:#f0f0f0c9;box-shadow:inset 0 0 0 1px #ffffff42,0 1px 2px #0003}
+.management-review .filter-tool[data-state=exclude]{color:#9d9d9d;border-color:#ffffff26;background:#14141470}
+.management-review .filter-tool[data-state=exclude]::after{content:"";position:absolute;width:17px;height:1px;background:currentColor;transform:rotate(-43deg);box-shadow:0 1px #272727}
+.management-review .filter-tool.active{color:#ececec;background:#ffffff12;border-color:#ffffff48}
+.management-review .filter-tool.has-filters::after{content:"";position:absolute;width:4px;height:4px;right:2px;bottom:2px;background:#fffa00;border-radius:0}
+.management-review .sort-order{
+  appearance:none;display:block;min-width:0;width:100%;height:27px;margin:0;padding:2px 18px 2px 7px;
+  border:1px solid #ffffff30;border-top-color:#0d0d0d;border-radius:1px;color:#c3c3c3;
+  background-color:#202020;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 5'%3E%3Cpath d='m.6.7 3.4 3.5L7.4.7' fill='none' stroke='%23bdbdbd' stroke-width='1.1'/%3E%3C/svg%3E");
+  background-position:right 6px center;background-size:7px 5px;background-repeat:no-repeat;
+  font-size:11px;box-shadow:inset 0 1px 2px #0004,0 1px #ffffff06;cursor:pointer;color-scheme:dark;
+}
+.management-review .sort-order:hover{border-right-color:#ffffff60;border-bottom-color:#ffffff60;color:#ececec}
+.management-review .ordinary-tags{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:4px;max-height:220px;overflow:auto;padding:5px;border-top:1px solid #ffffff16;scroll-padding:5px}
+.management-review .tag-name{font:11px/1.5 var(--body-font);padding:3px 6px;min-height:26px;max-width:100%;white-space:normal;overflow-wrap:anywhere;border-radius:1px;color:#c3c3c3;background:#ffffff08;border:1px solid #ffffff24;transition:background-color 120ms linear}
+.management-review .tag-name:hover{background:#ffffff14;color:#efefef}
+.management-review .tag-name[data-state=exclude]{color:#b3b3b3;background:#161616;border-color:#737373;text-decoration:line-through}
+
+.management-review .tag-name{scroll-margin:5px}
+.management-review .tag-name[data-state=include]:hover{background:linear-gradient(#e5e5e5,#cbcbcb);color:#161616}
+
+.management-review .pagination{
+  display:flex;align-items:center;flex-wrap:wrap;gap:3px;padding:6px 8px 7px;margin:0;min-width:0;
+  color:#606060;background:linear-gradient(#ededed,#dfdfdf);border-top:1px solid #fbfbfb;border-bottom:1px solid #bdbdbd;
+  box-shadow:0 -1px #141414,inset 0 1px #fff7;
+}
+.management-review .paginationjs{display:contents}
+.management-review .pagination-count{font:11px/1.3 var(--body-font);color:#666666;white-space:nowrap;margin-right:auto;font-variant-numeric:tabular-nums}
+.management-review .page-buttons{display:flex;gap:0;flex-shrink:0}
+.management-review .page-buttons button{width:20px;height:26px;border:0;background:transparent;padding:0;color:#5e5e5e;border-radius:1px;font:18px/1 Arial}
+.management-review .page-buttons button:hover:not(:disabled){background:#c8c8c8;color:#272727}
+.management-review .page-buttons button:disabled{opacity:.24;cursor:default}
+.management-review .page-size{width:59px;height:26px;padding:2px 0 2px 3px;border:0;border-left:1px solid #bdbdbd;border-radius:0;background:transparent;font-size:10px;color:#595959;cursor:pointer}
+.management-review .pagination>.tool{width:25px;flex-basis:25px;height:26px;font-size:12px}
+.management-review .pagination .tool:hover{background:#c7c7c7;color:#252525}
+.management-review .pagination .tool[aria-pressed=true]{color:#ededed;background:#464646;box-shadow:inset 0 1px #121212,inset 0 -1px #fff2}
+.management-review .bulk-count{font-size:11px;white-space:nowrap;margin-left:auto;color:#494949}
+.management-review .bulk-active{border-bottom-color:#757575}
+.management-review .bulk-active .bulk-count{flex:1 0 calc(100% - 60px);text-align:right;padding-right:6px}
+.management-review .bulk-active .delete-button{color:#874b4b}
+.management-review .bulk-active .delete-button:hover:not(:disabled){background:#dfcccc}
+.management-review .role-collection{height:488px;scroll-padding-block:10px}
+.management-review .role-collection.grid-view{grid-auto-rows:max-content;gap:12px 8px}
+.management-review .short-height .role-collection{height:290px}
+
+@container(max-width:270px){
+  .management-review .action-bar{gap:3px}
+  .management-review .action-bar .create-tool{width:58px;flex-basis:58px}
+  .management-review .tools{padding-inline:7px}
+  .management-review .tag-controls{grid-template-columns:minmax(0,1fr) 84px;gap:6px}
+  .management-review .tags{gap:1px}
+  .management-review .filter-tool{width:24px;flex-basis:24px}
+  .management-review .manage-tags{margin-left:4px}
+  .management-review .pagination-count{flex-basis:100%;margin:0 0 1px}
+  .management-review .page-size{margin-right:auto}
+}
+@media(max-width:1000px){.manager-navigation-tools [data-action=pin]{display:none}}
+@media(max-width:1040px){.management-review{grid-template-columns:minmax(0,1fr)}.management-review .reference-notes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.management-review .workbench{padding:18px 8px}.management-review .reference-notes{display:block}}
+@media(pointer:coarse){
+  .management-review .tool{min-height:40px}
+  .manager-navigation-tools .tool{min-width:30px;min-height:40px}
+  .manager-hotswaps button{width:38px;height:42px;flex-basis:38px}
+  .management-review .filter-tool{width:32px;flex-basis:32px}
+  .management-review .tag-controls{grid-template-columns:1fr}
+  .management-review .sort-order{width:104px;height:36px;justify-self:end}
+  .management-review .search-form input{height:40px}
+  .management-review .ordinary-tags{max-height:35dvh}
+  .management-review .tag-name{min-height:36px}
+}
+.reduced-motion .management-review *,
+.reduced-motion .management-review *::before,
+.reduced-motion .management-review *::after{transition:none!important;animation:none!important}

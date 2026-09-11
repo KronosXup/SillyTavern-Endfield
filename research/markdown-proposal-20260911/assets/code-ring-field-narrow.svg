@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" fill="none">
+  <title>Reward field: inward-lit annular sectors fading outward, with fine diagonal dividers</title>
+  <defs>
+    <linearGradient id="shade" x2="0" y2="1"><stop stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".03"/><stop offset="1" stop-color="#000" stop-opacity=".24"/></linearGradient>
+    <linearGradient id="upper-light" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".65"/><stop offset=".42" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="haze"><stop stop-color="#fff" stop-opacity=".38"/><stop offset=".6" stop-color="#fff" stop-opacity=".19"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="annulus" gradientUnits="userSpaceOnUse" cx="300" cy="153" r="130"><stop offset=".426923" stop-color="#fff" stop-opacity=".86"/><stop offset=".50" stop-color="#fff" stop-opacity=".47"/><stop offset=".68" stop-color="#fff" stop-opacity=".16"/><stop offset=".92" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="core"><stop stop-color="#000" stop-opacity=".17"/><stop offset=".85" stop-color="#000" stop-opacity=".17"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="mesh-fade" x2="0" y2="1"><stop stop-color="#fff" stop-opacity="0"/><stop offset=".17" stop-color="#fff" stop-opacity=".16"/><stop offset=".38" stop-color="#fff"/><stop offset=".68" stop-color="#fff" stop-opacity=".8"/><stop offset=".95" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="mesh-mask"><rect width="600" height="300" fill="url(#mesh-fade)"/></mask>
+    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".56" fill="#fff" fill-opacity=".76"/></pattern>
+  </defs>
+  <rect width="600" height="300" fill="url(#shade)"/>
+  <circle cx="300" cy="153" r="55.5" fill="url(#core)"/>
+  <g opacity=".085">
+    <rect width="600" height="300" fill="url(#upper-light)"/>
+    <ellipse cx="167" cy="85" rx="160" ry="230" fill="url(#haze)"/>
+    <ellipse cx="440" cy="128" rx="145" ry="150" fill="url(#haze)" opacity=".62"/>
+    <rect width="600" height="300" fill="url(#dots)" mask="url(#mesh-mask)"/>
+    <g>
+      <path d="M208.076 61.076A130 130 0 0 1 391.924 61.076L339.244 113.756A55.5 55.5 0 0 0 260.756 113.756Z" fill="url(#annulus)"/>
+      <path d="M391.924 61.076A130 130 0 0 1 391.924 244.924L339.244 192.244A55.5 55.5 0 0 0 339.244 113.756Z" fill="url(#annulus)"/>
+      <path d="M391.924 244.924A130 130 0 0 1 208.076 244.924L260.756 192.244A55.5 55.5 0 0 0 339.244 192.244Z" fill="url(#annulus)"/>
+      <path d="M208.076 244.924A130 130 0 0 1 208.076 61.076L260.756 113.756A55.5 55.5 0 0 0 260.756 192.244Z" fill="url(#annulus)"/>
+    </g>
+    <path d="M190 43 260.756 113.756M339.244 192.244 410 263M190 263 260.756 192.244M339.244 113.756 410 43" stroke="#fff" stroke-opacity=".78" stroke-width=".8"/>
+    <circle cx="300" cy="153" r="130" stroke="#fff" stroke-width="1.05"/>
+  </g>
+</svg>

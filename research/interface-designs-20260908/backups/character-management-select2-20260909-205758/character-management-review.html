@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>角色管理 · 材质重设计</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css"><link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="character-list-review.css">
+  <link rel="stylesheet" href="character-management-material.css">
+  <script src="character-management-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header"><div><p class="eyebrow">ENDFIELD / 界面方案</p><h1>角色管理 <span>· 材质重设计</span></h1></div><a href="toolbar-review.html">顶部工具栏 ↗</a></header>
+  <main class="review-layout management-review">
+    <section class="work-area" aria-label="角色管理完整抽屉方案">
+      <div class="preview-toolbar">
+        <label>抽屉宽度 <select id="preview-width"><option value="295">295px</option><option value="260">260px</option><option value="320">320px</option><option value="390">390px</option></select></label>
+        <button id="reset-demo" class="review-button">回到初始状态</button>
+      </div>
+      <p class="intro">墨灰控制面与白色角色卡片。搜索、筛选、排序和视图切换均可直接操作。</p>
+      <div class="workbench" id="workbench"><div class="comparisons" id="comparisons"></div></div>
+      <p class="demo-status" id="demo-status" role="status" aria-live="polite">可直接搜索、筛选、翻页或选择角色，查看整套界面的变化。</p>
+      <details class="test-controls"><summary>检查特殊内容 <span aria-hidden="true">＋</span></summary><div class="test-options">
+        <label><input type="checkbox" id="long-content"> 长名称与长版本</label>
+        <label><input type="checkbox" id="long-tags"> 长标签</label>
+        <label><input type="checkbox" id="extension-buttons"> 扩展追加按钮</label>
+        <label><input type="checkbox" id="hide-hotswaps"> 隐藏收藏快捷区</label>
+        <label><input type="checkbox" id="empty-hotswaps"> 快捷区无收藏</label>
+        <label><input type="checkbox" id="short-height"> 短高度</label>
+        <label><input type="checkbox" id="reduce-motion"> 减少动态</label>
+        <button class="review-button" id="search-empty">无结果示例</button>
+      </div></details>
+      <div class="scope-note"><strong>独立网页方案，尚未实装。</strong><p>肖像使用官网公开素材；名称、备注、标签和排序数据均用于演示。新建、导入、编辑和删除入口只显示说明，不会改变酒馆数据。</p></div>
+    </section>
+    <aside class="reference-notes" aria-label="本轮设计调整">
+      <h2>这版如何处理质感</h2>
+      <section><h3><span>01</span> 一块连续的控制面</h3><p>快捷头像、管理动作与筛选共用墨灰底面。上沿的地形线向下淡去，文字与图标背后保持安静；不再逐排切换黑、白、灰背景。</p><a href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank">标记显示管理 · 表面参考 ↗</a></section>
+      <section><h3><span>02</span> 选定单层圆面</h3><p>管理区图标按钮统一采用A稿的浅灰单层圆面，保持小尺寸下的图标留白。悬停提亮文字，筛选用深浅变化与斜线表达状态；新建、排序与其余布局沿用对照中的效果。</p><a href="character-management-button-study.html" target="_blank">单层／双层对照 ↗</a></section>
+      <section><h3><span>03</span> 控件回到各自的位置</h3><p>新建与导入归为一组，搜索留在右侧。排序收成短字段，靠近筛选；结果数量、分页和视图切换落在白色内容面的上沿。</p><a href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank">醚质提交 · 层次参考 ↗</a></section>
+      <section><h3><span>04</span> 放回角色内容里检查</h3><p>网格长名仍为单行省略；选择只标勾，不整卡反色。两种视图共用2px三色条。顶部的明暗和密度，以这些白色角色卡片为前景来调整。</p></section>
+      <a class="contract-link" href="../verification/character-management-material-2026-09-09.md" target="_blank">查看验证记录 ↗</a>
+    </aside>
+  </main>
+  <dialog id="demo-dialog" aria-labelledby="dialog-title"><h2 id="dialog-title"></h2><p id="dialog-body"></p><form method="dialog"><button class="review-button">返回预览</button></form></dialog>
+</body>
+</html>

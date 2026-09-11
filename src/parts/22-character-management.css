@@ -509,19 +509,17 @@
     z-index: 2;
 }
 
-/* Keep the sorting hover rim even against the dark control surface. */
-#right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order:hover {
-    color: #fff !important;
-    background-color: #949494 !important;
-    border-color: #d2d2d2 !important;
-    box-shadow: inset 0 0 0 1px #ffffff26, 0 1px 2px #0004 !important;
-}
+/* Sorting and page size share the same hover surface and timing. */
+#right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order:hover,
 #right-nav-panel #rm_characters_block #rm_print_characters_pagination .paginationjs-size-changer select:hover {
     color: #fff !important;
     background-color: #949494 !important;
     border-color: #d2d2d2 !important;
+    /* The border supplies the rim; a top inset highlight makes it uneven. */
+    box-shadow: 0 .5px 2px #0002 !important;
 }
 @media (prefers-reduced-motion: no-preference) {
+    body:not(.reduced-motion) #right-nav-panel #rm_characters_block #charListFixedTop #character_sort_order,
     body:not(.reduced-motion) #right-nav-panel #rm_characters_block #rm_print_characters_pagination .paginationjs-size-changer select {
         transition: background-color 120ms linear, color 120ms linear, border-color 120ms linear;
     }

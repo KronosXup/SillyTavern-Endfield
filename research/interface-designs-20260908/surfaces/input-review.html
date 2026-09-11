@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>输入栏 · 第一稿</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="input-review.css">
+  <script src="input-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="eyebrow">ENDFIELD / 局部设计</p><h1>输入栏 · 第一稿</h1></div>
+    <a href="../research/design-decisions-2026-09-08.html" target="_blank">本轮取舍记录 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="review-layout">
+    <section class="work-area" aria-label="输入栏交互预览">
+      <div class="preview-toolbar">
+        <label>预览宽度 <select id="preview-width"><option value="auto">跟随窗口</option><option value="780">宽版 · 780</option><option value="524" selected>当前酒馆 · 524</option><option value="390">390</option><option value="320">320</option></select></label>
+        <label class="check-label"><input type="checkbox" id="show-marks" checked> 显示对应标注</label>
+      </div>
+      <div class="stage-workbench">
+        <div id="stage-frame" class="show-marks">
+          <div class="stage-context">
+            <p class="context-note">在下面输入，查看聚焦与多行效果。</p>
+            <div id="demo-transcript" aria-live="polite"></div>
+          </div>
+          <div class="composer-wrap">
+            <span class="reference-mark mark-shell" aria-hidden="true">1</span>
+            <span class="reference-mark mark-send" aria-hidden="true">2</span>
+            <span class="reference-mark mark-focus" aria-hidden="true">3</span>
+            <div id="form_sheld" class="drop_target">
+              <div id="dialogue_del_mes" hidden>
+                <span class="delete-context">删除所选消息</span>
+                <div id="dialogue_del_mes_ok" class="menu_button" role="button" tabindex="0">删除</div>
+                <div id="dialogue_del_mes_cancel" class="menu_button" role="button" tabindex="0">取消</div>
+              </div>
+              <div id="send_form" class="compact">
+                <div id="qr--bar" class="TH--qr--bar"></div>
+                <div id="qr-bar"></div>
+                <form id="file_form" class="wide100p" hidden>
+                  <div class="file_attached">
+                    <input id="file_form_input" type="file" multiple hidden>
+                    <input id="embed_file_input" type="file" multiple hidden>
+                    <i class="fa-solid fa-file-alt" aria-hidden="true"></i>
+                    <span class="file_name"></span><span class="file_size"></span>
+                    <button id="file_form_reset" type="reset" aria-label="移除整批附件" title="移除整批附件"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                  </div>
+                </form>
+                <div id="nonQRFormItems">
+                  <div id="leftSendForm" class="alignContentCenter">
+                    <div id="options_button" class="fa-solid fa-bars interactable" role="button" tabindex="0" aria-label="聊天菜单" title="聊天菜单" aria-controls="options" aria-expanded="false"></div>
+                    <div id="extensionsMenuButton" class="fa-solid fa-wand-magic-sparkles interactable" role="button" tabindex="0" aria-label="魔杖菜单" title="扩展程序" aria-controls="extensionsMenu" aria-expanded="false"></div>
+                  </div>
+                  <textarea id="send_textarea" name="text" class="mdHotkeys" rows="1" aria-label="消息草稿" placeholder="输入想发送的消息，或输入 /? 获取帮助" autocomplete="off" spellcheck="false"></textarea>
+                  <div id="rightSendForm" class="alignContentCenter">
+                    <div id="stscript_continue" class="stscript_btn stscript_continue" role="button" tabindex="0" title="继续执行脚本" aria-label="继续执行脚本" hidden><i class="fa-solid fa-play" aria-hidden="true"></i></div>
+                    <div id="stscript_pause" class="stscript_btn stscript_pause" role="button" tabindex="0" title="暂停执行脚本" aria-label="暂停执行脚本" hidden><i class="fa-solid fa-pause" aria-hidden="true"></i></div>
+                    <div id="stscript_stop" class="stscript_btn stscript_stop" role="button" tabindex="0" title="中止执行脚本" aria-label="中止执行脚本" hidden><i class="fa-solid fa-stop" aria-hidden="true"></i></div>
+                    <div id="mes_stop" class="mes_stop" role="button" tabindex="0" title="停止生成" aria-label="停止生成" hidden><i class="fa-solid fa-circle-stop" aria-hidden="true"></i></div>
+                    <div id="mes_impersonate" class="fa-solid fa-user-secret interactable" role="button" tabindex="0" title="AI帮答" aria-label="AI帮答" hidden></div>
+                    <div id="mes_continue" class="fa-solid fa-arrow-right interactable" role="button" tabindex="0" title="续写" aria-label="续写" hidden></div>
+                    <div id="message_preview_btn" class="fa-solid fa-eye interactable" role="button" tabindex="0" title="消息预览" aria-label="消息预览" hidden></div>
+                    <div id="send_but" class="fa-solid fa-paper-plane interactable" role="button" tabindex="0" title="发送消息" aria-label="发送消息"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form id="img_form" hidden></form>
+          </div>
+        </div>
+      </div>
+      <p id="demo-status" role="status">本地网页演示。消息和附件只留在这一页。</p>
+      <details class="state-controls">
+        <summary>查看其他输入状态 <span aria-hidden="true">＋</span></summary>
+        <div class="state-body">
+          <div class="state-switches">
+            <label><input type="checkbox" name="connected" checked> 已连接</label>
+            <label><input type="checkbox" name="compact" checked> 紧凑输入</label>
+            <label><input type="checkbox" name="quick"> 续写与AI帮答</label>
+            <label><input type="checkbox" name="qr"> 快捷回复</label>
+            <label><input type="checkbox" name="preview"> 消息预览入口</label>
+          </div>
+          <div class="state-actions">
+            <button type="button" data-demo="multiline">多行草稿</button>
+            <button type="button" data-demo="long">长篇草稿</button>
+            <button type="button" data-demo="attachment">长文件名附件</button>
+            <button type="button" data-demo="generate">生成中</button>
+            <button type="button" data-demo="script">脚本运行</button>
+            <button type="button" data-demo="script-error">脚本错误</button>
+            <button type="button" data-demo="delete">删除确认条</button>
+            <button type="button" data-demo="reset">恢复初始状态</button>
+          </div>
+          <p>这里切换的是原型状态。菜单保留当前酒馆的项目，菜单外观之后单独做。</p>
+        </div>
+      </details>
+      <div class="scope-note"><span>输入栏及两层菜单已实装到当前酒馆</span><p>紧凑布局优先；聚焦黄线、无圆底纸飞机和局部等高线均已保留。本页继续作为独立交互演示，实际检查见<a href="../verification/input-install-2026-09-08.md">实装记录</a>及<a href="../verification/input-menus-2026-09-09.md">菜单补充记录</a>。</p></div>
+    </section>
+    <aside class="reference-rail" aria-label="具体参考与对应部位">
+      <h2>具体借用哪里</h2>
+      <article class="reference-item">
+        <button type="button" class="reference-title" data-marker="1"><span>1</span> 灰白面与窄边界</button>
+        <a class="reference-image panel-reference" href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank" aria-label="打开好友申请窗口原图"><img src="../research/game-ui-references-2026-09-08/removed-reference.svg" alt="游戏好友申请窗口的浅灰面、细分隔和小圆角边框"></a>
+        <p>取好友申请窗口的外框处理，落在输入栏外壳。保留干净的灰白面，边界稍有厚度。</p>
+      </article>
+      <article class="reference-item">
+        <button type="button" class="reference-title" data-marker="2"><span>2</span> 发送键的轮廓与阴影</button>
+        <a class="reference-image button-reference" href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank" aria-label="打开游戏确认按钮原图"><img src="../research/game-ui-references-2026-09-08/removed-reference.svg" alt="游戏确认按钮的圆端双线、底部阴影、点线与动作圆标"></a>
+        <p>左侧短点线保持干净，右半边露出淡等高线，沿圆端裁切；保留双线边界与底部阴影。纸飞机没有圆底，悬停时变白。</p>
+      </article>
+      <article class="reference-item focus-reference">
+        <button type="button" class="reference-title" data-marker="3"><span>3</span> 原有的聚焦黄线</button>
+        <div class="focus-diagram" aria-hidden="true"><span class="line-short"></span><span class="diagram-arrow">→</span><span class="line-long"></span></div>
+        <p>点入输入框时，左上短黄线展开；外框保持细线，仅略微加深。键盘切到按钮时，显示按钮自己的焦点轮廓。</p>
+      </article>
+      <p class="reference-footnote">点标题可定位到对应部位；点图片可打开完整参考。</p>
+    </aside>
+  </main>
+  <div id="options" class="input-menu" aria-label="聊天菜单项目" hidden></div>
+  <div id="extensionsMenu" class="input-menu" aria-label="魔杖菜单项目" hidden></div>
+  <dialog id="preview-dialog" aria-labelledby="preview-title"><header><h2 id="preview-title">消息预览</h2><button type="button" id="preview-close" aria-label="关闭消息预览">×</button></header><div id="preview-content"></div><p>仅预览本页草稿。</p></dialog>
+</body>
+</html>

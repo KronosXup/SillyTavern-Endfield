@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>生成参数与预设 · 终末地主题方案</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="generation.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="generation.js" defer></script>
+</head>
+<body class="preview-page" data-surface="generation" data-variant="a">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">生成 / 参数与预设</p><h1>生成参数与预设</h1><p>两种补全，各取六个真实参数。比较窄栏里的连续清单，以及宽面板里的横向对齐。</p></div>
+    <span class="lab-disclaimer">独立样本 · 不调用模型</span>
+  </header>
+  <nav class="variant-picker" aria-label="生成参数布局方案">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>紧凑参数清单</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>横向参数行</button>
+  </nav>
+  <div class="lab-toolbar generation-lab" aria-label="画布外研究控制">
+    <label class="source-study-control">来源样本<select id="generation-source"><option value="chat">聊天补全 · Custom 样本</option><option value="text">文本补全 · Ooba 样本</option></select></label>
+    <label>面板宽度<select id="preview-width"><option value="295">窄栏 · 295px</option><option value="221">更窄 · 221px</option><option value="720">宽面板 · 720px</option></select></label>
+    <label>面板高度<select id="preview-height"><option value="620">620px</option><option value="430">430px</option><option value="300">300px</option></select></label>
+    <label><input id="long-labels" type="checkbox">长标签与预设名</label>
+    <label><input type="checkbox" data-toggle-motion>减少动态效果</label>
+    <button type="button" class="lab-button" id="reset-demo">重置样例数据</button>
+  </div>
+  <p class="generation-study-note">上方来源切换只用于比较。参数与两份样例预设只保留在本页，刷新即还原。</p>
+  <p class="study-feedback" id="study-feedback" role="status">当前显示聊天补全 · Custom 样本。</p>
+
+  <main class="demo-stage generation-stage" aria-label="生成参数面板样本">
+    <div class="generation-stage-caption"><span>参数侧栏</span><span id="panel-size"></span></div>
+    <section class="generation-panel drawer-content openDrawer" id="left-nav-panel" aria-labelledby="generation-title">
+      <header class="generation-heading"><h2 id="generation-title">生成参数</h2><span id="profile-caption">Chat · Custom</span></header>
+      <div class="scrollableInner generation-content" id="generation-content" tabindex="0" aria-label="生成参数内容，可滚动">
+        <form id="generation-form" novalidate>
+          <section class="preset-section" aria-labelledby="preset-label">
+            <div class="preset-title"><label id="preset-label" for="settings_preset_openai">示例预设</label><span>两份本地样本</span></div>
+            <select class="preset-select" id="settings_preset_openai" aria-describedby="preset-scope"></select>
+            <div class="preset-actions">
+              <button type="button" class="parameter-action primary-action" id="update-preset"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>更新预设</button>
+              <button type="button" class="parameter-action" id="restore-preset" hidden><i class="fa-solid fa-rotate-left" aria-hidden="true"></i>恢复已存值</button>
+            </div>
+            <p class="parameter-note" id="preset-scope"></p>
+            <p class="action-feedback" id="preset-feedback" role="status">可直接调整下方参数。</p>
+          </section>
+
+          <section class="parameter-section" aria-labelledby="length-title">
+            <h3 id="length-title">长度与流式</h3>
+            <div id="length-fields"></div>
+            <label class="streaming-row" id="streaming-row" for="stream_toggle"><span>流式显示<span class="streaming-description">逐步显示生成的回复</span></span><input type="checkbox" id="stream_toggle"></label>
+            <div class="budget-summary" aria-labelledby="budget-title">
+              <p class="budget-line"><span id="budget-title">提示词预算</span><output id="prompt-budget">3795 tokens</output></p>
+              <p class="parameter-note" id="budget-note">上下文 − 响应上限；尚未扣除提示词实际占用。</p>
+              <p class="budget-warning" id="budget-warning" role="alert" hidden></p>
+            </div>
+          </section>
+
+          <section class="parameter-section sampler-section" aria-labelledby="sampler-title">
+            <div class="sampler-heading"><h3 id="sampler-title">采样参数</h3><button type="button" class="parameter-action" id="neutralize-samplers" hidden>中性化 4 项</button></div>
+            <p class="parameter-note sampler-scope" id="sampler-scope"></p>
+            <p class="action-feedback" id="sampler-feedback" role="status" hidden></p>
+            <div id="sampler-fields"></div>
+          </section>
+          <p class="generation-endnote">仅演示这些参数与样例预设，不连接模型，不写入酒馆。</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="demo-legend"><span data-variant-note="a">A · 标签在上，滑条与数值同行。</span><span data-variant-note="b" hidden>B · 面板够宽时横向对齐，窄栏回到上下排列。</span><span id="layout-readout">当前：紧凑排列</span></div>
+  <details class="design-notes">
+    <summary>来源、保存语义与实装边界</summary>
+    <div class="note-grid">
+      <section><h2>保留字段差异</h2><p>聊天补全的响应上限只有数字框；文本补全的响应和上下文都有滑条。这里分别使用 Custom 与 Ooba 的字段样本，不代表所有服务商或模型支持。</p><p>聊天补全的上下文采用静态起始范围样例。真实宿主会随模型改变上限；本页不检测模型，不演示解锁范围。</p><h2>两种保存规则</h2><p>更新仅覆盖当前的本地样例预设。聊天样例连同流式开关保存；文本样例按普通保存路径只保存六项参数。文本的“恢复已存值”会确认后重新载入样例；“中性化 4 项”只改四个采样值。</p></section>
+      <section><h2>默认窄栏优先</h2><p>A 使用连续纸面与细分隔。B 仅当实际面板内容宽度达到 520px 时横向对齐，宽浏览器中的窄侧栏也会回退。两者都不使用多列参数网格。</p><h2>主题与原型的区别</h2><p>颜色、间距、标签换行和现有控件排列可由 CSS 改善。此页的样本切换、数值校验、预算计算和内存预设由本地脚本演示，不是可以直接导入的酒馆设置。</p><p>300/430px 用于面板高度压力检查，不模拟真实手机键盘。宿主的高级采样、提示词管理、Zen Sliders、MAD LAB 和真实持久保存均未在此实现。</p></section>
+    </div>
+  </details>
+  <p class="prototype-footnote">可试：修改数字或滑条 → 更新样例 → 再改值 → 文本样例恢复或中性化；再比较长标签、窄栏与短面板。</p>
+
+  <dialog id="restore-dialog" class="restore-dialog" aria-labelledby="restore-title" aria-describedby="restore-description">
+    <form id="restore-form" novalidate>
+      <div class="restore-copy" tabindex="0">
+        <h2 id="restore-title">恢复已存的样例参数？</h2>
+        <p id="restore-description"></p>
+      </div>
+      <footer class="restore-actions"><button type="button" class="parameter-action" id="restore-cancel">取消</button><button type="submit" class="parameter-action primary-action" id="restore-confirm">恢复已存值</button></footer>
+    </form>
+  </dialog>
+</body>
+</html>

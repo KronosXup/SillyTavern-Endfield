@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield reasoning redesign preview</title>
+    <style>
+        :root {
+            --ef-paper: #fdfdfd;
+            --ef-ink: #061112;
+            --ef-muted: #4e5653;
+            --ef-faint: #707674;
+            --ef-line: rgba(23, 26, 26, 0.16);
+            --ef-block: #444444;
+            --ef-calib-m: #d025ce;
+            --ef-calib-y: #fcf56d;
+            --ef-calib-c: #34e3ad;
+            --ef-workbench: #e5e5e5;
+            --ef-paper-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='g' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10 0H0V10' fill='none' stroke='%23171a1a' stroke-opacity='.018' stroke-width='.55'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23171a1a'%3E%3Cpath d='M0 .5H160M.5 0V160' stroke-opacity='.025' stroke-width='.65'/%3E%3Cpath d='M74 80H86M80 74V86' stroke-opacity='.09' stroke-width='.9'/%3E%3C/g%3E%3C/svg%3E");
+            --ef-gray-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='x' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Cpath d='M-2 0L8 10M8-2L-2 8' fill='none' stroke='%23434b49' stroke-opacity='.03' stroke-width='.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23x)'/%3E%3Cg fill='none' stroke='%23434b49' stroke-width='.65'%3E%3Cpath d='M0 80H76M84 80H160M80 0V76M80 84V160' stroke-opacity='.075'/%3E%3Cpath d='M66 66L76 76M84 84L94 94M94 66L84 76M76 84L66 94' stroke-opacity='.11'/%3E%3C/g%3E%3Ccircle cx='80' cy='80' r='1' fill='%23434b49' fill-opacity='.14'/%3E%3C/svg%3E");
+            --ef-contours: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='280' height='90' viewBox='0 0 280 90'%3E%3Cg fill='none' stroke='%23171a1a' stroke-width='.75' opacity='.18'%3E%3Cpath d='M-10 54c32-27 56-29 80-6s54 25 79 4 53-25 78-6 45 21 69 4'/%3E%3Cpath d='M-12 64c33-29 61-31 87-7s48 22 72 2 54-29 82-8 45 20 64 7'/%3E%3Cpath d='M8 75c27-24 49-24 70-5s45 19 66 2 50-28 81-11 48 21 67 11'/%3E%3Cpath d='M21 34c20-17 35-17 51-3s34 15 49 3 37-20 59-7 37 14 57 5'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        @property --ef-reasoning-stop-a {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 0%;
+        }
+
+        @property --ef-reasoning-stop-b {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 70%;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            display: grid;
+            place-items: center;
+            color: var(--ef-ink);
+            background-color: var(--ef-workbench);
+            background-image: var(--ef-gray-grid);
+            background-size: 160px 160px;
+            font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+        }
+
+        #chat {
+            width: min(640px, calc(100vw - 32px));
+            display: grid;
+            gap: 24px;
+        }
+
+        .mes_block {
+            position: relative;
+            overflow: hidden;
+            padding: 24px;
+            background-color: var(--ef-paper);
+            background-image: var(--ef-paper-grid);
+        }
+
+        /* 白纸面只留微网格，不压等高线：
+           官方面（百科/干员）把等高线放在灰底与深色区，白纸只留极淡点阵。
+           等高线回灰底结构区，不进正文。 */
+
+        .tag {
+            margin: 0 0 12px;
+            color: var(--ef-faint);
+            font-size: 13px;
+        }
+
+        .mes_reasoning_details { border: 0; }
+
+        /* ---- A: 现状近似（灰盒 + 黄块头 + 底边 40% 条） ---- */
+        .old .mes_reasoning_details {
+            margin-top: 9px;
+            color: var(--ef-muted);
+            background: rgba(23, 26, 26, 0.035);
+            border: 1px solid var(--ef-line);
+        }
+
+        .old .mes_reasoning_summary { list-style: none; }
+
+        .old .mes_reasoning_header {
+            display: flex;
+            align-items: stretch;
+            padding: 0;
+            background: linear-gradient(
+                to right,
+                var(--ef-block) 0 6px,
+                #ffff0f 6px 31px,
+                #ffffff 31px
+            );
+        }
+
+        .old .mes_reasoning_header::before {
+            content: "//";
+            margin-left: 39px;
+            padding-right: 6px;
+            color: var(--ef-ink);
+            font-style: italic;
+            font-weight: 800;
+        }
+
+        .old .mes_reasoning_header_title {
+            padding: 3px 0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .old .mes_reasoning_summary { position: relative; }
+
+        .old .mes_reasoning_summary::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40%;
+            height: 2px;
+            background-image: linear-gradient(
+                to right,
+                var(--ef-calib-m) 0 11.5%,
+                var(--ef-calib-y) 11.5% 21.5%,
+                var(--ef-calib-c) 21.5% 50%,
+                var(--ef-calib-m) 50% 61.5%,
+                var(--ef-calib-y) 61.5% 71.5%,
+                var(--ef-calib-c) 71.5% 100%
+            );
+            opacity: 0.92;
+        }
+
+        .old .mes_reasoning {
+            padding: 12px 16px;
+            font-size: 15px;
+        }
+
+        /* ---- B/C/D: 重画（纸面、无盒、有节制） ---- */
+        .new .mes_reasoning_details {
+            margin-top: 4px;
+            color: var(--ef-muted);
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid var(--ef-line);
+        }
+
+        .new .mes_reasoning_summary {
+            position: relative;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            min-height: 0;
+            padding: 8px 108px 8px 0;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .new .mes_reasoning_summary::before {
+            content: "";
+            flex: none;
+            width: 3px;
+            height: 13px;
+            align-self: center;
+            background: var(--ef-block);
+        }
+
+        .new .mes_reasoning_prefix {
+            color: var(--ef-faint);
+            font-style: italic;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .new .mes_reasoning_header_title {
+            color: var(--ef-ink);
+            font-size: 13.5px;
+            font-weight: 650;
+        }
+
+        .new .mes_reasoning_arrow {
+            margin-left: 2px;
+            color: var(--ef-faint);
+            font-size: 12px;
+        }
+
+        .new .mes_reasoning_summary::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 84px;
+            height: 3px;
+            margin-top: -1.5px;
+            pointer-events: none;
+            --ef-reasoning-stop-a: 0%;
+            --ef-reasoning-stop-b: 70%;
+            --ef-reasoning-color-a: var(--ef-calib-c);
+            --ef-reasoning-color-b: var(--ef-calib-m);
+            --ef-reasoning-color-c: var(--ef-calib-y);
+            background-image: linear-gradient(
+                to right,
+                var(--ef-reasoning-color-a) 0 var(--ef-reasoning-stop-a),
+                var(--ef-reasoning-color-b) var(--ef-reasoning-stop-a) var(--ef-reasoning-stop-b),
+                var(--ef-reasoning-color-c) var(--ef-reasoning-stop-b) 100%
+            );
+            background-repeat: no-repeat;
+            opacity: 0;
+        }
+
+        .new.thinking .mes_reasoning_summary::after {
+            animation: ef-reasoning-compact-run 1800ms linear infinite;
+        }
+
+        .new.done .mes_reasoning_summary::after {
+            background-image: linear-gradient(
+                to right,
+                var(--ef-calib-c) 0 0%,
+                var(--ef-calib-m) 0 70%,
+                var(--ef-calib-y) 70% 100%
+            );
+            opacity: 0.45;
+        }
+
+        .new .mes_reasoning {
+            padding: 4px 0 12px 11px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--ef-muted);
+        }
+
+        @keyframes ef-reasoning-compact-run {
+            0% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+            33.32% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+            33.34% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-y);
+                --ef-reasoning-color-b: var(--ef-calib-c);
+                --ef-reasoning-color-c: var(--ef-calib-m);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+            66.65% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-y);
+                --ef-reasoning-color-b: var(--ef-calib-c);
+                --ef-reasoning-color-c: var(--ef-calib-m);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+            66.67% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-m);
+                --ef-reasoning-color-b: var(--ef-calib-y);
+                --ef-reasoning-color-c: var(--ef-calib-c);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+            99.98% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-m);
+                --ef-reasoning-color-b: var(--ef-calib-y);
+                --ef-reasoning-color-c: var(--ef-calib-c);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+            100% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                opacity: 0.92;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .new.thinking .mes_reasoning_summary::after {
+                animation: none;
+                opacity: 0.92;
+            }
+        }
+    </style>
+</head>
+<body data-generating="true">
+    <main id="chat">
+        <article class="mes_block old">
+            <p class="tag">A · 现状近似：灰盒 + 黄块大头 + 底边 40% 条。</p>
+            <details class="mes_reasoning_details" open>
+                <summary class="mes_reasoning_summary">
+                    <div class="mes_reasoning_header">
+                        <span class="mes_reasoning_header_title">思考了一会</span>
+                    </div>
+                </summary>
+                <div class="mes_reasoning">这里是推理正文：灰盒里的 15px 正文，和纸面是两层皮。</div>
+            </details>
+        </article>
+        <article class="mes_block new thinking">
+            <p class="tag">B · 重画 thinking：无盒、13.5px 标题、小 // 、右上 84×3 小标在跑。</p>
+            <details class="mes_reasoning_details" data-state="thinking" open>
+                <summary class="mes_reasoning_summary">
+                    <span class="mes_reasoning_prefix">//</span>
+                    <span class="mes_reasoning_header_title">思考了一会</span>
+                    <span class="mes_reasoning_arrow">▾</span>
+                </summary>
+                <div class="mes_reasoning">这里是推理正文：回到纸面，只用灰阶和行距分层，不再套盒子。</div>
+            </details>
+        </article>
+        <article class="mes_block new done">
+            <p class="tag">C · 重画 done / reduced-motion：小标定格半透明，不再闪。</p>
+            <details class="mes_reasoning_details" data-state="done" open>
+                <summary class="mes_reasoning_summary">
+                    <span class="mes_reasoning_prefix">//</span>
+                    <span class="mes_reasoning_header_title">思考了一会</span>
+                    <span class="mes_reasoning_arrow">▾</span>
+                </summary>
+                <div class="mes_reasoning">思考结束：小标只是个静态注脚，不抢正文。</div>
+            </details>
+        </article>
+    </main>
+</body>
+</html>

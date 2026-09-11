@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>角色管理 · 圆钮对照</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="character-management-button-study.css">
+  <script src="character-management-button-study.js" defer></script>
+</head>
+<body class="button-study-page">
+  <header class="study-header"><p class="study-eyebrow">ENDFIELD / 界面方案</p><h1>圆钮，放回界面里看。</h1><p>同样的浅灰圆面、图标、尺寸与底面。只比较单层和双层边界。</p></header>
+  <main class="study-main">
+    <div class="study-controls"><label>抽屉宽度上限 <select id="study-width"><option value="295">295px</option><option value="260">260px</option><option value="320">320px</option><option value="390">390px</option></select></label><button type="button" id="study-reset">重置两侧</button><a href="character-management-review.html">返回当前主稿 ↗</a></div>
+    <p class="study-hint">两侧都可直接悬停、搜索和筛选。新建、排序、头像与卡片保持一致。</p>
+    <div class="study-pair">
+      <section class="study-option"><header><span>A</span><h2>单层圆面</h2><p>边界较轻，留白完整。</p></header><iframe id="study-single" title="单层圆面：角色管理交互预览"></iframe></section>
+      <section class="study-option"><header><span>B</span><h2>双层圆边</h2><p>轮廓更明确，观察整排的密度。</p></header><iframe id="study-double" title="双层圆边：角色管理交互预览"></iframe></section>
+    </div>
+    <p id="study-status" role="status" aria-live="polite">正在载入同一份角色管理预览…</p>
+    <p class="study-scope">独立对照稿。新建、导入等入口只显示演示说明；尚未实装。</p>
+  </main>
+</body>
+</html>

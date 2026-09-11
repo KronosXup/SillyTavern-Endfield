@@ -1,0 +1,332 @@
+/* Native ST 1.18 popup contract: data-id + the original body/controls tree.
+   There is no DOM type attribute. This structural scope admits text, a one-row
+   main textarea and native checkbox options in content or popup-inputs. Text
+   semantics, passive lists and inline avatar summaries remain simple content;
+   interactive forms, general media, custom actions, crops and large editors
+   retain their host layout. Inline visibility wins.
+   @scope also excludes extension-owned lookalike components; extensions that
+   call the native Popup API follow the same structural rules as core callers. */
+@scope (dialog.popup[data-id]:not(.wide_dialogue_popup, .wider_dialogue_popup, .large_dialogue_popup, .transparent_dialogue_popup, .poly_dialog):has(> .popup-body > .popup-controls > :is(.popup-button-ok, .popup-button-cancel):not([style*="display: none"])):not(:has(> .popup-body > .popup-controls[style*="display: none"])):not(:has(> .popup-body > .popup-controls > .popup-button-custom)):not(:has(> .popup-body > .popup-crop-wrap[style*="display: block"])):not(:has(> .popup-body > .popup-input[style*="display: block"]:not([rows="1"]))):not(:has(> .popup-body > .popup-inputs :is(textarea, select, input:not([type="checkbox"])))):not(:has(> .popup-body > .popup-content :not(h1, h2, h3, h4, h5, h6, p, div, span, small, strong, em, b, i, br, a, code, var, tt, kbd, samp, q, cite, abbr, sub, sup, s, strike, del, ins, u, mark, wbr, hr, ul, ol, li, dl, dt, dd, blockquote, label, input[type="checkbox"], .avatars_inline .avatar img))):not(:has(> .popup-body > .popup-content :is(.menu_button, .result-control, [contenteditable], [role="button"], [tabindex]:not(input[type="checkbox"], a[href]))))) {
+    :scope {
+        --ef-popup-native: 1;
+        --source-pixel: clamp(.125px, .02604167vw, .5px);
+        --paper-color: #fefcfd;
+        --button-width: clamp(196px, 16vw, 305px);
+        --button-height: clamp(40px, 3.268vw, 62px);
+        --button-gap: clamp(20px, 1.65vw, 32px);
+        --button-font: clamp(16px, 1.29vw, 24.5px);
+        --action-icon: clamp(21px, 1.674vw, 32px);
+        --icon-inset: clamp(11px, .98vw, 18.6px);
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        min-height: 0;
+        height: fit-content;
+        max-height: calc(100dvh - 64px);
+        margin: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        overflow: visible;
+        color: #101010;
+        background: var(--paper-color);
+        box-shadow: 0 4px 12px #0004, 0 -1px 8px #0001;
+        text-shadow: none;
+        outline: none;
+    }
+    :scope[open]::backdrop {
+        background: #0009;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+    :scope.popup > .popup-body {
+        position: relative;
+        isolation: isolate;
+        width: 100%;
+        height: auto;
+        min-height: min(clamp(164px, 17.1vw, 330px), calc(100dvh - 64px));
+        max-height: calc(100dvh - 64px);
+        padding: clamp(24px, 2.5vw, 48px) 0 0;
+        overflow: visible;
+        align-items: center;
+        gap: 12px;
+    }
+    :scope > .popup-body::before,
+    :scope > .popup-body::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+    }
+    :scope > .popup-body::before {
+        inset: 0 auto 0 0;
+        width: calc(var(--source-pixel) * 700);
+        background-image: url("./assets/paper-left-header.png"), url("./assets/paper-left-mark.png"), url("./assets/paper-left-footer.png");
+        background-size: calc(var(--source-pixel) * 650) calc(var(--source-pixel) * 100), calc(var(--source-pixel) * 570) calc(var(--source-pixel) * 510), calc(var(--source-pixel) * 640) calc(var(--source-pixel) * 29);
+        background-position: left top, left calc(var(--source-pixel) * 100), calc(var(--source-pixel) * 50) bottom;
+        background-repeat: no-repeat;
+    }
+    :scope > .popup-body::after {
+        top: 0;
+        right: 0;
+        width: calc(var(--source-pixel) * 1160);
+        height: calc(var(--source-pixel) * 145);
+        background: url("./assets/paper-right-header.png") right top / 100% 100% no-repeat;
+    }
+    :scope > .popup-body > .popup-content {
+        /* Let auto margins center the content itself, including plain text
+           nodes. Growing this box only left the text pinned to its top. */
+        flex: 0 1 auto;
+        min-height: 0;
+        width: min(62%, 1050px);
+        max-height: calc(100dvh - 240px);
+        margin: auto 0;
+        padding: 0 16px;
+        overflow: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+        color: #101010;
+        font-family: "EF Cover Harmony Bold", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+        font-size: clamp(18px, 1.45vw, 28px);
+        font-weight: 700;
+        line-height: 1.65;
+        overflow-wrap: anywhere;
+    }
+    :scope .popup-content :is(h1, h2, h3, h4, h5, h6) {
+        margin: 0 0 .45em;
+        color: inherit;
+        font: inherit;
+    }
+    :scope .popup-content :is(p, div):last-child { margin-bottom: 0; }
+    :scope .popup-content :is(ul, ol, dl, blockquote) {
+        margin-block: .6em;
+        text-align: start;
+        font-family: "EF Cover Harmony Regular", "Microsoft YaHei UI", sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+    :scope .popup-content :is(ul, ol) { padding-inline-start: 1.6em; }
+    :scope .popup-content .avatars_inline {
+        justify-content: center;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+    }
+    :scope .popup-content :is(small, .opacity50p, .opacity70p) {
+        color: #777;
+        font-family: "EF Cover Harmony Regular", "Microsoft YaHei UI", sans-serif;
+        font-size: .82em;
+        font-weight: 400;
+    }
+    :scope > .popup-body > .popup-input {
+        flex: 0 1 auto;
+        width: min(62%, 1050px);
+        min-height: 44px;
+        max-height: 26dvh;
+        margin: 0;
+        padding: 11px 16px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        background: #e9e7e8;
+        color: #585858;
+        box-shadow: none;
+        font-family: "EF Cover Harmony Regular", "Microsoft YaHei UI", sans-serif;
+        font-size: clamp(16px, 1.25vw, 24px);
+        line-height: 1.5;
+        resize: vertical;
+        text-shadow: none;
+    }
+    :scope > .popup-body > .popup-input:focus-visible {
+        outline: none;
+        border-color: #98958d;
+        box-shadow: inset 0 -2px 0 #ffe100;
+    }
+    /* Checkbox rows are a host adaptation, not an observed game component. */
+    :scope > .popup-body > .popup-inputs {
+        flex: 0 1 auto;
+        min-height: 0;
+        max-height: 22dvh;
+        width: min(62%, 1050px);
+        margin: 0;
+        overflow: auto;
+        color: #585858;
+        font-family: "EF Cover Harmony Regular", "Microsoft YaHei UI", sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    :scope > .popup-body > .popup-inputs:empty { margin-top: -12px; }
+    :scope .popup-inputs > .checkbox_label {
+        align-items: flex-start;
+        gap: 8px;
+        min-height: 28px;
+        padding: 3px 0;
+        overflow-wrap: anywhere;
+    }
+    :scope .popup-inputs > .checkbox_label > input {
+        flex: 0 0 auto;
+        margin-top: 3px;
+        accent-color: #827713;
+    }
+    :scope .popup-inputs > .checkbox_label > span { opacity: 1; }
+    :scope .popup-content .checkbox_label {
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        color: #585858;
+        font-family: "EF Cover Harmony Regular", "Microsoft YaHei UI", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+    :scope .popup-content .checkbox_label > input {
+        flex: 0 0 auto;
+        margin-top: 3px;
+        accent-color: #827713;
+    }
+    :scope .popup-content .checkbox_label > :is(span, small) { color: inherit; font: inherit; opacity: 1; }
+    :scope :is(.popup-content, .popup-inputs) input[type="checkbox"] {
+        --SmartThemeCheckboxTickColor: #444;
+        color: #444;
+        border-color: #a5a29d;
+        outline: none;
+        background-color: #eeeded;
+        box-shadow: inset 0 1px 2px #0001;
+        filter: none;
+    }
+    :scope :is(.popup-content, .popup-inputs) input[type="checkbox"]:checked {
+        border-color: #b1a61c;
+        background-color: #ffe100;
+    }
+    :scope :is(.popup-content, .popup-inputs) input[type="checkbox"]:focus-visible {
+        outline: 2px solid #756b13;
+        outline-offset: 2px;
+    }
+    :scope :is(.popup-content, .popup-inputs) input[type="checkbox"]:disabled { opacity: .45; }
+    :scope > .popup-body > .popup-controls {
+        position: relative;
+        flex: 0 0 auto;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: center;
+        gap: var(--button-gap);
+        width: min(calc(var(--button-width) * 2 + var(--button-gap)), calc(100% - 40px));
+        margin: 12px auto calc(var(--button-height) * -.356);
+        padding: 0;
+    }
+    :scope .popup-controls > .menu_button {
+        --button-base: #444;
+        --button-ink: #ededed;
+        --button-rim: #444;
+        --button-line: #888;
+        position: relative;
+        isolation: isolate;
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: var(--button-width);
+        min-height: var(--button-height);
+        height: auto;
+        margin: 0;
+        padding: 7px calc(var(--action-icon) + var(--icon-inset) + 10px) 7px 12px;
+        border: 1.5px solid var(--button-rim);
+        border-radius: 100px;
+        background-color: var(--button-base);
+        background-image: radial-gradient(circle, var(--button-line) 0 1.2px, transparent 1.8px), radial-gradient(circle, var(--button-line) 0 1.2px, transparent 1.8px), linear-gradient(var(--button-line), var(--button-line));
+        background-size: 3px 3px, 3px 3px, 39.1% 1px;
+        background-position: 12.4% center, 51.5% center, 20.36% center;
+        background-repeat: no-repeat;
+        color: var(--button-ink);
+        box-shadow: inset 0 0 0 1px #a4a4a4, 0 1px 0 3.5px var(--paper-color), 0 3px 5px 3px #0003;
+        font-family: "EF Cover Harmony Regular", "Microsoft YaHei UI", sans-serif;
+        font-size: var(--button-font);
+        font-weight: 400;
+        line-height: 1.4;
+        text-align: right;
+        justify-content: flex-end;
+        align-items: center;
+        text-shadow: none;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        filter: none;
+        transform: none;
+        transition: background-color 100ms linear;
+    }
+    :scope .popup-controls > .popup-button-ok {
+        --button-base: #ffe100;
+        --button-ink: #454740;
+        --button-rim: #ffe100;
+        --button-line: #b6af29;
+        box-shadow: inset 0 0 0 1px #aaa793, 0 1px 0 3.5px var(--paper-color), 0 3px 5px 3px #0003;
+    }
+    :scope .popup-controls > .menu_button::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        border-radius: inherit;
+        background: currentColor;
+        mask: url("./assets/continuous-contour-mask.svg") center / 100% 100% no-repeat;
+        opacity: .730341;
+        pointer-events: none;
+    }
+    :scope .popup-controls > .popup-button-ok::before { opacity: 1; }
+    :scope .popup-controls > .menu_button::after {
+        content: "";
+        position: absolute;
+        right: var(--icon-inset);
+        top: 50%;
+        transform: translateY(-50%);
+        width: var(--action-icon);
+        height: var(--action-icon);
+        border-radius: 50%;
+        background-color: var(--button-ink);
+        background-position: center;
+        background-size: 72% 72%;
+        background-repeat: no-repeat;
+        pointer-events: none;
+    }
+    :scope .popup-button-cancel::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox='0 0 24 24'%3E%3Cpath d='m7 7 10 10M17 7 7 17' stroke='%23444444' stroke-width='4'/%3E%3C/svg%3E");
+    }
+    :scope .popup-button-ok::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox='0 0 24 24'%3E%3Cpath d='M9 5a7 7 0 0 1 9 8M15 19a7 7 0 0 1-9-8' fill='none' stroke='%23ffe100' stroke-width='3.5'/%3E%3Cpath d='m17 7 2 7 3-5M7 17l-2-7-3 5' fill='%23ffe100'/%3E%3C/svg%3E");
+    }
+    :scope .popup-controls > .menu_button:focus-visible {
+        outline: none;
+        outline-offset: 0;
+        box-shadow: inset 0 0 0 2px var(--button-ink), 0 1px 0 3.5px var(--paper-color), 0 3px 5px 3px #0003;
+        filter: none;
+    }
+    @media (hover: hover) {
+        :scope .popup-controls > .menu_button:hover { --button-base: #525252; background-color: var(--button-base); filter: none; }
+        :scope .popup-controls > .popup-button-ok:hover { --button-base: #ffec61; }
+    }
+    :scope .popup-controls > .menu_button:active { filter: brightness(.96); }
+    @media (max-width: 620px) {
+        :scope {
+            --button-width: 176px;
+            --button-height: 44px;
+            --button-gap: 18px;
+            --button-font: 18px;
+            --action-icon: 23px;
+            --icon-inset: 10px;
+        }
+        :scope > .popup-body > :is(.popup-content, .popup-input, .popup-inputs) { width: calc(100% - 48px); }
+        :scope > .popup-body > .popup-content { padding-inline: 0; }
+        :scope .popup-controls > .menu_button { background-image: none; padding-right: calc(var(--action-icon) + var(--icon-inset) + 8px); }
+    }
+    @media (max-height: 420px) {
+        :scope.popup > .popup-body { padding: 16px 0 12px; gap: 8px; overflow-y: auto; overscroll-behavior: contain; }
+        :scope > .popup-body > :is(.popup-content, .popup-input, .popup-inputs) { flex: 0 0 auto; }
+        :scope > .popup-body > :is(.popup-content, .popup-inputs) { max-height: none; }
+        :scope > .popup-body > .popup-controls { margin: 6px auto 0; }
+    }
+    :scope:where(body.reduced-motion *),
+    :scope:where(body.reduced-motion *)::backdrop,
+    :scope:where(body.reduced-motion *) * { animation: none !important; transition: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+        :scope, :scope::backdrop, :scope * { animation: none !important; transition: none !important; }
+    }
+}

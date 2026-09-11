@@ -1,0 +1,50 @@
+/* A separate study: the source management proposal remains unchanged. */
+.button-study-page{--study-width:295px;box-sizing:border-box;margin:0;background:#f5f5f3;color:#292929;font:14px/1.6 "EF Cover Harmony Regular","Microsoft YaHei UI",sans-serif}
+.button-study-page *{box-sizing:border-box}
+.study-header,.study-main{max-width:1040px;margin:auto;padding:26px 28px}
+.study-header{border-bottom:1px solid #d5d5d2}
+.study-eyebrow{font-size:10px;letter-spacing:.14em;color:#83837e;margin:0 0 7px}
+.study-header h1{font:700 27px/1.35 "EF Cover Harmony Bold",sans-serif;margin:0 0 10px}
+.study-header>p:last-child{margin:0;color:#73736e;font-size:12px}
+.study-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px}
+.study-controls label{display:flex;align-items:center;gap:8px}
+.study-controls button,.study-controls select{font:inherit;color:inherit;border:1px solid #c4c4bf;border-radius:3px;background:#ecece8;padding:5px 9px;cursor:pointer}
+.study-controls a{margin-left:auto;color:#5b5b57;text-underline-offset:4px}
+.study-controls :focus-visible{outline:2px solid #444;outline-offset:3px}
+.study-controls button:hover{background:#dfdfdb}
+.study-hint{font-size:12px;color:#73736e;margin:15px 0 20px}
+.study-pair{display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;gap:28px 40px;padding:22px 12px 24px;background:#e4e4e2;border-block:1px solid #d1d1ce}
+.study-option{width:calc(var(--study-width) + 12px);max-width:100%;min-width:0}
+.study-option>header{padding:0 6px 15px;display:grid;grid-template-columns:21px 1fr;align-items:baseline;column-gap:7px}
+.study-option>header>span{color:#8b8b85;font-size:12px}
+.study-option h2{font:700 15px/1.5 "EF Cover Harmony Bold",sans-serif;margin:0}
+.study-option>header>p{grid-column:2;margin:3px 0 0;font-size:11px;color:#797973}
+.study-option iframe{display:block;width:100%;height:525px;border:0;background:transparent}
+#study-status,.study-scope{font-size:11px;color:#777770;margin:14px 0 0}
+.study-scope{color:#93938b}
+@media(max-width:600px){.study-header,.study-main{padding:22px 12px}.study-header h1{font-size:23px}.study-controls a{margin-left:0}.study-pair{padding-inline:0;gap:25px}.study-hint{line-height:1.8}}
+
+/* The same original document is embedded twice; only these scoped rules differ. */
+html[data-button-study]{background:transparent}
+[data-button-study] body{margin:0;padding:6px;background:transparent}
+[data-button-study] .review-header,[data-button-study] .reference-notes,[data-button-study] .preview-toolbar,[data-button-study] .intro,[data-button-study] .demo-status,[data-button-study] .test-controls,[data-button-study] .scope-note,[data-button-study] .example-footer{display:none}
+[data-button-study] .management-review{display:block;padding:0;margin:0;max-width:none}
+[data-button-study] .management-review .workbench{padding:0;border:0;background:transparent}
+[data-button-study] .management-review .role-collection{height:330px}
+[data-button-study] .management-review .tools .tool:not(.create-tool){
+  --round-fill:#dfdfdf;--round-ink:#3b3b3b;--round-rim:#747474;--round-edge:#b7b7b7;
+  background:var(--round-fill);color:var(--round-ink);border:1px solid var(--round-edge);border-radius:50%;height:28px;
+  box-shadow:0 1px 2px #0005;
+}
+[data-button-study] .management-review .tools .tool.filter-tool:not(.create-tool){height:25px}
+[data-button-study] .management-review .tools .tool:not(.create-tool):hover{--round-fill:#a0a0a0;--round-ink:#fff;--round-rim:#dedede;--round-edge:#c1c1c1}
+[data-button-study] .management-review .tools .tool:not(.create-tool):active{--round-fill:#858585;--round-ink:#fff;box-shadow:inset 0 1px 2px #0004,0 1px 1px #0003}
+[data-button-study] .management-review .tools .tool:is([data-state=include],.search-toggle.active,.filter-tool.active){--round-fill:#626262;--round-ink:#fff;--round-rim:#cecece;--round-edge:#d6d6d6}
+[data-button-study] .management-review .tools .tool:is([data-state=include],.search-toggle.active,.filter-tool.active):hover{--round-fill:#797979}
+[data-button-study] .management-review .tools .tool[data-state=exclude]{--round-fill:#444;--round-ink:#dedede;--round-rim:#898989;--round-edge:#898989}
+[data-button-study] .management-review .tools .tool[data-state=exclude]:hover{--round-fill:#5b5b5b;--round-ink:#fff}
+[data-button-study] .management-review .tools .tool[data-state=exclude]::after{box-shadow:0 1px var(--round-fill)}
+[data-button-study=double] .management-review .tools .tool:not(.create-tool){border-color:var(--round-fill);box-shadow:inset 0 0 0 1px var(--round-fill),inset 0 0 0 2px var(--round-rim),0 1px 2px #0005}
+[data-button-study=double] .management-review .tools .tool:not(.create-tool):active{box-shadow:inset 0 0 0 1px var(--round-fill),inset 0 0 0 2px var(--round-rim),inset 0 1px 2px #0004,0 1px 1px #0003}
+@container(max-width:270px){[data-button-study] .management-review .tools .tool.filter-tool:not(.create-tool){height:24px}}
+@media(pointer:coarse){[data-button-study] .management-review .tools .tool:not(.create-tool){min-height:40px;width:40px;height:40px;flex-basis:40px}[data-button-study] .management-review .tools .filter-tool{min-width:40px}[data-button-study] .management-review .tags{flex-wrap:wrap}}

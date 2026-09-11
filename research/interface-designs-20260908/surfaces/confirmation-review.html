@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>终末地 · 游戏确认框适配</title>
+  <link rel="stylesheet" href="confirmation-review.css">
+</head>
+<body class="review-page" data-page="review">
+  <main class="review-surface">
+    <iframe id="confirmation-frame" title="确认框交互预览" src="confirmation-stage.html"></iframe>
+    <figure class="reference-view" id="reference-view" hidden>
+      <img id="reference-image" alt="">
+      <figcaption id="reference-caption"></figcaption>
+    </figure>
+  </main>
+  <nav class="review-dock" aria-label="预览对照">
+    <div class="review-modes" role="group" aria-label="查看内容">
+      <button type="button" data-view="proposal" aria-pressed="true">适配稿</button>
+      <button type="button" data-view="game" aria-pressed="false">游戏原框</button>
+      <button type="button" data-view="current" aria-pressed="false">当前酒馆</button>
+    </div>
+    <label class="long-question-control"><input type="checkbox" id="long-question">长问题</label>
+    <button type="button" class="reopen-button" id="reopen">重新打开</button>
+    <span class="review-status" id="review-status" role="status">仅演示，不会删除聊天</span>
+  </nav>
+  <script src="confirmation-review.js"></script>
+</body>
+</html>

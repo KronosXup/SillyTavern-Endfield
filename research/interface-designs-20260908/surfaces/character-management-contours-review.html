@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>角色管理 · 专用等高线</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css"><link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="../assets/vendor/connection/select2.min.css">
+  <link rel="stylesheet" href="character-list-review.css">
+  <link rel="stylesheet" href="character-management-material.css">
+  <script src="../assets/vendor/connection/jquery-3.5.1.min.js" defer></script>
+  <script src="../assets/vendor/connection/select2.min.js" defer></script>
+  <script src="character-management-review.js" defer></script>
+  <script src="character-management-select2.js" defer></script>
+  <link rel="stylesheet" href="character-management-contours-review.css">
+  <link rel="stylesheet" href="character-management-list-entry.css">
+  <script src="character-management-contours-review.js" defer></script>
+</head>
+<body data-contours="new">
+  <header class="review-header"><div><p class="eyebrow">ENDFIELD / 界面方案</p><h1>角色管理 <span>· 专用等高线</span></h1></div><a href="character-management-review.html">已确认主稿 ↗</a></header>
+  <main class="review-layout management-review">
+    <section class="work-area" aria-label="角色管理完整抽屉方案">
+      <div class="texture-switch" aria-label="背景纹理对照"><button type="button" data-texture="new" aria-pressed="true">新绘 · 收简</button><button type="button" data-texture="previous" aria-pressed="false">上一版</button><button type="button" data-texture="old" aria-pressed="false">实装裁切</button></div>
+      <div class="preview-toolbar">
+        <label>抽屉宽度 <select id="preview-width"><option value="295">295px</option><option value="260">260px</option><option value="320">320px</option><option value="390">390px</option></select></label>
+        <button id="reset-demo" class="review-button">回到初始状态</button>
+        <label><input type="checkbox" id="list-entry-motion" checked> 列表入场</label>
+      </div>
+      <p class="intro">等高线保留在右侧，向左淡出，留出左侧按钮区。切换上方按钮，比较两张候选纹理与当前实装。</p>
+      <div class="workbench" id="workbench"><div class="comparisons" id="comparisons"></div></div>
+      <p class="demo-status" id="demo-status" role="status" aria-live="polite">可直接搜索、筛选、翻页或选择角色，查看整套界面的变化。</p>
+      <details class="test-controls" open><summary>检查特殊内容 <span aria-hidden="true">＋</span></summary><div class="test-options">
+        <label><input type="checkbox" id="long-content"> 长名称与长版本</label>
+        <label><input type="checkbox" id="long-tags"> 长标签</label>
+        <label><input type="checkbox" id="extension-buttons"> 扩展追加按钮</label>
+        <label><input type="checkbox" id="hide-hotswaps"> 隐藏收藏快捷区</label>
+        <label><input type="checkbox" id="empty-hotswaps"> 快捷区无收藏</label>
+        <label><input type="checkbox" id="short-height"> 短高度</label>
+        <label><input type="checkbox" id="reduce-motion"> 减少动态</label>
+        <button class="review-button" id="search-empty">无结果示例</button>
+      </div></details>
+      <div class="scope-note"><strong>等高线与列表入场的独立预览，尚未替换正式主题。</strong><p>沿用已确认的按钮、头像和卡片。初始展示无收藏状态；取消“快捷区无收藏”可查看头像占满时的效果。</p></div>
+    </section>
+    <aside class="reference-notes" aria-label="等高线设计说明">
+      <h2>一组地形，一处收密</h2>
+      <section><h3>纹理原图</h3><div class="terrain-swatch" role="img" aria-label="新绘等高线在深灰底上的独立展示"></div><p>这里展示未加区域遮罩的纹理。实际面板中，图案集中在右侧，向左淡出，给左侧按钮留出干净底色。</p></section>
+      <section><h3>保留疏密，按宽度裁切</h3><p>这张图仍为 420 × 184。切换到 260、320 或 390px 时只改变取景范围，保留细线的尺度和线组之间的空隙。</p></section>
+      <section><h3>右侧留纹理，左侧留白</h3><p>恢复原来的上下覆盖范围，只限制横向分布。左侧按钮背后保持深灰，等高线在右侧逐渐显现；展开搜索和标签时仍不拉伸纹理。“实装裁切”保留原覆盖范围供对照。</p></section>
+      <section><h3>列表滚动时，逐条归位</h3><p>新进入的条目从稍偏右的位置归位，同时由浅变实。滚动停下，动作仍会完成；条目完全离开后，再进入可以重播。上方“列表入场”可开关对比，网格视图与减少动态时保持静止。</p></section>
+      <a href="../assets/character-management-contours.svg" target="_blank" class="contract-link">查看透明 SVG 原图 ↗</a>
+    </aside>
+  </main>
+  <dialog id="demo-dialog" aria-labelledby="dialog-title"><h2 id="dialog-title"></h2><p id="dialog-body"></p><form method="dialog"><button class="review-button">返回预览</button></form></dialog>
+</body>
+</html>

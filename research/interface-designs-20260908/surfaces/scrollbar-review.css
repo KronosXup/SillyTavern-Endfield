@@ -1,0 +1,172 @@
+:root {
+  color-scheme: light;
+  --body-font: "EF Cover Harmony Regular", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+  --bold-font: "EF Cover Harmony Bold", var(--body-font);
+  --sb-surface: #f7f7f5;
+  --sb-track: #d5d0d0;
+  --sb-cap-start: url('../assets/scrollbar/light-v-start.svg');
+  --sb-cap-end: url('../assets/scrollbar/light-v-end.svg');
+  --sb-shaft: url('../assets/scrollbar/light-v-middle.svg');
+  --sb-cap-left: url('../assets/scrollbar/light-h-start.svg');
+  --sb-cap-right: url('../assets/scrollbar/light-h-end.svg');
+  --sb-cross-shaft: url('../assets/scrollbar/light-h-middle.svg');
+  --sb-fallback-thumb: #9d9696;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: #343434; background: #f7f7f5; font: 14px/1.6 var(--body-font); }
+button, input, select, textarea { font: inherit; }
+button, select { color: inherit; }
+button, summary { cursor: pointer; }
+button { border: 0; }
+button, a, select { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-underline-offset: 4px; }
+a:hover { color: #000; }
+button:focus-visible, a:focus-visible, select:focus-visible, .native-scroll:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+[hidden] { display: none !important; }
+.review-header { max-width: 1240px; margin: auto; padding: 30px 28px 22px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-bottom: 1px solid #d8d8d3; }
+.eyebrow { margin: 0 0 4px; font-size: 10px; letter-spacing: .13em; color: #878780; }
+.review-header h1 { margin: 0; font: 700 26px/1.3 var(--bold-font); }
+.review-header nav { display: flex; gap: 18px; font-size: 12px; white-space: nowrap; color: #666; }
+.review-layout { max-width: 1240px; padding: 26px 28px 48px; margin: auto; display: grid; grid-template-columns: minmax(0, 1fr) 304px; gap: 36px; }
+.work-area { min-width: 0; }
+.preview-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12px; }
+.preview-toolbar label { display: flex; align-items: center; gap: 8px; }
+.preview-toolbar select { max-width: 170px; padding: 5px 24px 5px 8px; border: 1px solid #cfceca; border-radius: 3px; background: transparent; }
+.preview-toolbar button, .sample-heading button { padding: 5px 9px; border: 1px solid #cfceca; border-radius: 3px; background: #eeedeb; font-size: 12px; }
+.preview-toolbar button:hover, .sample-heading button:hover { background: #dedbd8; }
+.interaction-hint { margin: 12px 0 14px; color: #77736e; font-size: 12px; }
+.stage-workbench { padding: 22px 20px; background: #e8e7e5; border-block: 1px solid #d5d4d0; }
+#samples-frame { width: 524px; max-width: 100%; margin: auto; container-type: inline-size; }
+.sample-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+.sample-card { min-width: 0; }
+.sample-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 7px 12px; margin-bottom: 8px; min-height: 27px; }
+.sample-heading h2 { margin: 0; font: 700 14px/1.5 var(--bold-font); }
+.sample-heading > span { color: #77736e; font-size: 11px; }
+.native-scroll { --sb-surface: #f6f5f5; min-width: 0; max-width: 100%; overflow: auto; background: var(--sb-surface); color: #4e4b4b; border: 1px solid #c8c2c2; border-radius: 3px; }
+.list-scroll { height: 226px; padding: 0 12px; }
+.sample-list { list-style: none; margin: 0; padding: 0; }
+.sample-list li { display: flex; flex-direction: column; justify-content: center; min-height: 60px; padding: 8px 3px; border-bottom: 1px solid #ddd8d8; }
+.sample-list li:last-child { border-bottom: 0; }
+.sample-list strong { font-weight: 400; font-size: 14px; }
+.sample-list span { color: #817a7a; font-size: 12px; }
+.sample-caption { margin: 7px 0 0; color: #77736e; font-size: 11px; line-height: 1.7; }
+.dark-surface {
+  color-scheme: dark;
+  --sb-surface: #303030;
+  --sb-track: #575454;
+  --sb-fallback-thumb: #aaa4a4;
+  --sb-cap-start: url('../assets/scrollbar/dark-v-start.svg');
+  --sb-cap-end: url('../assets/scrollbar/dark-v-end.svg');
+  --sb-shaft: url('../assets/scrollbar/dark-v-middle.svg');
+  --sb-cap-left: url('../assets/scrollbar/dark-h-start.svg');
+  --sb-cap-right: url('../assets/scrollbar/dark-h-end.svg');
+  --sb-cross-shaft: url('../assets/scrollbar/dark-h-middle.svg');
+  color: #e7e3e3;
+  border-color: #535050;
+}
+.dark-surface .sample-list li { border-color: #494545; }
+.dark-surface .sample-list span { color: #b1aaaa; }
+.dark-surface:focus-visible { outline-color: #807777; }
+.reading-scroll { height: 268px; padding: 15px 19px; line-height: 1.9; overflow-wrap: anywhere; }
+.reading-scroll h3 { margin: 3px 0 12px; font: 700 15px/1.6 var(--bold-font); }
+.reading-scroll p { margin: 0 0 15px; }
+.reading-scroll p:last-child { margin-bottom: 0; }
+.code-scroll { height: 184px; margin: 0; padding: 13px 15px; font: 12px/1.85 Consolas, "Cascadia Mono", monospace; white-space: pre; tab-size: 2; }
+.code-scroll code { font: inherit; }
+.textarea-scroll { display: block; width: 100%; height: 176px; min-height: 112px; max-height: 440px; padding: 12px 15px; resize: vertical; line-height: 1.8; }
+.no-overflow { height: 104px; padding: 13px 15px; overflow-wrap: anywhere; }
+.no-overflow p { margin: 0 0 15px; }
+.no-overflow > p { margin-bottom: 0; }
+#extra-content { padding-top: 15px; }
+.preview-readout { margin: 10px 0 0; color: #77736e; font-size: 11px; }
+.scope-note { border-top: 1px solid #d8d8d2; margin-top: 20px; padding-top: 14px; color: #817d76; font-size: 12px; }
+.scope-note > span { color: #5f5c56; }
+.scope-note p { margin: 3px 0 0; }
+.reference-rail { border-left: 1px solid #d9d9d4; padding-left: 25px; min-width: 0; }
+.reference-rail h2 { margin: 0 0 19px; font-size: 14px; font-weight: 400; color: #73736c; }
+.reference-item { margin-bottom: 25px; }
+.reference-item h3, .parameter-note h3 { margin: 0 0 10px; font-size: 14px; font-weight: 400; }
+.reference-crop { display: block; width: 87px; max-width: 100%; margin: 0 auto; overflow: hidden; border: 1px solid #d8d6d6; background: #f6f5f5; }
+.reference-crop svg { display: block; width: 100%; height: auto; }
+.state-reference { display: block; border: 1px solid #d8d6d6; }
+.state-reference img { display: block; width: 100%; height: auto; }
+.reference-item p, .parameter-note p, .compatibility-note { color: #77776f; font-size: 12px; line-height: 1.8; }
+.reference-item p, .parameter-note p { margin: 9px 0 0; }
+.parameter-note { padding-top: 13px; border-top: 1px solid #d9d9d4; }
+.compatibility-note { margin-top: 20px; border-block: 1px solid #d9d9d4; }
+.compatibility-note summary { padding-block: 10px; color: #55564f; }
+.compatibility-note p { margin: 0 0 12px; }
+.compatibility-note a { display: inline-block; margin-bottom: 12px; }
+
+/* Native scrollbars. Leave standard properties at auto in WebKit/Blink so
+   scrollbar-color/width do not override these detailed pseudo-element styles. */
+:where(html, .native-scroll) { scrollbar-color: auto; scrollbar-width: auto; }
+:where(html, .native-scroll)::-webkit-scrollbar { width: 16px; height: 16px; background: var(--sb-surface); }
+:where(html, .native-scroll)::-webkit-scrollbar-track:vertical { background: linear-gradient(90deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+:where(html, .native-scroll)::-webkit-scrollbar-track:horizontal { background: linear-gradient(0deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+/* A ~5px flat body has 6px of transparent paint space on each side for its
+   Gaussian shadow. Only the uniform shaft stretches; cap and blur sizes stay fixed. */
+:where(html, .native-scroll)::-webkit-scrollbar-thumb {
+  min-height: 28px;
+  min-width: 28px;
+  border: 0;
+  border-radius: 0;
+  background:
+    var(--sb-cap-start) center top / 16px 14px no-repeat,
+    var(--sb-cap-end) center bottom / 16px 14px no-repeat,
+    var(--sb-shaft) center / 16px calc(100% - 28px) no-repeat;
+  box-shadow: none;
+}
+:where(html, .native-scroll)::-webkit-scrollbar-thumb:horizontal {
+  background:
+    var(--sb-cap-left) left center / 14px 16px no-repeat,
+    var(--sb-cap-right) right center / 14px 16px no-repeat,
+    var(--sb-cross-shaft) center / calc(100% - 28px) 16px no-repeat;
+}
+:where(html, .native-scroll)::-webkit-scrollbar-corner { background: var(--sb-surface); }
+:where(html, .native-scroll)::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+/* Firefox keeps its native thin thumb. Its limited API cannot reproduce the
+   track's center line, the gray outline, or the shadow independently. */
+@supports not selector(::-webkit-scrollbar) {
+  :where(html, .native-scroll) { scrollbar-width: thin; scrollbar-color: var(--sb-fallback-thumb) var(--sb-surface); }
+}
+@container (min-width: 600px) {
+  .sample-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wide-sample { grid-column: 1 / -1; }
+}
+@media (max-width: 1000px) {
+  .review-layout { grid-template-columns: 1fr; max-width: 840px; gap: 30px; }
+  .reference-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; border-left: 0; border-top: 1px solid #d9d9d4; padding: 20px 0 0; }
+  .reference-rail h2, .parameter-note, .compatibility-note { grid-column: 1 / -1; margin: 0; }
+  .reference-item { margin: 0; }
+}
+@media (max-width: 700px) {
+  .review-header { padding: 22px 18px 17px; }
+  .review-header h1 { font-size: 23px; }
+  .review-header nav { font-size: 11px; gap: 12px; }
+  .review-layout { padding: 18px 18px 35px; }
+  .stage-workbench { padding: 17px 14px; }
+  .reading-scroll { padding-inline: 15px; }
+  .reference-rail { grid-template-columns: 1fr; }
+  .state-reference { max-width: 420px; }
+}
+@media (max-width: 380px) {
+  .review-header { align-items: start; gap: 10px; }
+  .review-header h1 { font-size: 20px; }
+  .review-header nav { flex-direction: column; gap: 4px; }
+  .review-layout { padding-inline: 12px; }
+  .stage-workbench { padding-inline: 10px; }
+}
+@media (pointer: coarse) {
+  .preview-toolbar button, .preview-toolbar select, .sample-heading button, .compatibility-note summary { min-height: 44px; }
+}
+@media (forced-colors: active) {
+  :where(html, .native-scroll) { scrollbar-color: auto; scrollbar-width: auto; }
+  :where(html, .native-scroll)::-webkit-scrollbar,
+  :where(html, .native-scroll)::-webkit-scrollbar-track,
+  :where(html, .native-scroll)::-webkit-scrollbar-track:vertical,
+  :where(html, .native-scroll)::-webkit-scrollbar-track:horizontal,
+  :where(html, .native-scroll)::-webkit-scrollbar-thumb,
+  :where(html, .native-scroll)::-webkit-scrollbar-corner,
+  :where(html, .native-scroll)::-webkit-scrollbar-button { all: revert; }
+}

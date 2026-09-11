@@ -1,0 +1,37 @@
+/* Mobile-only proposal. Keep the reviewed paper and button assets intact. */
+@scope (body[data-variant="candidate"] dialog.popup[data-id]) {
+    @media (max-width: 620px) {
+        :scope {
+            --button-width: 148px;
+            --button-height: 44px;
+            --button-gap: 12px;
+            --button-font: 17px;
+            --action-icon: 20px;
+            --icon-inset: 10px;
+        }
+        :scope.popup > .popup-body {
+            min-height: min(148px, calc(100dvh - 64px));
+            padding-top: 20px;
+            gap: 10px;
+        }
+        :scope > .popup-body > :is(.popup-content, .popup-input, .popup-inputs) {
+            width: calc(100% - 40px);
+        }
+        :scope > .popup-body > .popup-content {
+            font-size: 17px;
+            line-height: 1.55;
+        }
+        :scope > .popup-body > .popup-controls {
+            margin: 8px auto -8px;
+        }
+        :scope > .popup-body > .popup-inputs:empty { margin-top: -10px; }
+    }
+    /* Keep actions in the scrollable flow when the available height shrinks. */
+    @media (max-width: 620px) and (max-height: 420px) {
+        :scope.popup > .popup-body {
+            padding: 16px 0 12px;
+            gap: 8px;
+        }
+        :scope > .popup-body > .popup-controls { margin: 6px auto 0; }
+    }
+}

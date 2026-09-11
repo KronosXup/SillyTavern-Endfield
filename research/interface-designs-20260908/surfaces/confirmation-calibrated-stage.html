@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>确认框适配稿 · 本地演示</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="confirmation-calibrated.css">
+</head>
+<body class="confirmation-stage" data-page="stage">
+  <div class="scene-context" aria-hidden="true"></div>
+  <dialog class="popup confirmation-preview is-calibrated" aria-label="删除聊天文件确认" aria-describedby="confirmation-question">
+    <div class="popup-body">
+      <div class="popup-content" id="confirmation-question">删除聊天文件？</div>
+      <div class="popup-crop-wrap" style="display: none;"><img class="popup-crop-image" src="" alt=""></div>
+      <textarea class="popup-input text_pole result-control auto-select" rows="1" data-result="1" data-result-event="submit" style="display: none;"></textarea>
+      <div class="popup-inputs" style="display: none;"></div>
+      <div class="popup-controls">
+        <div class="popup-button-ok menu_button result-control menu_button_default interactable" data-result="1" autofocus tabindex="0" role="button">确定</div>
+        <div class="popup-button-cancel menu_button result-control interactable" data-result="0" tabindex="0" role="button">否</div>
+      </div>
+    </div>
+    <div class="popup-button-close" data-result="0" title="关闭弹出窗口" style="display: none;" tabindex="0" role="button"></div>
+  </dialog>
+  <script src="confirmation-calibrated.js"></script>
+</body>
+</html>

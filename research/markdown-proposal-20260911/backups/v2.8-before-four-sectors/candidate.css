@@ -1,0 +1,200 @@
+/* Proposal only. Target native Markdown blocks; custom rolecard UI remains outside the future integration contract. */
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text{--md-ink:#3a3a3a;--md-muted:#686868;--md-line:#dbdbdb;--md-signal:#ffff0f;color:var(--md-ink)!important;font-family:'EF Cover Harmony Regular','Microsoft YaHei UI',sans-serif!important;font-weight:400!important;line-height:1.78!important;overflow-wrap:anywhere;text-wrap:pretty}
+body #chat>.mes[is_user=true]>.mes_block>.mes_text{--md-line:#c8c8c8}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text p{margin:0 0 1.05em}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(strong,b){font-family:'EF Cover Harmony Bold','Microsoft YaHei UI',sans-serif;font-weight:700;color:#171717}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(em,i):not(.code-copy){color:#696969!important;font-style:italic}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text q{color:#222222!important;font-weight:400!important;font-family:'EF Cover Harmony Regular','Microsoft YaHei UI',sans-serif;quotes:none}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(h1,h2,h3,h4,h5,h6){font-family:'EF Cover Harmony Bold','Microsoft YaHei UI',sans-serif;line-height:1.4;letter-spacing:.015em;color:#222222;text-wrap:pretty;margin:1.8em 0 .75em;overflow-wrap:anywhere}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h1{font-size:1.65em;padding-bottom:.5em;border-bottom:2px solid #3a3a3a}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h2{font-size:1.3em;position:relative;padding-left:.75em;padding-bottom:.42em;border-bottom:1px solid var(--md-line)}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h2::before{content:'';position:absolute;left:0;top:.24em;width:5px;height:.92em;background:var(--md-signal);border-bottom:3px solid #474747}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h3{font-size:1.1em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h4{font-size:1em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h5{font-size:.94em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h6{font-size:.88em;color:#606060}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(h1,h2,h3,h4,h5,h6)+p{margin-top:0}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text blockquote{margin:1.25em 0!important;padding:.85em 1.05em!important;border:0!important;border-left:3px solid #a3a3a3!important;background:#f1f1f1!important;color:#555555!important;font-size:.96em;line-height:1.75}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text blockquote blockquote{margin:.8em 0 .2em!important;border-left-width:2px!important;background:transparent!important;padding:.3em .8em!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text blockquote>p:last-child{margin-bottom:0}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(ul,ol){padding-left:1.6em;margin:.6em 0 1.15em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text li{padding-left:.3em;margin:.38em 0}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text li::marker{color:#5f5f5f;font-weight:700}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text ul{list-style-type:square}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text ul ul{list-style-type:disc}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text li>:is(ul,ol){margin:.4em 0 .7em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text li>p{margin-bottom:.4em}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text a{color:#525252!important;text-decoration:underline;text-decoration-color:#a6a6a6!important;text-decoration-thickness:1px;text-underline-offset:.22em;overflow-wrap:anywhere}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text a:hover{color:#2b2b2b!important;background:#f4f4f4}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(u,ins){text-decoration-color:#878787;text-underline-offset:.18em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(del,s){color:#7c7c7c}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text mark{color:#2d2d2d;background:#ffff0f;padding:0 .12em}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text hr{border:0;height:1px;background:var(--md-line);margin:1.9em 0}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :not(pre)>:is(code,tt){display:inline;color:#4d4d4d!important;background:#efefef!important;border:1px solid #dfdfdf!important;border-radius:2px!important;padding:.07em .28em;font:.86em/1.65 Consolas,'Cascadia Mono',monospace;white-space:break-spaces;overflow-wrap:anywhere;box-decoration-break:clone}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre{margin:1.2em 0 1.45em!important;padding:0!important;min-width:0;max-width:100%;color:#e8e8e8!important;background:#303030!important;border:1px solid #303030!important;border-radius:0!important;font-size:.84em;overflow:visible}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code{display:block;padding:20px 42px 20px 18px!important;color:#e8e8e8!important;background:transparent!important;border:0!important;max-width:100%;font-family:Consolas,'Cascadia Mono',monospace;line-height:1.7;white-space:pre;overflow-x:auto;overflow-wrap:normal;word-break:normal;tab-size:4;scrollbar-color:#919191 #303030;scrollbar-width:thin}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text .code-copy{color:#dedede!important;opacity:.85;width:32px;height:32px;background:#303030;border-radius:0}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text .code-copy:hover{color:#ffff0f!important;opacity:1}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text table{display:block;width:max-content;max-width:100%;overflow:auto;scrollbar-width:thin;scrollbar-color:#a8a8a8 #f1f1f1;margin:1.1em 0 1.5em;font-size:.88em;line-height:1.65;border:0;border-top:2px solid #4d4d4d;border-bottom:1px solid #d0d0d0}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(th,td){border:0;border-bottom:1px solid #dcdcdc;padding:.72em .9em;text-align:left;min-width:6em;max-width:22em;overflow-wrap:normal;word-break:normal}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text th{font-family:'EF Cover Harmony Medium',sans-serif;font-weight:500;color:#3c3c3c;background:#ebebeb;white-space:nowrap}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text td{background:#fbfbfb}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text tbody tr:nth-child(even) td{background:#f4f4f4}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text details{border-top:1px solid var(--md-line);border-bottom:1px solid var(--md-line);margin:1.3em 0;padding:0}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text summary{cursor:pointer;min-height:44px;line-height:1.6;padding:.7em .15em;font-family:'EF Cover Harmony Medium',sans-serif;color:#515151}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text summary::marker{color:#7b7b7b;font-size:.75em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text details[open]{padding-bottom:.7em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text details>:not(summary){margin-left:1.05em;margin-right:.25em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text details>p:last-child{margin-bottom:.2em}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text img:not(.mes_img){display:block;max-width:100%;height:auto;margin:1em 0;border:0;border-radius:0}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text figure img{margin:0}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text figcaption{padding:9px 0 7px;border-bottom:1px solid var(--md-line)}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text input[type=checkbox]{accent-color:#717171;width:16px;height:16px;vertical-align:-2px;margin-right:.45em}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text> :first-child{margin-top:0}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text> :last-child{margin-bottom:0}
+@media(max-width:480px){body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h1{font-size:1.48em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text h2{font-size:1.23em}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text blockquote{padding:.7em .8em!important}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text :is(th,td){padding:.65em .75em}}
+
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre .hljs-attr{color:#dadada}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre .hljs-string{color:#cbcbcb}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre :is(.hljs-number,.hljs-literal){color:#cecece}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre .hljs-comment{color:#aeaeae}body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre .hljs-punctuation{color:#d0d0d0}
+
+/* V2: neutral paper and inherited surfaces apply only while the candidate is enabled. */
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user=true]:not(.smallSysMes){--ef-reading-paper:#ebebeb}
+
+/* V2.6 code reading: a scalable geometric silhouette below the unchanged header.
+ * Language labels use native code classes; copy remains the existing code child.
+ * The current silhouette follows the submission card's L-shaped plane and falling band.
+ * Previous PNG-based modes remain available only as explicit comparisons.
+ */
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code){
+    --ef-code-language:'CODE';
+    --ef-code-texture:linear-gradient(115deg,#ffffff03,transparent 48%),linear-gradient(0deg,#0000000a,transparent 85px);
+    position:relative;
+    isolation:isolate;
+    padding:44px 0 0!important;
+    background:#252525!important;
+    background-image:var(--ef-code-texture)!important;
+    border:1px solid #414141!important;
+    border-radius:2px!important;
+    box-shadow:none!important;
+    overflow:visible;
+}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=plain] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code){--ef-code-texture:none}
+/* V2.2 is retained only as an explicit comparison in the review controls. */
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=hatch] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code){--ef-code-texture:repeating-linear-gradient(-45deg,#ffffff08 0 1px,transparent 1px 5.657px)}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=full] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code){--ef-code-texture:none}
+/* The current proposal reconstructs only the two broad planes from the submission card.
+ * A single, non-repeating SVG fits the visible body without changing its proportions.
+ * Keep code static: the body decoration and copy button both anchor to pre.
+ */
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=geometry] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code){--ef-code-texture:none}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=geometry] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{
+    content:'';position:absolute;top:44px;right:12px;bottom:0;left:auto;
+    width:min(88%,640px);height:auto;z-index:-1;pointer-events:none;
+    background:url('assets/code-fold-mark.svg') no-repeat right center / contain;
+    opacity:1;filter:none;-webkit-mask-image:none;mask-image:none;
+}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=geometry] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::after{content:none;background-image:none}
+/* V2.7: two sparse, scalable reference studies. The visible field covers the code body;
+ * its SVG aspect ratio is preserved and short blocks crop the same large composition.
+ * Neither field changes code, language headers, copy controls, or scroll geometry.
+ */
+body:not(.hideChatAvatars):not(.documentstyle):is([data-code-texture=fan],[data-code-texture=rings],[data-code-texture=rings-simple]) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code){--ef-code-texture:none}
+body:not(.hideChatAvatars):not(.documentstyle):is([data-code-texture=fan],[data-code-texture=rings],[data-code-texture=rings-simple]) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{
+    content:'';position:absolute;inset:44px 0 0;width:auto;height:auto;
+    z-index:-1;pointer-events:none;opacity:1;filter:none;
+    background-repeat:no-repeat;background-size:cover;background-position:center;
+    -webkit-mask-image:none;mask-image:none;
+}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=fan] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{background-image:url('assets/code-fan-field.svg')}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=rings] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{background-image:url('assets/code-ring-field.svg')}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=rings-simple] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{background-image:url('assets/code-ring-simple.svg')}
+body:not(.hideChatAvatars):not(.documentstyle):is([data-code-texture=fan],[data-code-texture=rings],[data-code-texture=rings-simple]) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::after{content:none;background-image:none}
+/* The reference side rules belong to the panel edges, so their position stays stable
+ * when the central circular field is cropped by a narrower code body. */
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=rings] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::after{
+    content:'';position:absolute;inset:56px 10px 12px;width:auto;height:auto;
+    border-inline:1px solid #ffffff0b;z-index:-1;pointer-events:none;
+}
+@media(max-width:480px){
+    body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=fan] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{background-image:url('assets/code-fan-field-narrow.svg')}
+    body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=rings] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{background-image:url('assets/code-ring-field-narrow.svg')}
+}
+/* A faint contour field covers the complete code body. Cover preserves aspect ratio;
+ * clipping adapts the field to the panel without stretching a narrow navigation strip.
+ */
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=full] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before,
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=full] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::after{
+    content:'';position:absolute;inset:44px 0 0;
+    width:auto;height:auto;z-index:-1;pointer-events:none;
+    background-repeat:no-repeat;background-size:cover;
+    -webkit-mask-image:none;mask-image:none;filter:none;
+}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=full] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{
+    background-image:url('assets/game-contour-field.png');
+    background-position:center;opacity:.16;
+}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=full] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::after{
+    content:none;background-image:none;
+}
+/* The unmodified 488x112 game PNG is a gray surface, not an alpha-only contour.
+ * CSS inversion maps its 200..218 gray range to 37..55; masks hide its rectangular edges.
+ * A fixed-size crop preserves path scale. It never stretches with code height.
+ */
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=layered] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::before{
+    content:'';position:absolute;top:44px;right:0;
+    width:min(58%,320px);height:min(112px,calc(100% - 44px));
+    background:url('assets/game-contour-strip.png') no-repeat right top / 488px 112px;
+    filter:invert(1);opacity:.85;z-index:-1;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 62%),linear-gradient(to bottom,#000 12%,transparent 100%);
+    mask-image:linear-gradient(to right,transparent,#000 62%),linear-gradient(to bottom,#000 12%,transparent 100%);
+    mask-composite:intersect;
+}
+body:not(.hideChatAvatars):not(.documentstyle)[data-code-texture=layered] #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code::after{
+    content:'';position:absolute;right:0;bottom:0;
+    width:min(44%,240px);height:min(144px,calc(100% - 44px));
+    background:radial-gradient(circle at 1px 1px,#ffffff20 0 .5px,transparent .75px) 0 0 / 4px 4px;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000),linear-gradient(to top,#000,transparent 95%);
+    mask-image:linear-gradient(to right,transparent,#000),linear-gradient(to top,#000,transparent 95%);
+    mask-composite:intersect;opacity:.55;z-index:-1;pointer-events:none;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code)::after{
+    content:'';position:absolute;inset:0 0 auto;height:44px;
+    background:#292929;border-bottom:1px solid #414141;
+    border-radius:1px 1px 0 0;box-sizing:border-box;pointer-events:none;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code)::before{
+    content:var(--ef-code-language);position:absolute;inset:0 auto auto 0;
+    display:flex;align-items:center;justify-content:center;height:44px;min-width:72px;
+    padding:0 16px;box-sizing:border-box;border-bottom:2px solid #ffff0f;
+    color:#e2e2e2;background:#323232;z-index:2;
+    font:500 11px/1 'EF Cover Harmony Medium','Microsoft YaHei UI',sans-serif;
+    letter-spacing:.06em;white-space:nowrap;pointer-events:none;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code{
+    position:static!important;display:block;box-sizing:border-box;
+    margin:0!important;padding:16px 18px!important;
+    max-height:min(60vh,32em);min-width:0;max-width:100%;
+    background:transparent!important;color:#dedede!important;border:0!important;
+    font-family:Consolas,'Cascadia Mono',monospace!important;font-weight:400;
+    font-size:1em;line-height:1.7;tab-size:4;
+    white-space:pre-wrap!important;overflow-x:hidden!important;overflow-y:auto!important;
+    overflow-wrap:anywhere!important;word-break:break-word!important;
+    scrollbar-color:#888888 #202020;scrollbar-width:thin;
+    text-shadow:none!important;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code span{
+    font-family:Consolas,'Cascadia Mono',monospace!important;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code>.code-copy{
+    position:absolute;top:0;right:0;bottom:auto;left:auto;
+    width:44px;height:43px;margin:0;padding:0;border:0;
+    z-index:3;color:#cecece!important;background:transparent!important;opacity:1;
+    border-left:1px solid #414141;border-radius:0;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code>.code-copy:hover,
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code>.code-copy:focus-visible{
+    color:#ffff0f!important;background:#363636!important;outline:0;
+    box-shadow:inset 0 -2px #ffff0f;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code:focus-visible{
+    outline:1px solid #939393;outline-offset:-2px;
+}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-javascript,.language-js,.custom-language-javascript,.custom-language-js)){--ef-code-language:'JAVASCRIPT'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-typescript,.language-ts,.custom-language-typescript,.custom-language-ts)){--ef-code-language:'TYPESCRIPT'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-json,.custom-language-json)){--ef-code-language:'JSON'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-python,.language-py,.custom-language-python)){--ef-code-language:'PYTHON'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-bash,.language-shell,.language-sh,.custom-language-bash,.custom-language-shell)){--ef-code-language:'SHELL'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-html,.language-xml,.custom-language-html,.custom-language-xml)){--ef-code-language:'HTML / XML'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-css,.language-scss,.custom-language-css,.custom-language-scss)){--ef-code-language:'CSS'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-sql,.custom-language-sql)){--ef-code-language:'SQL'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-yaml,.language-yml,.custom-language-yaml)){--ef-code-language:'YAML'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-text,.language-plaintext,.language-txt,.custom-language-text,.custom-language-plaintext)){--ef-code-language:'TEXT'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre:has(>code:is(.language-diff,.custom-language-diff)){--ef-code-language:'DIFF'!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code :is(.hljs-keyword,.hljs-selector-tag,.hljs-literal){color:#ffff0f!important;font-weight:400}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code :is(.hljs-title,.hljs-title.function_,.hljs-name){color:#f2f2f2!important;font-weight:600}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code :is(.hljs-attr,.hljs-attribute,.hljs-property){color:#e0e0e0!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code :is(.hljs-string,.hljs-template-string){color:#c4c4c4!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code .hljs-number{color:#e8e8e8!important;font-weight:600}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code :is(.hljs-comment,.hljs-quote){color:#a1a1a1!important;font-style:italic}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code :is(.hljs-punctuation,.hljs-operator){color:#a7a7a7!important}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code .hljs-addition{color:#f0f0f0!important;background:#333333}
+body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre code .hljs-deletion{color:#b7b7b7!important;background:#292929;text-decoration:line-through}
+@media(max-width:480px){
+    body:not(.hideChatAvatars):not(.documentstyle) #chat>.mes[is_user]:not(.smallSysMes)>.mes_block>.mes_text pre>code{padding:14px 12px!important}
+}

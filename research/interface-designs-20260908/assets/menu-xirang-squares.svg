@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="156" viewBox="0 0 156 156">
+  <title>息壤方形拼纹 · 几何重绘</title>
+  <desc>以正方形逐行反向旋转约19.65度并错位接角。方块使用中性灰，间隙透明，直接露出所在菜单的底色。按原图可见结构重绘，不包含原PNG。</desc>
+  <defs>
+    <pattern id="squares" width="112" height="112" patternUnits="userSpaceOnUse" patternTransform="scale(.4347826087)">
+      <g fill="#d8d8d8">
+        <rect x="-.5" y="-.5" width="1" height="1" transform="matrix(56 -20 20 56 0 0)"/>
+        <rect x="-.5" y="-.5" width="1" height="1" transform="matrix(56 -20 20 56 112 0)"/>
+        <rect x="-.5" y="-.5" width="1" height="1" transform="matrix(56 20 -20 56 56 56)"/>
+        <rect x="-.5" y="-.5" width="1" height="1" transform="matrix(56 -20 20 56 0 112)"/>
+        <rect x="-.5" y="-.5" width="1" height="1" transform="matrix(56 -20 20 56 112 112)"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="156" height="156" fill="url(#squares)"/>
+</svg>

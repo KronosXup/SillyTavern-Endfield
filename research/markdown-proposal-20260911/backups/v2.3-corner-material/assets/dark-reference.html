@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Endfield · 深色面板参考</title><style>
+@font-face{font-family:Harmony;src:url('Harmony-Regular.woff2')}@font-face{font-family:Harmony;src:url('Harmony-Bold.woff2');font-weight:700}
+*{box-sizing:border-box}body{margin:0;background:#ededed;color:#303030;font:16px/1.8 Harmony,sans-serif;border-top:5px solid #ffff0f}main{max-width:1050px;margin:auto;padding:28px 28px 60px}a{color:inherit;text-underline-offset:.25em}h1{font-size:30px;margin:24px 0 8px}h2{font-size:21px;margin:35px 0 12px;border-left:5px solid #ffff0f;padding-left:12px}p{max-width:850px;margin:10px 0 18px}.lead{color:#626262}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}figure{margin:0;padding:16px;background:#fafafa;border:1px solid #d4d4d4}figcaption{font-size:13px;color:#585858;margin-top:10px}.crop{position:relative;overflow:hidden;background:#252525}.crop img{position:absolute;max-width:none;height:auto}.encyclopedia{aspect-ratio:530/106}.encyclopedia img{width:483.0189%;left:-14.1509%;top:-206.6038%}.settings-left{aspect-ratio:620/102}.settings-left img{width:412.9032%;left:-18.5484%;top:-381.3725%}.settings-right{aspect-ratio:520/102}.settings-right img{width:492.3077%;left:-359.6154%;top:-381.3725%}.asset-swatch{padding:15px;background:#252525;overflow:hidden}.asset-swatch img{display:block;width:488px;max-width:none;height:112px;filter:invert(1)}.fine{font-size:13px;color:#626262}.rule{margin-top:28px;border-top:1px solid #c4c4c4;padding-top:18px}strong{font-weight:700}@media(max-width:650px){main{padding:18px 16px 40px}.grid{grid-template-columns:1fr}h1{font-size:25px}}
+.settings-right{aspect-ratio:650/102}.settings-right img{width:393.8462%;left:-267.6923%;top:-1030.3922%}
+</style></head><body><main>
+<a href="../index.html">← 返回正文方案</a>
+<h1>深色底纹，先对上游戏实图</h1>
+<p class="lead">来源是用户于 2026-08-27 录制的游戏界面，原帧均为 2560×1440。以下局部只改变浏览器里的取景范围，原图像素保持原样。</p>
+<h2>百科目录：等高线向文字侧淡出</h2>
+<figure><div class="crop encyclopedia"><img src="game-document-reference.jpg" alt="游戏百科目录中选中的协议传送点条目"></div><figcaption>文字侧近乎纯深灰；连续等高线从中段向右侧显露，线距有变化。<a href="game-document-reference.jpg" target="_blank" rel="noopener">打开完整原帧 ↗</a></figcaption></figure>
+<h2>设置条目：左右不同，中间留空</h2>
+<div class="grid"><figure><div class="crop settings-left"><img src="game-settings-reference.jpg" alt="设置条目左段的等高线与边缘纹理"></div><figcaption>左段 · 等高线、局部细排线、细亮边。</figcaption></figure><figure><div class="crop settings-right"><img src="game-settings-reference.jpg" alt="设置条目右段的细点阵与操作控件"></div><figcaption>右段 · 细点阵与操作区；没有把纹理均匀铺满。</figcaption></figure></div>
+<p class="fine"><a href="game-settings-reference.jpg" target="_blank" rel="noopener">打开设置界面完整原帧 ↗</a>。模糊场景透出的色彩与控件状态色，不作为代码区配色。</p>
+<h2>本次怎样移入代码区</h2>
+<p>保留<strong>中性深灰基底、局部连续等高线、渐隐点阵、安静的文字中段</strong>。它们各占自己的位置；不再用一层均匀斜纹代替整个表面。</p>
+<figure><div class="asset-swatch"><img src="game-contour-strip.png" alt="游戏提取的等高线横片，以CSS反相显示"></div><figcaption>找到的游戏原件为 488×112 横片。此处保持原比例，以浏览器反相转为深底；预览进一步裁取局部并淡出。它的形态可供适配，但尚未确认是上方条目的实际绑定贴图。</figcaption></figure>
+<p class="rule">代码仍自动换行，复制取得原始内容。新版只调整代码区底材；「纯色对照」和「上一版斜纹」都保留在预览里，方便直接比较。</p>
+</main></body></html>

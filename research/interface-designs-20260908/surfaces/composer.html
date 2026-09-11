@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>输入栏 · Endfield 设计候选</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="composer.css">
+  <script defer src="../assets/common.js"></script>
+  <script defer src="composer.js"></script>
+</head>
+<body class="preview-page" data-surface="composer" data-variant="a">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">ENDFIELD / INTERFACE STUDIES / 01</p><h1>输入栏与书写动作</h1><p>同一组原生控件，三种纸面组织。点击输入框看聚焦短签伸展；写一段话，再试试发送与停止。</p></div>
+    <span class="lab-disclaimer">独立原型 · 本地模拟 · 未实装</span>
+  </header>
+  <nav class="variant-picker" aria-label="输入栏设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>页边短签</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>双层书写台</button>
+    <button type="button" data-variant="c" aria-pressed="false"><span class="variant-letter">C</span>边注操作尺</button>
+  </nav>
+  <div class="lab-toolbar">
+    <label>预览宽度 <select id="preview-width" aria-label="预览宽度"><option value="wide">自适应</option><option value="390">390px</option><option value="320">320px</option></select></label>
+    <label><input id="touch-preview" type="checkbox">44px 触控</label>
+    <label><input id="quick-actions" type="checkbox">显示续写、代写</label>
+    <label><input id="connection-toggle" type="checkbox" checked>连接就绪</label>
+    <label><input type="checkbox" data-toggle-motion>减少动态</label>
+    <button class="lab-button" id="load-draft" type="button">填入多行草稿</button>
+    <button class="lab-button" id="add-attachment" type="button">添加附件示例</button>
+    <button class="lab-button" id="start-script" type="button">脚本状态示例</button>
+    <button class="lab-button" id="reset-preview" type="button">重置</button>
+  </div>
+  <main class="viewport-wrap" id="viewport-wrap">
+    <section class="demo-stage composer-stage" aria-label="输入栏交互原型">
+      <div class="context-page">
+        <div class="context-mast"><span class="folio">01</span><span>对话示例</span><span class="context-scope">COMPOSITION</span></div>
+        <article class="context-message"><div class="message-label"><strong>示例角色</strong><span>阅读区域</span></div><p>下午的记录已经归档。接下来，你想从哪一页继续？</p></article>
+        <article class="context-message user-preview" id="user-preview" hidden><div class="message-label"><strong>你</strong><span>刚刚 · 本地示例</span></div><p id="last-user-message"></p></article>
+        <article class="context-message response-preview" id="response-preview" hidden><div class="message-label"><strong>示例回复</strong><span id="response-state">正在生成</span></div><p id="reply-stream" aria-live="polite" aria-atomic="true"></p></article>
+        <div class="reading-tail"><span></span><small>记录到这里。下一行由你写。</small></div>
+      </div>
+      <div id="form_sheld">
+        <div id="send_form">
+          <form id="file_form" class="wide100p displayNone" aria-label="附件汇总示例">
+            <div class="file_attached">
+              <input id="file_form_input" type="file" multiple hidden disabled>
+              <input id="embed_file_input" type="file" multiple hidden disabled>
+              <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+              <span class="file_name"></span><span class="file_size"></span>
+              <button id="file_form_reset" type="reset" title="移除这批附件示例" aria-label="移除这批附件示例"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+          </form>
+          <div id="nonQRFormItems">
+            <div id="leftSendForm">
+              <div id="options_button" class="host-button fa-solid fa-bars interactable" role="button" tabindex="0" title="聊天选项" aria-label="聊天选项" aria-controls="options" aria-expanded="false"></div>
+              <div id="extensionsMenuButton" class="host-button fa-solid fa-magic-wand-sparkles interactable" role="button" tabindex="0" title="扩展快捷菜单" aria-label="扩展快捷菜单" aria-controls="extensionsMenu" aria-expanded="false"></div>
+            </div>
+            <textarea id="send_textarea" class="mdHotkeys" name="text" rows="1" placeholder="写下消息…" aria-label="消息草稿" spellcheck="false"></textarea>
+            <div id="rightSendForm">
+              <div id="stscript_continue" class="host-button stscript_btn stscript_continue" role="button" tabindex="0" title="继续脚本示例" aria-label="继续脚本示例"><i class="fa-solid fa-play" aria-hidden="true"></i></div>
+              <div id="stscript_pause" class="host-button stscript_btn stscript_pause" role="button" tabindex="0" title="暂停脚本示例" aria-label="暂停脚本示例"><i class="fa-solid fa-pause" aria-hidden="true"></i></div>
+              <div id="stscript_stop" class="host-button stscript_btn stscript_stop" role="button" tabindex="0" title="终止脚本示例" aria-label="终止脚本示例"><i class="fa-solid fa-stop" aria-hidden="true"></i></div>
+              <div id="mes_stop" class="host-button mes_stop" role="button" tabindex="0" title="停止本地生成示例" aria-label="停止本地生成示例"><i class="fa-solid fa-circle-stop" aria-hidden="true"></i></div>
+              <div id="mes_impersonate" class="host-button fa-solid fa-user-secret interactable displayNone" role="button" tabindex="0" title="代写草稿示例" aria-label="代写草稿示例"></div>
+              <div id="mes_continue" class="host-button fa-solid fa-arrow-right interactable displayNone" role="button" tabindex="0" title="续写示例" aria-label="续写示例"></div>
+              <div id="send_but" class="host-button fa-solid fa-paper-plane interactable" role="button" tabindex="0" title="发送本地示例" aria-label="发送本地示例"></div>
+            </div>
+          </div>
+        </div>
+        <div class="composer-status" role="status"><span class="status-mark" aria-hidden="true"></span><span id="composer-status-text">就绪 · 点击输入框查看聚焦动效</span><span class="local-badge">本地演示</span></div>
+      </div>
+    </section>
+    <div class="demo-legend"><span id="variant-caption">A / 常规桌面保留紧凑单行，窄屏先保证书写宽度。</span><span>Ctrl / ⌘ + Enter 发送示例；Enter 换行</span></div>
+  </main>
+  <details class="design-notes">
+    <summary>设计差异、原生映射与边界</summary>
+    <div class="note-grid">
+      <section data-variant-note="a"><h2>A · 页边短签</h2><p>桌面保持左工具、正文、右动作；短黄签沿纸页上缘伸展。改动最少。窄屏转为文字整行与下方操作行，保证多个真实动作同时存在时仍能写字。</p></section>
+      <section data-variant-note="b" hidden><h2>B · 双层书写台</h2><p>桌面也把全文本纸面与下层工具分开；适合长输入。靠细分隔建立两层，聚焦标记保留在稳定的纸面边缘，输入增高不会改变按钮位置。</p></section>
+      <section data-variant-note="c" hidden><h2>C · 边注操作尺</h2><p>桌面左侧双工具形成纸边操作尺，右侧保留真正的主动作；工具靠浅灰底与细分隔辨认。手机撤回底部工具行，避免挤成窄文本柱。</p></section>
+      <section><h2>原生结构优先</h2><p>主要节点对应 <code>#send_form</code>、<code>#nonQRFormItems</code>、<code>#leftSendForm</code>、<code>#rightSendForm</code> 与 <code>#send_textarea</code>。生成态模拟宿主 <code>body[data-generating="true"]</code>；脚本态使用 <code>.isExecutingCommandsFromChatInput</code> / <code>.script_paused</code>。</p><p>此页 JavaScript 只负责交互演示；候选布局和聚焦动作依附原节点即可用 CSS 完成。不会发送真实请求、选择或上传本地文件，也不会保存你的草稿。</p></section>
+    </div>
+    <p>附件展示“文件名/数量＋总大小”，移除时清空整批，符合当前原生结构。窄屏预览只验证设计空间，真实手机键盘避让仍需授权实装后单独验收。</p>
+  </details>
+  <p class="prototype-footnote">可点路径：菜单、魔杖、示例附件、发送→停止/完成、快速续写、代写、脚本暂停/继续/停止。所有内容均为本页示例。</p>
+  <div id="options" class="local-menu" role="menu" hidden aria-label="聊天选项示例">
+    <div class="menu-cap">聊天选项 <small>本地示例</small></div>
+    <button type="button" role="menuitem" data-action="draft"><i class="fa-solid fa-align-left" aria-hidden="true"></i><span>填入多行草稿</span><span class="menu-arrow" aria-hidden="true"></span></button>
+    <button type="button" role="menuitem" data-action="continue"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><span>继续上一段示例</span><span class="menu-arrow" aria-hidden="true"></span></button>
+    <button type="button" role="menuitem" data-action="script"><i class="fa-solid fa-code" aria-hidden="true"></i><span>查看脚本执行状态</span><span class="menu-arrow" aria-hidden="true"></span></button>
+    <button type="button" role="menuitem" data-action="reset"><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i><span>重置这份原型</span><span class="menu-arrow" aria-hidden="true"></span></button>
+  </div>
+  <div id="extensionsMenu" class="local-menu" role="menu" hidden aria-label="扩展快捷菜单示例">
+    <div class="menu-cap">扩展快捷菜单 <small>本地示例</small></div>
+    <div id="attach_file_wand_container" class="extension_container"><button id="attachFile" type="button" role="menuitem" data-action="attach"><i class="fa-solid fa-paperclip extensionsMenuExtensionButton" aria-hidden="true"></i><span>添加文件示例（可连续添加）</span><span class="menu-arrow" aria-hidden="true"></span></button></div>
+    <button type="button" role="menuitem" data-action="longfile"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><span>查看很长的附件文件名如何排列</span><span class="menu-arrow" aria-hidden="true"></span></button>
+    <button type="button" role="menuitem" data-action="draft"><i class="fa-solid fa-pen" aria-hidden="true"></i><span>载入书写样本</span><span class="menu-arrow" aria-hidden="true"></span></button>
+  </div>
+</body>
+</html>

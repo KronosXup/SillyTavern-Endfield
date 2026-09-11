@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Endfield · 目录与卡片</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="catalogs.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="catalogs.js" defer></script>
+</head>
+<body class="preview-page" data-surface="catalogs" data-variant="a" data-kind="characters">
+  <header class="lab-intro">
+    <div>
+      <p class="lab-kicker">ENDFIELD INDUSTRIES / INTERFACE STUDY 04</p>
+      <h1>目录，先把名字读清楚。</h1>
+      <p>紧凑档案条目，或留一点封面空间。角色与用户角色共用清晰的文字层级，世界书保留自己的选择方式。</p>
+    </div>
+    <span class="lab-disclaimer">独立样例 · 几何占位图</span>
+  </header>
+
+  <nav class="variant-picker" aria-label="目录设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>紧凑档案条目</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>克制的封面卡片</button>
+  </nav>
+
+  <div class="catalog-kind-switch" aria-label="切换目录样例">
+    <button type="button" data-kind="characters" aria-pressed="true"><i class="fa-solid fa-address-card" aria-hidden="true"></i>角色</button>
+    <button type="button" data-kind="personas" aria-pressed="false"><i class="fa-solid fa-user" aria-hidden="true"></i>用户角色</button>
+    <button type="button" data-kind="worlds" aria-pressed="false"><i class="fa-solid fa-book" aria-hidden="true"></i>世界书</button>
+  </div>
+
+  <div class="lab-toolbar">
+    <label><input id="catalog-long-titles" type="checkbox">长标题</label>
+    <label><input id="catalog-show-missing" type="checkbox" checked>包含缺图样例</label>
+    <label><input id="catalog-empty-toggle" type="checkbox">空列表</label>
+    <label><input id="catalog-narrow-toggle" type="checkbox">窄抽屉</label>
+    <label><input type="checkbox" data-toggle-motion>减少动画</label>
+    <button id="catalog-reset" class="lab-button" type="button">重置样例</button>
+  </div>
+
+  <section class="demo-stage catalog-shell" aria-labelledby="catalog-title">
+    <header class="catalog-rail">
+      <span class="catalog-number">04</span>
+      <div class="catalog-rail-title"><span id="catalog-eyebrow">CHARACTER ARCHIVE</span><h2 id="catalog-title">角色档案</h2></div>
+      <span class="catalog-count" id="catalog-count" role="status">6 项样例</span>
+    </header>
+
+    <div class="catalog-source-line"><span id="catalog-source">原生角色目录结构</span><span>仅本地数据</span></div>
+    <div class="catalog-tools">
+      <div class="native-entry-actions" id="native-entry-actions" aria-label="原生入口的样例反馈"></div>
+      <button class="batch-toggle" id="catalog-batch" type="button" aria-pressed="false"><i class="fa-solid fa-check-double" aria-hidden="true"></i><span>批量选择</span></button>
+    </div>
+
+    <div class="catalog-search-row" id="catalog-search-tools">
+      <div class="catalog-search-field">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <label class="sr-only" for="catalog-search">搜索当前目录样例</label>
+        <input id="catalog-search" type="search" placeholder="搜索名称、说明或标签…" autocomplete="off">
+        <button id="catalog-clear-search" type="button" aria-label="清空搜索"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+      <label class="sr-only" for="catalog-sort">排序方式</label>
+      <select id="catalog-sort"><option value="default">原始顺序</option><option value="asc">名称 A–Z</option><option value="desc">名称 Z–A</option></select>
+    </div>
+
+    <div class="catalog-filter-row" id="catalog-filter-row">
+      <span>标签</span>
+      <button type="button" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" data-filter="常用" aria-pressed="false">常用</button>
+      <button type="button" data-filter="探索" aria-pressed="false">探索</button>
+      <button type="button" data-filter="日常" aria-pressed="false">日常</button>
+      <button type="button" data-filter="长篇叙事与人物关系" aria-pressed="false">长篇叙事与人物关系</button>
+    </div>
+
+    <div class="world-selector-strip" id="world-selector-strip" hidden>
+      <label for="world_editor_select">选择待编辑的世界书</label>
+      <select id="world_editor_select"><option value="">请选择</option></select>
+      <p>用这个选择器切换待编辑样例，完整名称显示在当前选项详情中。</p>
+    </div>
+
+    <div class="world-comparison-controls" id="world-comparison-controls" hidden>
+      <button type="button" class="world-comparison-toggle" id="world-comparison-toggle" aria-expanded="false" aria-controls="world-comparison-search catalog-comparison-list catalog-count" aria-describedby="world-comparison-note"><span id="world-comparison-label">查看桌面列表样式</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
+      <p id="world-comparison-note">桌面列表仅作样式对照。窄空间默认收起；展开后可检查搜索、排序和选中状态。</p>
+    </div>
+    <div id="world-comparison-search" hidden></div>
+
+    <div class="catalog-body">
+      <div class="catalog-list-column" id="catalog-comparison-list">
+        <div class="catalog-list-header"><span id="catalog-list-label">档案列表</span><span id="catalog-selection-hint">点条目查看示例</span></div>
+        <div id="catalog-items" class="catalog-items" aria-label="当前目录条目"></div>
+        <div class="empty_block" id="catalog-empty" hidden>
+          <div class="empty-stamp" aria-hidden="true"><i class="fa-solid fa-folder-open"></i></div>
+          <h3 id="catalog-empty-title">这里还没有档案</h3>
+          <p id="catalog-empty-description">原生入口仍在上面。当前只是空列表样例。</p>
+          <button class="ef-button" id="catalog-restore" type="button">恢复样例</button>
+        </div>
+        <div class="catalog-list-footer"><span id="catalog-result-note">6 个本地样例</span><span id="catalog-batch-count"></span></div>
+      </div>
+
+      <aside class="catalog-detail" aria-labelledby="detail-title">
+        <p class="detail-kicker" id="detail-kicker">PREVIEW RECORD</p>
+        <span class="detail-index" id="detail-index" aria-hidden="true">01</span>
+        <h3 id="detail-title">边界记录员</h3>
+        <p id="detail-description">负责整理行程与途中见闻。这是一份用于排版验收的虚构样例。</p>
+        <div class="detail-tags" id="detail-tags"></div>
+        <p class="detail-state" id="detail-state">点角色仅更新此处，不打开真实聊天。</p>
+        <div class="detail-rule"></div>
+        <span class="detail-action-label">最近的示例操作</span>
+        <p id="catalog-action-result" role="status">尚未调用管理入口。</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="demo-legend"><span>缺图占位保持相同图片框尺寸；条目高度随文字自然增长。几何占位不代表角色形象。</span><span>搜索与筛选只作用于本页样例</span></div>
+  <p class="world-mode-notice" id="world-mode-notice" hidden>这里按目录可用宽度收放桌面对照样例，是原型的窄空间展示策略，不代表已复现宿主移动端分支。A／B均保留待编辑选择，不把世界书变成封面书架。</p>
+
+  <details class="design-notes">
+    <summary>查看结构映射与已保留的边界</summary>
+    <div class="note-grid">
+      <div><h3>已有节点能承载什么</h3><p>角色使用 <code>.character_select</code>，用户角色使用 <code>.avatar-container</code>。头像、名称、简介、标签／状态都已有节点；原生也已有角色与用户角色的网格开关。A／B 的排列、留白、边线和头像框可用主题 CSS 表达。</p><p>封面方向保留完整标题和状态，不依赖截断名称做整齐；真正部署时图片保持自身比例，不把头像强拉成横幅。当前几何图形只用于独立排版预览。</p></div>
+      <div><h3>选中不是同一种意思</h3><p>角色的黄色勾选只在「批量选择」样例中出现，对应原生 <code>.character_selected</code>；普通点击只更新右侧预览。用户角色的 <code>.selected</code> 表示当前 persona，默认角色与聊天锁定还保留独立标记。</p><p>世界书列表选中表示待编辑的世界书，不能等同于 <code>#world_info</code> 的全局激活。下面的筛选也不是搜索当前书内条目的 <code>#world_info_search</code>。</p></div>
+    </div>
+    <p>试用路径：勾选长标题 → 筛选「探索」→ 清空搜索；打开批量选择 → 选择两项；切换用户角色 → 点缺图条目；切换世界书 → 用原生选择器选一项；最后用空列表与窄抽屉检查操作是否仍可达。</p>
+    <p>本页的跨目录切换、管理入口回执和过滤数据是本地示例逻辑，没有操作文件、账号、模型或宿主设置。没有隐藏或移动真实宿主的入口。<a href="../research/catalogs.md">阅读目录源码调查</a></p>
+  </details>
+  <p class="prototype-footnote">仅交付独立候选。未导入主题，未接入真实数据；320／390 布局的浏览器验收与真机检查仍需完成。</p>
+</body>
+</html>
+

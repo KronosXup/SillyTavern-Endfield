@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Endfield · 提示词条目</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="prompts.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="prompts.js" defer></script>
+</head>
+<body class="preview-page" data-surface="prompts" data-variant="a">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">提示词管理 · 独立设计研究</p><h1>顺序清楚，编辑有边界。</h1><p>名称打开实际内容检查，铅笔编辑条目定义。发送顺序、启停与单条保存各自保留原来的作用。</p></div>
+    <span class="lab-disclaimer">纯虚构样本 · 不连接酒馆</span>
+  </header>
+  <nav class="variant-picker" aria-label="提示词管理设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>连续白纸</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>深色工具头</button>
+  </nav>
+  <div class="lab-toolbar">
+    <label>面板宽度<select id="pm-width"><option value="full">自适应</option><option value="390">390px</option><option value="320">320px</option></select></label>
+    <label>可用高度<select id="pm-height"><option value="430">430px</option><option value="300">300px</option></select></label>
+    <label><input type="checkbox" id="pm-long-name">长名称</label>
+    <label><input type="checkbox" data-toggle-motion>减少动画</label>
+    <button type="button" class="lab-button" id="restore-prompts">恢复样本</button>
+  </div>
+
+  <section class="demo-stage prompt-frame" id="prompt-frame" aria-label="提示词管理预览">
+    <div id="completion_prompt_manager" class="prompt-screen">
+      <div class="completion_prompt_manager_header">
+        <div><h2>提示词</h2><span class="scope-caption">聊天补全 · 发送顺序</span></div>
+        <div class="token-total"><span>Token · 样本</span><strong id="pm-total">—</strong></div>
+      </div>
+      <div class="completion_prompt_manager_footer">
+        <label class="sr-only" for="completion_prompt_manager_footer_append_prompt">选择尚未加入顺序的样本条目</label>
+        <select id="completion_prompt_manager_footer_append_prompt" class="text_pole"><option>选择条目</option></select>
+        <button class="pm-tool" type="button" id="pm-insert" title="插入选中条目" aria-label="插入选中条目"><i class="fa-solid fa-link" aria-hidden="true"></i></button>
+        <button class="pm-tool" type="button" id="pm-new" title="新建条目" aria-label="新建条目"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+        <button class="pm-tool" type="button" id="prompt-manager-reset-character" title="恢复默认顺序" aria-label="恢复默认顺序"><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i></button>
+      </div>
+      <div class="prompt-list-scroll" tabindex="-1">
+        <ul id="completion_prompt_manager_list" aria-label="提示词发送顺序"></ul>
+      </div>
+    </div>
+
+    <section id="completion_prompt_manager_popup" class="drawer-content" role="dialog" aria-modal="true" aria-labelledby="pm-dialog-title" hidden>
+      <header class="pm-dialog-header"><div><span class="pm-dialog-kind" id="pm-dialog-kind">编辑条目</span><h2 id="pm-dialog-title">条目定义</h2></div><button class="pm-tool" type="button" id="completion_prompt_manager_popup_close_button" aria-label="关闭并返回列表"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header>
+      <div class="pm-dialog-scroll">
+        <div id="completion_prompt_manager_popup_edit" hidden>
+          <form id="pm-edit-form" class="completion_prompt_manager_popup_entry_form">
+            <div class="pm-fields-primary">
+              <label class="completion_prompt_manager_popup_entry_form_control"><span>名称</span><input class="text_pole" id="completion_prompt_manager_popup_entry_form_name" name="name" required maxlength="160"></label>
+              <label class="completion_prompt_manager_popup_entry_form_control"><span>角色</span><select class="text_pole" id="completion_prompt_manager_popup_entry_form_role" name="role"><option value="system">System</option><option value="user">User</option><option value="assistant">Assistant</option></select></label>
+            </div>
+            <div class="pm-fields-injection">
+              <label class="completion_prompt_manager_popup_entry_form_control"><span>位置</span><select class="text_pole" id="completion_prompt_manager_popup_entry_form_injection_position" name="position"><option value="0">相对位置</option><option value="1">对话中</option></select></label>
+              <label class="completion_prompt_manager_popup_entry_form_control" id="completion_prompt_manager_depth_block"><span>深度</span><input class="text_pole" id="completion_prompt_manager_popup_entry_form_injection_depth" name="depth" type="number" min="0" max="9999" value="4"></label>
+              <label class="completion_prompt_manager_popup_entry_form_control" id="completion_prompt_manager_order_block"><span>顺序</span><input class="text_pole" id="completion_prompt_manager_popup_entry_form_injection_order" name="order" type="number" min="0" max="9999" value="100"></label>
+            </div>
+            <label class="completion_prompt_manager_popup_entry_form_control"><span>触发类型 <small>不选择时用于全部类型</small></span><select class="text_pole pm-triggers" id="completion_prompt_manager_popup_entry_form_injection_trigger" name="triggers" multiple size="3"><option value="normal">普通生成</option><option value="continue">继续</option><option value="impersonate">代写</option><option value="swipe">切换回复</option><option value="regenerate">重新生成</option><option value="quiet">安静生成</option></select></label>
+            <div class="pm-content-heading"><label for="completion_prompt_manager_popup_entry_form_prompt">提示词正文</label><label id="completion_prompt_manager_forbid_overrides_block"><input type="checkbox" id="completion_prompt_manager_popup_entry_form_forbid_overrides" name="forbid">禁止角色覆盖</label></div>
+            <p id="completion_prompt_manager_popup_entry_source_block" class="pm-source" hidden>来源：<span id="completion_prompt_manager_popup_entry_source"></span><br>正文来自其他位置，此处只编辑注入设置。</p>
+            <textarea class="text_pole" id="completion_prompt_manager_popup_entry_form_prompt" name="content" rows="7" spellcheck="false"></textarea>
+            <p class="pm-edit-note" id="pm-edit-note">保存只更新这一个样本条目；不会写入命名预设文件。</p>
+            <p class="pm-reset-note" id="pm-reset-note" role="status" aria-live="polite" hidden>已恢复内存中的默认内容。关闭不会撤回这次重置。</p>
+          </form>
+        </div>
+        <div id="completion_prompt_manager_popup_inspect" hidden>
+          <p class="inspect-description">已组装内容检查 · 只读样本</p>
+          <div id="completion_prompt_manager_popup_entry_form_inspect_list"></div>
+        </div>
+        <div id="pm-reset-order-confirm" hidden><p>恢复默认的排列与启停状态，保留条目库中已有的内容。</p><p class="pm-edit-note">当前宿主使用全局顺序；这不会清空提示词正文。</p></div>
+      </div>
+      <footer class="completion_prompt_manager_popup_entry_form_footer">
+        <button type="button" class="pm-action" id="completion_prompt_manager_popup_entry_form_close">关闭</button>
+        <button type="button" class="pm-action pm-reset" id="completion_prompt_manager_popup_entry_form_reset" hidden>恢复默认</button>
+        <button type="submit" form="pm-edit-form" class="pm-action pm-save" id="completion_prompt_manager_popup_entry_form_save">保存条目</button>
+        <button type="button" class="pm-action pm-save" id="pm-reset-order-apply" hidden>恢复顺序</button>
+      </footer>
+    </section>
+  </section>
+  <div class="demo-legend"><span id="pm-feedback" role="status" aria-live="polite">名称：检查内容。铅笔：编辑定义。</span><span>统计值均为样本；编辑后标为待重算。</span></div>
+  <p class="pm-keyboard-hint">拖动左侧把手排序；键盘聚焦一行内的控件后按 Alt + ↑ / ↓。键盘排序是原型辅助，宿主主题 CSS 不会新增此功能。</p>
+
+  <details class="design-notes">
+    <summary>结构与保存边界</summary>
+    <div class="note-grid"><div><h3>可以映射的样式</h3><p>A 使用连续白纸和细分隔；B 只把标题、工具栏变成深色工作头。名称、类型、角色覆盖、深度、Token、行内操作保持各自位置。样式映射到原生 Prompt Manager 类名，未增加卡片分组或全局保存。</p><p>窄屏把操作移到名称下面；44px 控件、长名换行、字段单列和滚动范围可用 CSS 调整。</p></div><div><h3>样本中的行为范围</h3><p>启停、拖动和条目保存只改本页内存。新建后进入条目库，插入后位于列表顶部且默认关闭；移出仍能重新插入。导入、导出及永久删除未在此样本中实现。</p><p>Inspect 检查的是组装内容，Edit 修改定义。普通编辑关闭时丢弃输入；系统条目“恢复默认”会立即改内存，关闭也保留，这是当前宿主的实际边界。</p></div></div>
+    <p>焦点返回、Escape 与 Tab 约束、键盘排序由原型脚本提供；尚未验证宿主具备这些行为。这里没有自动生成、真实 tokenizer 或预设文件保存。<a href="../research/prompt-manager-study.md">查看源码调查</a></p>
+  </details>
+  <p class="prototype-footnote">这是独立设计候选，真实主题与宿主保持原样。恢复样本仅重置本页内存。</p>
+</body>
+</html>

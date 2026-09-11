@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>Endfield · 弹窗按钮校准 V4</title>
+  <link rel="stylesheet" href="review.css">
+</head>
+<body>
+  <header class="review-head">
+    <div><p class="eyebrow">ENDFIELD / POPUP STUDY · V4</p><h1>弹窗按钮校准方案</h1></div>
+    <p class="boundary">独立预览<br>不会删除或保存酒馆数据</p>
+  </header>
+  <main>
+    <section class="toolbar" aria-label="预览设置">
+      <label>场景<select id="case-select">
+        <option value="confirm">预设删除 · 两行确认</option>
+        <option value="short">单句确认</option>
+        <option value="button-reference">确认／取消 · 字形对照</option>
+        <option value="input">重命名 · 单行输入</option>
+        <option value="list-input">说明列表与输入</option>
+        <option value="checkbox">附加勾选项</option>
+        <option value="inline-checkbox">正文内勾选项</option>
+        <option value="long">长说明</option>
+        <option value="long-buttons">长按钮名称</option>
+        <option value="medium-buttons">四字按钮名称</option>
+        <option value="notice">单按钮提示</option>
+      </select></label>
+      <label>宽度<select id="width-select">
+        <option value="auto">随当前窗口</option><option value="360">360 px</option><option value="390" selected>390 px</option><option value="430">430 px</option><option value="1184">桌面 1184 px</option>
+      </select></label>
+      <label>可用高度<select id="height-select">
+        <option value="680" selected>680 px</option><option value="844">844 px</option><option value="421">421 px</option><option value="420">420 px</option><option value="300">300 px · 短高度</option>
+      </select></label>
+      <label>查看<select id="view-select"><option value="compare">并排对照</option><option value="candidate">调整方案</option><option value="current">当前比例</option></select></label>
+      <a id="full-link" class="full-link" href="stage.html?variant=candidate&case=confirm" target="_blank" rel="noopener">全屏试用 ↗</a>
+    </section>
+    <p class="mobile-note" id="mobile-note" hidden>默认随屏幕宽度显示。点“全屏试用”检查输入键盘；选择固定宽度时，可在框内左右滑动。</p>
+    <section class="comparison" id="comparison" data-view="compare" aria-label="当前与候选对照">
+      <article class="preview-panel current-panel">
+        <div class="panel-head"><h2>当前比例</h2><span id="current-metric">390 × 680</span></div>
+        <div class="frame-scroll"><iframe id="current-frame" title="当前比例的弹窗预览" src="stage.html?variant=current&case=confirm&embedded=1"></iframe></div>
+      </article>
+      <article class="preview-panel candidate-panel">
+        <div class="panel-head"><h2><i aria-hidden="true"></i>调整方案</h2><span id="candidate-metric">390 × 680</span></div>
+        <div class="frame-scroll"><iframe id="candidate-frame" title="调整方案的弹窗预览" src="stage.html?variant=candidate&case=confirm&embedded=1"></iframe></div>
+      </article>
+    </section>
+    <section class="changes" aria-label="本次调整说明">
+      <p><strong>字重与颜色</strong><span>桌面与手机一起校准中等字重、黄字和端点横线</span></p>
+      <p><strong>白底托恢复</strong><span>手机恢复外白托与下方轻阴影，内侧保留细描边</span></p>
+      <p><strong>右半纹样</strong><span>恢复可辨的连续等高线，让左侧横线区保持干净</span></p>
+      <p><strong>紧凑尺寸保留</strong><span>手机正面约 116 × 34 px，点击区至少 44 px 高</span></p>
+    </section>
+    <footer>V4 校准同时覆盖桌面与手机候选。白纸与等高线沿用原有素材；仍是独立方案，尚未实装。短高度检查不等于真手机键盘验收。</footer>
+  </main>
+  <script src="review.js"></script>
+</body>
+</html>

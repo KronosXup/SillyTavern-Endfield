@@ -1,0 +1,30 @@
+/* Preview calibration from the protocol-pass recording; timings are not game internals. */
+@keyframes management-row-fade {
+  from { opacity: .45; }
+  to { opacity: 1; }
+}
+@keyframes management-row-content-enter {
+  from { translate: 8px 0; }
+  to { translate: 0 0; }
+}
+
+@supports (timeline-trigger: --management-row view(block 0px) entry 8px exit calc(100% - 8px) / entry 0% exit 100%) and (animation-trigger: --management-row replay reset) and (trigger-scope: --management-row) {
+  .management-review:has(#list-entry-motion:checked) .role-collection.list-view {
+    overflow-x: hidden;
+  }
+
+  .management-review:has(#list-entry-motion:checked) .drawer-slice:not(.bulk-mode) .role-collection.list-view > .role-entry {
+    /* Keep keyboard scrolling and card geometry stable while contents settle. */
+    overflow: clip;
+    trigger-scope: --management-row;
+    /* Enter after 8px; only rearm once the whole row leaves the scrollport. */
+    timeline-trigger: --management-row view(block 0px) entry 8px exit calc(100% - 8px) / entry 0% exit 100%;
+    animation: management-row-fade 280ms cubic-bezier(.2,.7,.25,1) both;
+    animation-trigger: --management-row replay reset;
+  }
+
+  .management-review:has(#list-entry-motion:checked) .drawer-slice:not(.bulk-mode) .role-collection.list-view > .role-entry > * {
+    animation: management-row-content-enter 280ms cubic-bezier(.2,.7,.25,1) both;
+    animation-trigger: --management-row replay reset;
+  }
+}

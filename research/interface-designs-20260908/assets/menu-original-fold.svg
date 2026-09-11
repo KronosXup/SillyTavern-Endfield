@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="124" viewBox="0 0 156 124">
+  <title>回折纹 · 为紧凑菜单原创的线带</title>
+  <desc>九条有序曲线从左下舒展，在中右轻轻回折并转向上方。线条和四边逐渐退净，保留图标侧留白；不是游戏纹理的复刻。</desc>
+  <defs>
+    <linearGradient id="ink" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="156" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset=".16" stop-color="#000" stop-opacity=".15"/>
+      <stop offset=".38" stop-color="#000" stop-opacity=".75"/>
+      <stop offset=".68" stop-color="#000"/>
+      <stop offset=".84" stop-color="#000" stop-opacity=".78"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="vertical-fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="124">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".2" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset=".4" stop-color="#fff"/>
+      <stop offset=".74" stop-color="#fff"/>
+      <stop offset=".9" stop-color="#fff" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="soft-ends" maskUnits="userSpaceOnUse" x="0" y="0" width="156" height="124" style="mask-type:alpha">
+      <rect width="156" height="124" fill="url(#vertical-fade)"/>
+    </mask>
+  </defs>
+  <g fill="none" stroke="url(#ink)" stroke-width="1" stroke-linecap="round" mask="url(#soft-ends)">
+      <path d="M8 98 C46 106 73 76 103 79 C125 84 116 36 131 18"/>
+      <path d="M8.75 100.7 C46.83 107.95 72.47 79.3 102.4 81.55 C124.7 85.95 118.55 38.25 133.4 21.45"/>
+      <path d="M9.5 103.4 C47.65 109.9 71.95 82.6 101.8 84.1 C124.4 87.9 121.1 40.5 135.8 24.9"/>
+      <path d="M10.25 106.1 C48.48 111.85 71.42 85.9 101.2 86.65 C124.1 89.85 123.65 42.75 138.2 28.35"/>
+      <path d="M11 108.8 C49.3 113.8 70.9 89.2 100.6 89.2 C123.8 91.8 126.2 45 140.6 31.8"/>
+      <path d="M11.75 111.5 C50.13 115.75 70.38 92.5 100 91.75 C123.5 93.75 128.75 47.25 143 35.25"/>
+      <path d="M12.5 114.2 C50.95 117.7 69.85 95.8 99.4 94.3 C123.2 95.7 131.3 49.5 145.4 38.7"/>
+      <path d="M13.25 116.9 C51.77 119.65 69.33 99.1 98.8 96.85 C122.9 97.65 133.85 51.75 147.8 42.15"/>
+      <path d="M14 119.6 C52.6 121.6 68.8 102.4 98.2 99.4 C122.6 99.6 136.4 54 150.2 45.6"/>
+  </g>
+</svg>

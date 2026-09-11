@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="132" viewBox="0 0 156 132">
+  <title>平面拼纹 · 规律加密稿</title>
+  <desc>22像素模数、1像素接缝。两种固定方向的实块与斜线块规律交替，保留最初的秩序；单色平面印纹，不含透视或立体明暗。</desc>
+  <defs>
+    <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse">
+      <path d="M-1 3L1 5M0 0L4 4M3 -1L5 1" fill="none" stroke="#000" stroke-width=".85"/>
+    </pattern>
+    <path id="down" d="M.5 .5H8.5L21.5 13.5V21.5H13.5L.5 8.5Z"/>
+    <path id="up" d="M13.5 .5H21.5V8.5L8.5 21.5H.5V13.5Z"/>
+  </defs>
+  <g transform="translate(12 0)">
+    <g transform="translate(0 0)">
+      <use href="#down" x="0" fill="#000"/>
+      <use href="#up" x="22" fill="url(#hatch)"/>
+      <use href="#down" x="44" fill="#000"/>
+      <use href="#up" x="66" fill="url(#hatch)"/>
+      <use href="#down" x="88" fill="#000"/>
+      <use href="#up" x="110" fill="url(#hatch)"/>
+    </g>
+    <g transform="translate(0 22)">
+      <use href="#up" x="0" fill="url(#hatch)"/>
+      <use href="#down" x="22" fill="#000"/>
+      <use href="#up" x="44" fill="url(#hatch)"/>
+      <use href="#down" x="66" fill="#000"/>
+      <use href="#up" x="88" fill="url(#hatch)"/>
+      <use href="#down" x="110" fill="#000"/>
+    </g>
+    <g transform="translate(0 44)">
+      <use href="#down" x="0" fill="#000"/>
+      <use href="#up" x="22" fill="url(#hatch)"/>
+      <use href="#down" x="44" fill="#000"/>
+      <use href="#up" x="66" fill="url(#hatch)"/>
+      <use href="#down" x="88" fill="#000"/>
+      <use href="#up" x="110" fill="url(#hatch)"/>
+    </g>
+    <g transform="translate(0 66)">
+      <use href="#up" x="0" fill="url(#hatch)"/>
+      <use href="#down" x="22" fill="#000"/>
+      <use href="#up" x="44" fill="url(#hatch)"/>
+      <use href="#down" x="66" fill="#000"/>
+      <use href="#up" x="88" fill="url(#hatch)"/>
+      <use href="#down" x="110" fill="#000"/>
+    </g>
+    <g transform="translate(0 88)">
+      <use href="#down" x="0" fill="#000"/>
+      <use href="#up" x="22" fill="url(#hatch)"/>
+      <use href="#down" x="44" fill="#000"/>
+      <use href="#up" x="66" fill="url(#hatch)"/>
+      <use href="#down" x="88" fill="#000"/>
+      <use href="#up" x="110" fill="url(#hatch)"/>
+    </g>
+    <g transform="translate(0 110)">
+      <use href="#up" x="0" fill="url(#hatch)"/>
+      <use href="#down" x="22" fill="#000"/>
+      <use href="#up" x="44" fill="url(#hatch)"/>
+      <use href="#down" x="66" fill="#000"/>
+      <use href="#up" x="88" fill="url(#hatch)"/>
+      <use href="#down" x="110" fill="#000"/>
+    </g>
+  </g>
+</svg>

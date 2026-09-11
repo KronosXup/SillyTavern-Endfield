@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>快捷回复 · 终末地主题方案</title>
+  <link rel="stylesheet" href="../assets/common.css"><link rel="stylesheet" href="quick-replies.css">
+  <script src="../assets/common.js" defer></script><script src="quick-replies.js" defer></script>
+</head>
+<body class="preview-page" data-surface="quick-replies" data-variant="a">
+  <header class="lab-intro"><div><p class="lab-kicker">输入 / 快捷回复</p><h1>短动作，留在手边。</h1><p>完整铺开的短签，与保住高度的横向工具轨。按钮执行和关联菜单各有自己的位置。</p></div><span class="lab-disclaimer">虚构纯文本 · 不运行脚本</span></header>
+  <nav class="variant-picker" aria-label="快捷回复设计方向"><button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>自然短签</button><button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>紧凑横轨</button></nav>
+  <div class="lab-toolbar" aria-label="画布外研究控制">
+    <label><input type="checkbox" id="qr-combined">合并两组</label><label><input type="checkbox" id="qr-long">长按钮名称</label>
+    <label>点击行为<select id="qr-send-mode"><option value="insert">仅插入输入框</option><option value="send">模拟发送</option></select></label>
+  </div>
+  <details class="qr-sample-options"><summary>更多样例条件</summary><div class="lab-toolbar">
+    <label><input type="checkbox" id="qr-icons">显示图标标签</label><label>可见样本<select id="qr-sets"><option value="both">全局与聊天两组</option><option value="global">仅全局集合</option><option value="empty">空集合</option></select></label>
+    <label><input type="checkbox" id="qr-inject" checked>合入草稿</label><label><input type="checkbox" id="qr-before">放在草稿前</label>
+    <label><input type="checkbox" id="qr-float-demo">查看弹出工具窗</label><label><input type="checkbox" data-toggle-motion>减少动画</label>
+    <button type="button" class="lab-button" id="qr-edit-sample">编辑一个样本</button><button type="button" class="lab-button" id="qr-reset">恢复样本</button>
+  </div></details>
+  <p class="qr-study-copy">两组虚构动作，依次代表全局与当前聊天集合。</p>
+  <main class="demo-stage qr-stage" id="qr-stage" aria-label="快捷回复预览">
+    <section class="sample-chat" aria-label="本页消息样本"><div class="sample-chat-heading">输入附近的操作区 <span>全部为本地演示</span></div><div id="qr-transcript" role="log" aria-label="模拟发送的消息"><p class="sample-message">门外传来轻微的响动。灯光沿着空旷的走廊向前延伸。</p></div></section>
+    <form id="send_form" class="sample-compose"><div id="qr--bar" aria-label="快捷回复按钮条"></div><label class="sr-only" for="send_textarea">本页草稿</label><textarea id="send_textarea" rows="3" placeholder="可以先写一段草稿，再点上面的快捷回复。"></textarea><div class="sample-compose-actions"><span id="draft-status">纯文本样例</span><button class="ef-button" type="submit" id="send_but">模拟发送</button></div></form>
+  </main>
+  <p id="qr-feedback" class="qr-feedback" role="status">点击动作会插入本页输入框；不会发送到酒馆。</p>
+  <div class="demo-legend"><span data-variant-note="a">A · 自然换行，完整看见常用动作。</span><span data-variant-note="b" hidden>B · 每组横向滚动；聚焦后方动作会带入视野。</span><span>Ctrl + 点击可编辑样本；菜单展开不执行主动作。</span></div>
+  <details class="design-notes"><summary>来源与行为边界</summary><div class="note-grid"><section><h2>保留原生组织</h2><p>两组依次出现，合并开关改变是否共用一行排布。图标样本可隐藏文字；含关联项的动作有单独的展开区域。弹出工具窗收回后，动作返回输入栏上方。</p><p>B 有横向滚动的代价，适合动作多而聊天高度紧张的场景。A 是默认候选；不会把每个短动作撑满一整行。</p></section><section><h2>本页的边界</h2><p>插入、编辑、移动和发送只处理虚构样例。没有运行宏或命令，也没有保存到用户快捷回复。这里的消息输入仅用于检验动作，不是另一套输入栏设计。</p><p>原型补了按钮语义、键盘菜单和移动辅助；这些需要脚本，不能由主题CSS凭空提供。真实宿主的自动执行、集合颜色和大型脚本编辑器未在本页复刻。</p></section></div></details>
+  <section id="qr--popout" class="qr--popout" aria-labelledby="qr-float-title" hidden><header class="qr--header"><h2 id="qr-float-title">快捷回复</h2><div class="qr--controls"><button type="button" id="qr--popoutheader" aria-label="移动快捷回复窗，可按方向键" title="拖动或方向键移动"><i class="fa-solid fa-grip" aria-hidden="true"></i></button><button type="button" class="qr--close" aria-label="收回快捷回复窗"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div></header><div class="qr--body" tabindex="0" aria-label="弹出窗动作，可滚动"></div></section>
+  <div class="ctx-blocker" id="qr-context" hidden><div class="ctx-menu" role="menu" aria-label="关联快捷回复"><div class="ctx-header">相关动作</div><div id="qr-context-items"></div></div></div>
+  <dialog id="qr-editor" aria-labelledby="qr-editor-title"><header><h2 id="qr-editor-title">编辑快捷回复样本</h2><button type="button" id="qr-editor-close" aria-label="关闭样本编辑"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><div class="qr-editor-body"><p>标签和正文即时更新本页样本；关闭不会撤销。</p><label for="qr--modal-label">按钮标签</label><input id="qr--modal-label" maxlength="160"><label for="qr--modal-message">纯文本正文</label><textarea id="qr--modal-message" rows="6"></textarea><p id="qr-editor-note" role="status">只修改本页样本。</p></div></dialog>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="132" viewBox="0 0 156 132">
+  <title>平面拼纹 · 少量变化</title>
+  <desc>固定22像素模数、棋盘转向与1像素接缝。以实填与斜线的规律交替为主，仅4格实填替换为双带；单色平面，无透视和立体明暗。</desc>
+  <defs>
+    <path id="body" d="M.5 .5H8.5L21.5 13.5V21.5H13.5L.5 8.5Z"/>
+    <pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse">
+      <path d="M-1 1L1 -1M0 4L4 0M3 5L5 3" fill="none" stroke="#000" stroke-width=".85"/>
+    </pattern>
+    <g id="cell-solid"><use href="#body" fill="#000"/></g>
+    <g id="cell-hatch"><use href="#body" fill="url(#hatch)"/></g>
+    <g id="cell-double"><path d="M2.05 .5H8.5L21.5 13.5V19.95ZM.5 2.05V8.5L13.5 21.5H19.95Z" fill="#000"/></g>
+  </defs>
+  <g transform="translate(12 0)">
+    <g transform="translate(0 0)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(22 0)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(44 0)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(66 0)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(88 0)" data-kind="double"><use href="#cell-double"/></g>
+    <g transform="translate(110 0)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(0 22)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(22 22)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(44 22)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(66 22)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(88 22)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(110 22)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(0 44)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(22 44)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(44 44)" data-kind="double"><use href="#cell-double"/></g>
+    <g transform="translate(66 44)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(88 44)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(110 44)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(0 66)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(22 66)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(44 66)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(66 66)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(88 66)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(110 66)" data-kind="double"><use href="#cell-double"/></g>
+    <g transform="translate(0 88)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(22 88)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(44 88)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(66 88)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(88 88)" data-kind="double"><use href="#cell-double"/></g>
+    <g transform="translate(110 88)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(0 110)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(22 110)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(44 110)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(66 110)" data-kind="solid"><use href="#cell-solid"/></g>
+    <g transform="translate(88 110)" data-kind="hatch"><use href="#cell-hatch" transform="translate(22 0) scale(-1 1)"/></g>
+    <g transform="translate(110 110)" data-kind="solid"><use href="#cell-solid"/></g>
+  </g>
+</svg>

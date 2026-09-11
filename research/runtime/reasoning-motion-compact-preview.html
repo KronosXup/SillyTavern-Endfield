@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield reasoning compact-mark preview</title>
+    <style>
+        :root {
+            --ef-calib-m: #d025ce;
+            --ef-calib-y: #fcf56d;
+            --ef-calib-c: #34e3ad;
+        }
+
+        @property --ef-reasoning-stop-a {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 0%;
+        }
+
+        @property --ef-reasoning-stop-b {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 70%;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            gap: 24px;
+            padding: 32px 16px;
+            color: #101618;
+            background: #edf0f0;
+            font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+        }
+
+        #chat {
+            width: min(640px, calc(100vw - 32px));
+            display: grid;
+            gap: 24px;
+        }
+
+        .mes_block {
+            padding: 28px 24px 40px;
+            background: #fff;
+        }
+
+        .mes_reasoning_details {
+            border: 0;
+        }
+
+        .mes_reasoning_summary {
+            position: relative;
+            display: block;
+            min-height: 58px;
+            padding: 18px 20px;
+            overflow: hidden;
+            border: 1px solid #cdd1d1;
+            background: #f7f8f8;
+            font-size: 18px;
+            font-weight: 700;
+            list-style: none;
+        }
+
+        .tag {
+            margin: 0 0 8px;
+            color: #5f686a;
+            font-size: 14px;
+        }
+
+        /* A: 现状对照 —— 底边左侧 40% 大横条（已提交版比例）。 */
+        .wide .mes_reasoning_summary::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40%;
+            height: 2px;
+            pointer-events: none;
+            background-image: linear-gradient(
+                to right,
+                var(--ef-calib-m) 0 11.5%,
+                var(--ef-calib-y) 11.5% 21.5%,
+                var(--ef-calib-c) 21.5% 50%,
+                var(--ef-calib-m) 50% 61.5%,
+                var(--ef-calib-y) 61.5% 71.5%,
+                var(--ef-calib-c) 71.5% 100%
+            );
+            opacity: 0.92;
+        }
+
+        /* B: 紧凑候选 —— 学干员页顶行：标题右上小注脚。
+           实测干员页 "// OPERATORS" 三色标约与标题同宽、几 px 高；
+           折到推理块按 640px 面板取 84×3px，置于 summary 右上。 */
+        .compact .mes_reasoning_summary::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            left: auto;
+            width: 84px;
+            height: 3px;
+            pointer-events: none;
+            --ef-reasoning-stop-a: 0%;
+            --ef-reasoning-stop-b: 70%;
+            --ef-reasoning-color-a: var(--ef-calib-c);
+            --ef-reasoning-color-b: var(--ef-calib-m);
+            --ef-reasoning-color-c: var(--ef-calib-y);
+            background-image: linear-gradient(
+                to right,
+                var(--ef-reasoning-color-a) 0 var(--ef-reasoning-stop-a),
+                var(--ef-reasoning-color-b) var(--ef-reasoning-stop-a) var(--ef-reasoning-stop-b),
+                var(--ef-reasoning-color-c) var(--ef-reasoning-stop-b) 100%
+            );
+            background-repeat: no-repeat;
+            opacity: 0;
+        }
+
+        body[data-generating="true"]
+        .compact .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+            animation: ef-reasoning-compact-run 1800ms linear infinite;
+        }
+
+        /* C: 降级对照 —— 同款小标静态帧。 */
+        .static .mes_reasoning_summary::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            left: auto;
+            width: 84px;
+            height: 3px;
+            pointer-events: none;
+            background-image: linear-gradient(
+                to right,
+                var(--ef-calib-c) 0 0%,
+                var(--ef-calib-m) 0 70%,
+                var(--ef-calib-y) 70% 100%
+            );
+            opacity: 0.92;
+        }
+
+        @keyframes ef-reasoning-compact-run {
+            0% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+
+            33.32% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+
+            33.34% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-y);
+                --ef-reasoning-color-b: var(--ef-calib-c);
+                --ef-reasoning-color-c: var(--ef-calib-m);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+
+            66.65% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-y);
+                --ef-reasoning-color-b: var(--ef-calib-c);
+                --ef-reasoning-color-c: var(--ef-calib-m);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+
+            66.67% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-m);
+                --ef-reasoning-color-b: var(--ef-calib-y);
+                --ef-reasoning-color-c: var(--ef-calib-c);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+
+            99.98% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-m);
+                --ef-reasoning-color-b: var(--ef-calib-y);
+                --ef-reasoning-color-c: var(--ef-calib-c);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+
+            100% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                opacity: 0.92;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body[data-generating="true"]
+            .compact .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+                animation: none;
+                opacity: 0.92;
+            }
+        }
+    </style>
+</head>
+<body data-generating="true">
+    <main id="chat">
+        <article class="mes_block wide">
+            <p class="tag">A · 现状对照：底边左侧 40% 大横条（已提交版比例）。</p>
+            <details class="mes_reasoning_details" data-state="thinking" open>
+                <summary class="mes_reasoning_summary">// 正在解析</summary>
+            </details>
+        </article>
+        <article class="mes_block compact">
+            <p class="tag">B · 紧凑候选：右上 84×3px 小注脚，70/30 轮换 + 1800ms 同款时序。</p>
+            <details class="mes_reasoning_details" data-state="thinking" open>
+                <summary class="mes_reasoning_summary">// 正在解析</summary>
+            </details>
+        </article>
+        <article class="mes_block static">
+            <p class="tag">C · 降级对照：同款小标静态帧（reduced-motion / 思考结束）。</p>
+            <details class="mes_reasoning_details" data-state="done" open>
+                <summary class="mes_reasoning_summary">// 解析完成</summary>
+            </details>
+        </article>
+    </main>
+</body>
+</html>

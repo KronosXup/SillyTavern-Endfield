@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>菜单底纹 · 武陵已实装</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="menu-texture-review.css">
+  <script src="menu-texture-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="eyebrow">ENDFIELD / 局部设计</p><h1>菜单底纹 <span>武陵 · 已实装</span></h1></div>
+    <a href="input-review.html">输入栏原稿 ↗</a>
+  </header>
+  <main>
+    <div class="review-controls" aria-label="对照条件">
+      <label>每列画布 <select id="canvas-width"><option value="auto">跟随窗口</option><option value="390" selected>390px</option><option value="320">320px</option></select></label>
+      <label><input type="checkbox" id="long-label"> 加入长标签测试项</label>
+      <button type="button" id="scroll-bottom">滚到菜单底部</button>
+      <button type="button" id="close-menus">收起菜单</button>
+    </div>
+    <div class="material-picker" role="group" aria-label="候选材质">
+      <div class="primary-materials">
+        <button type="button" data-material="modules" aria-pressed="true"><span>武陵</span> 灰白几何</button>
+      </div>
+      <details class="previous-materials">
+        <summary>查看此前方案</summary>
+        <div class="previous-material-buttons">
+      <button type="button" data-material="original" aria-pressed="false"><span>原创</span> 平面拼纹</button>
+      <button type="button" data-material="ribbon" aria-pressed="false"><span>R01</span> 扭转条带</button>
+      <button type="button" data-material="dots" aria-pressed="false"><span>01</span> 渐隐网点</button>
+      <button type="button" data-material="grid" aria-pressed="false"><span>02</span> 定位网格</button>
+      <button type="button" data-material="folds" aria-pressed="false"><span>息壤</span> 方格重绘</button>
+      <button type="button" data-material="directory" aria-pressed="false"><span>04</span> 目录纸面</button>
+      <button type="button" data-material="offset" aria-pressed="false"><span>05</span> 错位双框</button>
+      <button type="button" data-material="registration" aria-pressed="false"><span>06</span> 定位细框</button>
+      <button type="button" data-material="fragments" aria-pressed="false"><span>07</span> 三角拼片 · 原稿</button>
+      <button type="button" data-material="brokenprint" aria-pressed="false"><span>08</span> 破碎灰印</button>
+      <button type="button" data-material="quietfragments" aria-pressed="false"><span>07R</span> 浅印修订</button>
+        </div>
+      </details>
+    </div>
+    <p class="interaction-hint">左边保留无底纹对照，右边默认展示已实装的武陵。点汉堡或魔棒，两边同步；菜单可滚动与悬停，键盘支持方向键和 Esc。</p>
+    <div id="comparison" class="comparison" aria-label="现状与候选底图对照"></div>
+    <p id="preview-status" class="preview-status" role="status">本地演示，菜单动作不会操作酒馆。</p>
+    <section class="reference-notes" aria-label="参考与适配边界">
+      <div>
+        <h2 id="reference-title">01 / 浅纸底部的渐隐网点</h2>
+        <p id="reference-description"></p>
+        <a id="material-reference" class="reference-image" href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank" rel="noopener"><svg id="reference-crop" viewBox="24 855 783 56" role="img" aria-label="参考图局部，点击打开原图"><image id="reference-source" href="../research/game-ui-references-2026-09-08/removed-reference.svg" width="833" height="968"/></svg></a>
+        <p id="reference-caption" class="small-note"></p>
+      </div>
+      <div>
+        <h2>同一菜单尺度</h2>
+        <p>菜单均为 160px 宽、13px 字；内容、灰色悬停反馈和滚动条相同。底图作为一组独立构图出现，不随条目重复。</p>
+        <p id="material-fit"></p>
+        <p class="small-note">底图避开右侧滚动槽，悬停行以原有灰底覆盖纹理。每款图案的来源和适配方式分别注明。</p>
+        <div id="pattern-study" class="pattern-study" hidden>
+          <div id="pattern-swatch" class="pattern-swatch" aria-hidden="true"></div>
+          <p id="pattern-caption" class="small-note"></p>
+        </div>
+      </div>
+    </section>
+    <aside class="scope-note">
+      <p><a href="../research/game-pattern-originals.html">回看四组游戏原图 ↗</a></p>
+      <p><strong>武陵底纹已实装到本机 8000 的 Endfield 主题。</strong> 本页保留方案对照，条目动作仅提供预览反馈；此前候选仍未实装。</p>
+      <p>正式主题复用原始武陵图片，保持预览中的大小、浅度与底部范围；背景随菜单固定，不随条目滚动。</p>
+    </aside>
+    <noscript><p>请启用 JavaScript，以查看可切换、可滚动的两列菜单对照。</p></noscript>
+  </main>
+  <template id="panel-template">
+    <section class="comparison-panel">
+      <header class="panel-heading"><h2></h2><span></span></header>
+      <div class="stage">
+        <p class="stage-note">下方入口可切换菜单</p>
+        <div class="menu-popover" hidden>
+          <div class="menu-material" aria-hidden="true"></div>
+          <div class="options-content menu-scroll" role="menu" tabindex="-1"></div>
+        </div>
+        <div class="composer-slot">
+          <div class="input-shell">
+            <div class="input-form">
+              <div class="input-grid">
+                <div class="input-tools">
+                  <button type="button" class="input-entry fa-solid fa-bars" data-menu="options" aria-label="聊天菜单" title="聊天菜单" aria-haspopup="menu" aria-expanded="false"></button>
+                  <button type="button" class="input-entry fa-solid fa-wand-magic-sparkles" data-menu="extensionsMenu" aria-label="魔棒菜单" title="扩展程序" aria-haspopup="menu" aria-expanded="false"></button>
+                </div>
+                <textarea rows="1" aria-label="本地输入草稿" placeholder="输入想发送的消息" autocomplete="off" spellcheck="false"></textarea>
+                <div class="input-actions"><button type="button" class="send-entry fa-solid fa-paper-plane" aria-label="预览发送按钮" title="仅预览，不发送消息"></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="panel-caption"></p>
+    </section>
+  </template>
+</body>
+</html>

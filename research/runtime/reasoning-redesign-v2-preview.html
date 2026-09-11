@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield reasoning v2 (doc-header) preview</title>
+    <style>
+        :root {
+            --ef-paper: #fdfdfd;
+            --ef-ink: #061112;
+            --ef-muted: #4e5653;
+            --ef-faint: #707674;
+            --ef-line: rgba(23, 26, 26, 0.16);
+            --ef-block: #444444;
+            --ef-dark: #2b2f2e;
+            --ef-signal: #ffff0f;
+            --ef-calib-m: #d025ce;
+            --ef-calib-y: #fcf56d;
+            --ef-calib-c: #34e3ad;
+            --ef-workbench: #e5e5e5;
+            --ef-paper-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='g' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M10 0H0V10' fill='none' stroke='%23171a1a' stroke-opacity='.018' stroke-width='.55'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23g)'/%3E%3Cg fill='none' stroke='%23171a1a'%3E%3Cpath d='M0 .5H160M.5 0V160' stroke-opacity='.025' stroke-width='.65'/%3E%3Cpath d='M74 80H86M80 74V86' stroke-opacity='.09' stroke-width='.9'/%3E%3C/g%3E%3C/svg%3E");
+            --ef-gray-grid: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3Cpattern id='x' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Cpath d='M-2 0L8 10M8-2L-2 8' fill='none' stroke='%23434b49' stroke-opacity='.03' stroke-width='.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='160' height='160' fill='url(%23x)'/%3E%3Cg fill='none' stroke='%23434b49' stroke-width='.65'%3E%3Cpath d='M0 80H76M84 80H160M80 0V76M80 84V160' stroke-opacity='.075'/%3E%3Cpath d='M66 66L76 76M84 84L94 94M94 66L84 76M76 84L66 94' stroke-opacity='.11'/%3E%3C/g%3E%3Ccircle cx='80' cy='80' r='1' fill='%23434b49' fill-opacity='.14'/%3E%3C/svg%3E");
+            --ef-contours-light: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='320' height='96' viewBox='0 0 320 96'%3E%3Cg fill='none' stroke='white' stroke-width='.5' stroke-opacity='.42' stroke-linecap='round'%3E%3Cpath d='M-38 97C-6 91 2 68 23 50C43 33 65 30 82 40C97 49 108 43 123 29C136 17 143 5 162-9'/%3E%3Cpath d='M-37 88C-8 82-1 61 19 44C39 27 62 25 79 34C94 42 105 37 119 23C131 12 138 1 155-10'/%3E%3Cpath d='M-35 78C-9 73-3 54 16 38C35 22 59 20 75 28C89 35 101 31 114 18C125 8 131-2 147-11'/%3E%3Cpath d='M-32 68C-8 64-3 47 14 32C32 17 55 15 71 22C84 28 96 25 108 13C118 4 123-4 138-12'/%3E%3Cpath d='M-29 58C-7 55-2 40 13 27C29 13 51 11 66 17C78 22 89 20 101 9C110 1 115-6 128-13'/%3E%3Cpath d='M-25 48C-5 46-1 34 12 22C27 9 47 7 61 12C72 16 82 15 93 5C101-2 106-8 118-14'/%3E%3Cpath d='M101 97C124 86 131 70 151 62C171 54 187 61 204 53C222 45 226 27 246 19C267 11 284 20 302 14C316 10 326 1 338-9'/%3E%3Cpath d='M119 98C138 87 143 74 159 68C177 61 190 67 205 60C222 52 226 36 244 28C263 20 279 28 295 23C311 18 322 9 335-2'/%3E%3Cpath d='M140 98C154 88 158 79 171 74C185 68 197 73 209 67C224 60 228 46 243 39C259 31 272 38 287 34C302 30 314 21 328 10'/%3E%3Cpath d='M163 98C174 89 177 84 187 80C198 75 207 79 216 74C228 68 232 57 244 51C257 44 268 50 280 47C293 44 304 36 318 25'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        @property --ef-reasoning-stop-a {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 0%;
+        }
+
+        @property --ef-reasoning-stop-b {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 70%;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 32px 16px;
+            display: grid;
+            place-items: center;
+            color: var(--ef-ink);
+            background-color: var(--ef-workbench);
+            background-image: var(--ef-gray-grid);
+            background-size: 160px 160px;
+            font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+        }
+
+        #chat {
+            width: min(640px, calc(100vw - 32px));
+            display: grid;
+            gap: 24px;
+        }
+
+        .mes_block {
+            padding: 24px;
+            background-color: var(--ef-paper);
+            background-image: var(--ef-paper-grid);
+        }
+
+        .tag {
+            margin: 0 0 12px;
+            color: var(--ef-faint);
+            font-size: 13px;
+        }
+
+        .mes_reasoning_details { border: 0; }
+
+        /* ---- 文档式推理头：深色当前块 + 黄竖线 + 白字，白纸只留点阵 ---- */
+        .mes_reasoning_summary {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 0 10px;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .doc-current {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 32px 8px 10px;
+            background: var(--ef-dark);
+            border-radius: 2px;
+        }
+
+        /* 等高线只进深色块右侧（学官网按钮 texture 层），白纸不沾。 */
+        .doc-current::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 55%;
+            background-image: var(--ef-contours-light);
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: cover;
+            opacity: 0.5;
+            -webkit-mask-image: linear-gradient(to right, transparent 35%, black 75%);
+            mask-image: linear-gradient(to right, transparent 35%, black 75%);
+            pointer-events: none;
+        }
+
+        .doc-current > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .doc-current::before {
+            content: "";
+            flex: none;
+            width: 2px;
+            height: 18px;
+            background: var(--ef-signal);
+        }
+
+        .done .doc-current::before { background: #8a918e; }
+
+        .doc-current .prefix {
+            color: rgba(253, 253, 253, 0.6);
+            font-style: italic;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .doc-current .title {
+            color: var(--ef-paper);
+            font-size: 14.5px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .doc-meta {
+            color: var(--ef-faint);
+            font-size: 12px;
+        }
+
+        .doc-arrow {
+            color: var(--ef-faint);
+            font-size: 12px;
+        }
+
+        /* thinking 色段住进头块 ::after：left/right 归零，天然跟头块等宽。
+           折叠/展开都在头块底下，不悬空、不顶满。 */
+        .thinking .mes_reasoning_summary { flex-wrap: wrap; }
+
+        .thinking .mes_reasoning_summary::after {
+            content: "";
+            flex: none;
+            order: 99;
+            flex-basis: 100%;
+            height: 1px;
+            margin-top: 0;
+            background: var(--ef-line);
+        }
+
+        .thinking .doc-current::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            top: calc(100% + 10px);
+            height: 4px;
+            -webkit-mask-image: none;
+            mask-image: none;
+            --ef-reasoning-stop-a: 0%;
+            --ef-reasoning-stop-b: 70%;
+            --ef-reasoning-color-a: var(--ef-calib-c);
+            --ef-reasoning-color-b: var(--ef-calib-m);
+            --ef-reasoning-color-c: var(--ef-calib-y);
+            background-image: linear-gradient(
+                to right,
+                var(--ef-reasoning-color-a) 0 var(--ef-reasoning-stop-a),
+                var(--ef-reasoning-color-b) var(--ef-reasoning-stop-a) var(--ef-reasoning-stop-b),
+                var(--ef-reasoning-color-c) var(--ef-reasoning-stop-b) 100%
+            );
+            background-repeat: no-repeat;
+            animation: ef-reasoning-compact-run 1800ms linear infinite;
+        }
+
+        .mes_reasoning {
+            padding: 2px 0 4px 2px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--ef-muted);
+        }
+
+        /* done 底进度：details 折叠时连伪元素一起藏，展开才出现。
+           单个 ::after 双层背景：右对齐深色静段 + 通栏发丝线（方点省掉）。 */
+        .done .mes_reasoning_details::after {
+            content: "";
+            display: block;
+            height: 4px;
+            margin-top: 12px;
+            background-image:
+                linear-gradient(to right, var(--ef-dark) 0 120px, transparent 120px),
+                linear-gradient(to right, var(--ef-line) 0 100%);
+            background-size:
+                120px 4px,
+                100% 1px;
+            background-position:
+                100% 100%,
+                0 100%;
+            background-repeat: no-repeat;
+        }
+
+        @keyframes ef-reasoning-compact-run {
+            0% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+            33.32% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+            33.34% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-y);
+                --ef-reasoning-color-b: var(--ef-calib-c);
+                --ef-reasoning-color-c: var(--ef-calib-m);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+            66.65% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-y);
+                --ef-reasoning-color-b: var(--ef-calib-c);
+                --ef-reasoning-color-c: var(--ef-calib-m);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+            66.67% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-m);
+                --ef-reasoning-color-b: var(--ef-calib-y);
+                --ef-reasoning-color-c: var(--ef-calib-c);
+                animation-timing-function: cubic-bezier(0.25, 0.3, 0.65, 0.82);
+                opacity: 0.92;
+            }
+            99.98% {
+                --ef-reasoning-stop-a: 70%;
+                --ef-reasoning-stop-b: 100%;
+                --ef-reasoning-color-a: var(--ef-calib-m);
+                --ef-reasoning-color-b: var(--ef-calib-y);
+                --ef-reasoning-color-c: var(--ef-calib-c);
+                animation-timing-function: steps(1, end);
+                opacity: 0.92;
+            }
+            100% {
+                --ef-reasoning-stop-a: 0%;
+                --ef-reasoning-stop-b: 70%;
+                --ef-reasoning-color-a: var(--ef-calib-c);
+                --ef-reasoning-color-b: var(--ef-calib-m);
+                --ef-reasoning-color-c: var(--ef-calib-y);
+                opacity: 0.92;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .thinking .doc-current::after {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body data-generating="true">
+    <main id="chat">
+        <article class="mes_block thinking">
+            <p class="tag">D · v2 thinking：色段跟头块等宽（头块 ::after，天然对齐）。</p>
+            <details class="mes_reasoning_details" data-state="thinking" open>
+                <summary class="mes_reasoning_summary">
+                    <span class="doc-current">
+                        <span class="prefix">//</span>
+                        <span class="title">思考了一会</span>
+                    </span>
+                    <span class="doc-meta">12s</span>
+                    <span class="doc-arrow">▾</span>
+                </summary>
+                <div class="mes_reasoning">这里是推理正文：白纸、灰字、大行距。分量在头上，不在盒子上。</div>
+            </details>
+        </article>
+        <article class="mes_block done">
+            <p class="tag">E · v2 done：头块收色 + 展开后底进度（只在展开时出现）。</p>
+            <details class="mes_reasoning_details" data-state="done" open>
+                <summary class="mes_reasoning_summary">
+                    <span class="doc-current">
+                        <span class="prefix">//</span>
+                        <span class="title">思考了一会</span>
+                    </span>
+                    <span class="doc-meta">用时 34s</span>
+                    <span class="doc-arrow">▾</span>
+                </summary>
+                <div class="mes_reasoning">思考结束：头块还在，颜色收掉；进度条说明这段看完了。</div>
+            </details>
+        </article>
+    </main>
+</body>
+</html>

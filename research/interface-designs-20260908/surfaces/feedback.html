@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>操作反馈 · 终末地主题方案</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="../assets/vendor/feedback/toastr.min.css">
+  <link rel="stylesheet" href="feedback.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="../assets/vendor/connection/jquery-3.5.1.min.js" defer></script>
+  <script src="../assets/vendor/feedback/toastr.min.js" defer></script>
+  <script src="feedback.js" defer></script>
+</head>
+<body class="preview-page feedback-page" data-surface="feedback" data-variant="a">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">操作 / 结果与等待</p><h1>让结果说完。</h1><p>完成、出错，或还需要等一会儿。短通知留在边缘，用少量颜色把状态说明白。</p></div>
+    <span class="lab-disclaimer">独立候选 · 虚构样例</span>
+  </header>
+  <nav class="variant-picker" aria-label="短通知设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>浅色纸签</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>深色短通知</button>
+  </nav>
+
+  <section class="feedback-lab" aria-label="通知评审场景">
+    <div class="sample-triggers" role="group" aria-label="生成一个通知样例">
+      <button type="button" class="lab-button" data-show-toast="success"><span class="trigger-dot success-dot" aria-hidden="true"></span>成功</button>
+      <button type="button" class="lab-button" data-show-toast="info"><span class="trigger-dot info-dot" aria-hidden="true"></span>信息</button>
+      <button type="button" class="lab-button" data-show-toast="error"><span class="trigger-dot error-dot" aria-hidden="true"></span>错误</button>
+      <button type="button" class="lab-button" data-show-toast="persistent">持续提示</button>
+    </div>
+    <div class="lab-toolbar">
+      <label for="toast-position">位置<select id="toast-position"><option value="toast-top-center">顶部居中</option><option value="toast-top-left">左上角</option><option value="toast-top-right">右上角</option><option value="toast-bottom-center">底部居中</option><option value="toast-bottom-left">左下角</option><option value="toast-bottom-right">右下角</option></select></label>
+      <button type="button" class="lab-button" id="clear-feedback">清空样例</button>
+    </div>
+    <details class="feedback-options">
+      <summary>更多样例条件</summary>
+      <div class="feedback-options-body">
+        <div class="lab-toolbar">
+          <label for="feedback-width">画布宽度<select id="feedback-width"><option value="wide">可用宽度</option><option value="390">390px</option><option value="320">320px</option></select></label>
+          <label for="feedback-height">画布高度<select id="feedback-height"><option value="360">360px</option><option value="300">300px</option></select></label>
+          <button type="button" class="lab-button" id="open-feedback-dialog">在对话框中查看</button>
+          <button type="button" class="lab-button" data-show-toast="warning">显示警告样例</button>
+        </div>
+        <div class="lab-toolbar">
+          <label><input id="feedback-long" type="checkbox">长文件名与正文</label>
+          <label><input id="feedback-no-title" type="checkbox">不显示标题</label>
+          <label for="persistent-mode">持续提示<select id="persistent-mode"><option value="stoppable">可停止</option><option value="static">仅等待</option></select></label>
+          <button type="button" class="lab-button" id="complete-feedback-task">结束模拟任务</button>
+        </div>
+        <div class="lab-toolbar">
+          <label><input id="feedback-close" type="checkbox">显示关闭按钮</label>
+          <label><input id="feedback-progress" type="checkbox">显示消失倒计时</label>
+          <label for="feedback-duration">普通提示计时<select id="feedback-duration"><option value="4000">默认 4 秒</option><option value="2000">2 秒样例</option><option value="10000">10 秒样例</option></select></label>
+        </div>
+        <p>关闭按钮、倒计时默认关闭，只应用于新建的普通通知。倒计时表示提示何时消失。持续提示由模拟任务结束，不显示任务百分比。</p>
+        <div class="lab-toolbar">
+          <label for="feedback-stack-count">堆叠数量<select id="feedback-stack-count"><option value="2">2 条</option><option value="4">4 条</option></select></label>
+          <button type="button" class="lab-button" id="show-feedback-stack">重新生成堆叠样例</button>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <main id="feedback-stage" class="demo-stage feedback-stage" aria-labelledby="feedback-stage-title">
+    <header class="stage-heading"><span>对话工作区</span><span>本页样例</span></header>
+    <article class="stage-reading"><p class="reading-eyebrow">谷地巡检手册</p><h2 id="feedback-stage-title">交班之前</h2><p>沿河的三处信标已经恢复。值守员把最后一张巡检单翻到背面，在空白处记下明早需要带走的工具。</p><p>门外的风还没停，桌上的记录暂时留在这一页。</p><span class="reading-rule" aria-hidden="true"></span></article>
+    <footer class="stage-footer">巡检记录 / 草稿</footer>
+  </main>
+  <div class="demo-legend"><span data-variant-note="a">A · 白纸、细边线和局部状态色。</span><span data-variant-note="b" hidden>B · 深灰表面，相同密度和状态规则。</span><span>普通提示默认 4 秒；悬停后移开，另计 10 秒。</span></div>
+  <p id="feedback-action-status" class="feedback-action-status" role="status" aria-live="polite"></p>
+
+  <details class="design-notes"><summary>范围、行为与验收边界</summary><div class="note-grid">
+    <div><h2>这页实际运行什么</h2><p>通知由目标安装的 Toastr 2.1.3 生成。默认使用 4 秒计时、250ms 淡入淡出、悬停暂停与离开后 10 秒计时。关闭按钮和倒计时条是库支持的可选状态；没有自动开启。</p><p>持续提示保留 <code>.action-loader-toast</code> 的正文与停止控件形状。点击整块不会关闭；“停止”只结束本页模拟任务。“仅等待”没有停止按钮，可在画布外结束该样例。</p></div>
+    <div><h2>原型里的局部适配</h2><p>位置使用原有六项，但坐标限定在评审画布的可见范围。对话框内使用正文区域，留出标题与底部操作。高堆叠和长正文可滚动；没有增加历史、折叠队列或任务进度。</p><p>本页直接为新节点补焦点与 Enter 操作，给关闭/停止控件补了清楚的名称。对话框只演示单层容器迁移。这里没有载入宿主完整键盘模块、Popup 系统或请求生命周期，也不能代替真机软键盘与读屏验证。</p></div>
+  </div></details>
+  <p class="prototype-footnote">所有通知都是虚构样例。可点击普通通知关闭；持续任务的停止控件为 44px。改变 A/B、位置或画布尺寸不会重置现有通知计时。</p>
+
+  <dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-dialog-title" aria-describedby="feedback-dialog-description">
+    <div class="dialog-shell">
+      <header class="dialog-heading"><h2 id="feedback-dialog-title">完成这次检查？</h2><button type="button" class="feedback-icon-button" id="close-feedback-dialog" aria-label="关闭样例对话框"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header>
+      <div class="dialog-reading"><p id="feedback-dialog-description">这里只结束本页的查看步骤。生成一条通知，可以检查它在对话框打开时的位置。</p><button type="button" class="lab-button" id="show-dialog-feedback">显示一条普通通知</button><p class="dialog-explanation">关闭对话框后，尚未消失的提示会移回页面画布。</p></div>
+      <footer class="dialog-actions"><button type="button" class="lab-button" id="cancel-feedback-dialog" autofocus>继续查看</button><button type="button" class="lab-button confirm-button" id="confirm-feedback-dialog">完成检查</button></footer>
+    </div>
+  </dialog>
+</body>
+</html>

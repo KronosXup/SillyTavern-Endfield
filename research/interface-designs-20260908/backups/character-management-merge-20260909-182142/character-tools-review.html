@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>角色管理工具区 · 配色校正稿</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="character-tools-review.css">
+  <script src="character-tools-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="eyebrow">ENDFIELD / 局部设计</p><h1>角色管理工具区 <span style="display:inline-block">· 配色校正稿</span></h1></div>
+    <a href="scrollbar-review.html">滚动条 ↗</a>
+  </header>
+  <main class="review-layout">
+    <section class="work-area" aria-label="角色管理工具区交互方案">
+      <div class="preview-toolbar">
+        <label>抽屉宽度 <select id="preview-width"><option value="295">当前酒馆 · 295px</option><option value="320">320px</option><option value="390">390px</option></select></label>
+        <label><input type="checkbox" id="show-before" checked> 现状对照</label>
+        <button id="reset-demo" class="review-button">回到初始状态</button>
+      </div>
+      <p class="intro">恢复深色操作行、浅色筛选区与白色列表的层次。黄色标出新建入口与生效筛选，可直接操作查看状态。</p>
+      <div class="workbench" id="workbench">
+        <div class="comparisons" id="comparisons"></div>
+      </div>
+      <p class="demo-status" id="demo-status" role="status" aria-live="polite">试试放大镜、筛选图标、每页数量和批量编辑。</p>
+      <details class="test-controls">
+        <summary>更多状态 <span aria-hidden="true">＋</span></summary>
+        <div class="test-options">
+          <label><input type="checkbox" id="long-tags"> 长标签</label>
+          <label><input type="checkbox" id="extension-buttons"> 扩展追加按钮</label>
+          <label><input type="checkbox" id="short-height"> 短高度</label>
+          <button class="review-button" id="search-empty">无结果示例</button>
+        </div>
+        <p>收藏、群聊、文件夹和普通标签按「不限 → 包含 → 排除」切换。收起搜索或标签列表后，已有条件仍然生效。</p>
+      </details>
+      <div class="scope-note">
+        <strong>本稿尚未实装</strong>
+        <p>只设计新建／排序行、搜索与筛选、分页与批量工具。上方的固定和收藏快捷区、下方的角色条目留在后续；列表只是匿名示例。</p>
+        <p>这里不会连接酒馆、导入文件、创建角色或删除真实数据。搜索和选择用于预览状态；弹出的说明不代表正式功能页面。</p>
+      </div>
+    </section>
+    <aside class="reference-notes" aria-label="游戏参考与对应关系">
+      <h2>具体借用哪里</h2>
+      <section>
+        <h3><span>01</span> 把局部放回完整界面</h3>
+        <a class="reference-crop surface-reference" href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank" aria-label="打开醚质提交全图，查看深浅分区与强调色"></a>
+        <p>原图以深色标题、浅色主体和局部黄色建立层次。初稿只取了浅色底条，整体被压成灰白。</p>
+        <p class="boundary">操作行沿用已确认工具栏的深底与淡斜纹；黄色用于新建和生效筛选。这是酒馆适配，非原图控件的逐项复刻。</p>
+      </section>
+      <section>
+        <h3><span>02</span> 排序用一个完整控件</h3>
+        <a class="reference-crop sort-reference" href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank" aria-label="打开好友申请原图，查看左下排序控件"></a>
+        <p>好友申请窗口的排序控件：圆端边界、内侧细线，字段与箭头分段。</p>
+        <p class="boundary">酒馆仍使用原来的一个排序下拉；不把它拆成额外的升降按钮。</p>
+      </section>
+      <section>
+        <h3><span>03</span> 同组图标共用底面</h3>
+        <a class="reference-crop group-reference" href="../research/game-ui-references-2026-09-08/removed-reference.svg" target="_blank" aria-label="打开醚质提交原图，查看底部图标分组"></a>
+        <p>醚质提交底条的连续底面和细竖线，用来区分相邻图标组。筛选工具共用浅色工作面，选中后以深底和黄色图标回应。</p>
+        <p class="boundary">原图中的圆形图标是增益状态。本稿只借分组关系，搜索与分页是酒馆适配。</p>
+      </section>
+      <section class="change-note">
+        <h3><span>04</span> 批量工具按状态出现</h3>
+        <p>当前主题把原本隐藏的全选、删除按钮也显示了。本稿进入批量编辑后才出现计数和后续操作。</p>
+        <p class="boundary">“全选”作用于当前页。默认、筛选、批量状态各有清楚反馈。</p>
+      </section>
+      <a class="contract-link" href="../verification/character-tools-review-2026-09-09.md" target="_blank">查看范围与原生行为核对 ↗</a>
+    </aside>
+  </main>
+  <dialog id="demo-dialog" aria-labelledby="dialog-title">
+    <h2 id="dialog-title"></h2><p id="dialog-body"></p>
+    <form method="dialog"><button class="review-button">返回预览</button></form>
+  </dialog>
+</body>
+</html>

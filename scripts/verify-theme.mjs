@@ -43,7 +43,13 @@ if (paperGridDeclaration.includes('%3Ccircle')) {
     failures.push('paper texture still contains an SVG circle dot pattern');
 }
 
-if (/https?:\/\//i.test(css)) failures.push('custom_css contains a remote URL');
+const allowedRemoteFontUrls = new Set(['Bold', 'Regular', 'Medium'].flatMap((weight) => [
+    `https://registry.npmmirror.com/@lobehub/webfont-harmony-sans-sc/1.0.0/files/fonts/HarmonyOS_Sans_SC_${weight}.woff2`,
+    `https://cdn.jsdelivr.net/npm/@lobehub/webfont-harmony-sans-sc@1.0.0/fonts/HarmonyOS_Sans_SC_${weight}.woff2`,
+]));
+for (const url of css.match(/https?:\/\/[^\s"'<>)]*/gi) ?? []) {
+    if (!allowedRemoteFontUrls.has(url)) failures.push(`unexpected remote URL: ${url}`);
+}
 if (/research[\\/]raw/i.test(css)) failures.push('custom_css references raw research assets');
 if (css.includes('asset:')) failures.push('custom_css contains an unembedded local asset');
 

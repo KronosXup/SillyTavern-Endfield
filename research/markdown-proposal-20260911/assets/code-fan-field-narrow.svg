@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" fill="none">
+  <title>Uneven fan petals with horizontal hatching, reconstructed for reading</title>
+  <defs>
+    <pattern id="hatch" width="320" height="10" patternUnits="userSpaceOnUse"><path d="M0 1H320" stroke="#fff" stroke-width="1.4"/></pattern>
+  </defs>
+  <g transform="translate(148 14) scale(1.45)" opacity=".08" fill="url(#hatch)">
+    <path d="M8 160Q1 145 0 132L212 116 235 132 225 160Z"/>
+    <path d="M0 120Q0 107 6 96L214 102 228 117Z"/>
+    <path d="M12 85Q19 72 29 60L219 92 221 103Z"/>
+    <path d="M42 43Q53 31 66 25L227 84 223 95Z"/>
+    <path d="M87 15Q98 9 113 8L235 77 230 88Z"/>
+    <path d="M133 8Q144 8 155 11L244 74 239 84Z"/>
+    <path d="M172 15Q182 17 193 22L253 77 248 86Z"/>
+    <path d="M208 30Q220 34 229 42L261 81 254 89Z"/>
+    <path d="M244 51 258 64 269 87 261 93Z"/>
+    <path d="M276 57 287 49 281 89 271 96Z"/>
+    <path d="M298 45 312 42 320 101 301 126 278 106 287 93Z"/>
+  </g>
+</svg>

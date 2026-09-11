@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>终末地 · 确认框高清校准对照</title>
+  <link rel="stylesheet" href="confirmation-calibrated.css">
+</head>
+<body class="review-page" data-page="calibration-review">
+  <main class="review-surface">
+    <iframe id="confirmation-frame" title="确认框交互预览" src="confirmation-calibrated-stage.html"></iframe>
+    <figure class="reference-view" id="reference-view" hidden>
+      <img id="reference-image" src="../research/confirmation-4k-2026-09-10/removed-reference.svg" alt="本次4K录屏约21秒的短确认原帧：白带、灰黄双按钮和原始纹理">
+      <figcaption id="reference-caption">本次录屏原帧 · 3840 × 2160 · 约21秒；副说明属于游戏中的刷新场景</figcaption>
+    </figure>
+  </main>
+  <nav class="review-dock" aria-label="预览对照">
+    <div class="review-modes" role="group" aria-label="查看内容">
+      <button type="button" data-view="calibrated" aria-pressed="true">校准稿</button>
+      <button type="button" data-view="initial" aria-pressed="false">初稿</button>
+      <button type="button" data-view="reference" aria-pressed="false">4K原帧</button>
+    </div>
+    <label class="long-question-control"><input type="checkbox" id="long-question">长问题</label>
+    <button type="button" id="reopen">重新打开</button>
+    <span class="review-status" id="review-status" role="status">仅演示，不会删除聊天</span>
+  </nav>
+  <script src="confirmation-calibrated.js"></script>
+</body>
+</html>

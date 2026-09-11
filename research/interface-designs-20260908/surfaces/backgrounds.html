@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Endfield · 背景选择</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="backgrounds.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="backgrounds.js" defer></script>
+</head>
+<body class="preview-page" data-surface="backgrounds" data-variant="a">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">背景选择 · 独立设计研究</p><h1>把图像放清楚。</h1><p>全局选择、聊天锁定与归类勾选分别表达。操作展开到图框外，缩略图保留原来的密度选择。</p></div>
+    <span class="lab-disclaimer">虚构场景 · 不连接酒馆</span>
+  </header>
+  <nav class="variant-picker" aria-label="背景选择设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>连续白纸</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>短深色工具头</button>
+  </nav>
+  <div class="lab-toolbar">
+    <label>面板宽度<select id="bg-lab-width"><option value="full">自适应</option><option value="390">390px</option><option value="320">320px</option></select></label>
+    <label>可用高度<select id="bg-lab-height"><option value="430">430px</option><option value="300">300px</option></select></label>
+    <details class="bg-lab-more"><summary>更多样例条件</summary><div><label><input type="checkbox" id="bg-lab-chat" checked>已选中聊天</label><label><input type="checkbox" data-toggle-motion>减少动画</label><button type="button" class="lab-button" id="bg-restore-sample">恢复样本</button></div></details>
+  </div>
+
+  <section class="demo-stage bg-frame" id="bg-frame" data-height="430" aria-label="背景选择器预览">
+    <div id="Backgrounds" class="drawer-content openDrawer bg-drawer-layout" data-cols="5">
+      <div id="bg-header-fixed">
+        <div class="bg-header-row-1">
+          <h2>背景</h2>
+          <span class="expander"></span>
+          <label class="sr-only" for="background_fitting">背景适配</label>
+          <select id="background_fitting" class="text_pole" title="背景适配"><option value="classic">经典</option><option value="cover">填充</option><option value="contain">适应</option><option value="stretch">拉伸</option><option value="center">居中</option></select>
+          <button type="button" id="auto_background" class="bg-tool menu_button" title="模拟自动选择" aria-label="自动选择：仅模拟说明"><i class="fa-solid fa-wand-magic" aria-hidden="true"></i></button>
+          <button type="button" id="bg_add_folder_button" class="bg-tool menu_button" title="新建文件夹" aria-label="新建文件夹"><i class="fa-solid fa-folder-plus" aria-hidden="true"></i></button>
+          <button type="button" id="add_background_button_top" class="bg-tool menu_button" title="添加模拟背景" aria-label="添加模拟背景"><i class="fa-solid fa-upload" aria-hidden="true"></i></button>
+        </div>
+        <div class="bg-header-row-2">
+          <label class="sr-only" for="bg-filter">搜索背景文件名或文件夹名称</label>
+          <input id="bg-filter" class="text_pole" type="search" placeholder="搜索文件名…" autocomplete="off">
+          <label class="sr-only" for="bg-sort">图片排序</label>
+          <select id="bg-sort" class="text_pole"><option value="az">A–Z</option><option value="za">Z–A</option><option value="newest">最新</option><option value="oldest">最早</option></select>
+        </div>
+      </div>
+      <div id="bg_tabs" class="heading-container-with-controls">
+        <div class="bg-tab-toolbar">
+          <ul class="bg_tabs_list" role="tablist" aria-label="背景来源">
+            <li class="bg_tab_button ui-tabs-active" role="presentation"><button type="button" id="bg-tab-global" role="tab" aria-selected="true" aria-controls="bg_global_tab">全局</button></li>
+            <li class="bg_tab_button" role="presentation"><button type="button" id="bg-tab-chat" role="tab" aria-selected="false" aria-controls="bg_chat_tab" tabindex="-1">聊天</button></li>
+          </ul>
+          <div class="heading-controls">
+            <button type="button" id="bg_group_add_to_folder_button" class="bg-tool menu_button" title="加入文件夹" aria-label="把选中图片加入文件夹" hidden><i class="fa-solid fa-folder-tree" aria-hidden="true"></i></button>
+            <button type="button" id="bg_selection_mode_button" class="bg-tool menu_button" title="多选归类" aria-label="多选归类" aria-pressed="false"><i class="fa-solid fa-check-double" aria-hidden="true"></i><span id="bg_group_select_count" hidden></span></button>
+            <button type="button" id="bg_thumb_zoom_out" class="bg-tool menu_button" title="缩小缩略图" aria-label="缩小缩略图"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+            <button type="button" id="bg_thumb_zoom_in" class="bg-tool menu_button" title="放大缩略图" aria-label="放大缩略图"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="bg-panel-scroll" tabindex="-1">
+          <div id="bg_global_tab" class="bg_tab_panel" role="tabpanel" aria-labelledby="bg-tab-global">
+            <div id="bg_folder_breadcrumb" class="bg_folder_breadcrumb" hidden>
+              <button type="button" id="bg_back_to_folders" class="bg-tool menu_button" title="返回全部背景" aria-label="返回全部背景"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+              <span id="bg_current_folder_name" class="bg_current_folder_name"></span>
+              <button type="button" id="bg_folder_remove_selected_button" class="bg-tool menu_button" title="从此文件夹移除所选图片" aria-label="从此文件夹移除所选图片" hidden><i class="fa-solid fa-folder-minus" aria-hidden="true"></i></button>
+            </div>
+            <div id="bg_folder_grid" class="bg_list bg_folder_grid" aria-label="文件夹"></div>
+            <div id="bg_menu_content" class="bg_list" aria-label="全局背景"></div>
+            <p id="bg-global-empty" class="bg-empty" hidden>没有匹配的背景。</p>
+          </div>
+          <div id="bg_chat_tab" class="bg_tab_panel" role="tabpanel" aria-labelledby="bg-tab-chat" hidden>
+            <div id="bg_custom_content" class="bg_list" aria-label="当前聊天背景"></div>
+            <p id="bg_chat_hint" class="bg-empty" hidden>当前聊天还没有背景。生成或上传的聊天背景会显示在这里。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="bg-dialog-layer" class="bg-dialog-layer" role="dialog" aria-modal="true" aria-labelledby="bg-dialog-title" hidden>
+      <div class="bg-dialog">
+        <header class="bg-dialog-header"><div><span id="bg-dialog-kind">背景操作</span><h2 id="bg-dialog-title">背景</h2></div><button type="button" id="bg-dialog-close" class="bg-tool" aria-label="关闭并返回"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header>
+        <form id="bg-dialog-form" novalidate>
+          <div id="bg-dialog-content" class="bg-dialog-content"></div>
+          <p id="bg-dialog-error" class="bg-dialog-error" role="alert" hidden></p>
+          <footer id="bg-dialog-footer" class="bg-dialog-footer"><button type="button" id="bg-dialog-cancel" class="bg-action">取消</button><button type="submit" id="bg-dialog-confirm" class="bg-action primary">保存</button></footer>
+        </form>
+      </div>
+    </section>
+  </section>
+  <div class="demo-legend bg-legend"><span id="bg-feedback" role="status" aria-live="polite">单击切换背景；三个点展开该图操作。</span><span id="bg-density">5 列</span></div>
+  <div class="bg-state-preview" aria-label="样本背景状态">
+    <div id="bg-visible-preview" class="bg-visible-preview" aria-hidden="true"></div>
+    <div><p>当前显示 <strong id="bg-visible-name">—</strong></p><p>全局 <span id="bg-global-name">—</span> <span class="bg-state-divider">/</span> 聊天锁定 <span id="bg-locked-name">—</span></p></div>
+  </div>
+  <details class="design-notes">
+    <summary>动作、密度与实现边界</summary>
+    <div class="note-grid"><div><h3>三种状态各自保留</h3><p>左上角勾表示全局选择，右下角锁表示当前聊天锁定；多选归类开启后，右上角方格表示归类集合。锁定聊天时单击全局图会换聊天背景，Shift 单击只改全局背景。</p><p>A 使用连续白纸。B 保留短深色工具头，下面沿用淡灰边缘；两套都保留真实 2–8 列选择，不固定裁成统一比例。</p></div><div><h3>两套都包含原型脚本增补</h3><p>菜单移到面板外层，避免被缩略图裁切；菜单操作保持 44px。320 / 390px 的 2 / 3 列按常规触控设计，高密度缩略图不承诺 44px；列数设置仍真实有效。</p><p>短面板让整个工作区滚动。上传仅添加自绘占位样本，自动选择仅说明模拟边界；没有网络、图片文件读取或模型请求。没有新增收藏、标签、图库保存或批量删除。</p></div></div>
+    <p>重命名、文件夹归类与删除分别确认。删除文件夹保留图片；聊天图转入全局后从聊天列表移出。所有动作只改本页内存。<a href="../research/backgrounds-study.md">查看安装源调查</a></p>
+  </details>
+  <p class="prototype-footnote">场景为本页自绘 SVG 占位内容。背景适配仅在下方小预览演示；恢复样本只重置本页数据。真实主题与宿主保持原样。</p>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
+  <title>设置与抽屉 · 终末地主题方案</title>
+  <link rel="stylesheet" href="../assets/common.css"><link rel="stylesheet" href="settings.css">
+  <script src="../assets/common.js" defer></script><script src="settings.js" defer></script>
+</head>
+<body class="preview-page" data-surface="settings" data-variant="A">
+  <header class="lab-intro"><div><p class="lab-kicker">05 / 表单与信息</p><h1>设置与抽屉</h1><p>表单先要清楚，再谈装饰。试试搜索标记、折叠分组、长选项与滑块。</p></div><span class="lab-disclaimer">独立示例 · 不修改酒馆</span></header>
+  <div class="variant-picker" role="group" aria-label="设置区设计方案">
+    <button type="button" data-variant="A" aria-pressed="true"><span class="variant-letter">A</span>白纸工作面</button>
+    <button type="button" data-variant="B" aria-pressed="false"><span class="variant-letter">B</span>深色控制面</button>
+  </div>
+  <div class="lab-toolbar"><button type="button" class="lab-button" id="toggle-height" aria-pressed="false">短窗口</button><button type="button" class="lab-button" id="toggle-long-label" aria-pressed="false">长标签</button><button type="button" class="lab-button" id="reset-demo">恢复示例</button><label><input type="checkbox" data-toggle-motion>减少动态效果</label></div>
+  <section class="demo-stage settings-stage" aria-label="设置抽屉示例">
+    <div class="stage-context"><span><i class="fa-solid fa-sliders" aria-hidden="true"></i> 设置</span><span>LOCAL PREVIEW</span></div>
+    <div class="drawer-closed" id="drawer-closed" hidden><span class="closed-index">05</span><p>抽屉已收起</p><button type="button" class="ef-button dark" id="reopen-drawer">打开设置 <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button></div>
+    <section class="settings-drawer" id="settings-drawer" aria-labelledby="drawer-title">
+      <header class="drawer-header">
+        <div class="drawer-title-line"><h2 id="drawer-title"><span aria-hidden="true">//</span> 用户设置</h2><div class="drawer-heading-tools"><span class="local-state">本地示例</span><button type="button" class="drawer-close" id="close-drawer" aria-label="收起设置"><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></button></div></div>
+        <div class="search-line"><label class="settings-search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="settings-search" type="search" placeholder="搜索设置名称" aria-label="搜索并标记设置名称" autocomplete="off"></label><span id="search-summary" role="status">搜索会标记匹配项</span></div>
+        <nav class="settings-tabs" aria-label="示例设置类别"><button type="button" data-panel="appearance" aria-current="page">界面</button><button type="button" data-panel="connection">连接</button><button type="button" data-panel="generation">生成</button></nav>
+      </header>
+      <div class="drawer-body" id="drawer-body" tabindex="0" aria-label="设置内容，可滚动">
+        <form id="settings-form">
+          <div class="settings-panel" data-settings-panel="appearance">
+            <div class="setting-columns">
+              <section class="setting-group"><h3 class="ef-section-label">主题</h3>
+                <div class="setting-row stacked" data-search="主题 预设"><label for="theme-name">主题预设</label><div class="field-with-action"><select id="theme-name" class="setting-field"><option>Endfield · 档案长图 β0.3</option>Endfield · 标准纸面</option>包含很长名称的示例主题 · 明亮阅读 / 自定义设置</option></select><button type="button" class="compact-tool" id="save-theme" aria-label="保存示例主题"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i></button></div><p class="field-note">在这里切换只用于测试控件长度。</p></div>
+                <div class="setting-row" data-search="头像 样式"><label for="avatar-style">头像样式</label><select id="avatar-style" class="setting-field"><option>圆角方形</option>方形</option>圆形</option></select></div>
+                <div class="setting-row" data-search="消息 显示 样式"><label for="message-style">消息样式</label><select id="message-style" class="setting-field"><option>文档</option>气泡</option>纯文本</option></select></div>
+                <div class="setting-row range-row" data-search="聊天 宽度"><label for="chat-width">聊天宽度 <output for="chat-width" id="chat-width-value">85%</output></label><input id="chat-width" type="range" min="40" max="100" value="85" data-unit="%" aria-describedby="chat-width-value"></div>
+                <div class="setting-row range-row" data-search="字体 缩放 大小"><label for="font-scale">字体缩放 <output for="font-scale" id="font-scale-value">100%</output></label><input id="font-scale" type="range" min="85" max="130" value="100" data-unit="%" aria-describedby="font-scale-value"></div>
+                <div class="setting-row range-row" data-search="背景 模糊"><label for="blur-radius">背景模糊 <output for="blur-radius" id="blur-radius-value">0px</output></label><input id="blur-radius" type="range" min="0" max="30" value="0" data-unit="px" aria-describedby="blur-radius-value"></div>
+              </section>
+              <section class="setting-group"><h3 class="ef-section-label">聊天显示</h3>
+                <label class="setting-row switch-row" data-search="显示 头像"><span>显示头像</span><input type="checkbox" role="switch" class="setting-switch" checked></label>
+                <label class="setting-row switch-row" data-search="显示 时间戳"><span>显示时间戳</span><input type="checkbox" role="switch" class="setting-switch" checked></label>
+                <label class="setting-row switch-row" data-search="显示 令牌 统计"><span>显示令牌统计</span><input type="checkbox" role="switch" class="setting-switch"></label>
+                <label class="setting-row switch-row" data-search="消息 计数 编号"><span>消息计数</span><input type="checkbox" role="switch" class="setting-switch" checked></label>
+                <label class="setting-row switch-row" data-search="隐藏 聊天 头像"><span data-long-label="在紧凑布局中隐藏未选中角色的聊天头像">隐藏未选中头像</span><input type="checkbox" role="switch" class="setting-switch"></label>
+                <details class="setting-details"><summary>更多显示选项 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div><label class="setting-row switch-row" data-search="显示 消息 操作"><span>常驻消息操作</span><input type="checkbox" role="switch" class="setting-switch"></label><label class="setting-row switch-row" data-search="显示 滚动 快捷 按钮"><span>显示滚动快捷按钮</span><input type="checkbox" role="switch" class="setting-switch" checked></label></div></details>
+              </section>
+              <section class="setting-group"><h3 class="ef-section-label">交互</h3>
+                <div class="setting-row stacked" data-search="回车 发送 消息"><label for="enter-send">回车发送</label><select id="enter-send" class="setting-field"><option>桌面端开启</option>始终开启</option>始终关闭</option></select></div>
+                <label class="setting-row switch-row" data-search="自动 滚动 回复"><span>自动滚动到新回复</span><input type="checkbox" role="switch" class="setting-switch" checked></label>
+                <label class="setting-row switch-row" data-search="恢复 输入 草稿"><span>恢复输入草稿</span><input type="checkbox" role="switch" class="setting-switch" checked></label>
+                <label class="setting-row switch-row" data-search="减少 动态 动画 效果"><span>减少动态效果</span><input type="checkbox" role="switch" class="setting-switch" id="setting-reduced-motion"></label>
+                <div class="setting-row stacked" data-search="界面 语言"><label for="language">界面语言</label><select id="language" class="setting-field"><option>简体中文</option><option>English</option></select></div>
+                <p class="group-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>设置即时保留在本次示例中。刷新页面即可还原。</p>
+              </section>
+            </div>
+          </div>
+          <div class="settings-panel" data-settings-panel="connection" hidden>
+            <div class="connection-layout">
+              <section class="setting-group"><h3 class="ef-section-label">聊天补全</h3>
+                <div class="setting-row stacked" data-search="连接 预设"><label for="connection-preset">连接预设</label><div class="field-with-action"><select id="connection-preset" class="setting-field"><option>本地示例</option><option>长名称预设 · 角色扮演 / 大上下文</option></select><button type="button" class="compact-tool" id="new-preset" aria-label="新建示例预设"><i class="fa-solid fa-plus" aria-hidden="true"></i></button></div></div>
+                <div class="setting-row stacked" data-search="补全 来源"><label for="completion-source">补全来源</label><select id="completion-source" class="setting-field"><option>自定义兼容接口</option><option>本地推理服务</option></select></div>
+                <div class="setting-row stacked" data-search="服务器 地址"><label for="server-url">服务器地址</label><input id="server-url" class="setting-field code-field" type="url" value="https://example.invalid/v1" readonly><p class="field-note">示例地址，不会发起请求。</p></div>
+                <div class="setting-row stacked" data-search="模型 名称"><label for="model-name">模型</label><select id="model-name" class="setting-field"><option>sample-model</option><option>example-provider / character-chat-long-context-preview-2026-09-08</option><option>custom / small-local-model</option></select><details class="model-detail"><summary>查看完整名称</summary><p id="full-model-name">sample-model</p></details></div>
+                <div class="connection-actions"><button type="button" class="ef-button primary" id="test-connection">测试示例连接</button><span class="connection-state" id="connection-state" role="status"><span></span>未测试</span></div>
+              </section>
+              <aside class="connection-preview"><p class="connection-caption">连接状态</p><span class="connection-number">01</span><h3 id="connection-preview-title">尚未连接</h3><p>连接按钮演示等待、成功与失败时的视觉状态。</p><label class="failure-control"><input type="checkbox" id="simulate-failure">下次显示连接失败</label><div class="connection-message" id="connection-message" hidden><i class="fa-solid fa-circle-info" aria-hidden="true"></i><p></p></div></aside>
+            </div>
+          </div>
+          <div class="settings-panel" data-settings-panel="generation" hidden>
+            <div class="setting-columns generation-columns">
+              <section class="setting-group"><h3 class="ef-section-label">上下文</h3>
+                <div class="setting-row stacked" data-search="生成 预设"><label for="generation-preset">生成预设</label><select id="generation-preset" class="setting-field"><option>默认</option><option>更稳定</option><option>更自由</option></select></div>
+                <div class="setting-row range-row" data-search="上下文 长度"><label for="context-length">上下文长度 <output for="context-length" id="context-length-value">32768</output></label><input id="context-length" type="range" min="4096" max="131072" step="4096" value="32768" aria-describedby="context-length-value"></div>
+                <div class="setting-row stacked" data-search="最大 回复 长度"><label for="reply-length">最大回复长度</label><input class="setting-field number-field" id="reply-length" type="number" min="128" max="32768" step="128" value="2048"><p class="field-note">示例数值范围：128–32768。</p></div>
+                <label class="setting-row switch-row" data-search="流式 传输"><span>流式传输</span><input type="checkbox" role="switch" class="setting-switch" checked></label>
+              </section>
+              <section class="setting-group"><h3 class="ef-section-label">采样</h3>
+                <div class="setting-row range-row" data-search="温度 temperature"><label for="temperature">温度 <output for="temperature" id="temperature-value">0.80</output></label><input id="temperature" type="range" min="0" max="2" step="0.05" value="0.8" data-decimals="2" aria-describedby="temperature-value"></div>
+                <div class="setting-row range-row" data-search="top p 概率"><label for="top-p">Top P <output for="top-p" id="top-p-value">1.00</output></label><input id="top-p" type="range" min="0" max="1" step="0.05" value="1" data-decimals="2" aria-describedby="top-p-value"></div>
+                <div class="setting-row range-row" data-search="频率 惩罚"><label for="frequency-penalty">频率惩罚 <output for="frequency-penalty" id="frequency-penalty-value">0.00</output></label><input id="frequency-penalty" type="range" min="-2" max="2" step="0.1" value="0" data-decimals="2" aria-describedby="frequency-penalty-value"></div>
+                <details class="setting-details"><summary>高级采样 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary><div><div class="setting-row stacked" data-search="随机 种子 seed"><label for="seed">随机种子</label><input id="seed" class="setting-field number-field" type="number" value="-1" step="1"></div><label class="setting-row switch-row" data-search="固定 种子"><span>使用固定种子</span><input type="checkbox" role="switch" class="setting-switch"></label></div></details>
+              </section>
+            </div>
+          </div>
+        </form>
+      </div>
+      <footer class="drawer-footer"><span id="settings-change-state" role="status"><span></span>示例已就绪</span><button type="button" id="back-to-top">回到顶部 <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button></footer>
+    </section>
+  </section>
+  <div class="demo-legend"><span data-variant-note="A">A · 延续现有主题：深色标题、连续白纸、细线分组。</span><span data-variant-note="B" hidden>B · 深色操作面：较亮控件、水平分组，贴近游戏设置的层次。</span><span>搜索标记，不隐藏无关设置</span></div>
+  <details class="design-notes"><summary>设计取舍与落地范围</summary><div class="note-grid"><div><h2>A · 推荐作为默认</h2><p>阅读区和设置内容共用白纸基底。只把标题与导航压深，保持现有设置区的连续结构；多列在窄屏转成单列。</p><h2>B · 候选方向</h2><p>以游戏设置页的深色工作面为依据。开关与选择控件较亮，黄色只表示当前类别、选中状态和主操作。与白纸聊天区的切换更明显。</p></div><div><h2>原生结构</h2><p>标题、字段、分组、折叠和表单样式可映射到现有设置抽屉。这里用三个标签集中比较；真实宿主仍由各自的顶部入口打开对应抽屉。</p><p>搜索只标记当前示例页的匹配项，模拟现有搜索的高亮思路；计数、连接状态、保存提示和布局切换属于原型。没有新增扩展、实际连接或设置写入。</p><h2>待真机验收</h2><p>本页短窗口只能检查剩余空间。手机键盘弹出后的真实高度、触屏选择器和宿主抽屉定位，需要实装候选获准后再验证。</p></div></div></details>
+  <p class="prototype-footnote">控件与状态均使用虚构示例。字体、线条与颜色沿用本会话已确认的主题基础。</p>
+</body>
+</html>

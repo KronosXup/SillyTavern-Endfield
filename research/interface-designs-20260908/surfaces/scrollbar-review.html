@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>全局滚动条 · 柔影修订</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="scrollbar-review.css">
+  <script src="scrollbar-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="eyebrow">ENDFIELD / 局部设计</p><h1>全局滚动条 · 柔影修订</h1></div>
+    <nav aria-label="局部方案"><a href="input-review.html">输入栏</a><a href="toolbar-review.html">顶部工具栏</a></nav>
+  </header>
+  <main class="review-layout">
+    <section class="work-area" aria-label="原生滚动条交互预览">
+      <div class="preview-toolbar">
+        <label>样例宽度 <select id="preview-width"><option value="auto">跟随窗口</option><option value="780">780</option><option value="524" selected>524</option><option value="390">390</option><option value="320">320</option></select></label>
+        <button id="reset-samples" type="button">回到起点</button>
+      </div>
+      <p class="interaction-hint">平浅灰滑块，双侧和圆端由柔影托起。可直接拖动；Tab 聚焦后，可用方向键与 Page Down。</p>
+      <div class="stage-workbench">
+        <div id="samples-frame">
+          <div class="sample-grid">
+            <section class="sample-card">
+              <header class="sample-heading"><h2>浅底列表</h2><span>参考录屏</span></header>
+              <div id="light-list" class="native-scroll list-scroll" tabindex="0" role="region" aria-label="浅底列表示例，可滚动">
+                <ul class="sample-list">
+                  <li><strong>角色管理</strong><span>角色资料与最近使用</span></li>
+                  <li><strong>世界书</strong><span>条目与生效范围</span></li>
+                  <li><strong>AI 响应配置</strong><span>回复长度与生成参数</span></li>
+                  <li><strong>API 连接</strong><span>连接方式与可用模型</span></li>
+                  <li><strong>AI 回复格式化</strong><span>上下文与回复格式</span></li>
+                  <li><strong>用户设置</strong><span>阅读显示与操作偏好</span></li>
+                  <li><strong>背景图片</strong><span>选择当前聊天背景</span></li>
+                  <li><strong>扩展程序</strong><span>已安装扩展与选项</span></li>
+                  <li><strong>用户设定</strong><span>管理聊天中使用的身份</span></li>
+                </ul>
+              </div>
+              <p class="sample-caption">细灰轨道，浅色圆端滑块；停留时保持同一外观。</p>
+            </section>
+            <section class="sample-card dark-card">
+              <header class="sample-heading"><h2>深底面板</h2><span>灰度适配</span></header>
+              <div id="dark-list" class="native-scroll dark-surface list-scroll" tabindex="0" role="region" aria-label="深底面板示例，可滚动">
+                <ul class="sample-list">
+                  <li><strong>连接与模型</strong><span>查看当前连接配置</span></li>
+                  <li><strong>回复长度</strong><span>控制单次生成的文本量</span></li>
+                  <li><strong>上下文长度</strong><span>保留聊天中的前文</span></li>
+                  <li><strong>采样参数</strong><span>调整回复的变化程度</span></li>
+                  <li><strong>停止条件</strong><span>生成达到条件时结束</span></li>
+                  <li><strong>回复格式</strong><span>管理输出与显示方式</span></li>
+                  <li><strong>保存的配置</strong><span>选择已经保存的参数</span></li>
+                  <li><strong>连接记录</strong><span>查看本次连接的信息</span></li>
+                </ul>
+              </div>
+              <p class="sample-caption">结构相同，降低滑块亮度；这组深色配色为本稿适配。</p>
+            </section>
+            <section class="sample-card wide-sample">
+              <header class="sample-heading"><h2>长文阅读</h2><span>正文密度</span></header>
+              <article id="reading-scroll" class="native-scroll reading-scroll" tabindex="0" aria-label="长文阅读示例，可滚动">
+                <h3>沿着尚未结束的路</h3>
+                <p>清晨的雾还没有散开，窗外的轮廓显得很淡。桌上摊着昨天读到一半的记录，页角被风轻轻掀起，又落回原处。</p>
+                <p>她先把几张松散的纸整理好，才继续往下读。文字并不急于说明所有事情，只留下足够清楚的方向，让后面的内容慢慢接上。</p>
+                <p>走廊传来几声脚步，停在门外。有人说今天会比预计更忙，随后便没有了下文。她把那句话记在旁边，没有立刻划掉原来的安排。</p>
+                <p>近处的事情需要逐项确认，远处的事情暂时只能等待。窗沿上的光向里移动了一点，照出纸面上几处很浅的折痕。</p>
+                <h3>留下可以继续的地方</h3>
+                <p>记录末尾有一行小字，提醒后来的人从这里接着看。它不显眼，却足够明确。她将页码核对一遍，把需要补充的部分放在手边。</p>
+                <p>等到风停下，外面的声音也清楚起来。有人推开一扇门，有人把工具放回架上，还有人隔着一段距离确认彼此是否准备妥当。</p>
+                <p>这些事情各有顺序。她没有把所有内容挤在同一页，只在相关的段落之间留出短暂的空隙，方便下一次回来时找到位置。</p>
+                <p>午后的光越过桌边，最上面的一张纸已经读完。她把它平整地放到另一侧，继续读下一张。故事还在后面。</p>
+              </article>
+              <p class="sample-caption">正文保持正常换行；滑块长度由内容与可视区共同决定。</p>
+            </section>
+            <section class="sample-card wide-sample">
+              <header class="sample-heading"><h2>横向代码</h2><span>双轴边角</span></header>
+              <pre id="code-scroll" class="native-scroll dark-surface code-scroll" tabindex="0" aria-label="代码示例，可横向和纵向滚动"><code>// 示例内容；不会执行，也不会修改任何聊天配置。
+const displaySettings = { typography: "Harmony", theme: "Endfield", keepNativeScrolling: true, preserveTextWrapping: true };
+
+function describeReadingPosition(element) {
+  const remaining = Math.max(0, element.scrollHeight - element.clientHeight - element.scrollTop);
+  return { current: element.scrollTop, remaining, horizontal: element.scrollLeft, viewport: element.clientHeight };
+}
+
+const sampleNotes = ["横向长行保持完整", "竖向内容可同时滚动", "右下交汇处不出现醒目的白块", "复制内容时仍然是普通文本"];
+
+// 试试底部滑块，或聚焦后按左右方向键。
+// 滚动依然交给浏览器处理。</code></pre>
+              <p class="sample-caption">横向采用同样的细轨道；两条滚动条交汇处跟随底色。</p>
+            </section>
+            <section class="sample-card wide-sample">
+              <header class="sample-heading"><h2><label for="textarea-scroll">多行输入</label></h2><span>可编辑</span></header>
+              <textarea id="textarea-scroll" class="native-scroll textarea-scroll" rows="6" spellcheck="false" aria-describedby="textarea-caption">这是一段可以修改的示例文本。
+第一行：记录需要保留的内容。
+第二行：补充尚未写完的句子。
+第三行：换行由输入框正常处理。
+第四行：文字变多时出现滚动条。
+第五行：光标移动仍然跟随浏览器。
+第六行：可使用方向键选择位置。
+第七行：也可以拖动右下角调整高度。
+第八行：删除多余文本后，滚动条自然消失。
+第九行：回到起点会恢复本段示例。
+第十行：这里是示例文本的末尾。</textarea>
+              <p id="textarea-caption" class="sample-caption">原生光标、选区与纵向缩放保留；此处仅演示滚动条。</p>
+            </section>
+            <section class="sample-card wide-sample">
+              <header class="sample-heading"><h2>没有溢出</h2><button id="toggle-overflow" type="button" aria-controls="no-overflow" aria-pressed="false">增加示例内容</button></header>
+              <div id="no-overflow" class="native-scroll no-overflow" tabindex="0" role="region" aria-label="内容高度切换示例">
+                <p>此处内容已全部显示。</p>
+                <div id="extra-content" hidden><p>增加的内容让容器开始溢出。</p><p>滚动条随真实内容出现。</p><p>清除追加内容后不留下空轨道。</p><p>没有根据文字数量伪造滑块。</p></div>
+              </div>
+              <p class="sample-caption">只在需要滚动时出现，不给短内容强行补一条轨道。</p>
+            </section>
+          </div>
+        </div>
+      </div>
+      <p id="width-readout" class="preview-readout" aria-live="polite">样例会随可用空间收紧。</p>
+      <div class="scope-note"><span>这版滚动条已实装到当前酒馆</span><p>六组内容均为本页示例。滚动、拖动和键盘操作仍由浏览器原生处理；已写入维护源、保存的主题和当前酒馆样式。</p><p>浅底是录屏参考；深底、横向滚动和输入框是同一构造的适配。<a href="../verification/scrollbar-install-2026-09-09.html">查看实装记录</a></p></div>
+    </section>
+    <aside class="reference-rail" aria-label="真实参考与呈现边界">
+      <h2>具体借用哪里</h2>
+      <article class="reference-item">
+        <h3>细轨道与圆端滑块</h3>
+        <a class="reference-crop" href="../research/video-02/removed-reference.svg" target="_blank" aria-label="打开通行证任务页面完整参考"><svg viewBox="2154 565 87 575" role="img" aria-label="列表右侧滚动条，旁边另有固定的面板边线"><image href="../research/video-02/removed-reference.svg" width="2560" height="1440"/></svg></a>
+        <p>平浅灰的实体，双侧和圆端外是缓慢散开的柔影。右侧长竖线与十字属于面板，本稿不把它们并入滚动条。</p>
+      </article>
+      <article class="reference-item">
+        <h3>停留时保持同一外观</h3>
+        <a class="state-reference" href="../research/video-02/scrollbar-state-evidence.png" target="_blank" aria-label="打开录屏中的四种滚动条状态对照"><img src="../research/video-02/scrollbar-state-evidence.png" alt="录屏原尺寸局部：指针在外、悬停、滚动中、停止离开" loading="lazy"></a>
+        <p>这段录屏未见明显 hover 改色、加粗或停留隐藏。网页保留浏览器本身的滚动与拖动行为。</p>
+      </article>
+      <div class="parameter-note"><h3>本稿的尺寸</h3><p>可见实体约 5px，中央轨道 2px；双侧各留 5.5px 给缓慢散开的柔影，含透明余量的绘制区域共 16px。圆端与阴影大小保持固定。尺寸为网页适配值。</p><p><a href="../verification/scrollbar-shadow-lab/index.html" target="_blank">查看原帧与原生滑块的放大对照 ↗</a></p></div>
+      <details class="compatibility-note"><summary>浏览器与系统差异</summary><p>当前已在 Chromium 中核对本稿的轨道、圆端与阴影，Safari 尚待实际验证。Firefox 使用原生细滚动条与相应灰度，无法逐项呈现这些细节。</p><p>系统覆盖式滚动条可能自行隐藏，触屏通常也由系统显示。本稿不通过脚本强制常驻或扩大滑块；外观需以当前浏览器与系统为准。</p><p>键盘焦点仍清楚可见。系统高对比模式下优先使用系统滚动条。</p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::-webkit-scrollbar" target="_blank">浏览器样式说明 ↗</a></details>
+    </aside>
+  </main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Endfield · 七个工具栏面板 V2</title>
+  <link rel="stylesheet" href="page-shell.css">
+  <link rel="stylesheet" href="panels.css">
+  <link rel="stylesheet" href="inherited-shell.css">
+</head>
+<body>
+  <header class="studio-header">
+    <div><span class="eyebrow">ENDFIELD / INTERFACE STUDY</span><h1>工具栏面板 <small>V2</small></h1></div>
+    <p>七个面板 · 同一套操作语言<br><span>独立设计预览，操作仅在本页生效</span></p>
+  </header>
+  <form class="studio-controls">
+    <label>预览宽度<select id="preview-width"><option value="auto">随窗口</option><option value="780">桌面 · 780 px</option><option value="600">中宽 · 600 px</option><option value="390">窄屏 · 390 px</option><option value="360">窄屏 · 360 px</option></select></label>
+    <label>面板高度<select id="preview-height"><option value="normal">正常</option><option value="compact">紧凑高度</option></select></label>
+    <output id="preview-size" aria-live="off"></output>
+    <div class="studio-actions"><button type="button" id="reference-open">查看参考</button><button type="button" id="reset-demo">重置样例</button></div>
+  </form>
+  <main class="workbench">
+    <div class="content-stage" id="content-stage">
+      <nav class="toolbar" id="toolbar" aria-label="工具栏面板"></nav>
+      <article class="panel" id="panel" aria-labelledby="panel-title">
+        <header class="panel-header"><div class="panel-heading"><span class="panel-prefix" aria-hidden="true">//</span><h2 id="panel-title"></h2></div><div class="panel-header-actions"><span id="panel-position"></span><button type="button" class="header-button" id="panel-help" aria-label="查看此面板说明" title="面板说明"><i class="fa" aria-hidden="true">&#xf059;</i></button></div></header>
+        <div class="panel-scroll" id="panel-scroll"><div class="panel-host" id="panel-body"></div></div>
+      </article>
+      <div class="stage-footer"><span id="panel-native-name"></span><span>示例数据 · 刷新后复原</span></div>
+    </div>
+    <p class="study-footnote">顶部中间七个按钮可切换。长字段、折叠分组、列表编辑和资源选择均可操作；正式酒馆设置不会随样例变化。</p>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <div id="dialog-host"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

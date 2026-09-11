@@ -1,0 +1,167 @@
+:root {
+  color-scheme: light;
+  --body-font: "EF Cover Harmony Regular", "HarmonyOS Sans SC", "Microsoft YaHei UI", sans-serif;
+  --bold-font: "EF Cover Harmony Bold", var(--body-font);
+  --canvas-width: 390px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: #343434; background: #f7f7f5; font: 14px/1.6 var(--body-font); }
+button, input, textarea, select { font: inherit; }
+button, select { color: inherit; }
+button, select, input[type="checkbox"] { cursor: pointer; }
+button { border: 0; }
+[hidden] { display: none !important; }
+a { color: inherit; text-underline-offset: 4px; }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+.review-header { max-width: 1080px; padding: 22px 28px 16px; margin: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-bottom: 1px solid #d8d8d3; }
+.eyebrow { margin: 0 0 4px; font-size: 10px; letter-spacing: .13em; color: #878780; }
+.review-header h1 { margin: 0; font: 700 26px/1.3 var(--bold-font); }
+.review-header h1 span { display: inline-block; margin-left: 9px; font: 12px/1.5 var(--body-font); color: #817b70; white-space: nowrap; vertical-align: middle; }
+.review-header > a { font-size: 12px; white-space: nowrap; color: #666; }
+main { max-width: 1080px; margin: auto; padding: 18px 28px 36px; }
+.review-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 20px; font-size: 12px; }
+.review-controls label { display: flex; align-items: center; gap: 8px; }
+.review-controls select, .review-controls button { border: 1px solid #cfceca; border-radius: 3px; background: #eeedeb; padding: 5px 9px; }
+.review-controls select { max-width: 148px; }
+.review-controls button:hover { background: #dedbd8; }
+.review-controls input { margin: 0; width: 15px; height: 15px; accent-color: #65615e; }
+.material-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.primary-materials, .previous-material-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.primary-materials { width: 100%; }
+.previous-materials { width: 100%; color: #8b867e; font-size: 11px; }
+.previous-materials summary { width: fit-content; cursor: pointer; padding: 3px 0; }
+.previous-materials summary:focus-visible { outline: 2px solid #555; outline-offset: 3px; }
+.previous-material-buttons { padding-top: 8px; }
+.material-picker button { min-height: 36px; padding: 7px 12px; border: 1px solid #c7c5c0; border-radius: 3px; color: #66615b; background: #efeeeb; font-size: 12px; }
+.material-picker button span { margin-right: 6px; color: #908a82; font-size: 10px; }
+.material-picker button:hover { background: #e3e1dd; }
+.material-picker button[aria-pressed="true"] { color: #2e2c2a; border-color: #77716a; background: #fff; box-shadow: inset 0 -2px #77716a; }
+.interaction-hint { margin: 10px 0 18px; font-size: 12px; color: #77736e; }
+.comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.comparison-panel { min-width: 0; }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
+.panel-heading h2 { margin: 0; font: 700 16px/1.5 var(--bold-font); }
+.panel-heading span { color: #817b76; font-size: 11px; }
+.stage { position: relative; width: var(--canvas-width); max-width: 100%; height: clamp(420px, calc(100svh - 290px), 540px); margin: auto; padding-inline: 14px; container-type: inline-size; background: #e8e7e5; border-block: 1px solid #d5d4d0; }
+.stage-note { margin: 0; position: absolute; right: 17px; top: 16px; color: #a4a19b; font-size: 11px; }
+.panel-caption, .preview-status { margin: 9px 0 0; color: #77736e; font-size: 12px; }
+.preview-status { min-height: 24px; margin-top: 18px; }
+.composer-slot { position: absolute; left: 14px; right: 14px; bottom: 18px; }
+.input-shell { color: #242424; background: #eeeded; border: 1px solid #a8a5a5; border-radius: 5px; box-shadow: 0 2px 5px #0000001a, 0 0 0 1px #ffffff70; }
+.input-form { position: relative; background: #faf9f9; border-top: 1px solid #fff; border-radius: 4px; box-shadow: inset 0 0 0 1px #fff; }
+.input-form::before { content: ""; position: absolute; z-index: 4; top: 0; left: 3px; width: 104px; height: 3px; pointer-events: none; background: #fffa00; transform: scaleX(.24); transform-origin: left; transition: transform 190ms ease-out; }
+.input-shell:focus-within { border-color: #8c8888; }
+.input-form:focus-within::before { transform: scaleX(1); }
+.input-grid { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; gap: 5px; padding: 4px 5px; }
+.input-tools, .input-actions { display: flex; align-items: center; gap: 2px; min-height: 34px; }
+.input-tools { padding-right: 3px; border-right: 1px solid #d6d4d4; }
+.input-entry { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 30px; height: 34px; margin: 0; padding: 0; border: 0; border-radius: 2px; color: #5a5858; background: transparent; font-size: 16px; text-shadow: none; transition: background-color 100ms linear, color 100ms linear; }
+.input-entry:is(:hover, :focus-visible) { color: #252424; background: #dedbdb; outline: 1px solid #bab7b7; outline-offset: -2px; }
+.input-grid textarea { display: block; width: 100%; min-width: 0; height: auto; min-height: 34px; max-height: 130px; field-sizing: content; resize: none; overflow: auto; margin: 0; padding: 6px 5px 5px; color: #646161; background: transparent; border: 0; border-radius: 0; outline: 0; font: 14px/21px var(--body-font); text-align: left; }
+.input-grid textarea::placeholder { color: #a5a1a1; opacity: 1; }
+.send-entry { --button-fill: #edebeb; position: relative; flex: 0 0 auto; width: 74px; min-width: 74px; height: 30px; margin: 0 1px 0 3px; padding: 0; color: #656060; border: 1px solid #8f8989; border-radius: 999px; background: linear-gradient(90deg, var(--button-fill) 48%, #edebeb1a 68%), url("../assets/more-chat-texture.png") right center / 107px 24px no-repeat, var(--button-fill); box-shadow: inset 0 0 0 1px #f8f5f5, 0 0 0 1px #b6b0b0, 0 1px 2px #0002; }
+.send-entry::before { position: absolute; top: 50%; right: 6px; width: 20px; height: 20px; transform: translateY(-50%); display: grid; place-items: center; font-size: 11px; line-height: 1; background: transparent; }
+.send-entry::after { content: ""; position: absolute; top: 50%; left: 10px; width: 24px; height: 3px; transform: translateY(-50%); background: radial-gradient(circle, currentColor 0 1px, transparent 1.2px) left center / 3px 3px no-repeat, radial-gradient(circle, currentColor 0 1px, transparent 1.2px) right center / 3px 3px no-repeat, linear-gradient(currentColor, currentColor) center / calc(100% - 4px) 1px no-repeat; pointer-events: none; }
+.send-entry:is(:hover, :focus-visible) { --button-fill: #999696; color: #faf7f7; }
+.send-entry:focus-visible { outline: 2px solid #292929; outline-offset: 2px; }
+
+/* Same menu shell in both columns. Local JS only anchors this standalone demo. */
+.menu-popover { position: absolute; z-index: 10; isolation: isolate; width: 160px; min-width: min(160px, calc(100% - 24px)); max-width: min(330px, calc(100% - 24px)); display: flex; flex-direction: column; padding: 5px; color: #444; background: #eee; border: 1px solid #aaa; border-radius: 4px; box-shadow: 0 4px 18px #0002; font: 13px/1.5 var(--body-font); white-space: normal; }
+.menu-scroll { position: relative; z-index: 1; flex: 1 1 auto; min-height: 0; min-width: 0; overflow: auto; overscroll-behavior: contain; background: transparent; outline: 0; }
+.menu-row { display: flex; align-items: center; column-gap: 6px; width: 100%; min-width: 0; padding: 7px 8px; color: #444; background: transparent; border-radius: 2px; font: inherit; text-align: left; white-space: normal; overflow-wrap: anywhere; text-decoration: none; cursor: pointer; }
+.menu-row:is(:hover, :focus-visible) { color: #444; background: #d9d9d9; outline: 1px solid #aaa; outline-offset: -1px; }
+.menu-row > :is(i, .extensionsMenuExtensionButton) { flex: 0 0 24px; width: 24px; min-width: 24px; height: 20px; margin: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; pointer-events: none; }
+.menu-row > span { min-width: 0; }
+.menu-scroll hr { margin: 4px 7px; border: 0; border-top: 1px solid #ccc; background: transparent; }
+/* Separate material and content planes. Neither dimension follows menu height.
+ * The right inset reserves 5px shell padding plus the 16px native scroll slot and 1px clearance. */
+.menu-material { position: absolute; z-index: 0; left: 6px; right: 22px; bottom: 5px; height: 100px; max-height: calc(100% - 10px); overflow: hidden; pointer-events: none; opacity: 0; }
+/* Original 24px repeat tile rendered at half scale, never enlarged as one image. */
+.candidate[data-material="dots"] .menu-material { background: url("../assets/points-bg.png") left bottom / 12px 12px repeat; opacity: .055; mask-image: linear-gradient(0deg, #000, #0008 45%, transparent); }
+/* Longform paper: retain cell pitch; two sparse registration crosses, not one per cell. */
+.candidate[data-material="grid"] .menu-material { height: 128px; opacity: 1; background: repeating-linear-gradient(0deg, #4444440a 0 .5px, transparent .5px 10px), repeating-linear-gradient(90deg, #4444440a 0 .5px, transparent .5px 10px); mask-image: linear-gradient(0deg, #000, #0009 70%, transparent); }
+.candidate[data-material="grid"] .menu-material::before, .candidate[data-material="grid"] .menu-material::after { content: ""; position: absolute; width: 7px; height: 7px; background: linear-gradient(#44444418, #44444418) center / 7px 1px no-repeat, linear-gradient(#44444418, #44444418) center / 1px 7px no-repeat; }
+.candidate[data-material="grid"] .menu-material::before { left: 16px; bottom: 18px; }
+.candidate[data-material="grid"] .menu-material::after { right: 14px; bottom: 98px; }
+/* Wuling banner 920x152 at exactly one third: ~66px cells become ~22px.
+ * Keep aspect ratio and take its right-hand strip once; this is not a repeat tile. */
+.candidate[data-material="modules"] .menu-material { left: 26px; right: 2px; bottom: 1px; height: 76px; background: url("../research/menu-material-sources/deco_guide_wuling_6.png") right bottom / 306.6667px auto no-repeat; opacity: .72; mask-image: linear-gradient(90deg, transparent, #000 48%), linear-gradient(0deg, #000, #000 35%, transparent 85%); mask-composite: intersect; }
+
+/* 04 — Directory paper from video 03, 18s. Arc and dots are independent,
+ * fixed-size native patterns; changing the menu height only moves its foot. */
+.candidate[data-material="directory"] .menu-material { top: 5px; height: auto; max-height: none; opacity: 1; }
+.candidate[data-material="directory"] .menu-material::before { content: ""; position: absolute; left: 0; top: 0; width: 86px; height: 70px; background: repeating-radial-gradient(circle at -6px -9px, transparent 0 3.35px, #63636326 3.35px 4px); mask-image: radial-gradient(circle at -6px -9px, #000 12px, #0009 32px, transparent 68px); }
+.candidate[data-material="directory"] .menu-material::after { content: ""; position: absolute; inset: auto 0 0; height: 62px; background: url("../assets/points-bg.png") left bottom / 12px 12px repeat; opacity: .065; mask-image: linear-gradient(0deg, #000, #0007 38%, transparent); }
+
+/* 05 — One lightly offset inner frame within the existing 5px shell padding.
+ * Border geometry, row space and native scroll slot remain unchanged. */
+.candidate[data-material="offset"] .menu-material { inset: 2px 4px 4px 2px; height: auto; max-height: none; opacity: 1; border: 1px solid #c2bebe; border-radius: 3px; box-shadow: 1px 1px 0 #ffffffbd; }
+
+/* 06 — Two short registration edges and two crosses, without a field grid.
+ * Endpoints sit beside the content, outside label/icon columns and scroll slot. */
+.candidate[data-material="registration"] .menu-material { top: 8px; bottom: 8px; left: 5px; right: 26px; height: auto; max-height: none; overflow: visible; opacity: 1; background: linear-gradient(#cbc7c7, #cbc7c7) left bottom / 58px 1px no-repeat, linear-gradient(#cbc7c7, #cbc7c7) left bottom / 1px 54px no-repeat, linear-gradient(#cbc7c7, #cbc7c7) right top / 46px 1px no-repeat, linear-gradient(#cbc7c7, #cbc7c7) right top / 1px 44px no-repeat; }
+.candidate[data-material="registration"] .menu-material::before, .candidate[data-material="registration"] .menu-material::after { content: ""; position: absolute; width: 7px; height: 7px; background: linear-gradient(#b9b4b4, #b9b4b4) center / 7px 1px no-repeat, linear-gradient(#b9b4b4, #b9b4b4) center / 1px 7px no-repeat; }
+.candidate[data-material="registration"] .menu-material::before { left: -3px; bottom: 50px; }
+.candidate[data-material="registration"] .menu-material::after { right: -3px; top: 40px; }
+
+/* 07 — Native vector reconstruction from B04, not an extracted game sprite.
+ * Keep one asymmetric group of filled facets, hollow turns and large gaps. */
+.candidate[data-material="fragments"] .menu-material { height: 194px; opacity: 1; mask-image: linear-gradient(180deg, transparent 20px, #000 55px), linear-gradient(90deg, transparent, #000 18px); mask-composite: intersect; }
+.candidate[data-material="fragments"] .menu-material::before { content: ""; position: absolute; right: -40px; bottom: -4px; width: 216px; height: 178.9714px; background: #777; opacity: .24; mask: url("../assets/menu-irregular-triangles.svg") center / 100% 100% no-repeat; }
+
+/* 07R — Keep the abstract geometry at its original scale. Reduce ink weight
+ * and reveal less of the group, leaving the label start and upper paper quiet. */
+.candidate[data-material="quietfragments"] .menu-material { height: 160px; opacity: 1; mask-image: linear-gradient(180deg, transparent, #000 60px), linear-gradient(90deg, transparent, #000 42px); mask-composite: intersect; }
+.candidate[data-material="quietfragments"] .menu-material::before { content: ""; position: absolute; right: -40px; bottom: -4px; width: 216px; height: 178.9714px; background: #777; opacity: .10; mask: url("../assets/menu-irregular-triangles.svg") center / 100% 100% no-repeat; }
+
+/* 08 — Original Collection/deco_bg_1 alpha, 648x520. One 220x176.54
+ * composition, clipped at the sides without tiling or changing its aspect. */
+.candidate[data-material="brokenprint"] .menu-material { height: 194px; opacity: 1; }
+.candidate[data-material="brokenprint"] .menu-material::before { content: ""; position: absolute; right: -39px; bottom: 0; width: 220px; height: 176.5432px; background: #777; opacity: .3; mask: url("../research/menu-material-sources/white-patterns/deco_bg_1.png") center / 100% 100% no-repeat; }
+
+/* R01 — Horizontal strips follow a curved bundle and a narrow waist.
+ * Keep the visible section open; the screenshot does not establish closure. */
+.candidate[data-material="ribbon"] .menu-material { height: 132px; opacity: 1; mask-image: linear-gradient(90deg, transparent, #000 28%, #000 calc(100% - 8px), transparent), linear-gradient(0deg, transparent, #000 10px, #000 calc(100% - 14px), transparent); mask-composite: intersect; }
+.candidate[data-material="ribbon"] .menu-material::before { content: ""; position: absolute; right: -20px; bottom: -3px; width: 216px; height: 121.5px; background: #7a7a7a; opacity: .2; mask: url("../assets/menu-twisted-ribbon.svg") center / 100% 100% no-repeat; }
+
+/* Xirang rebuilt from square primitives with alternating row rotation.
+ * Keep the former unit scale; the pattern can extend beyond the old banner. */
+.candidate[data-material="folds"] .menu-material { height: 132px; opacity: 1; background: url("../assets/menu-xirang-squares.svg") right bottom / 156px 156px no-repeat; mask-image: linear-gradient(90deg, transparent, #000 36%, #000 calc(100% - 18px), transparent), linear-gradient(0deg, transparent, #000 16px, #000 88px, transparent 132px); mask-composite: intersect; }
+
+/* Archived original flat print: fixed 22px cells and sparse double-band accents.
+ * The entire 156x132 composition appears once, with a soft perimeter only. */
+.candidate[data-material="original"] .menu-material { height: 132px; opacity: 1; mask-image: linear-gradient(90deg, transparent 12px, #000 48px, #000 120px, transparent 144px), linear-gradient(0deg, transparent, #000 18px, #000 calc(100% - 30px), transparent); mask-composite: intersect; }
+.candidate[data-material="original"] .menu-material::before { content: ""; position: absolute; inset: 0; background: #777; opacity: .16; mask: url("../assets/menu-original-flat-varied.svg") right bottom / 156px 132px no-repeat; }
+
+/* Accepted v3 native scrollbar assets; identical in both columns. */
+.menu-scroll { scrollbar-width: auto; scrollbar-color: auto; }
+.menu-scroll::-webkit-scrollbar { width: 16px; height: 16px; background: transparent; }
+.menu-scroll::-webkit-scrollbar-track:vertical { background: linear-gradient(90deg, transparent calc(50% - 1px), #d5d0d0 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+.menu-scroll::-webkit-scrollbar-thumb { min-height: 28px; min-width: 28px; border: 0; border-radius: 0; background: url("../assets/scrollbar/light-v-start.svg") center top / 16px 14px no-repeat, url("../assets/scrollbar/light-v-end.svg") center bottom / 16px 14px no-repeat, url("../assets/scrollbar/light-v-middle.svg") center / 16px calc(100% - 28px) no-repeat; box-shadow: none; }
+.menu-scroll::-webkit-scrollbar-corner { background: transparent; }
+.menu-scroll::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+@supports not selector(::-webkit-scrollbar) { .menu-scroll { scrollbar-width: thin; scrollbar-color: #9d9696 transparent; } }
+.reference-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 22px; padding-top: 20px; border-top: 1px solid #d8d8d2; }
+.reference-notes h2 { margin: 0 0 8px; font-size: 14px; font-weight: 400; }
+.reference-notes p { margin: 8px 0; color: #77776f; font-size: 12px; line-height: 1.8; }
+.reference-image { display: block; max-width: 560px; border: 1px solid #d8d6d6; background: #fff; }
+.reference-image img, .reference-image svg { display: block; width: 100%; height: auto; }
+.reference-image:is([data-material="original"], [data-material="folds"]) svg { height: 210px; }
+.reference-notes .small-note { color: #918b82; font-size: 11px; }
+.pattern-study { margin-top: 18px; }
+.pattern-swatch { position: relative; height: 150px; overflow: hidden; background: #f0efef; border: 1px solid #dedcdc; }
+.pattern-swatch::before { content: ""; position: absolute; inset: 0; }
+.pattern-swatch:is([data-material="fragments"], [data-material="quietfragments"])::before { background: #777; opacity: .65; mask: url("../assets/menu-irregular-triangles.svg") center / 180px auto no-repeat; }
+.pattern-swatch[data-material="brokenprint"]::before { background: #777; opacity: .6; mask: url("../research/menu-material-sources/white-patterns/deco_bg_1.png") center / 180px auto no-repeat; }
+.pattern-swatch[data-material="ribbon"]::before { background: #777; opacity: .6; mask: url("../assets/menu-twisted-ribbon.svg") center / 240px auto no-repeat; }
+.scope-note { margin-top: 22px; padding-top: 14px; border-top: 1px solid #d8d8d2; color: #817d76; font-size: 12px; }
+.scope-note p { margin: 3px 0; }
+.scope-note strong { color: #5f5c56; font-weight: 400; }
+@container (max-width: 460px) { .input-grid { gap: 3px; padding: 4px; } .input-tools { gap: 0; padding-right: 2px; } .input-entry { width: 28px; } .input-grid textarea { padding-inline: 4px; font-size: 13px; } .send-entry { width: 58px; min-width: 58px; } .send-entry::after { left: 8px; width: 13px; } }
+@media (max-width: 900px) { .comparison { grid-template-columns: 1fr; gap: 25px; } .stage { max-width: min(100%, 552px); } }
+@media (max-width: 700px) { .review-header { padding: 22px 18px 17px; align-items: flex-start; gap: 14px; } .review-header h1 { font-size: 23px; } main { padding: 18px 14px 32px; } .review-controls { gap: 10px 12px; } .input-form::before { width: 72px; } .reference-notes { grid-template-columns: 1fr; gap: 20px; } }
+@media (max-width: 380px) { .review-header { padding-inline: 14px; } .review-header > a { max-width: 70px; white-space: normal; text-align: right; } .review-header h1 span { margin-left: 0; } .stage { padding-inline: 10px; } .composer-slot { left: 10px; right: 10px; } }
+@media (pointer: coarse) { .menu-row, .review-controls button, .review-controls select { min-height: 44px; } .input-entry { min-width: 44px; min-height: 44px; } .input-grid { grid-template-columns: 1fr 1fr; } .input-grid textarea { grid-column: 1 / -1; grid-row: 1; font-size: 16px; } .input-tools { grid-row: 2; border-right: 0; } .input-actions { grid-row: 2; justify-self: end; } .send-entry { min-height: 44px; } }
+@media (pointer: coarse) { .material-picker button { min-height: 44px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } .input-form::before { transform: scaleX(1); } }
+@media (forced-colors: active) { .menu-material { display: none; } .menu-scroll { scrollbar-width: auto; scrollbar-color: auto; } .menu-scroll::-webkit-scrollbar, .menu-scroll::-webkit-scrollbar-track:vertical, .menu-scroll::-webkit-scrollbar-thumb, .menu-scroll::-webkit-scrollbar-corner, .menu-scroll::-webkit-scrollbar-button { all: revert; } }

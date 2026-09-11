@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>终末地 · 弹窗与确认</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="dialogs.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="dialogs.js" defer></script>
+</head>
+<body class="preview-page" data-surface="dialogs" data-variant="a">
+  <header class="lab-intro">
+    <div>
+      <p class="lab-kicker">ENDFIELD / INTERFACE STUDY</p>
+      <h1>弹窗与确认</h1>
+      <p>A/B 比较说明与表单窗口；C 只比较短确认中的问题、对象和操作关系。</p>
+    </div>
+    <span class="lab-disclaimer">独立方案 · 仅示例数据</span>
+  </header>
+
+  <nav class="variant-picker" aria-label="弹窗设计方案">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>纸面说明窗</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>紧凑档案窗口</button>
+    <button type="button" data-variant="c" aria-pressed="false"><span class="variant-letter">C</span>游戏确认带</button>
+  </nav>
+
+  <div class="lab-toolbar">
+    <label><input type="checkbox" data-toggle-motion>减少动画</label>
+    <label><input type="checkbox" id="short-height">限制弹窗高度至 360px</label>
+    <button type="button" class="lab-button" id="restore-demo">恢复示例</button>
+    <span>关闭后可切换场景；Escape 可取消。</span>
+  </div>
+
+  <main class="demo-stage dialog-workbench">
+    <section class="archive-sample" aria-labelledby="archive-title">
+      <header class="archive-heading">
+        <div><p class="archive-eyebrow">本地档案</p><h2 id="archive-title">聊天记录</h2></div>
+        <span class="archive-count">示例 / 01</span>
+      </header>
+      <article class="archive-record" id="sample-record">
+        <div class="record-mark" aria-hidden="true"><i class="fa-solid fa-file-lines"></i></div>
+        <div class="record-info"><h3 id="record-name">谷地见闻 · 雨夜巡检</h3><p>巡检途中的对话记录</p><small><span id="record-status">保存在当前示例中</span><span>24 条消息</span></small></div>
+        <div class="record-actions">
+          <button type="button" class="ef-icon-button" data-scenario="rename" data-variant-note="a b" aria-label="重命名示例聊天"><i class="fa-solid fa-pen" aria-hidden="true"></i></button>
+          <button type="button" class="ef-icon-button record-delete" data-scenario="delete" aria-label="删除示例聊天"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button>
+        </div>
+      </article>
+      <div class="archive-empty" id="sample-empty" hidden><i class="fa-solid fa-folder-open" aria-hidden="true"></i><p>示例记录已删除</p><button type="button" class="ef-button" data-restore>恢复示例记录</button></div>
+      <div class="archive-settings" data-variant-note="a b"><span>导出内容</span><strong id="selected-summary">聊天正文、角色名称</strong><button type="button" class="ef-button" data-scenario="options">调整选项<i class="fa-solid fa-angle-right" aria-hidden="true"></i></button></div>
+    </section>
+
+    <section class="scenario-board" aria-labelledby="scenario-title">
+      <header><h2 id="scenario-title">选择一个操作</h2><span data-variant-note="a b">A/B 保留以下七个场景</span><span data-variant-note="c" hidden>此方向只比较短确认；表单和长内容见 A/B。</span></header>
+      <div class="scenario-grid">
+        <button type="button" class="scenario-trigger" data-scenario="confirm"><span class="scenario-icon"><i class="fa-solid fa-copy" aria-hidden="true"></i></span><span><strong>普通确认</strong><small>保存当前聊天副本</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+        <button type="button" class="scenario-trigger" data-scenario="delete"><span class="scenario-icon"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></span><span><strong>删除确认</strong><small>明确对象和操作后果</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+        <button type="button" class="scenario-trigger" data-scenario="rename" data-variant-note="a b"><span class="scenario-icon"><i class="fa-solid fa-pen" aria-hidden="true"></i></span><span><strong>重命名</strong><small>输入、校验与保存</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+        <button type="button" class="scenario-trigger" data-scenario="long" data-variant-note="a b"><span class="scenario-icon"><i class="fa-solid fa-file-lines" aria-hidden="true"></i></span><span><strong>长正文</strong><small>内容滚动，按钮保留</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+        <button type="button" class="scenario-trigger" data-scenario="options" data-variant-note="a b"><span class="scenario-icon"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span><span><strong>多选选项</strong><small>调整内容范围</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+        <button type="button" class="scenario-trigger" data-scenario="error" data-variant-note="a b"><span class="scenario-icon"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i></span><span><strong>错误与重试</strong><small>保留信息，给出下一步</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+        <button type="button" class="scenario-trigger" data-scenario="notice" data-variant-note="a b"><span class="scenario-icon"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span><span><strong>完成通知</strong><small>单一关闭动作</small></span><span class="ef-arrow-mark" aria-hidden="true"></span></button>
+      </div>
+    </section>
+    <p class="session-feedback" id="session-feedback" role="status">可以保存副本、重命名或删除这条示例记录。</p>
+  </main>
+
+  <div class="demo-legend"><span data-variant-note="a">A · 横向展开，正文留白充分，适合短确认与内容说明。</span><span data-variant-note="b" hidden>B · 炭灰标题与紧凑白纸，适合表单、选项和较窄空间。</span><span data-variant-note="c" hidden>C · 仅比较保存副本与删除；问题直接带对象名，胶囊动作跨过白带下沿。</span><span>所有操作仅在本页示例生效。</span></div>
+
+  <details class="design-notes">
+    <summary>设计说明与可实装边界</summary>
+    <div class="note-grid">
+      <div><h2>布局与状态</h2><p>A 将图标、标题与动作分布在较宽的纸面上；B 以小型炭灰标题栏收束信息。两者保留全部七个场景。</p><p>C 只用于一句短问题和从属后果说明，沿用游戏确认框的通栏白带与跨下沿胶囊按钮关系。对象名已经在问题里，不再重复列对象卡片。视口高度不超过 280px 时，问题与说明共同滚动，按钮收回白带内；638×450 预览仍保留跨沿。删除默认聚焦取消。</p></div>
+      <div><h2>宿主与验证边界</h2><p>C 不作为全局弹窗外壳。真实宿主只可将它限定到能够明确识别的简单确认调用；输入表单、选项、长说明与其他通知继续使用各自合适的窗口。不能靠主题 CSS 从按钮文案猜测全部调用类型。</p><p>危险样例通过明确的 <code>.scenario-danger</code> 标记呈现。C 保持黄色行动按钮，通过明确的删除问题、红色后果说明与默认取消表达风险。独立页面不读写真实聊天，也不代替宿主或真机验收。</p></div>
+    </div>
+  </details>
+  <p class="prototype-footnote">试用顺序：打开场景 → Tab / Shift+Tab → 确认或 Escape → 检查焦点返回。短高度选项用于布局压力检查，不模拟真实手机键盘。</p>
+
+  <dialog class="ef-dialog" id="operation-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <form class="dialog-shell" id="dialog-form" novalidate>
+      <div class="dialog-context"><span id="dialog-category">操作确认</span><button type="button" class="dialog-close" id="dialog-close" aria-label="关闭弹窗"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div>
+      <div class="dialog-reading" id="dialog-reading" tabindex="0">
+        <header class="dialog-heading"><span class="dialog-symbol" aria-hidden="true"><i id="dialog-icon" class="fa-solid fa-copy"></i></span><h2 id="dialog-title">保存聊天副本</h2></header>
+        <div class="dialog-content" id="dialog-content" tabindex="0">
+          <p class="dialog-description" id="dialog-description"></p>
+          <p class="field-error" id="dialog-error" role="alert" tabindex="-1" hidden></p>
+          <div id="dialog-fields"></div>
+        </div>
+      </div>
+      <footer class="dialog-footer"><span class="dialog-footer-note" id="dialog-footer-note">仅修改示例</span><div class="dialog-controls"><button type="button" class="ef-button dialog-cancel" id="dialog-cancel"><span class="dialog-button-label">取消</span><span class="dialog-button-mark" aria-hidden="true"><i class="fa-solid fa-circle-xmark"></i></span></button><button type="submit" class="ef-button dark dialog-primary" id="dialog-primary"><span class="dialog-button-label">确认</span><span class="dialog-button-mark" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span></button></div></footer>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>终末地主题 · 区域设计方案</title>
+  <link rel="stylesheet" href="assets/common.css">
+  <link rel="stylesheet" href="hub.css">
+  <script src="assets/common.js" defer></script>
+  <script src="hub.js" defer></script>
+</head>
+<body class="hub-body">
+  <header class="hub-header">
+    <a class="hub-brand" href="index.html" aria-label="设计方案首页"><span class="brand-index">EF</span><span>终末地主题<span class="brand-subtitle">区域设计方案</span></span></a>
+    <p class="hub-status"><span class="status-dot"></span>结构草稿<span class="status-date">视觉方向重做中</span></p>
+    <button type="button" class="hub-review-toggle" id="open-review" aria-label="我的方案选择，已记录 0 组"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>我的选择</span><b id="review-count">0</b></button>
+  </header>
+  <div class="hub-layout">
+    <aside class="hub-nav" aria-label="方案区域">
+      <div class="nav-heading"><span>验收目录</span><span id="surface-count">12</span></div>
+      <nav id="surface-nav"></nav>
+      <div class="nav-footnote"><span class="tiny-rule"></span><p>沿用已定稿的阅读面与最近聊天。</p><button id="open-guide" type="button">查看设计约束 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div>
+    </aside>
+    <main class="hub-main" id="main">
+      <section class="surface-heading" aria-labelledby="surface-title">
+        <div><p id="surface-eyebrow">01 / 输入与回复</p><h1 id="surface-title">输入栏</h1><p id="surface-description">保留聚焦动效，比较不同的输入与操作关系。</p></div>
+        <a class="standalone-link" id="standalone-link" href="surfaces/composer.html" target="_blank" rel="noopener">单独查看 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </section>
+      <div class="review-controls">
+        <div class="viewport-picker" role="group" aria-label="预览宽度上限"><button type="button" data-width="fluid" aria-pressed="true">自适应</button><button type="button" data-width="390" aria-pressed="false">390</button><button type="button" data-width="320" aria-pressed="false">320</button></div><span id="actual-width" class="actual-width" aria-live="polite"></span>
+        <span class="preview-scope">本地示例 · 不连接真实酒馆</span>
+        <button class="record-choice" type="button" id="record-choice"><i class="fa-solid fa-bookmark" aria-hidden="true"></i> 记录当前方案</button>
+      </div>
+      <div class="preview-canvas" id="preview-canvas" data-width="fluid">
+        <iframe id="surface-frame" title="输入栏交互方案" src="about:blank"></iframe>
+        <div class="preparing-state" id="preparing-state" hidden><span class="preparing-number">01</span><h2>正在制作这一组方案</h2><p>完成后会加入可交互预览。</p></div>
+      </div>
+      <div class="surface-footer"><span id="surface-recommendation">默认推荐：保留紧凑结构，增强聚焦层次。</span><button type="button" id="next-surface">下一组 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div>
+    </main>
+  </div>
+  <dialog id="review-dialog" class="hub-dialog" aria-labelledby="review-dialog-title">
+    <form method="dialog" class="hub-dialog-heading"><h2 id="review-dialog-title">我的方案选择</h2><button aria-label="关闭" value="close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></form>
+    <p class="hub-dialog-intro">逐组比较后记录喜欢的版本。这里的选择只用于验收，不会修改酒馆。</p>
+    <div id="review-list" class="review-list"></div>
+    <label class="review-note-label" for="review-note">补充意见</label><textarea id="review-note" rows="4" placeholder="例如：输入栏选 A，菜单希望再淡一点…"></textarea>
+    <div class="hub-dialog-actions"><button type="button" class="ef-button" id="clear-review">清空选择</button><button type="button" class="ef-button dark" id="export-review" aria-expanded="false" aria-controls="review-export">生成验收文本</button></div>
+    <section id="review-export" class="review-export" aria-label="验收文本" hidden><label for="review-export-text">可直接选择复制，也可以下载文件。</label><textarea id="review-export-text" rows="8" readonly></textarea><a id="download-review" class="ef-button" download="终末地-方案验收.md">下载验收记录</a></section>
+  </dialog>
+  <dialog id="guide-dialog" class="hub-dialog guide-dialog" aria-labelledby="guide-dialog-title">
+    <form method="dialog" class="hub-dialog-heading"><h2 id="guide-dialog-title">这轮设计的约束</h2><button aria-label="关闭" value="close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></form>
+    <div class="guide-body">
+      <p class="guide-lead">先看气质和操作，再决定实装。</p>
+      <ol>
+        <li><strong>沿用已定稿的风格。</strong>白纸、近黑正文、细灰线、少量信号黄。素材要适合所在区域；连续地形只放在足够大的列表背景，不重复塞进按钮和字段。</li>
+        <li><strong>保留已经好的部分。</strong>输入栏聚焦伸展动效继续保留。紧凑默认布局不为了极端情况被迫变大。</li>
+        <li><strong>原生能力优先。</strong>默认候选可以映射到原生节点；需要新逻辑的样例会单独说明。</li>
+        <li><strong>按钮可以操作。</strong>发送、删除、切换等只演示状态。原型数据和真实酒馆完全分开。</li>
+        <li><strong>分别说明验证范围。</strong>浏览器窄屏、宿主结构映射和真手机操作，不互相冒充。</li>
+      </ol>
+      <p>细节与研究材料：<a href="REVIEW.md" target="_blank" rel="noopener">逐组验收说明</a> · <a href="DESIGN-BRIEF.md" target="_blank" rel="noopener">设计任务书</a> · <a href="research/visual-contract.md" target="_blank" rel="noopener">视觉依据</a></p>
+    </div>
+  </dialog>
+</body>
+</html>

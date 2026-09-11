@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>顶部工具栏 · 第二稿</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="toolbar-review.css">
+  <script src="toolbar-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header">
+    <div><p class="eyebrow">ENDFIELD / 局部设计</p><h1>顶部工具栏 · 第二稿</h1></div>
+    <nav aria-label="局部方案"><a href="input-review.html">输入栏</a><a href="../research/design-decisions-2026-09-08.html" target="_blank">取舍记录 ↗</a></nav>
+  </header>
+  <main class="review-layout">
+    <section class="work-area" aria-label="工具栏交互预览">
+      <div class="preview-toolbar">
+        <label>预览宽度 <select id="preview-width"><option value="auto">跟随窗口</option><option value="780">宽版 · 780</option><option value="524">524</option><option value="457" selected>当前酒馆 · 457</option><option value="390">390</option><option value="320">320</option></select></label>
+        <label class="check-label"><input type="checkbox" id="show-marks" checked> 显示对应标注</label>
+      </div>
+      <div class="stage-workbench">
+        <div id="toolbar-frame" class="show-marks">
+          <div class="toolbar-surface">
+            <span class="reference-mark mark-surface" aria-hidden="true">1</span>
+            <span class="reference-mark mark-current" aria-hidden="true">2</span>
+            <div id="top-bar" aria-hidden="true"></div>
+            <div id="top-settings-holder" aria-label="设置入口">
+              <div id="ai-config-button" class="drawer" data-label="AI 响应配置">
+                <div class="drawer-toggle drawer-header"><div id="leftNavDrawerIcon" class="drawer-icon fa-solid fa-sliders fa-fw closedIcon interactable" role="button" tabindex="0" title="AI 响应配置" aria-label="AI 响应配置" aria-controls="left-nav-panel" aria-expanded="false"></div></div>
+                <div id="left-nav-panel" class="drawer-content fillLeft closedDrawer" role="region" aria-label="AI 响应配置" hidden>
+                  <div class="panel-header" id="left-nav-panelheader"><h2>AI 响应配置</h2><div id="lm_button_panel_pin_div" class="panel-pin"><input type="checkbox" id="lm_button_panel_pin" data-pin="left-nav-panel"><label for="lm_button_panel_pin" title="固定 AI 响应配置"><i class="unchecked fa-solid fa-unlock" aria-hidden="true"></i><i class="checked fa-solid fa-lock" aria-hidden="true"></i><span class="sr-only">固定 AI 响应配置</span></label></div><button class="panel-close" type="button" data-close-panel="left-nav-panel" aria-label="收起 AI 响应配置">×</button></div>
+                  <div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p><p class="pin-note">固定后，打开其他入口仍可保留此抽屉。</p></div>
+                </div>
+              </div>
+              <div id="sys-settings-button" class="drawer" data-label="API 连接">
+                <div class="drawer-toggle drawer-header"><div id="API-status-top" class="drawer-icon fa-solid fa-plug fa-fw closedIcon interactable" role="button" tabindex="0" title="API 连接" aria-label="API 连接" aria-controls="rm_api_block" aria-expanded="false"></div></div>
+                <div id="rm_api_block" class="drawer-content closedDrawer" role="region" aria-label="API 连接" hidden><div class="panel-header"><h2>API 连接</h2><button class="panel-close" type="button" data-close-panel="rm_api_block" aria-label="收起 API 连接">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p><p id="connection-note">连接状态由下方的演示开关控制。</p></div></div>
+              </div>
+              <div id="advanced-formatting-button" class="drawer" data-label="AI 回复格式化">
+                <div class="drawer-toggle"><div class="drawer-icon fa-solid fa-font fa-fw closedIcon interactable" role="button" tabindex="0" title="AI 回复格式化" aria-label="AI 回复格式化" aria-controls="AdvancedFormatting" aria-expanded="false"></div></div>
+                <div id="AdvancedFormatting" class="drawer-content closedDrawer" role="region" aria-label="AI 回复格式化" hidden><div class="panel-header"><h2>AI 回复格式化</h2><button class="panel-close" type="button" data-close-panel="AdvancedFormatting" aria-label="收起 AI 回复格式化">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p></div></div>
+              </div>
+              <div id="WI-SP-button" class="drawer" data-label="世界书">
+                <div class="drawer-toggle drawer-header"><div id="WIDrawerIcon" class="drawer-icon fa-solid fa-book-atlas fa-fw closedIcon interactable" role="button" tabindex="0" title="世界书" aria-label="世界书" aria-controls="WorldInfo" aria-expanded="false"></div></div>
+                <div id="WorldInfo" class="drawer-content closedDrawer" role="region" aria-label="世界书" hidden><div class="panel-header" id="WorldInfoheader"><h2>世界书</h2><div id="WI_panel_pin_div" class="panel-pin"><input type="checkbox" id="WI_panel_pin" data-pin="WorldInfo"><label for="WI_panel_pin" title="固定世界书"><i class="unchecked fa-solid fa-unlock" aria-hidden="true"></i><i class="checked fa-solid fa-lock" aria-hidden="true"></i><span class="sr-only">固定世界书</span></label></div><button class="panel-close" type="button" data-close-panel="WorldInfo" aria-label="收起世界书">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p><p class="pin-note">固定后，打开其他入口仍可保留此抽屉。</p></div></div>
+              </div>
+              <div id="user-settings-button" class="drawer" data-label="用户设置">
+                <div class="drawer-toggle"><div class="drawer-icon fa-solid fa-user-cog fa-fw closedIcon interactable" role="button" tabindex="0" title="用户设置" aria-label="用户设置" aria-controls="user-settings-block" aria-expanded="false"></div></div>
+                <div id="user-settings-block" class="drawer-content closedDrawer" role="region" aria-label="用户设置" hidden><div class="panel-header"><h2>用户设置</h2><button class="panel-close" type="button" data-close-panel="user-settings-block" aria-label="收起用户设置">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p></div></div>
+              </div>
+              <div id="backgrounds-button" class="drawer" data-label="更改背景图片">
+                <div id="backgrounds-drawer-toggle" class="drawer-toggle drawer-header" title="更改背景图片"><div class="drawer-icon fa-solid fa-panorama fa-fw closedIcon interactable" role="button" tabindex="0" aria-label="更改背景图片" aria-controls="Backgrounds" aria-expanded="false"></div></div>
+                <div id="Backgrounds" class="drawer-content closedDrawer bg-drawer-layout" role="region" aria-label="更改背景图片" hidden><div class="panel-header"><h2>更改背景图片</h2><button class="panel-close" type="button" data-close-panel="Backgrounds" aria-label="收起更改背景图片">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p></div></div>
+              </div>
+              <div id="extensions-settings-button" class="drawer" data-label="扩展程序">
+                <div class="drawer-toggle"><div class="drawer-icon fa-solid fa-cubes fa-fw closedIcon interactable" role="button" tabindex="0" title="扩展程序" aria-label="扩展程序" aria-controls="rm_extensions_block" aria-expanded="false"></div></div>
+                <div id="rm_extensions_block" class="drawer-content closedDrawer" role="region" aria-label="扩展程序" hidden><div class="panel-header"><h2>扩展程序</h2><button class="panel-close" type="button" data-close-panel="rm_extensions_block" aria-label="收起扩展程序">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p></div></div>
+              </div>
+              <div id="persona-management-button" class="drawer" data-label="用户设定管理">
+                <div class="drawer-toggle"><div class="drawer-icon fa-solid fa-face-smile fa-fw closedIcon interactable" role="button" tabindex="0" title="用户设定管理" aria-label="用户设定管理" aria-controls="PersonaManagement" aria-expanded="false"></div></div>
+                <div id="PersonaManagement" class="drawer-content closedDrawer" role="region" aria-label="用户设定管理" hidden><div class="panel-header"><h2>用户设定管理</h2><button class="panel-close" type="button" data-close-panel="PersonaManagement" aria-label="收起用户设定管理">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p></div></div>
+              </div>
+              <div id="rightNavHolder" class="drawer" data-label="角色管理">
+                <div id="unimportantYes" class="drawer-toggle drawer-header"><div id="rightNavDrawerIcon" class="drawer-icon fa-solid fa-address-card fa-fw closedIcon interactable" role="button" tabindex="0" title="角色管理" aria-label="角色管理" aria-controls="right-nav-panel" aria-expanded="false"></div></div>
+                <nav id="right-nav-panel" class="drawer-content closedDrawer fillRight" aria-label="角色管理" hidden><div class="panel-header" id="right-nav-panelheader"><h2>角色管理</h2><div id="rm_button_panel_pin_div" class="panel-pin"><input type="checkbox" id="rm_button_panel_pin" data-pin="right-nav-panel"><label for="rm_button_panel_pin" title="固定角色管理"><i class="unchecked fa-solid fa-unlock" aria-hidden="true"></i><i class="checked fa-solid fa-lock" aria-hidden="true"></i><span class="sr-only">固定角色管理</span></label></div><button class="panel-close" type="button" data-close-panel="right-nav-panel" aria-label="收起角色管理">×</button></div><div class="panel-preview-body"><p>抽屉内容留到对应区域单独设计。</p><p class="pin-note">固定后，打开其他入口仍可保留此抽屉。</p></div></nav>
+              </div>
+            </div>
+            <div id="sheld"><p class="stage-hint">在空白处点一下，可收起未固定的抽屉。</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-readout"><p id="entry-readout">悬停或用 Tab 移到图标，可查看入口名称。</p><p id="open-readout" aria-live="polite">当前全部收起。</p></div>
+      <details class="state-controls" id="toolbar-states">
+        <summary>查看其他工具栏状态 <span aria-hidden="true">＋</span></summary>
+        <div class="state-body">
+          <div class="state-switches"><label><input type="checkbox" id="demo-connected" checked> API 已连接</label><label><input type="checkbox" id="demo-reduced-motion"> 减少动态</label></div>
+          <div class="state-actions"><button type="button" id="demo-multi-open">两个固定面板</button><button type="button" id="demo-reset">恢复初始状态</button></div>
+          <p>固定与展开分开演示；多个抽屉可能重叠。窗口较窄时，AI 与角色的固定按钮按当前酒馆规则隐藏。</p>
+        </div>
+      </details>
+      <div class="scope-note"><span>工具栏第二稿已实装到当前酒馆</span><p>九个原有入口保持单排。下方抽屉只用于核对开合关系，内部设置另行设计；本页操作仍为独立演示。</p><p>宽度不足时，入口横向随栏宽收紧，竖向保留 44px；没有新增入口或把按钮藏进“更多”。输入栏和<a href="scrollbar-review.html">全局滚动条</a>也已实装。</p></div>
+    </section>
+    <aside class="reference-rail" aria-label="具体参考与对应部位">
+      <h2>具体借用哪里</h2>
+      <article class="reference-item">
+        <button class="reference-title" type="button" data-marker="1"><span>1</span> 连续深色底轨</button>
+        <a class="reference-image" href="../research/video-02/removed-reference.svg" target="_blank" aria-label="打开通行证页面原图"><svg viewBox="62 16 1230 94" role="img" aria-label="顶部奖励与任务标签，背后斜纹轨道向右渐隐"><image href="../research/video-02/removed-reference.svg" width="2560" height="1440"/></svg></a>
+        <p>取第二段录屏左上角的横向标签。细斜纹贯穿同一条底轨；本稿按工具栏的对称布局改为向两端渐淡，浅色打开项盖在轨道上。</p>
+      </article>
+      <article class="reference-item">
+        <button class="reference-title" type="button" data-marker="2"><span>2</span> 浅色当前块，不带箭头</button>
+        <a class="reference-image" href="../research/video-02/removed-reference.svg" target="_blank" aria-label="打开通行证任务标签原图"><svg viewBox="430 12 420 94" role="img" aria-label="当前通行证任务标签为近乎等高的浅块与深色图文，无箭头"><image href="../research/video-02/removed-reference.svg" width="2560" height="1440"/></svg></a>
+        <p>浅块几乎与底轨等高，只留细边，配深灰图标。九个抽屉仍分别显示开合状态，固定多开时可同时出现多个浅块。</p>
+      </article>
+      <div class="motion-reference"><p>悬停时底面略亮、图标变白；打开后才成为实心浅块。过渡沿用本页的0.1秒轻量反馈。原图只证明静态外观，不作为这组导航动效的证据。</p></div>
+      <p class="reference-footnote">点标题可定位对应部位；点图片可打开完整参考。</p>
+    </aside>
+  </main>
+</body>
+</html>

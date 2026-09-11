@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
+  <title>API 连接 · 终末地主题方案</title>
+  <link rel="stylesheet" href="../assets/common.css"><link rel="stylesheet" href="../assets/vendor/connection/select2.min.css"><link rel="stylesheet" href="connection.css">
+  <script src="../assets/common.js" defer></script><script src="../assets/vendor/connection/jquery-3.5.1.min.js" defer></script><script src="../assets/vendor/connection/select2.min.js" defer></script><script src="../assets/vendor/connection/select2-search-placeholder.js" defer></script><script src="connection.js" defer></script>
+</head>
+<body class="preview-page" data-surface="connection" data-variant="a">
+  <header class="lab-intro"><div><p class="lab-kicker">连接 / 模型与状态</p><h1>API 连接</h1><p>地址、凭据、模型各有位置。比较纵向填写与横向核对，再试试连接中断、长名称和空列表。</p></div><span class="lab-disclaimer">本地示例 · 不连接服务</span></header>
+  <div class="variant-picker" role="group" aria-label="连接面板方案">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>连接登记页</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>横向核对台</button>
+  </div>
+  <div class="lab-toolbar connection-lab">
+    <label>可用高度 <select id="preview-height"><option value="regular">常规</option><option value="430">430px</option><option value="300">300px</option></select></label>
+    <label><input id="show-profiles" type="checkbox" checked>配置区</label>
+    <label><input id="long-names" type="checkbox">长名称</label>
+    <label><input type="checkbox" data-toggle-motion>减少动态效果</label>
+    <button type="button" class="lab-button" id="reset-demo">恢复示例</button>
+  </div>
+  <details class="scenario-lab"><summary>状态与数据样本 <span>只改变本地演示</span></summary><div class="scenario-controls">
+    <label>连接结果<select id="connection-outcome"><option value="valid">有效</option><option value="saved">已保存，待测试</option><option value="bypass">跳过状态检查</option><option value="invalid">地址无效</option><option value="failed">无法连接</option><option value="disconnected">未连接</option></select></label>
+    <button type="button" class="lab-button" id="show-state">直接显示该状态</button>
+    <label>模型数据<select id="list-state"><option value="loaded">有可用模型</option><option value="empty">空列表</option></select></label>
+    <label>示例凭据<select id="credential-state"><option value="saved">已保存</option><option value="empty">未保存</option><option value="draft">新输入，尚未保存</option></select></label>
+    <label>Ollama 选择器<select id="model-widget"><option value="enhanced">桌面增强样本</option><option value="native">原生选择样本</option></select></label>
+    <label>测试消息结果<select id="test-outcome"><option value="success">收到回复</option><option value="failed">测试失败</option></select></label>
+  </div></details>
+
+  <section class="demo-stage connection-stage" aria-label="连接面板示例">
+    <div class="stage-caption"><span><i class="fa-solid fa-plug" aria-hidden="true"></i> API 连接</span><span>LOCAL PREVIEW</span></div>
+    <section id="rm_api_block" class="connection-panel drawer-content openDrawer" aria-labelledby="title_api" tabindex="0">
+      <div class="connection-profile wide100p" id="profile-block">
+        <div class="profile-heading"><h2>连接配置</h2><span id="profile-note" role="status">当前示例</span></div>
+        <div class="profile-controls">
+          <select id="connection_profiles" aria-label="连接配置"></select>
+          <div class="profile-tools" aria-label="配置操作">
+            <button type="button" id="view_connection_profile" class="icon-tool" aria-label="查看示例配置详情" aria-expanded="false" aria-controls="connection_profile_details_content" title="查看配置详情"><i class="fa-solid fa-circle-info" aria-hidden="true"></i></button>
+            <button type="button" id="create_connection_profile" class="icon-tool" aria-label="创建示例配置" title="创建配置"><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i></button>
+            <button type="button" id="update_connection_profile" class="icon-tool" aria-label="更新示例配置" title="更新配置"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i></button>
+            <button type="button" id="edit_connection_profile" class="icon-tool" aria-label="重命名示例配置" title="编辑配置名称"><i class="fa-solid fa-pencil" aria-hidden="true"></i></button>
+            <button type="button" id="reload_connection_profile" class="icon-tool" aria-label="重载示例配置" title="重载配置"><i class="fa-solid fa-rotate" aria-hidden="true"></i></button>
+            <button type="button" id="delete_connection_profile" class="icon-tool" aria-label="删除示例配置" title="删除配置"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div id="connection_profile_details_content" hidden><p id="profile-detail-text"></p><div id="profile-editor" hidden><label for="profile-name">配置名称</label><input id="profile-name" type="text" maxlength="160"><div class="editor-actions"><button type="button" id="apply-profile-name" class="small-action">应用名称</button><button type="button" id="cancel-profile-name" class="small-action">取消</button></div><p id="profile-editor-error" class="field-error" role="status"></p></div></div>
+      </div>
+      <div class="connection-sheet">
+        <header class="panel-heading"><h2 id="title_api"><span aria-hidden="true">//</span> API 连接</h2><p>选择接口与模型</p></header>
+        <div class="api-flow flex-container flexFlowColumn">
+          <div id="main-API-selector-block" class="selector-field"><label for="main_api">API 类型</label><select id="main_api"><option value="openai">聊天补全 / Chat Completion</option><option value="textgenerationwebui">文本补全 / Text Completion</option></select></div>
+          <div id="openai_api">
+            <div class="selector-field source-field"><label for="chat_completion_source">聊天补全来源</label><select id="chat_completion_source"><option value="custom">自定义兼容接口 / Custom</option><option value="openai">OpenAI</option></select></div>
+            <form id="custom_form" class="provider-fields" data-source="custom" autocomplete="off">
+              <h3><label for="custom_api_url_text">基础地址</label></h3><div class="field-content"><input id="custom_api_url_text" class="text_pole code-field" type="url" value="https://example.invalid/v1" spellcheck="false" autocomplete="off"><p class="field-note">填写基础 URL；<code>/chat/completions</code> 会自动添加。</p></div>
+              <h3><label for="api_key_custom">API 密钥 <small>可选</small></label></h3><div class="field-content"><div class="key-row"><input id="api_key_custom" class="text_pole flex1" type="text" autocomplete="off" spellcheck="false" placeholder="✔ 已保存（本地示例）" aria-describedby="custom-key-warning"><button type="button" class="icon-tool manage-api-keys" data-key="custom" aria-label="查看自定义接口示例凭据状态" title="管理密钥"><i class="fa-solid fa-key" aria-hidden="true"></i></button></div><p class="neutral_warning field-note" data-for="api_key_custom" id="custom-key-warning" hidden>连接后会清空输入，保留已保存状态。</p></div>
+              <h3><label for="custom_model_id">模型 ID</label></h3><div class="field-content"><input id="custom_model_id" class="text_pole code-field" type="text" list="model_custom_select_fill" value="example-provider/dialogue-small" autocomplete="off" spellcheck="false"><datalist id="model_custom_select_fill"></datalist><p class="field-note">可直接填写；列表为空时仍可使用手填值。</p></div>
+              <h3><label for="model_custom_select">可用模型</label></h3><div class="field-content"><select id="model_custom_select" class="text_pole"></select><p class="field-note list-note" id="custom-list-note">选择模型会回填上方 ID。</p></div>
+            </form>
+            <form id="openai_form" class="provider-fields" data-source="openai" autocomplete="off" hidden>
+              <h3><label for="api_key_openai">API 密钥</label></h3><div class="field-content"><div class="key-row"><input id="api_key_openai" class="text_pole flex1" type="text" autocomplete="off" spellcheck="false" placeholder="✔ 已保存（本地示例）" aria-describedby="openai-key-warning"><button type="button" class="icon-tool manage-api-keys" data-key="openai" aria-label="查看 OpenAI 示例凭据状态" title="管理密钥"><i class="fa-solid fa-key" aria-hidden="true"></i></button></div><p class="neutral_warning field-note" data-for="api_key_openai" id="openai-key-warning" hidden>连接后会清空输入，保留已保存状态。</p></div>
+              <h3><label for="model_openai_select">OpenAI 模型</label></h3><div class="field-content"><select id="model_openai_select" class="text_pole"><option value="example-chat-small">example-chat-small</option><option value="example-chat-reasoning-preview-2026-09-08">example-chat-reasoning-preview-2026-09-08</option></select><p class="field-note">模型名称为虚构样本。</p></div>
+            </form>
+            <div class="connection-actions"><button type="button" id="api_button_openai" class="api_button primary-action">连接 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button><button type="button" class="api_loading secondary-action" id="cancel-openai" hidden>取消</button><button type="button" id="customize_additional_parameters" class="secondary-action" data-source="custom" aria-expanded="false" aria-controls="additional-parameters">附加参数</button><button type="button" id="test_api_button" class="secondary-action" title="发送一条本地模拟测试消息">测试消息</button></div>
+            <div id="additional-parameters" class="additional-panel" hidden><h3>附加参数</h3><label for="example-post-processing">提示词后处理</label><select id="example-post-processing"><option value="none">不处理</option><option value="merge">合并连续角色</option><option value="strict">严格交替角色</option></select><p class="field-note">仅保留当前页面中的示例选择。</p></div>
+          </div>
+          <div id="textgenerationwebui_api" hidden>
+            <div class="selector-field source-field"><label for="textgen_type">文本补全来源</label><select id="textgen_type"><option value="ollama">Ollama</option><option value="generic">Generic / OpenAI-compatible</option></select></div>
+            <form id="ollama_form" class="provider-fields" data-tg-type="ollama" autocomplete="off">
+              <h3><label for="ollama_api_url_text">服务器地址</label></h3><div class="field-content"><input id="ollama_api_url_text" class="text_pole code-field" type="url" value="https://example.invalid/ollama" spellcheck="false" autocomplete="off"></div>
+              <h3><label for="ollama_model">Ollama 模型</label></h3><div class="field-content"><select id="ollama_model" class="text_pole"></select><p id="ollama-list-note" class="field-note list-note">从可用模型中选择。</p></div>
+            </form>
+            <form id="generic_form" class="provider-fields" data-tg-type="generic" autocomplete="off" hidden>
+              <h3><label for="textgenerationwebui_api_url_text">服务器地址</label></h3><div class="field-content"><input id="textgenerationwebui_api_url_text" class="text_pole code-field" type="url" value="https://example.invalid/completion/v1" spellcheck="false" autocomplete="off"></div>
+              <h3><label for="custom_model_textgenerationwebui">自定义模型 <small>可选</small></label></h3><div class="field-content"><input id="custom_model_textgenerationwebui" class="text_pole code-field" type="text" value="example-local/completion-model" autocomplete="off" spellcheck="false"></div>
+              <h3><label for="api_key_ooba">API 密钥 <small>可选</small></label></h3><div class="field-content"><div class="key-row"><input id="api_key_ooba" class="text_pole flex1" type="text" autocomplete="off" placeholder="尚未保存（可选）" aria-describedby="generic-key-warning"><button type="button" class="icon-tool manage-api-keys" data-key="generic" aria-label="查看 Generic 示例凭据状态" title="管理密钥"><i class="fa-solid fa-key" aria-hidden="true"></i></button></div><p class="neutral_warning field-note" data-for="api_key_ooba" id="generic-key-warning" hidden>连接后会清空输入，保留已保存状态。</p></div>
+            </form>
+            <div class="connection-actions"><button type="button" id="api_button_textgenerationwebui" class="api_button primary-action">连接 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button><button type="button" class="api_loading secondary-action" id="cancel-textgen" hidden>取消</button></div>
+          </div>
+        </div>
+        <div class="online_status" id="connection-status" role="status" aria-live="polite" aria-atomic="true" data-state="disconnected"><span class="online_status_indicator" aria-hidden="true"></span><div><span class="status-label">连接状态</span><p class="online_status_text" id="online_status_text">未连接</p></div></div>
+        <div id="test-result" class="test-result" role="status" aria-live="polite" hidden></div>
+        <footer class="connection-footer"><label class="checkbox_label" for="auto-connect-checkbox"><input id="auto-connect-checkbox" type="checkbox"><span>自动连接到上次服务器</span></label><button type="button" id="viewSecrets" class="text-action">查看示例凭据状态</button></footer>
+      </div>
+    </section>
+  </section>
+  <div class="demo-legend"><span data-variant-note="a">A · 连续纸面，优先完整填写与纠错。</span><span data-variant-note="b" hidden>B · 深色工作面；宽面板横向核对，窄屏回到上下标签。</span><span>所有连接与消息均为本地模拟</span></div>
+  <details class="design-notes"><summary>设计取舍与原生边界</summary><div class="note-grid"><div><h2>A · 默认推荐</h2><p>表单按原生信息顺序展开。长地址、模型 ID 和状态文字获得整列宽度；动作按钮保持自然宽度。</p><h2>B · 宽屏备选</h2><p>内容宽度至少 720px 时，左标签与右侧值形成核对表。低于此宽度恢复单列，深浅层级仍保留。两版均不使用地形、点阵或大编号。</p><h2>短高度</h2><p>只有一个面板滚动区，标题与操作不固定占位。430 / 300px 是高度样本，不代表真实手机键盘已经通过。</p></div><div><h2>控件与状态</h2><p>Custom 保留模型 ID 输入、datalist 与独立可用模型 select。OpenAI 使用原生 select；Ollama 可比较原生选择与宿主已有 Select2。桌面缩窄窗口不会自动变成手机选择器。</p><p>连接、取消和测试消息相互独立。真实宿主的测试消息会发出请求并可能计费，本页只模拟结果。真实宿主会把“待测试、跳过检查、地址无效”等非 no_connection 文本也标记为 success；本页保留状态全文，不把小点解释成已验证可用。</p><h2>实装范围</h2><p>这里整理了用于比较的字段包裹层，并共用一条模拟状态行；宿主各 API 分支有自己的状态节点。配置操作、完整情境切换与示例提示由本地脚本驱动，不是仅靠 CSS 新增的宿主能力。凭据内容不保存，刷新或恢复即清除。</p></div></div></details>
+  <p class="prototype-footnote">示例地址使用 example.invalid；所有模型和配置都是虚构数据。只提供本地样本，不读取实际设置、账户或密钥。</p>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Endfield reasoning motion preview v1 smooth</title>
+    <style>
+        :root {
+            --ef-calib-m: #ff00d4;
+            --ef-calib-y: #f6ff00;
+            --ef-calib-c: #38f6c2;
+        }
+
+        @property --ef-reasoning-cut-a {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 11.5%;
+        }
+
+        @property --ef-reasoning-cut-b {
+            syntax: "<percentage>";
+            inherits: false;
+            initial-value: 21.5%;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            color: #101618;
+            background: #edf0f0;
+            font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+        }
+
+        #chat {
+            width: min(640px, calc(100vw - 32px));
+        }
+
+        .mes_block {
+            padding: 28px 24px 40px;
+            background: #fff;
+        }
+
+        .mes_reasoning_details {
+            border: 0;
+        }
+
+        .mes_reasoning_summary {
+            position: relative;
+            display: block;
+            min-height: 58px;
+            padding: 18px 20px;
+            overflow: hidden;
+            border: 1px solid #cdd1d1;
+            background: #f7f8f8;
+            font-size: 18px;
+            font-weight: 700;
+            list-style: none;
+        }
+
+        .mes_reasoning_summary::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            right: auto;
+            bottom: 0;
+            left: 0;
+            width: 40%;
+            height: 2px;
+            pointer-events: none;
+            --ef-reasoning-cut-a: 11.5%;
+            --ef-reasoning-cut-b: 21.5%;
+            background-image: linear-gradient(
+                to right,
+                var(--ef-calib-m) 0 var(--ef-reasoning-cut-a),
+                var(--ef-calib-y) var(--ef-reasoning-cut-a) var(--ef-reasoning-cut-b),
+                var(--ef-calib-c) var(--ef-reasoning-cut-b) 50%,
+                var(--ef-calib-m) 50% calc(50% + var(--ef-reasoning-cut-a)),
+                var(--ef-calib-y) calc(50% + var(--ef-reasoning-cut-a)) calc(50% + var(--ef-reasoning-cut-b)),
+                var(--ef-calib-c) calc(50% + var(--ef-reasoning-cut-b)) 100%
+            );
+            background-repeat: repeat-x;
+            background-position: 0 0;
+            background-size: 200% 100%;
+            opacity: 0;
+        }
+
+        body[data-generating="true"]
+        #chat > .last_mes
+        .mes_reasoning_details[data-state="thinking"] > .mes_reasoning_summary::after {
+            animation:
+                ef-reasoning-calibration-shift 1600ms linear infinite,
+                ef-reasoning-calibration-stretch 3200ms cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+
+        @keyframes ef-reasoning-calibration-shift {
+            0% {
+                background-position: 100% 0;
+                background-size: 200% 100%;
+                opacity: 0.92;
+            }
+
+            100% {
+                background-position: 0 0;
+                background-size: 200% 100%;
+                opacity: 0.92;
+            }
+        }
+
+        @keyframes ef-reasoning-calibration-stretch {
+            0%, 100% {
+                --ef-reasoning-cut-a: 11.5%;
+                --ef-reasoning-cut-b: 21.5%;
+            }
+
+            25% {
+                --ef-reasoning-cut-a: 16.5%;
+                --ef-reasoning-cut-b: 21.5%;
+            }
+
+            50% {
+                --ef-reasoning-cut-a: 11.5%;
+                --ef-reasoning-cut-b: 26.5%;
+            }
+
+            75% {
+                --ef-reasoning-cut-a: 6.5%;
+                --ef-reasoning-cut-b: 16.5%;
+            }
+        }
+
+        p {
+            margin: 16px 0 0;
+            color: #5f686a;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body data-generating="true">
+    <main id="chat">
+        <article class="mes last_mes">
+            <div class="mes_block">
+                <details class="mes_reasoning_details" data-state="thinking">
+                    <summary class="mes_reasoning_summary">// 正在解析</summary>
+                </details>
+                <p>外框始终占底边左侧五分之二；内部色段流动、拉长并回缩。</p>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

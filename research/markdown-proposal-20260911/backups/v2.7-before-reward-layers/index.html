@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Endfield · 正文排版 V2.7</title><link rel="stylesheet" href="review.css"></head>
+<body>
+<header class="study-head"><div><span class="eyebrow">ENDFIELD / READING STUDY</span><h1>正文排版 <small>V2.7</small></h1></div><p>B 排线扇形 / C 圆环定位<br><span>独立方案 · 尚未实装</span><br><a class="reference-link" href="http://127.0.0.1:8773/?view=shortlist" target="_blank" rel="noopener">查看形态参考 ↗</a></p></header>
+<form class="controls" aria-label="预览设置" onsubmit="return false">
+<label>阅读样本<select id="sample"><option value="narrative">日常叙事</option><option value="formats">完整格式</option><option value="stress">长内容与边界</option><option value="code" selected>代码阅读</option></select></label>
+<label>预览宽度<select id="width"><option value="780">桌面 · 780 px</option><option value="390">窄屏 · 390 px</option><option value="360">窄屏 · 360 px</option><option value="auto">随窗口</option></select></label>
+<label>正文大小<select id="size"><option value="16">16 px</option><option value="18">18 px</option><option value="20">20 px</option></select></label>
+<label>消息<select id="role"><option value="false">角色回复</option><option value="true">用户消息</option></select></label>
+<label>深色底纹<select id="texture"><option value="fan">B · 排线扇形</option><option value="rings">C · 圆环定位</option><option value="plain">纯色对照</option><option value="geometry">A · 上版大折角</option><option value="full">旧版淡纹理</option></select></label>
+<fieldset><legend>查看</legend><label><input type="radio" name="view" value="candidate" checked>设计方案</label><label><input type="radio" name="view" value="current">当前规则</label></fieldset>
+</form>
+<div class="workspace"><aside><div class="section-label">本页看什么</div><p id="sample-description"></p><nav id="contents" aria-label="样张目录"></nav><details class="design-note"><summary>这版的取舍</summary><p>中性黑白灰为主。对白以正常字重与引号区分，动作退为次级灰色；重点保留加粗。</p><p>标题借用档案长图的短标记与细线；不自动添加编号，也不把普通加粗涂黄。</p><p>代码长行自动换行，较长内容在块内纵向滚动。宽表格保留自身滚动，折叠内容沿用原生操作。</p><p>B 取交易卡的水平短线与不等长分瓣，向右下收拢；C 取结算页的大圆环、内层暗圆和少量定位线。两种图形都进入完整代码底面。</p><p>两版均按参考重建为 SVG，等比裁切；B 在窄屏疏化线距。可切换纯色、A 大折角和旧版淡纹理，对比实际阅读效果。</p></details></aside><main><div class="frame-meta"><span>正文局部 · 沿用现有纸面</span><output id="metrics">780 px</output></div><div class="frame-shell"><iframe id="preview" title="正文排版预览" src="stage.html"></iframe></div><p class="footnote">示例文字仅用于排版。窄屏预览不等于真手机触控验收；封面、推理区及输入区不在本轮设计范围。</p></main></div>
+<script src="review.js"></script></body></html>

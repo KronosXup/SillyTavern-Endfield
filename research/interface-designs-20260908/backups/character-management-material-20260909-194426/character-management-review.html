@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>角色管理 · 整体预览</title>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css"><link rel="stylesheet" href="../assets/css/solid.min.css">
+  <link rel="stylesheet" href="character-tools-review.css">
+  <link rel="stylesheet" href="character-list-review.css">
+  <link rel="stylesheet" href="character-management-review.css">
+  <script src="character-management-review.js" defer></script>
+</head>
+<body>
+  <header class="review-header"><div><p class="eyebrow">ENDFIELD / 界面方案</p><h1>角色管理 <span>· 整体预览</span></h1></div><a href="toolbar-review.html">顶部工具栏 ↗</a></header>
+  <main class="review-layout management-review">
+    <section class="work-area" aria-label="角色管理完整抽屉方案">
+      <div class="preview-toolbar">
+        <label>抽屉宽度 <select id="preview-width"><option value="295">295px</option><option value="260">260px</option><option value="320">320px</option><option value="390">390px</option></select></label>
+        <button id="reset-demo" class="review-button">回到初始状态</button>
+      </div>
+      <p class="intro">搜索、筛选、分页与角色内容已合在同一个抽屉。点击分页栏右侧的网格图标切换视图。</p>
+      <div class="workbench" id="workbench"><div class="comparisons" id="comparisons"></div></div>
+      <p class="demo-status" id="demo-status" role="status" aria-live="polite">可直接搜索、筛选、翻页或选择角色，查看整套界面的变化。</p>
+      <details class="test-controls"><summary>检查特殊内容 <span aria-hidden="true">＋</span></summary><div class="test-options">
+        <label><input type="checkbox" id="long-content"> 长名称与长版本</label>
+        <label><input type="checkbox" id="long-tags"> 长标签</label>
+        <label><input type="checkbox" id="extension-buttons"> 扩展追加按钮</label>
+        <label><input type="checkbox" id="hide-hotswaps"> 隐藏收藏快捷区</label>
+        <label><input type="checkbox" id="empty-hotswaps"> 快捷区无收藏</label>
+        <label><input type="checkbox" id="short-height"> 短高度</label>
+        <label><input type="checkbox" id="reduce-motion"> 减少动态</label>
+        <button class="review-button" id="search-empty">无结果示例</button>
+      </div></details>
+      <div class="scope-note"><strong>独立网页方案，尚未实装。</strong><p>肖像使用官网公开素材；名称、备注、标签和排序数据均用于演示。新建、导入、编辑和删除入口只显示说明，不会改变酒馆数据。</p></div>
+    </section>
+    <aside class="reference-notes" aria-label="本轮设计调整">
+      <h2>放在一起看</h2>
+      <section><h3><span>01</span> 快捷导航直接接入操作行</h3><p>移去三点装饰与重复标题栏。收藏头像借用官网干员导航的圆形细环与浅灰纹理，横向排列；固定和返回列表入口留在左侧。下方接回已确认的深色操作行、筛选与分页。</p><a href="https://endfield.hypergryph.com/#operator" target="_blank" rel="noopener">官网干员导航参考 ↗</a></section>
+      <section><h3><span>02</span> 网格姓名保持单行</h3><p>长名称在末尾省略，让卡片底边保持整齐。鼠标悬停或打开条目说明可查看完整名称；日常列表仍允许姓名两行。</p></section>
+      <section><h3><span>03</span> 勾选即可，不整卡反色</h3><p>进入批量编辑后显示勾选框与数量。被选卡片保留原有底色和文字颜色，黄色勾选清楚标示选择；收藏仍用星标和底线。</p></section>
+      <section><h3><span>04</span> 三色条收细</h3><p>黄、绿、粉的短条保留原有比例，高度收至2px。它是两种卡片共有的装饰，不承担角色属性或选择状态。</p><a href="https://endfield.hypergryph.com/operator" target="_blank" rel="noopener">官网干员总览 ↗</a></section>
+      <a class="contract-link" href="../verification/character-management-review-2026-09-09.md" target="_blank">查看验证记录 ↗</a>
+    </aside>
+  </main>
+  <dialog id="demo-dialog" aria-labelledby="dialog-title"><h2 id="dialog-title"></h2><p id="dialog-body"></p><form method="dialog"><button class="review-button">返回预览</button></form></dialog>
+</body>
+</html>

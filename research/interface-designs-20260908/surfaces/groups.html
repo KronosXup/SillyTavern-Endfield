@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>群聊与成员 · 终末地主题方案</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="groups.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="groups.js" defer></script>
+</head>
+<body class="preview-page" data-surface="groups" data-variant="a">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">群聊 / 成员与发言</p><h1>群聊与成员</h1><p>保留一份群组的设置、当前成员和添加成员。比较连续清单与收纳次要动作后的成员行。</p></div>
+    <span class="lab-disclaimer">虚构样例 · 不调用模型</span>
+  </header>
+  <nav class="variant-picker" aria-label="群聊管理方案">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>三段连续清单</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>成员优先</button>
+  </nav>
+  <div class="lab-toolbar groups-lab primary-lab-controls" aria-label="画布外研究控制">
+    <label>群组样本<select id="group-mode"><option value="existing">已有群组</option><option value="new">新建群组</option></select></label>
+    <label>面板宽度<select id="preview-width"><option value="295">295px · 窄栏</option><option value="221">221px · 更窄</option><option value="720">720px · 宽面板</option></select></label>
+    <label>面板高度<select id="preview-height"><option value="430">430px</option><option value="300">300px</option><option value="620">620px</option></select></label>
+  </div>
+  <details class="lab-extra-conditions">
+    <summary>更多样例条件</summary>
+    <div class="lab-toolbar groups-lab">
+      <label><input id="long-labels" type="checkbox">更长名称</label>
+      <label><input id="generation-fixture" type="checkbox">生成中样例</label>
+      <label><input type="checkbox" data-toggle-motion>减少动态效果</label>
+      <button type="button" class="lab-button" id="reset-demo">重置样例数据</button>
+    </div>
+  </details>
+  <p class="groups-study-note">上方切换只用于研究。已有样例直接更新本页内存；新建样例需点“创建群组”。刷新后全部还原。</p>
+  <p class="study-feedback" id="study-feedback" role="status">当前查看已有群组样例。</p>
+
+  <main class="demo-stage groups-stage" aria-label="群聊管理面板样本">
+    <div class="groups-stage-caption"><span>群聊侧栏</span><span id="panel-size"></span></div>
+    <section class="groups-panel drawer-content openDrawer" id="right-nav-panel" aria-labelledby="group-panel-title">
+      <header class="groups-heading"><h2 id="group-panel-title">群聊管理</h2><span id="group-state-badge">已有样例</span></header>
+      <div class="groups-content" id="rm_group_chats_block" tabindex="0" aria-label="群聊内容，可滚动">
+        <p class="group-context" id="group-context"></p>
+        <p class="group-feedback" id="group-feedback" role="status"></p>
+        <div class="group-missing" id="group-missing" hidden><p>这份样例群组已删除。</p><p>仅影响本页数据。</p><button type="button" class="group-action" id="restore-example">恢复这份样例</button></div>
+        <div id="group-sections">
+          <details class="group-section" id="group-controls-section">
+            <summary id="groupControlsToggle"><span>群组设置</span><span class="section-readout" id="controls-readout"></span></summary>
+            <div class="group-section-body" id="group-metadata-controls">
+              <label class="group-field-label" for="rm_group_chat_name">群组名称 <span>可留空</span></label>
+              <input class="group-field" type="text" id="rm_group_chat_name" autocomplete="off" placeholder="由成员名组成默认名称">
+              <label class="group-field-label" for="rm_group_activation_strategy">发言策略</label>
+              <select class="group-field" id="rm_group_activation_strategy" aria-describedby="strategy-help"><option value="0">Natural · 自然顺序</option><option value="1">List · 名单顺序</option><option value="2">Manual · 手动</option><option value="3">Pooled · 轮流抽取</option></select>
+              <p class="field-help" id="strategy-help"></p>
+              <label class="group-check" id="self-responses-row" for="rm_group_allow_self_responses"><input type="checkbox" id="rm_group_allow_self_responses"><span>允许连续自答<span class="check-help">用于自然顺序的选择规则</span></span></label>
+              <label class="group-field-label" for="rm_group_generation_mode">角色卡处理方式</label>
+              <select class="group-field" id="rm_group_generation_mode" aria-describedby="generation-mode-help"><option value="0">Swap · 轮换角色卡</option><option value="1">Join · 拼接，排除停用成员</option><option value="2">Join · 拼接，包含停用成员</option></select>
+              <p class="field-help" id="generation-mode-help">处理角色卡内容，与成员是否自动发言是两件事。</p>
+              <div class="auto-mode-block" id="auto-mode-block">
+                <label class="group-check" for="rm_group_automode"><input type="checkbox" id="rm_group_automode"><span>自动模式<span class="check-help">本页只展示开关与状态</span></span></label>
+                <div class="auto-delay-row"><label for="rm_group_automode_delay">检查间隔</label><input class="group-field" type="number" id="rm_group_automode_delay" min="1" max="999" step="1" value="5" aria-describedby="delay-help delay-error"><span>秒</span></div>
+                <p class="field-help" id="delay-help">周期检查是否能继续，不是回复结束后的倒计时。</p>
+                <p class="field-error" id="delay-error" role="status" hidden></p>
+                <p class="auto-state" id="auto-state" role="status"></p>
+              </div>
+              <div class="group-level-actions"><button type="button" class="group-action primary-action" id="rm_group_submit" hidden>创建群组</button><button type="button" class="group-action danger-action" id="rm_group_delete">删除样例群组</button></div>
+              <p class="field-help" id="creation-help" hidden>先加入至少一位成员，再创建这份本地样例。</p>
+            </div>
+          </details>
+
+          <details class="group-section" id="group-members-section" open>
+            <summary id="groupCurrentMemberListToggle"><span>当前成员</span><span class="section-readout" id="members-count"></span></summary>
+            <div class="group-section-body list-body" id="currentGroupMembers">
+              <label class="sr-only" for="rm_group_members_filter">搜索当前成员</label>
+              <div class="group-search-row"><input class="group-field" id="rm_group_members_filter" type="search" placeholder="搜索当前成员" autocomplete="off"><button type="button" class="clear-search" id="clear-members-search" hidden>清除</button></div>
+              <p class="field-help search-scope" id="members-search-note">按完整成员名单排序。</p>
+              <div class="group-pagination" id="rm_group_members_pagination" aria-label="当前成员分页">
+                <button type="button" class="page-button" id="members-prev" aria-label="当前成员上一页"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                <span class="page-readout" id="members-page-info" aria-live="polite"></span>
+                <button type="button" class="page-button" id="members-next" aria-label="当前成员下一页"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+                <label class="page-size-label">每页<select id="members-page-size" aria-label="当前成员每页数量"><option value="5">5</option><option value="10">10</option></select></label>
+              </div>
+              <div class="group-members" id="rm_group_members" role="list" aria-label="当前成员列表"></div>
+              <div class="list-empty" id="members-empty" hidden><p id="members-empty-text"></p><button type="button" class="group-action" id="members-empty-action">添加成员</button></div>
+            </div>
+          </details>
+
+          <details class="group-section" id="group-candidates-section">
+            <summary id="groupAddMemberListToggle"><span>添加成员</span><span class="section-readout" id="candidates-count"></span></summary>
+            <div class="group-section-body list-body" id="unaddedCharList">
+              <label class="sr-only" for="rm_group_filter">搜索待添加成员</label>
+              <div class="group-search-row"><input class="group-field" id="rm_group_filter" type="search" placeholder="搜索待添加成员" autocomplete="off"><button type="button" class="clear-search" id="clear-candidates-search" hidden>清除</button></div>
+              <p class="field-help search-scope">仅列出尚未加入此群的虚构角色。</p>
+              <div class="group-pagination" id="rm_group_add_members_pagination" aria-label="待添加成员分页">
+                <button type="button" class="page-button" id="candidates-prev" aria-label="待添加成员上一页"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                <span class="page-readout" id="candidates-page-info" aria-live="polite"></span>
+                <button type="button" class="page-button" id="candidates-next" aria-label="待添加成员下一页"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+                <label class="page-size-label">每页<select id="candidates-page-size" aria-label="待添加成员每页数量"><option value="5">5</option><option value="10">10</option></select></label>
+              </div>
+              <div class="group-members" id="rm_group_add_members" role="list" aria-label="待添加成员列表"></div>
+              <div class="list-empty" id="candidates-empty" hidden><p id="candidates-empty-text"></p><button type="button" class="group-action" id="candidates-empty-action" hidden>清除搜索</button></div>
+            </div>
+          </details>
+        </div>
+        <p class="groups-endnote">八位虚构角色 · 本页内存样例</p>
+      </div>
+    </section>
+  </main>
+  <div class="demo-legend"><span data-variant-note="a">A · 群组设置、当前成员、添加成员。</span><span data-variant-note="b" hidden>B · 当前成员在前，次要动作收进“更多”。</span><span id="layout-readout"></span></div>
+  <details class="design-notes">
+    <summary>原生规则、脚本边界与省略范围</summary>
+    <div class="note-grid">
+      <section><h2>三个动作，各有对象</h2><p>停用只暂停成员自动回复；成员仍在名单内。移出只改变这份群组的成员关系。删除样例群组只清空本页对应样例。</p><p>加入会放到名单最前面；停用后移出再加入，仍保留停用记录。上下移动按完整成员数组处理；有搜索时，画面中的相邻行不一定是名单中的相邻成员。</p><h2>本页更新方式</h2><p>已有样例即时更新内存，新建样例显式创建。两份状态分别保留，没有全局“保存全部”，也不写入酒馆。自动模式和点名只给出本地状态反馈，不调用模型、不生成假回复。</p></section>
+      <section><h2>这是独立交互候选</h2><p>A/B 共用数据和规则。B 实际移动段落 DOM，视觉与键盘阅读次序一致；更多菜单、真实按钮、首尾禁用和重绘后的焦点返回由本页脚本补充。</p><p>“生成中样例”仅限制原生明确拒绝的查看角色卡和删除群组；不把其他成员动作一律禁用。这不是宿主并发安全或真实停止生成的测试。</p><h2>本轮不展开</h2><p>搜索仅匹配样例名称与识别说明，分页只提供 5 / 10。未实现原生模糊搜索、标签、媒体权限、群角色设置覆盖、头像上传、拼接前后缀、立绘开关、浮窗、真实聊天和完整目录管理。</p><p>300/430px 仅用于面板高度检查，不模拟真实手机软键盘。</p></section>
+    </div>
+  </details>
+  <p class="prototype-footnote">可试：停用成员 → 移出 → 再加入；跨页上移或下移；切换新建样例；对比 A/B 的长名与键盘操作。</p>
+
+  <dialog id="group-delete-dialog" class="group-dialog" aria-labelledby="group-delete-title" aria-describedby="group-delete-description">
+    <form id="group-delete-form" novalidate>
+      <div class="group-dialog-copy" tabindex="0"><h2 id="group-delete-title">删除这份样例群组？</h2><p id="group-delete-description">仅清空本页这份群组的成员和设置，不影响真实角色或聊天。</p></div>
+      <footer class="group-dialog-actions"><button type="button" class="group-action" id="group-delete-cancel">取消</button><button type="submit" class="group-action danger-action" id="group-delete-confirm">删除样例</button></footer>
+    </form>
+  </dialog>
+</body>
+</html>

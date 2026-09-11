@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Endfield · 编辑与管理</title>
+  <link rel="stylesheet" href="../assets/common.css">
+  <link rel="stylesheet" href="editors.css">
+  <script src="../assets/common.js" defer></script>
+  <script src="editors.js" defer></script>
+</head>
+<body class="preview-page editors-page" data-surface="editors" data-variant="a" data-panel-height="430">
+  <header class="lab-intro">
+    <div><p class="lab-kicker">ENDFIELD INDUSTRIES / EDITOR STUDY</p><h1>留出写下去的空间。</h1><p>长正文、短参数和会反复打开的条目。两种布局保留原有编辑层次，让内容自己占据纸面。</p></div>
+    <span class="lab-disclaimer">独立候选 · 虚构样例</span>
+  </header>
+
+  <nav class="variant-picker" aria-label="编辑器设计方向">
+    <button type="button" data-variant="a" aria-pressed="true"><span class="variant-letter">A</span>连续校稿单</button>
+    <button type="button" data-variant="b" aria-pressed="false"><span class="variant-letter">B</span>宽幅对照工位</button>
+  </nav>
+
+  <section class="editor-review" aria-labelledby="review-title">
+    <div class="review-heading"><strong id="review-title">评审场景</strong><span>以下切换只用于看样例，不属于宿主导航。</span></div>
+    <div class="lab-toolbar">
+      <label for="review-surface">查看<select id="review-surface"><option value="character">角色主面板</option><option value="advanced">高级定义（对话框）</option><option value="world">世界书条目</option></select></label>
+      <label for="review-character-mode" id="character-mode-control">角色状态<select id="review-character-mode"><option value="existing">已有角色</option><option value="new">新建草稿</option></select></label>
+      <label for="review-width">面板宽度<select id="review-width"><option value="wide">可用宽度</option><option value="390">390px</option><option value="320">320px</option></select></label>
+      <label for="review-height">面板高度<select id="review-height"><option value="430">430px</option><option value="300">300px</option></select></label>
+      <button type="button" class="lab-button" id="fill-long-sample">填入长文本样例</button>
+      <button type="button" class="lab-button" id="reset-editors">重置样例</button>
+    </div>
+  </section>
+
+  <main class="demo-stage editor-shell" aria-labelledby="editor-stage-title">
+    <header class="editor-context"><div><span id="editor-context-label">角色定义</span><h2 id="editor-stage-title">边界记录员</h2></div><span class="sample-label">本页样例</span></header>
+    <div class="editor-scroll" id="editor-scroll">
+      <section id="character-sample" aria-label="角色编辑样例">
+        <div id="rm_ch_create_block">
+          <form id="form_create" novalidate>
+            <div id="avatar-and-name-block">
+              <div class="avatar-placeholder" role="img" aria-label="几何头像占位"><span></span></div>
+              <label class="editor-field character-name-field" for="character_name_pole"><span>角色名称</span><input id="character_name_pole" name="ch_name" data-character-field="name" autocomplete="off" maxlength="240"></label>
+              <div id="avatar_controls"><div class="form_create_bottom_buttons_block">
+                <button type="button" class="editor-action" id="advanced_div"><i class="fa-solid fa-book" aria-hidden="true"></i>高级定义</button>
+                <button type="submit" class="editor-action signal-action" id="create_button" hidden><i class="fa-solid fa-user-check" aria-hidden="true"></i>创建示例</button>
+                <button type="button" class="editor-action danger-action" id="delete_button"><i class="fa-solid fa-trash-can" aria-hidden="true"></i>删除角色</button>
+              </div></div>
+              <p class="field-error" id="character-name-error" hidden>先给新角色一个名字。</p>
+            </div>
+            <div id="spoiler_free_desc" class="inline-drawer creator-preview">
+              <div class="inline-drawer-header"><button type="button" class="inline-drawer-toggle fold-title" data-fold="creator-preview-content" aria-expanded="false" aria-controls="creator-preview-content"><span>创作者注释</span><i class="fa-solid fa-chevron-down inline-drawer-icon down" aria-hidden="true"></i></button><button type="button" class="editor-icon-action" id="spoiler_free_desc_button" aria-label="隐藏描述与开场白" aria-pressed="false"><i class="fa-solid fa-eye" aria-hidden="true"></i></button></div>
+              <div class="inline-drawer-content" id="creator-preview-content" hidden><p id="creator_notes_spoiler"></p></div>
+            </div>
+            <p class="details-hidden-note" id="creators_note_desc_hidden" hidden>描述与开场白已隐藏。点击上方眼睛图标重新显示。</p>
+            <section class="long-field" id="descriptionWrapper"><div class="text-field-title"><label for="description_textarea">角色描述</label><button type="button" class="editor-icon-action editor_maximize" data-for="description_textarea" aria-label="放大编辑角色描述"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><textarea id="description_textarea" name="description" data-character-field="description" rows="10" spellcheck="false"></textarea><p class="sample-counter" data-count-target="description_textarea"></p></section>
+            <section class="long-field" id="firstMessageWrapper"><div class="text-field-title"><label for="firstmessage_textarea">第一条消息</label><button type="button" class="editor-icon-action editor_maximize" data-for="firstmessage_textarea" aria-label="放大编辑第一条消息"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><textarea id="firstmessage_textarea" name="first_mes" data-character-field="firstMessage" rows="10" spellcheck="false"></textarea><p class="sample-counter" data-count-target="firstmessage_textarea"></p></section>
+            <p class="editor-inline-note">更改即时更新本页样例。高级定义在独立窗口中；关闭窗口不会撤销内容。</p>
+          </form>
+        </div>
+        <div class="editor-empty" id="character-empty" hidden><i class="fa-solid fa-file-lines" aria-hidden="true"></i><h3>角色样例已删除</h3><p>只影响这页的虚构内容。</p><button type="button" class="editor-action" id="restore-character">恢复角色样例</button></div>
+      </section>
+
+      <section id="world-sample" aria-label="世界书条目编辑样例" hidden>
+        <div id="world_popup">
+          <div class="world-book-heading"><div><span>待编辑世界书</span><h3>谷地巡检手册</h3></div><span id="entry-count"></span></div>
+          <div class="world-list-tools"><button type="button" class="editor-action" id="world_popup_new"><i class="fa-solid fa-plus" aria-hidden="true"></i>新建条目</button><button type="button" class="editor-action" id="OpenAllWIEntries">全部展开</button><button type="button" class="editor-action" id="CloseAllWIEntries">全部收起</button></div>
+          <div id="world_popup_entries_list"></div>
+          <div class="editor-empty" id="world-empty" hidden><h3>本页还没有条目</h3><p>可以从上方新建一个虚构条目。</p></div>
+        </div>
+      </section>
+    </div>
+    <p class="editor-feedback" id="editor-feedback" role="status" aria-live="polite">可以直接编辑。本页样例不会发送到酒馆。</p>
+  </main>
+
+  <div class="demo-legend"><span data-variant-note="a">A · 单列延续正文，参数按原生次序往下展开。</span><span data-variant-note="b" hidden>B · 内容宽度足够时才分栏；窄面板与 300px 高度使用单列。</span><span>正文只在本页内存中更新，刷新后恢复。</span></div>
+  <details class="design-notes"><summary>范围、原生映射与验收边界</summary><div class="note-grid"><div><h2>保留的编辑结构</h2><p>角色主表单使用 <code>#form_create</code>，高级定义另开 <code>#character_popup</code>。已有角色的输入立即更新本页样例；新建草稿有单独的创建动作。没有新增“应用全部”或可撤销的关闭按钮。</p><p>世界书保留条目独立展开、启用、状态与头部参数。<code>.world_entry_edit</code> 保持 <code>display:contents</code>，内部使用真实拼写 <code>.WIEnteryHeaderControls</code>。收起销毁编辑正文，再打开时从内存样例恢复。</p></div><div><h2>有意简化的范围</h2><p>本页只展示一张角色卡的主要字段，以及一部世界书的三条虚构条目。未覆盖头像上传、标签管理、备用问候、全部高级字段、书级导入导出、跨书移动、排序与批量改写。字符数是样例计数，不是模型 token 统计。</p><p>关键词只演示明文分支；不增加 Select2，也不显示核心已隐藏的 Selective / Use Probability / Add Memo。删除确认只处理本页样例。320 / 390 与短面板用于布局检查，不能代表真机键盘验收。</p></div></div></details>
+  <p class="prototype-footnote">试用：输入多段文字 → 放大编辑 → Escape 关闭 → 再次打开检查内容。世界书可同时展开多条；关闭和停用均不删除文字。</p>
+
+  <dialog id="character_popup" class="editor-modal" aria-labelledby="advanced-title">
+    <div class="modal-shell"><header class="modal-heading"><div><span>高级定义</span><h2 id="advanced-title">边界记录员</h2></div><button type="button" class="editor-icon-action" data-close-dialog aria-label="关闭高级定义"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header>
+      <div class="modal-scroll advanced-content">
+        <div class="inline-drawer"><div class="inline-drawer-header"><button type="button" class="inline-drawer-toggle fold-title" data-fold="prompt-overrides-content" aria-controls="prompt-overrides-content" aria-expanded="false"><span>提示词覆盖</span><i class="fa-solid fa-chevron-down inline-drawer-icon down" aria-hidden="true"></i></button></div><div class="inline-drawer-content folded-fields" id="prompt-overrides-content" hidden><label class="editor-field" for="system_prompt_textarea"><span>主提示词</span><textarea id="system_prompt_textarea" name="system_prompt" form="form_create" data-character-field="systemPrompt" rows="4"></textarea></label><label class="editor-field" for="post_history_instructions_textarea"><span>后置历史指令</span><textarea id="post_history_instructions_textarea" name="post_history_instructions" form="form_create" data-character-field="postHistory" rows="4"></textarea></label></div></div>
+        <div class="inline-drawer"><div class="inline-drawer-header"><button type="button" class="inline-drawer-toggle fold-title" data-fold="creator-metadata-content" aria-controls="creator-metadata-content" aria-expanded="false"><span>创作者元数据</span><i class="fa-solid fa-chevron-down inline-drawer-icon down" aria-hidden="true"></i></button></div><div class="inline-drawer-content folded-fields" id="creator-metadata-content" hidden><label class="editor-field" for="creator_notes_textarea"><span>创作者注释</span><textarea id="creator_notes_textarea" name="creator_notes" form="form_create" data-character-field="creatorNotes" rows="5"></textarea></label><label class="editor-field" for="character_version_textarea"><span>角色版本</span><textarea id="character_version_textarea" name="character_version" form="form_create" data-character-field="version" rows="2"></textarea></label></div></div>
+        <section class="long-field" id="personality_div"><div class="text-field-title"><label for="personality_textarea">性格摘要</label><button type="button" class="editor-icon-action editor_maximize" data-for="personality_textarea" aria-label="放大编辑性格摘要"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><textarea id="personality_textarea" name="personality" form="form_create" data-character-field="personality" rows="6"></textarea></section>
+        <section class="long-field" id="scenario_div"><div class="text-field-title"><label for="scenario_pole">场景</label><button type="button" class="editor-icon-action editor_maximize" data-for="scenario_pole" aria-label="放大编辑场景"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><textarea id="scenario_pole" name="scenario" form="form_create" data-character-field="scenario" rows="6"></textarea></section>
+        <section class="long-field" id="depth_prompt_div"><div class="text-field-title"><label for="depth_prompt_prompt">角色注释</label><button type="button" class="editor-icon-action editor_maximize" data-for="depth_prompt_prompt" aria-label="放大编辑角色注释"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><textarea id="depth_prompt_prompt" name="depth_prompt_prompt" form="form_create" data-character-field="note" rows="4"></textarea><div class="small-fields"><label class="editor-field" for="depth_prompt_depth"><span>插入深度</span><input id="depth_prompt_depth" name="depth_prompt_depth" type="number" min="0" max="9999" form="form_create" data-character-field="noteDepth"></label><label class="editor-field" for="depth_prompt_role"><span>角色</span><select id="depth_prompt_role" name="depth_prompt_role" form="form_create" data-character-field="noteRole"><option value="system">系统</option><option value="user">用户</option><option value="assistant">助手</option></select></label></div></section>
+        <section class="long-field" id="mes_example_div"><div class="text-field-title"><label for="mes_example_textarea">对话示例</label><button type="button" class="editor-icon-action editor_maximize" data-for="mes_example_textarea" aria-label="放大编辑对话示例"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><textarea id="mes_example_textarea" name="mes_example" form="form_create" data-character-field="examples" rows="10" spellcheck="false"></textarea><p class="sample-counter" data-count-target="mes_example_textarea"></p></section>
+        <p class="editor-inline-note">输入已更新本页样例。关闭窗口会保留这些修改。</p>
+      </div>
+      <p class="modal-feedback" id="advanced-feedback" role="status" aria-live="polite">仅编辑虚构样例。</p>
+    </div>
+  </dialog>
+
+  <dialog id="expanded-editor" class="editor-modal expanded-modal" aria-labelledby="expanded-title"><div class="modal-shell"><header class="modal-heading"><div><span>放大编辑</span><h2 id="expanded-title">正文</h2></div><button type="button" class="editor-icon-action" data-close-dialog aria-label="关闭放大编辑"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><div class="expanded-body"><label class="sr-only" for="expanded-content">放大编辑内容</label><textarea id="expanded-content" class="maximized_textarea" spellcheck="false"></textarea></div><p class="modal-feedback" id="expanded-feedback" role="status" aria-live="polite">输入同步至本页原字段，关闭后保留。</p></div></dialog>
+
+  <dialog id="editor-confirm" class="editor-modal confirm-modal" aria-labelledby="confirm-title" aria-describedby="confirm-description"><div class="modal-shell"><header class="modal-heading"><div><span>删除样例</span><h2 id="confirm-title">删除这个条目？</h2></div><button type="button" class="editor-icon-action" data-close-dialog aria-label="取消删除"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><div class="confirm-reading"><p id="confirm-description"></p><p class="confirm-boundary">只从本页内存样例移除。重置样例可以恢复，不影响真实酒馆数据。</p></div><div class="confirm-actions"><button type="button" class="editor-action" id="confirm-cancel" autofocus>取消</button><button type="button" class="editor-action danger-action" id="confirm-delete">删除样例</button></div></div></dialog>
+
+  <template id="world-entry-template"><div class="world_entry"><form class="world_entry_form wi-card-entry"><div class="inline-drawer">
+    <div class="inline-drawer-header entry-header"><div class="entry-leading"><button type="button" class="editor-icon-action inline-drawer-toggle entry-toggle" aria-expanded="false"><i class="fa-solid fa-chevron-down inline-drawer-icon down" aria-hidden="true"></i></button><button type="button" class="editor-action killSwitch" name="entryKillSwitch" aria-pressed="true"><i class="fa-solid fa-toggle-on" aria-hidden="true"></i><span>已启用</span></button></div>
+      <div class="WIEntryTitleAndStatus"><label class="entry-title-field"><span>条目标题 / 备忘</span><textarea name="comment" data-world-field="comment" rows="1"></textarea></label><label class="entry-state-field"><span>状态</span><select name="entryStateSelector" data-world-field="state"><option value="normal">🟢 普通</option><option value="constant">🔵 常驻</option><option value="vectorized">🔗 向量</option></select></label></div>
+      <div class="WIEnteryHeaderControls"><label class="position-control"><span>位置</span><select name="position" data-world-field="position"><option value="0">角色定义之前</option><option value="1">角色定义之后</option><option value="4">指定深度 · 系统</option></select></label><label class="depth-control"><span>深度</span><input type="number" name="depth" data-world-field="depth" min="0" max="9999"></label><label><span>顺序</span><input type="number" name="order" data-world-field="order" min="0" max="9999"></label><label class="probabilityContainer"><span>触发概率 %</span><input type="number" name="probability" data-world-field="probability" min="0" max="100"></label></div>
+      <div class="entry-actions"><small class="entry-uid"></small><button type="button" class="editor-action duplicate_entry_button"><i class="fa-solid fa-copy" aria-hidden="true"></i>复制</button><button type="button" class="editor-action danger-action delete_entry_button"><i class="fa-solid fa-trash-can" aria-hidden="true"></i>删除</button></div>
+    </div><div class="inline-drawer-content inline-drawer-outlet" hidden></div>
+  </div></form></div></template>
+
+  <template id="entry_edit_template"><div class="world_entry_edit">
+    <div class="flex-container wide100p alignitemscenter entry-main-fields">
+      <div name="keywordsAndLogicBlock"><label class="editor-field keyprimary"><span>主关键词</span><textarea name="key" data-world-field="key" rows="2" placeholder="逗号分隔的关键词或正则"></textarea></label><label class="editor-field logic-field"><span>匹配逻辑</span><select name="entryLogicType" data-world-field="logic"><option value="0">AND ANY</option><option value="3">AND ALL</option><option value="1">NOT ALL</option><option value="2">NOT ANY</option></select></label><label class="editor-field keysecondary"><span>可选过滤词</span><textarea name="keysecondary" data-world-field="keySecondary" rows="2" placeholder="留空时忽略"></textarea></label></div>
+      <div name="perEntryOverridesBlock"><label class="editor-field"><span>扫描深度</span><input type="number" name="scanDepth" data-world-field="scanDepth" min="0" max="1000" placeholder="沿用全局设置"></label><label class="editor-field"><span>区分大小写</span><select name="caseSensitive" data-world-field="caseSensitive"><option value="inherit">沿用全局设置</option><option value="yes">是</option><option value="no">否</option></select></label><label class="editor-field"><span>匹配完整单词</span><select name="matchWholeWords" data-world-field="wholeWords"><option value="inherit">沿用全局设置</option><option value="yes">是</option><option value="no">否</option></select></label><label class="editor-field"><span>自动化 ID</span><input type="text" name="automationId" data-world-field="automationId" placeholder="无"></label></div>
+      <div name="contentAndCharFilterBlock" class="long-field"><div class="text-field-title"><label data-label-field="content">正文</label><button type="button" class="editor-icon-action editor_maximize" data-expand-field="content" aria-label="放大编辑条目正文"><i class="fa-solid fa-expand" aria-hidden="true"></i></button></div><div class="recursion-controls"><label><input type="checkbox" name="excludeRecursion" data-world-field="excludeRecursion"><span>不可递归激活</span></label><label><input type="checkbox" name="preventRecursion" data-world-field="preventRecursion"><span>阻止进一步递归</span></label></div><textarea name="content" data-world-field="content" rows="10" spellcheck="false"></textarea><p class="sample-counter" data-counter-field="content"></p></div>
+      <div class="world_entry_thin_controls commentContainer"></div>
+    </div>
+    <div class="world-timing"><label class="editor-field inclusion-field"><span>包含组</span><input name="group" data-world-field="group" placeholder="仅激活同组中的一项"></label><label class="editor-field"><span>组权重</span><input type="number" name="groupWeight" data-world-field="groupWeight" min="1" max="999999"></label><label class="editor-field"><span>粘滞消息数</span><input type="number" name="sticky" data-world-field="sticky" min="0" max="999999"></label><label class="editor-field"><span>冷却消息数</span><input type="number" name="cooldown" data-world-field="cooldown" min="0" max="999999"></label></div>
+    <div class="inline-drawer matching-sources"><div class="inline-drawer-header"><button type="button" class="inline-drawer-toggle fold-title" data-entry-fold aria-expanded="false"><span>额外匹配来源</span><i class="fa-solid fa-chevron-down inline-drawer-icon down" aria-hidden="true"></i></button></div><div class="inline-drawer-content" data-entry-fold-content hidden><label><input type="checkbox" name="matchCharacterDescription" data-world-field="matchCharacterDescription"><span>角色描述</span></label><label><input type="checkbox" name="matchScenario" data-world-field="matchScenario"><span>场景</span></label><label><input type="checkbox" name="matchCreatorNotes" data-world-field="matchCreatorNotes"><span>创作者注释</span></label></div></div>
+  </div></template>
+</body>
+</html>

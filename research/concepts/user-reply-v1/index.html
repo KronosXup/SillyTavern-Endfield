@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>终末地 · 用户回复试稿</title>
+  <link rel="stylesheet" href="../../../src/parts/00-cover-fonts.css">
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <main>
+    <header class="page-heading">
+      <p class="eyebrow">ENDFIELD / 主题试稿</p>
+      <h1>让正文接回纸面。</h1>
+      <p>用户回复 · 浅灰阅读面</p>
+    </header>
+    <form class="controls" aria-label="预览设置" onsubmit="return false">
+      <label>头像结构<select id="cover-mode"><option value="full">保留大封面</option></select></label>
+      <label>回复长度<select id="sample-mode"><option value="short">一句短回复</option><option value="long">多段与引用</option></select></label>
+      <label>消息宽度<select id="width-mode"><option value="560">560 px</option><option value="390">390 px</option><option value="320">320 px</option></select></label>
+    </form>
+    <div class="workbench">
+      <section class="stage" aria-label="消息预览">
+        <div class="context-fragment" aria-label="上一条角色回复的尾部">
+          <p class="context-name">示例角色</p>
+          <p>“说，什么专业的？别支支吾吾，直接报。”</p>
+          <div class="context-actions" aria-hidden="true">··· &nbsp; ↗</div>
+        </div>
+        <article class="user-message" data-cover="full">
+          <div class="cover-photo" aria-hidden="true"><img src="user-avatar.png" alt=""></div>
+          <header class="identity">
+            <img class="avatar" src="user-avatar.png" alt="博士头像">
+            <div class="identity-text">
+              <h2><span class="name">博士</span></h2>
+              <dl class="metadata"><div><dt>TIME</dt><dd><time datetime="2026-09-07T12:43:00+08:00">2026年9月7日 12:43</time></dd></div><div><dt>TOK</dt><dd>23t</dd></div></dl>
+            </div>
+            <span class="floor" aria-label="第5条消息">#5</span>
+          </header>
+          <div class="cover-bridge" aria-hidden="true"><span>ENDFIELD</span></div>
+          <div class="body-continuation" aria-hidden="true"><span>ENDFIELD</span></div>
+          <div class="message-body" id="message-body"><p>测试生成：请只回复<q>“连接正常”</q>，不要展开。</p></div>
+          <div class="editor" hidden><label for="message-edit">编辑这条示例回复</label><textarea id="message-edit" rows="4"></textarea><div><button type="button" id="cancel-edit">取消</button><button type="button" id="save-edit">完成</button></div></div>
+          <footer class="message-footer">
+            <div class="footer-rule" aria-hidden="true"></div>
+            <div class="message-actions" aria-label="示例消息操作">
+              <button type="button" id="more-button" aria-label="更多操作" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></button>
+              <button type="button" id="edit-button" aria-label="编辑回复"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 15-1 5 5-1L20 8l-4-4L5 15Z"/><path d="m13 7 4 4M5 15l4 4"/></svg></button>
+              <button type="button" id="collapse-button" aria-label="折叠回复" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 14 5-5 5 5"/></svg></button>
+            </div>
+            <div class="more-menu" hidden><button type="button" id="restore-sample">恢复示例原文</button></div>
+          </footer>
+        </article>
+        <div class="next-turn" aria-label="下一条角色回复"><span>示例角色</span><p>连接正常</p></div>
+      </section>
+      <aside class="design-notes">
+        <p class="notes-label">这版调整了什么</p>
+        <h2>浅纸面，深墨字。</h2>
+        <p>用纸面的明度区分双方：角色回复是白纸，用户发言略灰。灰面一直延续到操作区。</p>
+        <p>阅读面补回主题原有的极淡细网格，白底与浅灰底共用。短句按内容收高；长回复依靠段间距和引用缩进分层。</p>
+        <p>大封面、姓名、元信息和号牌沿用当前稿。操作图标恢复到清楚、同等的视觉权重。</p>
+        <div class="swatches" aria-label="用色"><span style="--swatch:#e7eae4">阅读面</span><span style="--swatch:#282e29">正文</span><span style="--swatch:#697267">次要信息</span><span style="--swatch:#ffff0f">编号</span></div>
+        <p class="boundary">独立试稿，仅修改下方正文区域。编辑和折叠只作用于本页示例。</p>
+      </aside>
+    </div>
+    <p class="page-footer" role="status" id="preview-status">未应用到酒馆 · 用户消息专用设计</p>
+  </main>
+  <script src="preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="221" height="136" viewBox="-8 -8 221 136" fill="none">
+  <!-- Visual reconstruction from the A06 submission card, not an extracted game SVG.
+       Two broad planes retain the L-shaped inner corner and triangular negative space. -->
+  <defs>
+    <linearGradient id="falloff" x1="16" y1="0" x2="205" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="white" stop-opacity=".068"/>
+      <stop offset=".48" stop-color="white" stop-opacity=".058"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0 27H41V81H95V120H0Z" fill="white" fill-opacity=".064"/>
+  <path d="M16 0H86L205 120H135Z" fill="url(#falloff)"/>
+</svg>
